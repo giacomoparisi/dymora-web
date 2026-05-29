@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Dymora</title>
+<meta name="description" content="Informativa sul trattamento dei dati personali di Dymora ai sensi del Regolamento (UE) 2016/679 (GDPR).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#1c1c1c;
+    --char-2:#262626;
+    --orange:#e8541e;
+    --orange-deep:#cf4310;
+    --grey:#5f5f5f;
+    --grey-soft:#8c8c8c;
+    --cream:#e9e4da;
+    --cream-bright:#f4f0e8;
+    --ink:#1d1c1a;
+    --line:rgba(28,28,28,.12);
+    --display:'Chakra Petch',sans-serif;
+    --body:'Sora',sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    font-family:var(--body);
+    background:var(--cream-bright);
+    color:var(--ink);
+    line-height:1.72;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--char);
+    border-bottom:2px solid var(--orange);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px clamp(20px,5vw,64px);
+  }
+  .brand{height:26px;width:auto;display:block}
+  .topbar small{
+    font-family:var(--display);font-weight:500;
+    color:var(--grey-soft);font-size:11px;
+    letter-spacing:.22em;text-transform:uppercase;
+  }
+  @media(max-width:620px){.topbar small{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--char);color:var(--cream);
+    padding:clamp(56px,9vw,110px) clamp(20px,5vw,64px) clamp(48px,7vw,86px);
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-80px;top:-80px;
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,84,30,.18),transparent 68%);
+    pointer-events:none;
+  }
+  .hero .kicker{
+    font-family:var(--display);font-weight:600;font-size:12px;
+    letter-spacing:.34em;text-transform:uppercase;color:var(--orange);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(34px,6vw,62px);line-height:1.02;
+    letter-spacing:.01em;max-width:14ch;
+  }
+  .hero .tagline{
+    margin-top:26px;color:var(--grey-soft);
+    font-size:15px;max-width:52ch;font-weight:300;
+  }
+  .hero .updated{
+    margin-top:34px;display:inline-block;
+    font-family:var(--display);font-size:12px;letter-spacing:.12em;
+    color:var(--cream);border:1px solid rgba(233,228,218,.25);
+    padding:8px 16px;border-radius:2px;
+  }
+  .hero .updated b{color:var(--orange);font-weight:600}
+
+  /* ---------- layout ---------- */
+  .wrap{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:230px 1fr;gap:clamp(28px,5vw,72px);
+    padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px) 40px;
+  }
+  @media(max-width:880px){.wrap{grid-template-columns:1fr;gap:0}}
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    position:sticky;top:96px;align-self:start;
+    font-size:13px;
+  }
+  @media(max-width:880px){
+    nav.toc{position:static;margin-bottom:40px;
+      border:1px solid var(--line);padding:22px 24px;border-radius:4px;background:var(--cream)}
+  }
+  nav.toc .toc-title{
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--grey);
+    margin-bottom:16px;
+  }
+  nav.toc ol{list-style:none;counter-reset:toc}
+  nav.toc li{counter-increment:toc;margin:2px 0}
+  nav.toc a{
+    display:flex;gap:10px;align-items:baseline;
+    color:var(--grey);text-decoration:none;padding:5px 0;
+    transition:color .18s;
+  }
+  nav.toc a::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:var(--display);font-size:11px;color:var(--orange);
+    font-weight:600;min-width:22px;
+  }
+  nav.toc a:hover{color:var(--ink)}
+
+  /* ---------- content ---------- */
+  main{max-width:760px;counter-reset:sec}
+  section{
+    padding-top:46px;margin-top:8px;
+    border-top:1px solid var(--line);
+  }
+  section:first-of-type{border-top:none;padding-top:0}
+  section h2{
+    counter-increment:sec;
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(20px,2.6vw,26px);line-height:1.15;
+    color:var(--char);margin-bottom:18px;
+    display:flex;gap:16px;align-items:baseline;
+  }
+  section h2::before{
+    content:counter(sec,decimal-leading-zero);
+    font-size:14px;color:var(--orange);font-weight:600;
+    letter-spacing:.05em;flex:none;
+  }
+  h3{
+    font-family:var(--display);font-weight:600;font-size:16px;
+    color:var(--char-2);margin:26px 0 10px;letter-spacing:.01em;
+  }
+  p{margin:14px 0;font-size:15.5px;color:#33312e}
+  ul{margin:14px 0 14px 4px;padding-left:22px}
+  li{margin:8px 0;font-size:15.5px;color:#33312e}
+  li::marker{color:var(--orange)}
+  strong{font-weight:600;color:var(--char)}
+  a.inline{color:var(--orange-deep);text-decoration:none;border-bottom:1px solid rgba(207,67,16,.35)}
+  a.inline:hover{border-color:var(--orange-deep)}
+
+  /* callout / note */
+  .note{
+    background:var(--cream);border-left:3px solid var(--orange);
+    padding:16px 20px;margin:20px 0;border-radius:0 4px 4px 0;
+    font-size:14.5px;
+  }
+  .note .lbl{
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--orange-deep);
+    display:block;margin-bottom:6px;
+  }
+  .placeholder{
+    background:rgba(232,84,30,.1);color:var(--orange-deep);
+    font-family:var(--display);font-weight:500;font-size:13px;
+    padding:2px 7px;border-radius:3px;letter-spacing:.02em;
+  }
+
+  /* identity card */
+  .idcard{
+    background:var(--char);color:var(--cream);
+    border-radius:6px;padding:28px 30px;margin:18px 0;
+  }
+  .idcard dl{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:14.5px}
+  .idcard dt{font-family:var(--display);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--grey-soft);padding-top:3px}
+  .idcard dd{color:var(--cream)}
+  .idcard a{color:var(--orange);text-decoration:none}
+  @media(max-width:520px){.idcard dl{grid-template-columns:1fr;gap:2px 0}
+    .idcard dt{margin-top:12px}}
+
+  /* table */
+  .tablewrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:6px}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+  thead th{
+    background:var(--char);color:var(--cream);
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;
+    text-align:left;padding:13px 16px;
+  }
+  tbody td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top;color:#33312e}
+  tbody tr:nth-child(even){background:var(--cream)}
+  tbody td:first-child{font-weight:500;color:var(--char)}
+
+  /* footer */
+  footer{
+    background:var(--char);color:var(--grey-soft);
+    padding:46px clamp(20px,5vw,64px);
+    border-top:2px solid var(--orange);
+    font-size:13px;
+  }
+  footer .fbrand{height:22px;width:auto;display:block;margin-bottom:14px}
+  footer a{color:var(--grey-soft);text-decoration:none;border-bottom:1px solid transparent}
+  footer a:hover{color:var(--orange);border-color:var(--orange)}
+  footer .fmeta{margin-top:14px;line-height:1.9}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img class="brand" src="data:image/png;base64,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" alt="Dymora">
+  <small>Privacy Policy</small>
+</div>
+
+<header class="hero">
+  <div class="kicker">Informativa Privacy · GDPR</div>
+  <h1>Informativa sul trattamento dei dati personali</h1>
+  <p class="tagline">Resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 (&ldquo;GDPR&rdquo;) e del D.Lgs. 196/2003 come aggiornato dal D.Lgs. 101/2018 (&ldquo;Codice Privacy&rdquo;).</p>
+  <span class="updated">Ultimo aggiornamento: <b>29 maggio 2026</b></span>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <div class="toc-title">Indice</div>
+    <ol>
+      <li><a href="#titolare">Titolare e contatti</a></li>
+      <li><a href="#ambito">Ambito dell&rsquo;informativa</a></li>
+      <li><a href="#ruoli">Ruoli: titolare e responsabile</a></li>
+      <li><a href="#dati">Dati trattati</a></li>
+      <li><a href="#finalita">Finalit&agrave; e basi giuridiche</a></li>
+      <li><a href="#modalita">Modalit&agrave; e sicurezza</a></li>
+      <li><a href="#conservazione">Conservazione</a></li>
+      <li><a href="#destinatari">Destinatari e responsabili</a></li>
+      <li><a href="#trasferimenti">Trasferimenti extra-UE</a></li>
+      <li><a href="#diritti">Diritti dell&rsquo;interessato</a></li>
+      <li><a href="#reclamo">Reclamo al Garante</a></li>
+      <li><a href="#minori">Minori</a></li>
+      <li><a href="#automatizzate">Decisioni automatizzate</a></li>
+      <li><a href="#cookie">Cookie</a></li>
+      <li><a href="#modifiche">Modifiche</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="titolare">
+      <h2>Titolare del trattamento e contatti</h2>
+      <p>Il Titolare del trattamento dei dati personali &egrave; <strong>Alberto Citi</strong>, che svolge attivit&agrave; con il marchio &ldquo;Dymora&rdquo; (di seguito anche &ldquo;Dymora&rdquo;, &ldquo;noi&rdquo;).</p>
+      <div class="idcard">
+        <dl>
+          <dt>Titolare</dt><dd>Alberto Citi (&ldquo;Dymora&rdquo;)</dd>
+          <dt>Partita IVA</dt><dd>02100310495</dd>
+          <dt>Sede</dt><dd>Via Giovanni Paolo II 21B, 57023 Cecina (LI)</dd>
+          <dt>Email privacy</dt><dd><a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a></dd>
+          <dt>PEC</dt><dd><a href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a></dd>
+        </dl>
+      </div>
+      <p>Il Titolare pu&ograve; essere contattato per ogni questione relativa al trattamento dei dati e all&rsquo;esercizio dei diritti agli indirizzi sopra indicati.</p>
+      <p><strong>Responsabile della protezione dei dati (DPO).</strong> Il Titolare non &egrave; tenuto alla nomina di un DPO ai sensi dell&rsquo;art. 37 GDPR e non ne ha designato uno. Per qualsiasi richiesta in materia di protezione dei dati &egrave; possibile scrivere a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a>.</p>
+    </section>
+
+    <section id="ambito">
+      <h2>Ambito di applicazione</h2>
+      <p>La presente informativa descrive come trattiamo i dati personali nell&rsquo;ambito di:</p>
+      <ul>
+        <li>l&rsquo;<strong>applicazione Dymora</strong> (Android, iOS), tramite la quale l&rsquo;utente si registra e gestisce il proprio impianto domotico;</li>
+        <li>il <strong>sito web</strong> Dymora, quando sar&agrave; reso disponibile;</li>
+        <li>il <strong>servizio di installazione, manutenzione e assistenza</strong> degli impianti domotici presso le abitazioni dei clienti, basato su un mini&#8209;PC installato in loco.</li>
+      </ul>
+      <div class="note">
+        <span class="lbl">Nota</span>
+        Alla data odierna il sito web non &egrave; ancora attivo e non sono presenti moduli di contatto o newsletter sul sito. La registrazione e l&rsquo;inserimento dei dati di contatto (email, telefono) avvengono tramite l&rsquo;applicazione. La presente informativa sar&agrave; integrata al momento della pubblicazione del sito.
+      </div>
+    </section>
+
+    <section id="ruoli">
+      <h2>Ruoli nel trattamento: dati sul server e dati sul mini&#8209;PC</h2>
+      <p>L&rsquo;architettura Dymora &egrave; &ldquo;local&#8209;first&rdquo;: i dati operativi dell&rsquo;impianto restano fisicamente nell&rsquo;abitazione del cliente. Questo si riflette in una distinzione di ruoli importante.</p>
+
+      <h3>Dati per i quali Dymora &egrave; Titolare</h3>
+      <p>Dymora agisce come <strong>Titolare del trattamento</strong> per i dati raccolti tramite l&rsquo;app e conservati sui propri server (es. dati di registrazione, contatto, abbonamento e pagamento), nonch&eacute; per i dati di geolocalizzazione e le notifiche descritti pi&ugrave; avanti.</p>
+
+      <h3>Dati per i quali il cliente &egrave; Titolare e Dymora &egrave; Responsabile</h3>
+      <p>I dati generati dall&rsquo;impianto (stati dei sensori, riprese delle videocamere, registro delle automazioni, storico) sono raccolti e conservati <strong>localmente sul mini&#8209;PC installato presso l&rsquo;abitazione</strong> e sono nella titolarit&agrave; del cliente, per le proprie finalit&agrave; domestiche.</p>
+      <p>Nello svolgimento delle attivit&agrave; di assistenza, manutenzione e aggiornamento &mdash; che possono comportare l&rsquo;accesso remoto al mini&#8209;PC tramite canale sicuro (SSH) e l&rsquo;esecuzione di backup dell&rsquo;intero sistema a fini di ripristino &mdash; Dymora opera quale <strong>Responsabile del trattamento</strong> per conto del cliente, ai sensi dell&rsquo;art. 28 GDPR, sulla base di apposito atto di nomina. I dati locali <strong>non vengono copiati o estratti</strong> per finalit&agrave; proprie di Dymora; gli eventuali backup hanno la sola finalit&agrave; di consentire il ripristino del sistema in caso di guasto.</p>
+      <div class="note">
+        <span class="lbl">Videosorveglianza</span>
+        Se l&rsquo;impianto include videocamere, il cliente &egrave; titolare del relativo trattamento. Qualora le riprese interessino aree esterne alla propriet&agrave; o spazi frequentati da terzi, non si applica l&rsquo;esenzione per uso esclusivamente personale/domestico e il cliente &egrave; tenuto al rispetto degli obblighi previsti dalla normativa e dai provvedimenti del Garante in materia.
+      </div>
+    </section>
+
+    <section id="dati">
+      <h2>Categorie di dati personali trattati</h2>
+      <ul>
+        <li><strong>Dati di registrazione e account:</strong> nome, indirizzo email, numero di telefono forniti al momento della creazione dell&rsquo;account tramite l&rsquo;app.</li>
+        <li><strong>Dati relativi al servizio:</strong> prodotti e dispositivi installati, stato dell&rsquo;abbonamento.</li>
+        <li><strong>Dati di pagamento:</strong> dati necessari alla gestione di abbonamenti e pagamenti, trattati tramite il fornitore di servizi di pagamento (Stripe). Dymora non conserva i dati completi delle carte di pagamento.</li>
+        <li><strong>Dati di geolocalizzazione (facoltativi):</strong> qualora l&rsquo;utente attivi la relativa funzione e conceda i permessi del dispositivo, l&rsquo;app pu&ograve; trattare la posizione per consentire l&rsquo;esecuzione di automazioni domotiche tramite il mini&#8209;PC (es. attivazione dell&rsquo;allarme all&rsquo;uscita da casa).</li>
+        <li><strong>Notifiche push:</strong> identificativi tecnici del dispositivo (token di notifica) necessari all&rsquo;invio delle notifiche, anche generate dal mini&#8209;PC e instradate tramite i nostri server.</li>
+        <li><strong>Dati tecnici di assistenza:</strong> log e informazioni tecniche necessarie alla manutenzione, all&rsquo;aggiornamento e alla risoluzione dei problemi degli impianti.</li>
+        <li><strong>Dati locali sul mini&#8209;PC:</strong> stati dei sensori, riprese video, automazioni e relativo storico (titolarit&agrave; del cliente, conservati in locale &mdash; cfr. sezione 3).</li>
+        <li><strong>Dati di navigazione e utilizzo (futuri):</strong> con l&rsquo;eventuale introduzione di strumenti di analisi e diagnostica (Firebase Analytics, Crashlytics), dati statistici e di crash, trattati <strong>solo previo consenso</strong> dell&rsquo;utente.</li>
+      </ul>
+    </section>
+
+    <section id="finalita">
+      <h2>Finalit&agrave; del trattamento e basi giuridiche</h2>
+      <p>I dati sono trattati per le finalit&agrave; e sulle basi giuridiche di seguito indicate (art. 6 GDPR).</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Finalit&agrave;</th><th>Base giuridica</th></tr></thead>
+          <tbody>
+            <tr><td>Registrazione, gestione dell&rsquo;account e fornitura del servizio (app, installazione, assistenza, manutenzione, aggiornamenti, notifiche di servizio)</td><td>Esecuzione del contratto &mdash; art. 6(1)(b)</td></tr>
+            <tr><td>Esecuzione di automazioni basate sulla geolocalizzazione</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a), prestato attivando la funzione e concedendo i permessi del dispositivo, revocabile in ogni momento</td></tr>
+            <tr><td>Gestione di pagamenti e abbonamenti</td><td>Esecuzione del contratto &mdash; art. 6(1)(b)</td></tr>
+            <tr><td>Adempimenti contabili, fiscali e di legge (es. fatturazione)</td><td>Obbligo legale &mdash; art. 6(1)(c)</td></tr>
+            <tr><td>Analisi statistiche, diagnostica e miglioramento dell&rsquo;app (futuri &mdash; Firebase Analytics / Crashlytics)</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a)</td></tr>
+            <tr><td>Eventuali comunicazioni promozionali (offerte via email, messaggistica o feed in&#8209;app)</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a), revocabile in ogni momento</td></tr>
+            <tr><td>Accertamento, esercizio o difesa di un diritto in sede giudiziaria</td><td>Legittimo interesse &mdash; art. 6(1)(f)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Il conferimento dei dati di registrazione e di quelli necessari all&rsquo;erogazione del servizio &egrave; necessario per usufruire del servizio: il mancato conferimento ne impedisce la fornitura. Il conferimento dei dati per le finalit&agrave; basate sul consenso (geolocalizzazione, analisi, marketing) &egrave; facoltativo e l&rsquo;eventuale rifiuto o revoca non pregiudica la fruizione delle funzioni essenziali.</p>
+    </section>
+
+    <section id="modalita">
+      <h2>Modalit&agrave; del trattamento e misure di sicurezza</h2>
+      <p>I dati sono trattati con strumenti informatici e telematici, adottando misure tecniche e organizzative adeguate ai sensi dell&rsquo;art. 32 GDPR per garantirne riservatezza, integrit&agrave; e disponibilit&agrave;, tra cui: cifratura dei canali di comunicazione, controllo e limitazione degli accessi, accesso remoto agli impianti riservato al solo personale tecnico autorizzato e tramite canali protetti, conservazione &ldquo;local&#8209;first&rdquo; dei dati operativi presso l&rsquo;abitazione del cliente.</p>
+    </section>
+
+    <section id="conservazione">
+      <h2>Periodo di conservazione</h2>
+      <ul>
+        <li><strong>Dati di account e di servizio</strong> (nome, email, telefono, prodotti installati, stato abbonamento): per tutta la durata del rapporto contrattuale e fino a <strong>1 anno dalla disdetta dell&rsquo;abbonamento</strong>, decorso il quale sono cancellati.</li>
+        <li><strong>Dati contabili e fiscali</strong> (fatture, documenti di pagamento): conservati per <strong>10 anni</strong>, in adempimento agli obblighi di legge (art. 2220 c.c. e normativa fiscale), anche oltre la cancellazione dell&rsquo;account.</li>
+        <li><strong>Backup di sistema del mini&#8209;PC:</strong> conservati per il tempo necessario a garantire il ripristino e quindi sovrascritti/cancellati secondo i cicli di rotazione.</li>
+        <li><strong>Dati locali sul mini&#8209;PC:</strong> conservati in locale per consentire al cliente la consultazione dello storico, sotto il controllo del cliente medesimo.</li>
+        <li><strong>Dati trattati sulla base del consenso</strong> (analisi, marketing): fino alla revoca del consenso.</li>
+      </ul>
+    </section>
+
+    <section id="destinatari">
+      <h2>Destinatari dei dati e responsabili del trattamento</h2>
+      <p>I dati possono essere comunicati a soggetti che forniscono servizi strumentali all&rsquo;attivit&agrave; di Dymora, nominati Responsabili del trattamento ai sensi dell&rsquo;art. 28 GDPR. In particolare:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Fornitore</th><th>Servizio</th><th>Ubicazione</th></tr></thead>
+          <tbody>
+            <tr><td>Fornitore di hosting (server europei)</td><td>Hosting dei server e dei servizi Dymora</td><td>Unione Europea</td></tr>
+            <tr><td>Stripe</td><td>Gestione pagamenti e abbonamenti</td><td>UE / USA</td></tr>
+            <tr><td>Google / Firebase</td><td>Notifiche push (FCM) e, in futuro, analisi e diagnostica</td><td>UE / USA</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>I dati possono inoltre essere comunicati ad autorit&agrave; pubbliche e organi di vigilanza ove richiesto dalla legge. I dati <strong>non sono diffusi</strong> e non sono oggetto di vendita a terzi.</p>
+    </section>
+
+    <section id="trasferimenti">
+      <h2>Trasferimenti di dati verso Paesi extra&#8209;UE</h2>
+      <p>Alcuni fornitori (Stripe, Google/Firebase) possono trattare dati negli Stati Uniti. Tali trasferimenti avvengono nel rispetto del Capo V del GDPR, in particolare sulla base della <strong>decisione di adeguatezza relativa al Data Privacy Framework UE&#8209;USA</strong> (per i soggetti certificati) e/o delle <strong>Clausole Contrattuali Standard</strong> approvate dalla Commissione Europea, quali garanzie adeguate ai sensi dell&rsquo;art. 46 GDPR. L&rsquo;interessato pu&ograve; richiedere copia delle garanzie adottate ai contatti indicati nella sezione 1.</p>
+    </section>
+
+    <section id="diritti">
+      <h2>Diritti dell&rsquo;interessato</h2>
+      <p>In relazione ai dati trattati, l&rsquo;interessato pu&ograve; esercitare in qualsiasi momento i diritti previsti dagli artt. 15&#8209;22 GDPR:</p>
+      <ul>
+        <li>diritto di <strong>accesso</strong> ai propri dati;</li>
+        <li>diritto di <strong>rettifica</strong> dei dati inesatti o incompleti;</li>
+        <li>diritto alla <strong>cancellazione</strong> (&ldquo;diritto all&rsquo;oblio&rdquo;);</li>
+        <li>diritto di <strong>limitazione</strong> del trattamento;</li>
+        <li>diritto alla <strong>portabilit&agrave;</strong> dei dati;</li>
+        <li>diritto di <strong>opposizione</strong> al trattamento;</li>
+        <li>diritto di <strong>revocare il consenso</strong> in qualsiasi momento, senza pregiudicare la liceit&agrave; del trattamento effettuato prima della revoca.</li>
+      </ul>
+      <p>Le richieste possono essere inviate a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a> o via PEC a <a class="inline" href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a>. Il Titolare risponde senza ingiustificato ritardo e comunque entro un mese.</p>
+    </section>
+
+    <section id="reclamo">
+      <h2>Diritto di reclamo</h2>
+      <p>L&rsquo;interessato che ritenga il trattamento dei propri dati in violazione del GDPR ha diritto di proporre reclamo all&rsquo;autorit&agrave; di controllo &mdash; il <strong>Garante per la protezione dei dati personali</strong> (<a class="inline" href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>) &mdash; ferma restando ogni altra forma di tutela amministrativa o giurisdizionale.</p>
+    </section>
+
+    <section id="minori">
+      <h2>Minori</h2>
+      <p>I servizi Dymora sono rivolti a persone maggiorenni in qualit&agrave; di titolari del rapporto contrattuale. Non trattiamo consapevolmente dati di minori di 14 anni senza il consenso di chi esercita la responsabilit&agrave; genitoriale, conformemente all&rsquo;art. 2&#8209;quinquies del Codice Privacy. Qualora si riscontri un trattamento di dati di un minore in assenza di valido consenso, i dati saranno cancellati.</p>
+    </section>
+
+    <section id="automatizzate">
+      <h2>Assenza di decisioni automatizzate</h2>
+      <p>Dymora non adotta processi decisionali automatizzati, n&eacute; attivit&agrave; di profilazione, che producano effetti giuridici o incidano in modo analogo significativo sull&rsquo;interessato ai sensi dell&rsquo;art. 22 GDPR. Le automazioni domotiche sono configurate e controllate dall&rsquo;utente.</p>
+    </section>
+
+    <section id="cookie">
+      <h2>Cookie</h2>
+      <p>Alla data odierna il sito web non &egrave; attivo e non vengono utilizzati cookie. Al momento della pubblicazione del sito, qualora siano impiegati cookie tecnici o di terze parti, sar&agrave; resa disponibile una <strong>cookie policy</strong> dedicata con il relativo banner di gestione dei consensi. L&rsquo;app utilizza identificativi tecnici (es. token di notifica) necessari al funzionamento del servizio.</p>
+    </section>
+
+    <section id="modifiche">
+      <h2>Modifiche all&rsquo;informativa</h2>
+      <p>La presente informativa pu&ograve; essere aggiornata, anche in conseguenza di modifiche normative o dei servizi offerti. La versione vigente &egrave; sempre quella pubblicata, con indicazione della data di ultimo aggiornamento. Si invita a consultarla periodicamente.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <img class="fbrand" src="data:image/png;base64,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" alt="Dymora">
+  <div>The Intelligence of Home, Perfected.</div>
+  <div class="fmeta">
+    Titolare: Alberto Citi &mdash; P.IVA 02100310495<br>
+    <a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a> &middot; PEC <a href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a><br>
+    Informativa aggiornata al 29 maggio 2026.
+  </div>
+</footer>
+
+</body>
+</html>
