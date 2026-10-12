@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'sha256-8TRQGVxt9tBD+/sLwGLAsMiOALg9cPPTz62UvYKcHuI='; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie — Dymora</title>
+<meta name="description" content="Informativa sui cookie del sito dymora.eu: il sito non imposta cookie e non usa strumenti di analisi o contenuti di terze parti.">
+<link rel="canonical" href="https://dymora.eu/cookie/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dymora">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://dymora.eu/cookie/">
+<meta property="og:title" content="Cookie — Dymora">
+<meta property="og:description" content="Il sito dymora.eu non imposta cookie e non usa strumenti di analisi o contenuti di terze parti.">
+<meta property="og:image" content="https://dymora.eu/images/og-image.png">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<style>
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-500-normal.woff2) format('woff2')}
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-600-normal.woff2) format('woff2')}
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-700-normal.woff2) format('woff2')}
+  @font-face{font-family:'Sora';font-style:normal;font-weight:100 800;font-display:swap;src:url(/assets/fonts/sora-latin-wght-normal.woff2) format('woff2-variations'),url(/assets/fonts/sora-latin-wght-normal.woff2) format('woff2')}
+  :root{
+    --char:#0A0A0A;
+    --char-2:#262626;
+    --orange:#e8541e;
+    --orange-deep:#cf4310;
+    --orange-ink:#b5390b;
+    --grey:#5f5f5f;
+    --grey-soft:#8c8c8c;
+    --cream:#e9e4da;
+    --cream-bright:#f4f0e8;
+    --ink:#1d1c1a;
+    --line:rgba(10,10,10,.12);
+    --display:'Chakra Petch',sans-serif;
+    --body:'Sora',sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    font-family:var(--body);
+    background:var(--cream-bright);
+    color:var(--ink);
+    line-height:1.72;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--char);
+    border-bottom:2px solid var(--orange);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px clamp(20px,5vw,64px);
+  }
+  .brand{height:26px;width:auto;display:block}
+  .brandlink{display:block}
+  a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+  .topbar small{
+    font-family:var(--display);font-weight:500;
+    color:var(--grey-soft);font-size:11px;
+    letter-spacing:.22em;text-transform:uppercase;
+  }
+  @media(max-width:620px){.topbar small{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--char);color:var(--cream);
+    padding:clamp(56px,9vw,110px) clamp(20px,5vw,64px) clamp(48px,7vw,86px);
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-80px;top:-80px;
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,84,30,.18),transparent 68%);
+    pointer-events:none;
+  }
+  .hero .kicker{
+    font-family:var(--display);font-weight:600;font-size:12px;
+    letter-spacing:.34em;text-transform:uppercase;color:var(--orange);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(34px,6vw,62px);line-height:1.02;
+    letter-spacing:.01em;max-width:14ch;
+  }
+  .hero .tagline{
+    margin-top:26px;color:var(--grey-soft);
+    font-size:15px;max-width:52ch;font-weight:300;
+  }
+  .hero .updated{
+    margin-top:34px;display:inline-block;
+    font-family:var(--display);font-size:12px;letter-spacing:.12em;
+    color:var(--cream);border:1px solid rgba(233,228,218,.25);
+    padding:8px 16px;border-radius:2px;
+  }
+  .hero .updated b{color:var(--orange);font-weight:600}
+
+  /* ---------- layout ---------- */
+  .wrap{
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:230px 1fr;gap:clamp(28px,5vw,72px);
+    padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px) 40px;
+  }
+  @media(max-width:880px){.wrap{grid-template-columns:1fr;gap:0}}
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    position:sticky;top:96px;align-self:start;
+    font-size:13px;min-width:0;
+  }
+  @media(max-width:880px){
+    nav.toc{position:static;margin-bottom:40px;
+      border:1px solid var(--line);padding:22px 24px;border-radius:4px;background:var(--cream)}
+  }
+  nav.toc .toc-title{
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--grey);
+    margin-bottom:16px;
+  }
+  nav.toc ol{list-style:none;counter-reset:toc}
+  nav.toc li{counter-increment:toc;margin:2px 0}
+  nav.toc a{
+    display:flex;gap:10px;align-items:baseline;
+    color:var(--grey);text-decoration:none;padding:5px 0;
+    transition:color .18s;
+  }
+  nav.toc a::before{
+    content:counter(toc,decimal-leading-zero);
+    font-family:var(--display);font-size:11px;color:var(--orange-ink);
+    font-weight:600;min-width:22px;
+  }
+  nav.toc a:hover{color:var(--ink)}
+
+  /* ---------- content ---------- */
+  main{max-width:760px;counter-reset:sec;min-width:0}
+  section{
+    padding-top:46px;margin-top:8px;
+    border-top:1px solid var(--line);
+  }
+  section:first-of-type{border-top:none;padding-top:0}
+  section h2{
+    counter-increment:sec;
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(20px,2.6vw,26px);line-height:1.15;
+    color:var(--char);margin-bottom:18px;
+    display:flex;gap:16px;align-items:baseline;
+  }
+  section h2::before{
+    content:counter(sec,decimal-leading-zero);
+    font-size:14px;color:var(--orange-ink);font-weight:600;
+    letter-spacing:.05em;flex:none;
+  }
+  h3{
+    font-family:var(--display);font-weight:600;font-size:16px;
+    color:var(--char-2);margin:26px 0 10px;letter-spacing:.01em;
+  }
+  p{margin:14px 0;font-size:15.5px;color:#33312e}
+  ul{margin:14px 0 14px 4px;padding-left:22px}
+  li{margin:8px 0;font-size:15.5px;color:#33312e}
+  li::marker{color:var(--orange)}
+  strong{font-weight:600;color:var(--char)}
+  a.inline{color:var(--orange-ink);text-decoration:none;border-bottom:1px solid rgba(207,67,16,.35)}
+  a.inline:hover{border-color:var(--orange-deep)}
+
+  /* callout / note */
+  .note{
+    background:var(--cream);border-left:3px solid var(--orange);
+    padding:16px 20px;margin:20px 0;border-radius:0 4px 4px 0;
+    font-size:14.5px;
+  }
+  .note .lbl{
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--orange-ink);
+    display:block;margin-bottom:6px;
+  }
+  .placeholder{
+    background:rgba(232,84,30,.1);color:var(--orange-ink);
+    font-family:var(--display);font-weight:500;font-size:13px;
+    padding:2px 7px;border-radius:3px;letter-spacing:.02em;
+  }
+
+  /* identity card */
+  .idcard{
+    background:var(--char);color:var(--cream);
+    border-radius:6px;padding:28px 30px;margin:18px 0;
+  }
+  .idcard dl{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:14.5px}
+  .idcard dt{font-family:var(--display);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--grey-soft);padding-top:3px}
+  .idcard dd{color:var(--cream)}
+  .idcard a{color:var(--orange);text-decoration:none}
+  @media(max-width:520px){.idcard dl{grid-template-columns:1fr;gap:2px 0}
+    .idcard dt{margin-top:12px}}
+
+  /* table */
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:22px 0;border:1px solid var(--line);border-radius:6px}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+  thead th{
+    background:var(--char);color:var(--cream);
+    font-family:var(--display);font-weight:600;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;
+    text-align:left;padding:13px 16px;
+  }
+  tbody td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top;color:#33312e}
+  tbody tr:nth-child(even){background:var(--cream)}
+  tbody td:first-child{font-weight:500;color:var(--char)}
+
+  /* ---------- mobile ---------- */
+  @media(max-width:560px){
+    .wrap{padding:32px 18px 32px}
+    .hero{padding:52px 18px 44px}
+    section{padding-top:34px}
+    section h2{gap:11px}
+    p,li{font-size:15px}
+    table{min-width:480px;font-size:13px}
+    thead th,tbody td{padding:11px 12px}
+    .idcard{padding:22px 20px}
+  }
+
+  /* footer */
+  footer{
+    background:var(--char);color:var(--grey-soft);
+    padding:46px clamp(20px,5vw,64px);
+    border-top:2px solid var(--orange);
+    font-size:13px;
+  }
+  footer .fbrand{height:22px;width:auto;display:block;margin-bottom:14px}
+  footer a{color:var(--grey-soft);text-decoration:none;border-bottom:1px solid transparent}
+  footer a:hover{color:var(--orange);border-color:var(--orange)}
+  footer .fmeta{margin-top:14px;line-height:1.9}
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Sito">
+  <a href="/" class="brandlink" aria-label="Dymora, vai alla home"><img class="brand" src="/images/logo_text.webp" alt="" width="156" height="22"></a>
+  <small>Cookie</small>
+</nav>
+
+<header class="hero">
+  <div class="kicker">Informativa cookie</div>
+  <h1>Cookie e tecnologie simili</h1>
+  <p class="tagline">Come funziona il sito dymora.eu rispetto a cookie, strumenti di analisi e contenuti di terze parti.</p>
+  <span class="updated">Ultimo aggiornamento: <b>12 ottobre 2026</b></span>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc" aria-label="Indice">
+    <div class="toc-title">Indice</div>
+    <ol>
+      <li><a href="#cookie-tecnici">Cookie sul sito</a></li>
+      <li><a href="#terze-parti">Terze parti</a></li>
+      <li><a href="#analytics">Statistiche</a></li>
+      <li><a href="#banner">Banner di consenso</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="cookie-tecnici">
+      <h2>Cookie sul sito</h2>
+      <p>Il sito dymora.eu <strong>non imposta cookie</strong> e non salva informazioni sul tuo dispositivo (non usa n&eacute; <em>localStorage</em> n&eacute; tecnologie simili).</p>
+      <p>Il sito &egrave; ospitato su <strong>GitHub Pages</strong>, servizio di GitHub, Inc. (Stati Uniti). Per consegnare le pagine e proteggerle, GitHub tratta dati tecnici come l&rsquo;indirizzo IP, senza salvare cookie sul tuo dispositivo. I dettagli sono nell&rsquo;<a class="inline" href="/privacy/">informativa sulla privacy</a>.</p>
+    </section>
+
+    <section id="terze-parti">
+      <h2>Contenuti di terze parti</h2>
+      <p>Font, immagini e script sono serviti dallo stesso dominio dymora.eu: durante la navigazione il browser non contatta servizi di terze parti. Non sono presenti video incorporati, mappe, pulsanti social o pubblicit&agrave;.</p>
+      <p>I link agli indirizzi email aprono il tuo programma di posta: il messaggio che decidi di inviare ci arriva tramite Google Workspace, come descritto nell&rsquo;informativa sulla privacy.</p>
+    </section>
+
+    <section id="analytics">
+      <h2>Statistiche</h2>
+      <p>Non usiamo servizi di analisi n&eacute; strumenti che tracciano la tua navigazione. Per sapere come il sito compare nei risultati di ricerca usiamo Google Search Console, che non installa nulla sul sito e non raccoglie dati sui visitatori. Se in futuro attivassimo uno strumento di analisi, aggiorneremo prima questa pagina.</p>
+    </section>
+
+    <section id="banner">
+      <h2>Perch&eacute; non vedi un banner</h2>
+      <p>Non essendoci cookie o strumenti di tracciamento, non serve un banner di consenso. Se la configurazione del sito cambier&agrave;, valuteremo gli obblighi applicabili prima di pubblicarla.</p>
+    </section>
+
+    <section id="contatti">
+      <h2>Contatti</h2>
+      <p>Per domande su cookie e privacy scrivi a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a>. Il titolare del trattamento &egrave; Alberto Citi, Via Giovanni Paolo II 21b, 57023 Cecina (LI), P.IVA 02100310495.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <img class="fbrand" src="/images/logo_text.webp" alt="Dymora" width="156" height="22">
+  <div>The Intelligence of Home, Perfected.</div>
+  <div class="fmeta">
+    Titolare: Alberto Citi &mdash; P.IVA 02100310495<br>
+    <a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a> &middot; PEC <a href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a><br>
+    Informativa aggiornata al 12 ottobre 2026.<br>
+    <a href="/">dymora.eu</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/support/">Assistenza</a>
+  </div>
+</footer>
+
+</body>
+</html>

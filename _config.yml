@@ -1,0 +1,11 @@
+# GitHub Pages (build "legacy" con Jekyll): pubblica solo il sito.
+# Documentazione, prompt e strumenti restano nel repository ma non vanno online.
+exclude:
+  - CLAUDE.md
+  - AGENTS.md
+  - README.md
+  - prompts/
+  - docs/
+  - scripts/
+  - .claude/
+  - .gitignore

@@ -4,18 +4,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-`dymora-web` is the public static website for **dymora.eu**, deployed via GitHub Pages (the `CNAME` file maps the custom domain — do not delete it). There is no build system, no package manager, no tests: every page is a single self-contained HTML file with all CSS inlined in a `<style>` block.
+`dymora-web` is the public static website for **dymora.eu**, deployed via GitHub Pages (legacy build from `main`, so every push to `main` is a publication; the `CNAME` file maps the custom domain — do not delete it). There is no build system, no package manager, no tests: every page is a single HTML file with its CSS inlined in a `<style>` block. JavaScript lives in external files (`assets/js/`, `videosorveglianza/*.js`) so the CSP needs no script hashes.
 
 Current pages:
 
-- `privacy/index.html` — GDPR privacy policy (Italian), a long-form document with a sticky topbar, hero, and anchored `<section id="...">` blocks (`#titolare`, `#dati`, `#diritti`, `#cookie`, etc.).
-- `support/index.html` — support contact page (Italian), a single centered card pointing to `support@dymora.eu`.
+- `index.html` — home page (scroll-driven hero, sections `#cos-e`, `#pilastri`, `#servizi`, `#contatti`); script in `assets/js/home.js`.
+- `videosorveglianza/index.html` — AI video-surveillance page with a three.js scene (`scene.js`, `vendor/three.module.min.js` r170) and demo controls (`demo.js`).
+- `privacy/index.html` — GDPR privacy policy (Italian) covering app, service and website; anchored `<section id="...">` blocks (`#titolare`, `#dati`, `#diritti`, `#cookie`, etc.). The URL is also used by the app: keep it stable.
+- `cookie/index.html` — cookie policy (no cookies, no third parties).
+- `support/index.html` — support contact page pointing to `support@dymora.eu`.
+- `404.html` — custom not-found page (`noindex`, absolute URLs only).
+- `robots.txt`, `sitemap.xml` — update `sitemap.xml` when adding or removing a page.
+- `_config.yml` — Jekyll `exclude` list: repo docs, prompts and scripts must not be published. Add new non-site files there.
+- `docs/OPEN_POINTS.md` (if present) — open points; never published.
+
+## Rules
+
+- **No third parties.** No cookies, analytics, embeds, external fonts or scripts. Fonts are self-hosted in `assets/fonts/` (SIL OFL, licenses alongside). Adding any third-party resource requires updating `/privacy/`, `/cookie/`, consent handling and the CSP first.
+- **CSP.** Each page has a `<meta http-equiv="Content-Security-Policy">` (GitHub Pages cannot set headers). Inline `<style>` blocks are allowed by sha256 hash. After editing any `<style>` block run `python3 scripts/csp.py` (rewrites the hashes) and before publishing `python3 scripts/csp.py --check`. No inline `style="..."` attributes and no inline event handlers: use classes and external JS.
+- **No business link to Agevo.** dymora.eu must not link to agevo.dymora.eu (or vice versa).
+- **Do not invent company data or commitments.** Verified legal data: Alberto Citi, P.IVA 02100310495, Via Giovanni Paolo II 21b, 57023 Cecina (LI); `info@dymora.eu`, `privacy@dymora.eu`, `support@dymora.eu`.
+- **Accessibility.** Keep one `<h1>` and a `<main>` per page, visible focus, `prefers-reduced-motion` support, no horizontal overflow at 320–360 px, small orange text on light backgrounds uses `--orange-ink`.
 
 ## Development
 
 ```bash
 # Preview locally (no build step)
-python3 -m http.server 8000        # then open http://localhost:8000/privacy/
+python3 -m http.server 8000        # then open http://localhost:8000/
+python3 scripts/csp.py --check     # CSP hashes up to date
 
 # Deploy = push to main (GitHub Pages serves the branch directly)
 ```
@@ -24,10 +40,10 @@ Pages must remain mobile-responsive — sizes use `clamp()` and media queries; k
 
 ## Design System
 
-Both pages share an identical `:root` token block. When adding a page, copy it verbatim so the site stays visually consistent:
+All pages share the same `:root` token block (plus `--orange-ink: #b5390b` for small orange text on light backgrounds). When adding a page, copy it verbatim so the site stays visually consistent:
 
 - **Colors**: `--char: #1c1c1c` (near-black surfaces), `--orange: #e8541e` (accent), `--cream-bright: #f4f0e8` (page background), `--ink: #1d1c1a` (text). Official brand palette: primary `#0A0A0A`, secondary `#EA4314`.
-- **Web fonts** (Google Fonts): `Chakra Petch` (`--display`, headings/kickers, uppercase with wide letter-spacing) and `Sora` (`--body`, weight 300). The brand's native app fonts are Asta Sans Medium and Doto ExtraBold; the web uses these Google Fonts substitutes.
+- **Web fonts** (self-hosted, `assets/fonts/`, `@font-face` at the top of each `<style>`): `Chakra Petch` (`--display`, headings/kickers, uppercase with wide letter-spacing) and `Sora` (`--body`, weight 300). The brand's native app fonts are Asta Sans Medium and Doto ExtraBold; the web uses these open-source substitutes.
 - **Recurring motifs**: dark topbar with 2px orange bottom border; hero/card on `--char` background with a radial orange glow (`::after` circle, top-right); orange kicker text in uppercase display font.
 
 All user-facing content is in Italian (`<html lang="it">`).

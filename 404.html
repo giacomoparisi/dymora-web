@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'sha256-3W1zFK+xrOIKebY57Jy5myBpffFJfwmH1Pkv73BgnN0='; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina non trovata — Dymora</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<style>
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-500-normal.woff2) format('woff2')}
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-600-normal.woff2) format('woff2')}
+  @font-face{font-family:'Chakra Petch';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/chakra-petch-latin-700-normal.woff2) format('woff2')}
+  @font-face{font-family:'Sora';font-style:normal;font-weight:100 800;font-display:swap;src:url(/assets/fonts/sora-latin-wght-normal.woff2) format('woff2-variations'),url(/assets/fonts/sora-latin-wght-normal.woff2) format('woff2')}
+  :root{
+    --char:#0A0A0A;
+    --char-2:#262626;
+    --orange:#e8541e;
+    --orange-deep:#cf4310;
+    --orange-ink:#b5390b;
+    --grey:#5f5f5f;
+    --grey-soft:#8c8c8c;
+    --cream:#e9e4da;
+    --cream-bright:#f4f0e8;
+    --ink:#1d1c1a;
+    --line:rgba(10,10,10,.12);
+    --display:'Chakra Petch',sans-serif;
+    --body:'Sora',sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    background:var(--cream-bright);
+    color:var(--ink);
+    line-height:1.72;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--char);
+    border-bottom:2px solid var(--orange);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px clamp(20px,5vw,64px);
+  }
+  .brand{height:26px;width:auto;display:block}
+  .brandlink{display:block}
+  a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+  .topbar small{
+    font-family:var(--display);font-weight:500;
+    color:var(--grey-soft);font-size:11px;
+    letter-spacing:.22em;text-transform:uppercase;
+  }
+  @media(max-width:620px){.topbar small{display:none}}
+
+  /* ---------- main ---------- */
+  main{
+    flex:1;
+    display:flex;align-items:center;justify-content:center;
+    padding:clamp(40px,8vw,96px) clamp(20px,5vw,64px);
+  }
+  .card{
+    background:var(--char);color:var(--cream);
+    border-radius:8px;
+    width:100%;max-width:580px;
+    padding:clamp(36px,6vw,56px);
+    position:relative;overflow:hidden;
+    box-shadow:0 24px 60px rgba(10,10,10,.18);
+  }
+  .card::after{
+    content:"";position:absolute;right:-70px;top:-70px;
+    width:280px;height:280px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,84,30,.20),transparent 68%);
+    pointer-events:none;
+  }
+  .icon{
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(232,84,30,.14);
+    border:1.5px solid var(--orange);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:26px;
+  }
+  .icon svg{width:30px;height:30px;stroke:var(--orange);stroke-width:2.2;fill:none}
+  .kicker{
+    font-family:var(--display);font-weight:600;font-size:12px;
+    letter-spacing:.34em;text-transform:uppercase;color:var(--orange);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(28px,5vw,40px);line-height:1.06;
+    letter-spacing:.01em;color:var(--cream);
+  }
+  .lead{margin:18px 0 0;color:var(--grey-soft);font-size:15.5px;max-width:46ch}
+
+  /* ---------- contact list ---------- */
+  dl.contacts{
+    margin-top:32px;padding-top:28px;
+    border-top:1px solid rgba(233,228,218,.14);
+    display:grid;grid-template-columns:auto 1fr;gap:16px 24px;
+    font-size:15px;
+  }
+  dl.contacts dt{
+    font-family:var(--display);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--grey-soft);padding-top:3px;
+  }
+  dl.contacts dd{color:var(--cream)}
+  dl.contacts dd a{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(232,84,30,.35)}
+  dl.contacts dd a:hover{border-color:var(--orange)}
+  dl.contacts dd .hours{display:block;color:var(--cream)}
+  dl.contacts dd .hours span{color:var(--grey-soft);font-size:13.5px}
+  @media(max-width:520px){
+    dl.contacts{grid-template-columns:1fr;gap:4px 0}
+    dl.contacts dt{margin-top:14px}
+  }
+
+  .note{
+    margin-top:30px;padding-top:24px;
+    border-top:1px solid rgba(233,228,218,.14);
+    font-size:14px;color:var(--grey-soft);max-width:48ch;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--char);color:var(--grey-soft);
+    padding:34px clamp(20px,5vw,64px);
+    border-top:2px solid var(--orange);
+    font-size:13px;
+  }
+  footer .fbrand{height:20px;width:auto;display:block;margin-bottom:12px}
+  footer .fmeta{line-height:1.9}
+  footer a{color:var(--grey-soft);text-decoration:none;border-bottom:1px solid transparent}
+  footer a:hover{color:var(--orange);border-color:var(--orange)}
+</style>
+</head>
+<body>
+
+<div class="topbar" role="banner">
+  <a href="/" class="brandlink" aria-label="Dymora, vai alla home"><img class="brand" src="/images/logo_text.webp" alt="" width="156" height="22"></a>
+  <small>Errore 404</small>
+</div>
+
+<main>
+  <div class="card">
+    <div class="kicker">Errore 404</div>
+    <h1>Pagina non trovata.</h1>
+    <p class="lead">L&rsquo;indirizzo che hai aperto non esiste o &egrave; stato spostato.</p>
+    <dl class="contacts">
+      <dt>Home</dt>
+      <dd><a href="/">dymora.eu</a></dd>
+      <dt>Assistenza</dt>
+      <dd><a href="/support/">Contatta il supporto</a></dd>
+    </dl>
+  </div>
+</main>
+
+<footer>
+  <img class="fbrand" src="/images/logo_text.webp" alt="Dymora" width="156" height="22">
+  <div class="fmeta">
+    The Intelligence of Home, Perfected.<br>
+    <a href="mailto:support@dymora.eu">support@dymora.eu</a> &middot; <a href="/">dymora.eu</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/cookie/">Cookie</a><br>
+    Alberto Citi &middot; P.IVA 02100310495
+  </div>
+</footer>
+
+</body>
+</html>
