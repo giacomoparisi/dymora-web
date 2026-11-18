@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Opening from '../components/Opening.astro';
+import FeatureBand from '../components/FeatureBand.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const faq = [
+  ['Devo saperne di tecnologia?', "No. Progettazione, installazione e configurazione le facciamo noi: tu usi l'app. Se hai un problema, c'è l'assistenza."],
+  ['Posso partire da una sola funzione?', 'Sì. Puoi partire da una sola funzione, per esempio i consumi.'],
+  ['Vedo se le tapparelle sono aperte o chiuse?', 'Dipende dal motore. Se comunica la posizione la vedi; se non la comunica hai i comandi, ma non lo stato.'],
+  ['Posso tenere le telecamere che ho già?', 'Valutiamo le telecamere che hai e la loro compatibilità. Da lì progettiamo la soluzione, riutilizzando quelle compatibili.'],
+  ['Una persona rilevata è sempre un intruso?', 'No. Il sistema riconosce una persona, non le sue intenzioni.'],
+  ['Funziona anche da fuori casa?', "Sì. Quando sei sulla rete di casa l'app prova il collegamento locale; se non risponde usa quello remoto, che è anche quello che usi da fuori. Accesso e funzioni passano comunque dal server Dymora."],
+  ['Su quali dispositivi funziona?', "L'app è sviluppata per Android, iOS e computer. Sul computer funzionano anche diretta e registrazioni. Le notifiche arrivano sul telefono, non sul computer."],
+  ['Va bene anche per una piccola attività?', 'Sì, con le stesse funzioni della casa, configurate per il tuo locale. Non è un prodotto specifico per uffici o negozi.'],
+];
+---
+<BaseLayout title="Dymora — La tua casa. In una sola app." description="Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
+  <main>
+    <Opening />
+
+    <section class="story-intro" id="seguito" aria-labelledby="change-title">
+      <div class="story-intro__inner">
+        <div class="story-intro__copy reveal">
+          <p class="w-label w-eyebrow">Quando non ci sei</p>
+          <h2 class="w-display-l" id="change-title">Sai cosa succede quando <span class="w-accent">non ci sei</span>?</h2>
+          <ul class="story-questions w-subtitle" aria-label="Le domande a cui Dymora risponde">
+            <li>Hai chiuso la porta?</li>
+            <li>Hai inserito l'allarme?</li>
+            <li>Hai lasciato una luce accesa?</li>
+          </ul>
+          <div class="story-answer">
+            <p class="w-title">L'edificio è sempre <span class="w-accent">con te</span>.</p>
+            <p class="w-lead">Apri l'app dovunque ti trovi e gestisci il tuo edificio quando ne hai bisogno.</p>
+          </div>
+        </div>
+        <figure class="story-intro__media reveal">
+          <div class="story-device-glow" aria-hidden="true"></div>
+          <div class="phone-showcase device device--phone"><img class="w-only-light" src="/assets/images/alarm-armed-home-compact-light.webp" alt="La pagina Allarme dell'app Dymora, con l'allarme inserito" width="1644" height="3564" loading="lazy" /><img class="w-only-dark" src="/assets/images/alarm-armed-home-compact-dark.webp" alt="La pagina Allarme dell'app Dymora, con l'allarme inserito" width="1644" height="3564" loading="lazy" /></div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="service-grid paper-section" aria-labelledby="service-title">
+      <div class="service-copy reveal">
+        <p class="w-label w-eyebrow">Il servizio</p>
+        <h2 class="w-display-l" id="service-title">Progettiamo, installiamo, configuriamo e ti <span class="w-accent">assistiamo</span>.</h2>
+        <p class="w-lead">Dymora non è un'app da scaricare e arrangiarsi: ci occupiamo di progettazione, installazione, configurazione e assistenza.</p>
+      </div>
+      <div class="device device--tablet reveal"><img class="w-only-light" src="/assets/images/lights-rooms-expanded-light.webp" alt="La pagina Luci dell'app Dymora, stanza per stanza" width="3840" height="2400" loading="lazy" /><img class="w-only-dark" src="/assets/images/lights-rooms-expanded-dark.webp" alt="La pagina Luci dell'app Dymora, stanza per stanza" width="3840" height="2400" loading="lazy" /></div>
+    </section>
+
+    <div id="funzioni">
+      <FeatureBand id="luci" eyebrow="Luci" titleBefore="Gestisci l'impianto di illuminazione con " titleAccent="un click" titleAfter="." line="Controlla luci, colori, intensità e scenari tramite l'app." points={['Accendi e spegni una luce, una stanza o tutte insieme.','Regoli luminosità, colore e temperatura del bianco sulle lampade compatibili.','Vedi se una luce non risponde.']} expandedLight="/assets/images/lights-rooms-expanded-light.webp" expandedDark="/assets/images/lights-rooms-expanded-dark.webp" compactLight="/assets/images/lights-rooms-compact-light.webp" compactDark="/assets/images/lights-rooms-compact-dark.webp" alt="La pagina Luci dell'app Dymora" />
+      <FeatureBand id="clima" eyebrow="Clima" titleBefore="Controlla il " titleAccent="clima" titleAfter=", stanza per stanza." line="Vedi temperatura e umidità delle stanze e gestisci l'impianto di riscaldamento e raffrescamento. La casa si adatta per evitare sprechi e farti risparmiare." points={['Vedi temperatura e umidità dai sensori disponibili.','Imposti la temperatura dei climatizzatori compatibili.','Cambi modalità, ventola e oscillazione.']} expandedLight="/assets/images/climate-rooms-expanded-light.webp" expandedDark="/assets/images/climate-rooms-expanded-dark.webp" compactLight="/assets/images/climate-rooms-compact-light.webp" compactDark="/assets/images/climate-rooms-compact-dark.webp" alt="La pagina Clima dell'app Dymora" reverse />
+      <FeatureBand id="tapparelle" eyebrow="Tende e tapparelle" titleBefore="Apri e chiudi tende e tapparelle " titleAccent="comodamente" titleAfter="." line="Imposta le tue routine, e dimenticati dei comandi fisici." points={['Apri, chiudi e fermi tapparelle, tende e veneziane compatibili.','Porti una tenda a una percentuale precisa, se il motore comunica la posizione.']} expandedLight="/assets/images/covers-rooms-expanded-light.webp" expandedDark="/assets/images/covers-rooms-expanded-dark.webp" compactLight="/assets/images/covers-rooms-compact-light.webp" compactDark="/assets/images/covers-rooms-compact-dark.webp" alt="La pagina Tapparelle dell'app Dymora" />
+      <FeatureBand id="serrature" eyebrow="Serrature" titleBefore="Gestisci e controlla lo stato delle tue " titleAccent="serrature" titleAfter="." line="Comandi dall'app serrature, cancelli e citofoni compatibili, anche quando non sei in casa, e assicurati che tutto sia al sicuro." points={['Blocchi o sblocchi la serratura e azioni cancelli o citofoni compatibili.','Vedi lo stato della serratura e, se ci sono i sensori, della porta e delle batterie.','Crei e cancelli codici di accesso, sulle serrature con tastierino.']} expandedLight="/assets/images/locks-rooms-expanded-light.webp" expandedDark="/assets/images/locks-rooms-expanded-dark.webp" compactLight="/assets/images/locks-rooms-compact-light.webp" compactDark="/assets/images/locks-rooms-compact-dark.webp" alt="La pagina Serrature dell'app Dymora" reverse />
+      <FeatureBand id="allarme" eyebrow="Allarme" titleBefore="Se scatta l'" titleAccent="allarme" titleAfter=", lo sai subito." line="Inserisci e disinserisci l'allarme dall'app e ricevi una notifica sul telefono se scatta." points={['Inserisci e disinserisci nelle modalità configurate.','Vedi i sensori zona per zona.','Ricevi una notifica in tempo reale se l’allarme scatta.']} expandedLight="/assets/images/alarm-armed-home-expanded-light.webp" expandedDark="/assets/images/alarm-armed-home-expanded-dark.webp" compactLight="/assets/images/alarm-armed-home-compact-light.webp" compactDark="/assets/images/alarm-armed-home-compact-dark.webp" alt="La pagina Allarme dell'app Dymora" />
+      <FeatureBand id="telecamere" eyebrow="Telecamere" titleBefore="L'" titleAccent="AI in locale" titleAfter=" distingue persone, veicoli e animali." line="Guardi le telecamere in diretta, rivedi eventi e registrazioni autorizzate e ricevi una notifica quando rilevano un evento." points={['Guardi le telecamere in diretta e rivedi eventi e registrazioni autorizzate.','Il sistema riconosce persone, veicoli e animali e può ignorare gli animali, secondo le regole scelte.','Ricevi una notifica sul telefono quando le telecamere rilevano un evento.']} expandedLight="/assets/images/video-surveillance-house-no-frames-expanded-light.webp" expandedDark="/assets/images/video-surveillance-house-no-frames-expanded-dark.webp" compactLight="/assets/images/video-surveillance-house-no-frames-compact-light.webp" compactDark="/assets/images/video-surveillance-house-no-frames-compact-dark.webp" alt="La pagina Videosorveglianza dell'app Dymora, senza fotogrammi di telecamere" href="/videosorveglianza/" reverse />
+      <FeatureBand id="consumi" eyebrow="Consumi" titleBefore="Controlla i " titleAccent="consumi" titleAfter=" degli apparecchi." line="Rivedi lo storico di tutti i consumi dell'edificio e Dymora analizza per te gli sprechi e trova le inefficienze, permettendoti di risparmiare soldi in bolletta." points={['Vedi quanta potenza sta usando adesso ogni apparecchio monitorato.','I dati sono misurati se c’è un contatore, stimati dalla potenza se non c’è.','Accendi e spegni dall’app le prese intelligenti configurate.']} expandedLight="/assets/images/energy-mock-page-expanded-light.webp" compactLight="/assets/images/energy-mock-page-compact-light.webp" expandedWidth={1800} expandedHeight={1125} compactWidth={900} compactHeight={1951} compactTall alt="Mock dimostrativo della sezione Consumi dell'app Dymora" href="/consumi/" note="Mock dimostrativo della sezione Consumi in sviluppo." />
+      <FeatureBand id="irrigazione" eyebrow="Irrigazione" titleBefore="Innaffia il tuo " titleAccent="giardino" titleAfter=" in automatico." line="Configuriamo noi pompe e valvole per farle partire da sole. Dall’app vedi se il terreno ha l’umidità adatta alle tue piante." points={['Vedi umidità del terreno, temperatura e batteria, quando la sonda le fornisce.','Avvii e fermi pompe o valvole.','Avvii con una durata, se il dispositivo la gestisce.']} compactLight="/assets/images/irrigation-garden-compact-light.webp" compactDark="/assets/images/irrigation-garden-compact-dark.webp" alt="La pagina Irrigazione dell'app Dymora" />
+    </div>
+
+    <section class="principles" aria-labelledby="trust-title"><div class="principles__inner"><h2 class="w-display-l" id="trust-title">Su cosa puoi <span class="w-accent">contare</span>.</h2><div class="stats"><div class="stat"><span class="w-num-l">1</span><span class="w-label-l">Sola app</span></div><div class="stat"><span class="w-num-m">6+</span><span class="w-label">Sistemi unificati</span></div><div class="stat"><span class="w-num-m">24/7</span><span class="w-label">Monitoraggio</span></div><div class="stat"><span class="w-num-m">0</span><span class="w-label">Vendor lock-in</span></div></div><ul class="principles-list"><li><h3 class="w-subtitle">Semplice.</h3><p class="w-body">Una sola app per le funzioni della tua casa, invece di una per ogni marca. Ti aiutiamo a scegliere ciò che serve davvero.</p></li><li><h3 class="w-subtitle">Chiaro.</h3><p class="w-body">L'app mostra ciò che i dispositivi comunicano. Se una luce non risponde te lo dice, e uno storico stimato non diventa una misura.</p></li><li><h3 class="w-subtitle">Seguito.</h3><p class="w-body">Il lavoro non finisce con l'installazione: l'assistenza resta anche dopo.</p></li></ul></div></section>
+
+    <section class="steps-section" aria-labelledby="start-title"><div class="steps-inner"><div><p class="w-label w-eyebrow">Come si parte</p><h2 class="w-display-l" id="start-title">Si parte da una <span class="w-accent">chiamata</span>.</h2></div><ol class="steps-list"><li><span class="w-num-m">1</span><h3 class="w-subtitle">Ci sentiamo.</h3><p class="w-body">Ci dici cosa vuoi tenere sotto controllo: anche solo alcuni apparecchi.</p></li><li><span class="w-num-m">2</span><h3 class="w-subtitle">Progettiamo la tua installazione.</h3><p class="w-body">Scegliamo insieme cosa serve. Se hai già delle telecamere, valutiamo se sono compatibili.</p></li><li><span class="w-num-m">3</span><h3 class="w-subtitle">Installiamo e configuriamo.</h3><p class="w-body">Posiamo i dispositivi e prepariamo l'app con le funzioni che hai scelto.</p></li><li><span class="w-num-m">4</span><h3 class="w-subtitle">Usi l'app, con la nostra assistenza.</h3><p class="w-body">Se hai un problema, scrivi a support@dymora.eu.</p></li></ol></div></section>
+
+    <section class="paper-section" id="edifici" aria-labelledby="multi-title"><div class="multi-grid"><div class="multi-copy"><p class="w-label w-eyebrow">Più edifici</p><h2 class="w-display-l" id="multi-title">Gestisci tutte le tue proprietà nella <span class="w-accent">stessa applicazione</span></h2><p class="w-lead">sul device che più preferisci.</p><p class="w-label">Casa · Montagna · Ufficio</p></div><div class="device device--tablet"><img class="w-only-light" src="/assets/images/installation-selection-expanded-light.webp" alt="La pagina di scelta dell'installazione nell'app Dymora" width="3840" height="2400" loading="lazy" /><img class="w-only-dark" src="/assets/images/installation-selection-expanded-dark.webp" alt="La pagina di scelta dell'installazione nell'app Dymora" width="3840" height="2400" loading="lazy" /></div></div></section>
+
+    <section class="faq-section" aria-labelledby="faq-title"><div class="faq-inner"><div class="faq-intro"><h2 class="w-display-l" id="faq-title">Quanto costa?</h2><p class="w-lead">Dipende da cosa vuoi controllare e da cosa c'è già in casa. Oltre all'installazione c'è un abbonamento: ti diciamo tutto nella consulenza.</p></div><div class="faq-list">{faq.map(([q,a],i) => <details open={i === 0}><summary class="w-body-strong">{q}</summary><p class="w-body">{a}</p></details>)}</div></div></section>
+
+    <section class="consultation" id="contatti" aria-labelledby="contact-title">
+      <div class="consultation__inner">
+        <div class="consultation__story reveal">
+          <p class="w-label w-eyebrow">Consulenza</p>
+          <h2 class="w-display-l" id="contact-title">Partiamo da quello che vuoi <span class="w-accent">controllare</span>.</h2>
+          <p class="w-lead">Ci racconti il tuo edificio. Noi valutiamo quello che c'è già e ti diciamo come si può fare.</p>
+          <ol class="consultation__steps">
+            <li><span class="w-label">1</span><p class="w-body-strong">Partiamo dalle funzioni che ti servono.</p></li>
+            <li><span class="w-label">2</span><p class="w-body-strong">Valutiamo i dispositivi che hai già.</p></li>
+            <li><span class="w-label">3</span><p class="w-body-strong">Progettiamo una soluzione su misura.</p></li>
+          </ol>
+        </div>
+        <div class="consultation__card reveal">
+          <div class="consultation__card-copy">
+            <p class="w-label">Parliamone</p>
+            <h3 class="w-title">Raccontaci la tua <span class="w-accent">idea</span>.</h3>
+            <p class="w-lead">Scrivici cosa vuoi tenere sotto controllo: anche solo una funzione.</p>
+          </div>
+          <div class="consultation__actions">
+            <a class="w-cta w-button" href="mailto:info@dymora.eu?subject=Richiesta%20di%20consulenza">Richiedi una consulenza</a>
+            <a class="consultation__mail w-subtitle" href="mailto:info@dymora.eu">info@dymora.eu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

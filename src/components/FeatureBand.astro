@@ -1,0 +1,48 @@
+---
+interface Props {
+  id: string;
+  eyebrow: string;
+  titleBefore: string;
+  titleAccent: string;
+  titleAfter?: string;
+  line: string;
+  points: string[];
+  expandedLight?: string;
+  expandedDark?: string;
+  compactLight?: string;
+  compactDark?: string;
+  alt: string;
+  reverse?: boolean;
+  href?: string;
+  note?: string;
+  expandedWidth?: number;
+  expandedHeight?: number;
+  compactWidth?: number;
+  compactHeight?: number;
+  compactTall?: boolean;
+}
+const p = Astro.props;
+const expandedWidth = p.expandedWidth ?? 3840;
+const expandedHeight = p.expandedHeight ?? 2400;
+const compactWidth = p.compactWidth ?? 1644;
+const compactHeight = p.compactHeight ?? 3564;
+const phoneOnly = !p.expandedLight && Boolean(p.compactLight);
+---
+<section class:list={['feature-band', { 'feature-band--reverse': p.reverse, 'feature-band--phone-only': phoneOnly }]} id={p.id}>
+  <div class="feature-band__inner">
+    <div class="feature-band__copy reveal">
+      <p class="w-label feature-band__eyebrow">{p.eyebrow}</p>
+      <h2 class="w-display-l">{p.titleBefore}<span class="w-accent">{p.titleAccent}</span>{p.titleAfter}</h2>
+      <p class="w-lead">{p.line}</p>
+      <ul class="w-body feature-band__points">{p.points.map((point) => <li>{point}</li>)}</ul>
+      {p.href && <a class="w-cta w-button" href={p.href}>Scopri di più</a>}
+      <p class="w-note demo-note">{p.note ?? 'Immagini dimostrative.'}</p>
+    </div>
+    <figure class="feature-band__media reveal">
+      <div class="device-pair">
+        {p.expandedLight && <div class="device device--wide device-wide"><img class="w-only-light" src={p.expandedLight} alt={p.alt} width={expandedWidth} height={expandedHeight} loading="lazy" /><img class="w-only-dark" src={p.expandedDark ?? p.expandedLight} alt={p.alt} width={expandedWidth} height={expandedHeight} loading="lazy" /></div>}
+        {p.compactLight && <div class:list={['device', 'device--phone', 'device-phone', { 'device--phone-tall': p.compactTall }]}><img class="w-only-light" src={p.compactLight} alt={p.alt} width={compactWidth} height={compactHeight} loading="lazy" /><img class="w-only-dark" src={p.compactDark ?? p.compactLight} alt={p.alt} width={compactWidth} height={compactHeight} loading="lazy" /></div>}
+      </div>
+    </figure>
+  </div>
+</section>

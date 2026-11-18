@@ -9,3 +9,9 @@ exclude:
   - scripts/
   - .claude/
   - .gitignore
+  - src/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - astro.config.mjs
+  - tsconfig.json

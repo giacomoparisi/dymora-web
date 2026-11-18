@@ -1,0 +1,14 @@
+---
+interface Props { dark?: boolean }
+const { dark = false } = Astro.props;
+import ThemeToggle from './ThemeToggle.astro';
+---
+<header class:list={['site-header', { 'site-header--dark': dark }]}>
+  <a href="/" aria-label="Dymora — homepage"><img src={dark ? '/assets/images/logo-word-white.svg' : '/assets/images/logo-word-ink.svg'} alt="Dymora" width="144" height="30" /></a>
+  <nav aria-label="Navigazione principale">
+    <a class="w-body-strong" href="/#funzioni">Funzioni</a>
+    <a class="w-body-strong" href="/#edifici">Più edifici</a>
+    <ThemeToggle />
+    <a class="w-cta w-button" href="mailto:info@dymora.eu">Contattaci</a>
+  </nav>
+</header>

@@ -1,0 +1,14 @@
+.energy-page{background:var(--c-surface-muted);color:var(--c-on-background)}
+.energy-page .w-accent{color:var(--c-secondary-text)}
+.energy-page .w-cta{background:var(--c-secondary-button)}
+.energy-hero,.energy-explain,.energy-detail{background:var(--c-surface-muted)}
+.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{width:var(--content);margin:auto;padding-block:var(--w-air);display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:clamp(38px,7vw,120px);align-items:center}
+.energy-copy{display:grid;gap:24px;align-content:center;min-width:0}.energy-copy .w-cta{justify-self:start}.energy-copy .w-body{color:var(--c-on-background-variant)}
+.energy-stage,.energy-detail__media{display:grid;gap:14px;min-width:0}.energy-stage figcaption,.energy-detail__media figcaption,.energy-phone figcaption{color:var(--c-on-background-variant)}
+.energy-explain{border-top:1px solid var(--c-outline)}.energy-explain__inner{grid-template-columns:minmax(0,1fr) minmax(240px,.45fr)}
+.energy-phone{width:min(330px,74vw);justify-self:center;display:grid;gap:14px}.energy-phone .device{box-shadow:0 24px 55px var(--c-shadow)}
+.energy-points{background:var(--c-primary);color:var(--c-on-primary)}.energy-points__inner{width:var(--content);margin:auto;padding-block:var(--w-air);display:grid;gap:60px}.energy-points__intro{max-width:900px;display:grid;gap:22px}.energy-points ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,5vw,72px)}.energy-points li{display:grid;gap:18px;border-top:1px solid #ffffff3d;padding-top:22px}.energy-points p{color:var(--c-on-primary-muted)}
+.energy-detail__inner{grid-template-columns:minmax(280px,.65fr) minmax(0,1.35fr)}
+.energy-cta{width:var(--content);margin:auto;padding-block:var(--w-air);display:flex;justify-content:space-between;align-items:end;gap:40px}.energy-cta>div{display:grid;gap:20px;max-width:850px}
+@media(max-width:900px){.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{grid-template-columns:minmax(0,1fr)}.energy-explain__inner .energy-copy{order:0}.energy-phone{order:1}.energy-points ol{grid-template-columns:1fr}.energy-cta{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{gap:34px}.energy-stage .device,.energy-detail__media .device{border-width:5px;border-radius:14px}.energy-cta .w-cta{width:100%}}

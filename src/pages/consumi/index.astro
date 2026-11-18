@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import '../../styles/energy.css';
+---
+<BaseLayout title="Consumi Dymora — Controlla i consumi degli apparecchi" description="Rivedi lo storico di tutti i consumi dell'edificio e Dymora analizza per te gli sprechi e trova le inefficienze." pageClass="energy-page">
+  <SiteHeader />
+  <main>
+    <section class="energy-hero" aria-labelledby="energy-title">
+      <div class="energy-hero__inner">
+        <div class="energy-copy">
+          <p class="w-label w-eyebrow">Consumi</p>
+          <h1 class="w-display-l" id="energy-title">Controlla i <span class="w-accent">consumi</span> degli apparecchi.</h1>
+          <p class="w-lead">Rivedi lo storico di tutti i consumi dell'edificio e Dymora analizza per te gli sprechi e trova le inefficienze, permettendoti di risparmiare soldi in bolletta.</p>
+          <a class="w-cta w-button" href="#come-funziona">Scopri come funziona</a>
+        </div>
+        <figure class="energy-stage">
+          <div class="device device--wide"><img src="/assets/images/energy-mock-page-expanded-light.webp" alt="Mock dimostrativo della panoramica Consumi dell'app Dymora" width="1800" height="1125" /></div>
+          <figcaption class="w-note">Mock dimostrativo della sezione Consumi in sviluppo.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="energy-explain" id="come-funziona" aria-labelledby="energy-explain-title">
+      <div class="energy-explain__inner">
+        <div class="energy-copy">
+          <p class="w-label w-eyebrow">Gli apparecchi che scegli</p>
+          <h2 class="w-title" id="energy-explain-title">Spesso vuoi sapere una cosa precisa: quanto consuma la lavatrice, o il congelatore in garage.</h2>
+          <p class="w-body">Scegli gli apparecchi che ti interessano e li colleghi a prese intelligenti. Dall'app vedi quanta potenza usano in quel momento e rivedi quanto hanno consumato nel tempo. Se la presa ha un contatore il dato è misurato; se non ce l'ha, lo storico è stimato dalla potenza, e Dymora te lo dice. Dalla stessa app accendi e spegni le prese configurate.</p>
+        </div>
+        <figure class="energy-phone">
+          <div class="device device--phone device--phone-tall"><img src="/assets/images/energy-mock-page-compact-light.webp" alt="Mock dimostrativo della panoramica Consumi su telefono" width="900" height="1951" loading="lazy" /></div>
+          <figcaption class="w-note">Immagine dimostrativa.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="energy-points" aria-labelledby="energy-points-title">
+      <div class="energy-points__inner">
+        <div class="energy-points__intro">
+          <p class="w-label">Potenza e storico</p>
+          <h2 class="w-title" id="energy-points-title">Vedi quanta potenza sta usando adesso ogni apparecchio monitorato.</h2>
+        </div>
+        <ol>
+          <li><span class="w-num-m">01</span><p class="w-body">Vedi quanta potenza sta usando adesso ogni apparecchio monitorato.</p></li>
+          <li><span class="w-num-m">02</span><p class="w-body">I dati sono misurati se c'è un contatore, stimati dalla potenza se non c'è.</p></li>
+          <li><span class="w-num-m">03</span><p class="w-body">Accendi e spegni dall'app le prese intelligenti configurate.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="energy-detail" aria-labelledby="energy-detail-title">
+      <div class="energy-detail__inner">
+        <div class="energy-copy">
+          <p class="w-label w-eyebrow">Un apparecchio alla volta</p>
+          <h2 class="w-title" id="energy-detail-title">Dall'app vedi quanta potenza usano in quel momento e rivedi quanto hanno consumato nel tempo.</h2>
+          <p class="w-body">Se la presa ha un contatore il dato è misurato; se non ce l'ha, lo storico è stimato dalla potenza, e Dymora te lo dice.</p>
+        </div>
+        <figure class="energy-detail__media">
+          <div class="device device--wide"><img src="/assets/images/energy-mock-device-expanded-light.webp" alt="Mock dimostrativo dello storico Consumi di una lavatrice" width="1800" height="1125" loading="lazy" /></div>
+          <figcaption class="w-note">Mock dimostrativo della sezione Consumi in sviluppo.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="energy-cta" aria-labelledby="energy-cta-title">
+      <div><p class="w-label">Consulenza</p><h2 class="w-title" id="energy-cta-title">Raccontaci cosa vuoi <span class="w-accent">controllare</span>.</h2></div>
+      <a class="w-cta w-button" href="mailto:info@dymora.eu?subject=Richiesta%20di%20consulenza%20Consumi">Richiedi una consulenza</a>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

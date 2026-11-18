@@ -1,0 +1,70 @@
+---
+import '../styles/opening.css';
+import ThemeToggle from './ThemeToggle.astro';
+---
+<div class="frame">
+  <div class="site">
+    <div class="w-page" id="top">
+      <div class="open w-field live">
+        <div class="pin">
+          <header class="nav">
+            <a class="brand" href="#top"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
+            <div class="nav-end">
+              <a class="nav-link w-body-strong" href="mailto:info@dymora.eu">info@dymora.eu</a>
+              <ThemeToggle />
+              <a class="w-cta w-button nav-cta" href="#contatti">Richiedi una consulenza</a>
+            </div>
+          </header>
+          <a class="skip w-note" href="#seguito">Salta l'apertura</a>
+          <div class="sheet">
+            <section class="s1">
+              <img class="dots" src="/assets/images/cascata.svg" alt="" width="864" height="704" />
+              <div class="hook">
+                <h1 class="w-display-xxl"><span class="ln"><span>The Art</span></span><span class="ln"><span>of Living</span></span><span class="ln"><span class="w-accent">Smart.</span></span></h1>
+                <p class="sub w-subtitle">Goditi l'esperienza, al resto pensiamo noi.</p>
+              </div>
+              <span class="hint"></span>
+            </section>
+            <section class="s2">
+              <div class="ground" aria-hidden="true"><span class="wall"></span><span class="floor"></span><span class="pool pool--cold"></span><span class="pool pool--warm"></span><span class="edge"></span></div>
+              <div class="st">
+                <svg class="lines ln-out" aria-hidden="true"></svg>
+                <svg class="lines ln-in" aria-hidden="true"></svg>
+                <div class="devs">
+                  <button class="dev dev--pho" type="button" data-part="lights" aria-pressed="false" aria-label="Luci, dal telefono"><span class="body w-phone"><span class="w-screen"><img class="w-only-light" src="/assets/images/lights-rooms-compact-light.webp" alt="" width="1644" height="3564" loading="lazy" /><img class="w-only-dark" src="/assets/images/lights-rooms-compact-dark.webp" alt="" width="1644" height="3564" loading="lazy" /><img class="w-only-light lt-off" src="/assets/images/lights-rooms-off-compact-light.webp" alt="" width="1644" height="3564" loading="lazy" /><img class="w-only-dark lt-off" src="/assets/images/lights-rooms-off-compact-dark.webp" alt="" width="1644" height="3564" loading="lazy" /><span class="hit hit--power"></span><span class="tap"></span></span></span><span class="stem"></span><span class="pad"></span><span class="chip"><i></i><span class="w-label">Luci</span><span class="st8 w-label" aria-hidden="true">Spente</span></span></button>
+                  <button class="dev dev--mon" type="button" data-part="water" aria-pressed="false" aria-label="Irrigazione, dal computer"><span class="body w-tablet"><span class="w-screen"><img class="w-only-light" src="/assets/images/home-overview-expanded-light.webp" alt="" width="3840" height="2400" loading="lazy" /><img class="w-only-dark" src="/assets/images/home-overview-expanded-dark.webp" alt="" width="3840" height="2400" loading="lazy" /><span class="hit hit--tile"></span><svg class="cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l15.5 11.2-6.6 1 3.6 7.2-3 1.5-3.5-7.3L5 20.3z"></path></svg></span></span><span class="stem"></span><span class="pad"></span><span class="chip"><i></i><span class="w-label">Irrigazione</span><span class="st8 w-label" aria-hidden="true">Ferma</span></span></button>
+                  <button class="dev dev--tab" type="button" data-part="cams" aria-pressed="false" aria-label="Telecamere, dal tablet"><span class="body w-tablet"><span class="w-screen"><img class="w-only-light" src="/assets/images/video-surveillance-house-no-frames-expanded-light.webp" alt="" width="3840" height="2400" loading="lazy" /><img class="w-only-dark" src="/assets/images/video-surveillance-house-no-frames-expanded-dark.webp" alt="" width="3840" height="2400" loading="lazy" /><span class="lid lid--1"></span><span class="lid lid--2"></span><span class="hit hit--cam1"></span><span class="hit hit--cam2"></span><span class="tap"></span></span></span><span class="stem"></span><span class="pad"></span><span class="chip"><i></i><span class="w-label">Telecamere</span><span class="st8 w-label" aria-hidden="true">Chiuse</span></span></button>
+                </div>
+                <div class="cabs">
+                  <ul class="cab cab--l">
+                    <li class="sy sy--hang" data-o="0"><a href="#luci"><span class="sy-box"><img src="/assets/images/sym-light.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Luci</span></a></li>
+                    <li class="sy" data-o="2"><a href="#tapparelle"><span class="sy-box"><img src="/assets/images/sym-covers.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Tapparelle</span></a></li>
+                    <li class="sy" data-o="4"><a href="/consumi/"><span class="sy-box"><img src="/assets/images/sym-energy.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Consumi</span></a></li>
+                    <li class="sy" data-o="6"><a href="#irrigazione"><span class="sy-box"><img src="/assets/images/sym-irrigation.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Irrigazione</span></a></li>
+                  </ul>
+                  <ul class="cab cab--r">
+                    <li class="sy sy--flat" data-o="1"><a href="#clima"><span class="sy-box"><img src="/assets/images/sym-climate.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Clima</span></a></li>
+                    <li class="sy sy--lit" data-o="3"><a href="#serrature"><span class="sy-box"><img src="/assets/images/sym-door.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Serrature</span></a></li>
+                    <li class="sy" data-o="5"><a href="/videosorveglianza/"><span class="sy-box"><img src="/assets/images/sym-camera.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Telecamere</span></a></li>
+                    <li class="sy" data-o="7"><a href="#allarme"><span class="sy-box"><img src="/assets/images/sym-alarm.png" alt="" width="160" height="160" /></span><span class="sy-label w-label">Allarme</span></a></li>
+                  </ul>
+                </div>
+                <div class="house">
+                  <svg class="house-sh" viewBox="0 0 717 484" aria-hidden="true"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur stdDeviation="9"></feGaussianBlur></filter></defs><polygon points="26,296 360,128 694,318 386,466" filter="url(#sh)"></polygon></svg>
+                  <canvas width="717" height="484" role="img" aria-label="La casa Dymora vista dall'alto"><img src="/assets/house/device_house_still_light.webp" alt="La casa Dymora vista dall'alto" width="717" height="484" /></canvas>
+                  <span class="house-hit"></span>
+                </div>
+                <img class="hub" src="/assets/images/sym-hub.png" alt="Il Dymora Hub" width="512" height="432" />
+              </div>
+              <div class="foot"><p class="foot-service w-note">Con progettazione, installazione, configurazione e assistenza di Dymora.</p><p class="foot-note w-note w-muted">Immagini dimostrative.</p><span class="pager" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div>
+            </section>
+          </div>
+          <div class="frasi"><p class="frase">Sembra complicato?</p><p class="frase">Facile e accessibile a tutti.</p><h2 class="frase">La tua <span class="w-accent">casa</span>. In una sola app.</h2></div>
+          <p class="guide w-subtitle">Prova tu.</p><span class="rail"><i></i></span>
+        </div>
+      </div>
+      <div class="dock"><a class="w-cta w-button" href="#contatti">Richiedi una consulenza</a></div>
+    </div>
+  </div>
+</div>
+<script src="/assets/js/home.js" defer></script>

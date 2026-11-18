@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+<BaseLayout title="Cookie — Dymora" description="Il sito non usa cookie, analytics o contenuti caricati da terze parti.">
+<SiteHeader />
+<main class="legal-page">
+  <h1 class="w-title">Cookie e tecnologie simili</h1>
+  <p class="w-note w-muted">Ultimo aggiornamento: 12 ottobre 2026</p>
+<section id="cookie-tecnici">
+      <h2>Cookie sul sito</h2>
+      <p>Il sito dymora.eu <strong>non imposta cookie</strong> e non salva informazioni sul tuo dispositivo (non usa n&eacute; <em>localStorage</em> n&eacute; tecnologie simili).</p>
+      <p>Il sito &egrave; ospitato su <strong>GitHub Pages</strong>, servizio di GitHub, Inc. (Stati Uniti). Per consegnare le pagine e proteggerle, GitHub tratta dati tecnici come l&rsquo;indirizzo IP, senza salvare cookie sul tuo dispositivo. I dettagli sono nell&rsquo;<a class="inline" href="/privacy/">informativa sulla privacy</a>.</p>
+    </section>
+
+    <section id="terze-parti">
+      <h2>Contenuti di terze parti</h2>
+      <p>Font, immagini e script sono serviti dallo stesso dominio dymora.eu: durante la navigazione il browser non contatta servizi di terze parti. Non sono presenti video incorporati, mappe, pulsanti social o pubblicit&agrave;.</p>
+      <p>I link agli indirizzi email aprono il tuo programma di posta: il messaggio che decidi di inviare ci arriva tramite Google Workspace, come descritto nell&rsquo;informativa sulla privacy.</p>
+    </section>
+
+    <section id="analytics">
+      <h2>Statistiche</h2>
+      <p>Non usiamo servizi di analisi n&eacute; strumenti che tracciano la tua navigazione. Per sapere come il sito compare nei risultati di ricerca usiamo Google Search Console, che non installa nulla sul sito e non raccoglie dati sui visitatori. Se in futuro attivassimo uno strumento di analisi, aggiorneremo prima questa pagina.</p>
+    </section>
+
+    <section id="banner">
+      <h2>Perch&eacute; non vedi un banner</h2>
+      <p>Non essendoci cookie o strumenti di tracciamento, non serve un banner di consenso. Se la configurazione del sito cambier&agrave;, valuteremo gli obblighi applicabili prima di pubblicarla.</p>
+    </section>
+
+    <section id="contatti">
+      <h2>Contatti</h2>
+      <p>Per domande su cookie e privacy scrivi a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a>. Il titolare del trattamento &egrave; Alberto Citi, Via Giovanni Paolo II 21b, 57023 Cecina (LI), P.IVA 02100310495.</p>
+    </section>
+</main>
+<SiteFooter />
+</BaseLayout>
