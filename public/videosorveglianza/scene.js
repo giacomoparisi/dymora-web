@@ -90,7 +90,7 @@ const person=new THREE.Group();world.add(person);const personMat=mat(0x303332);
 sphere(0,1.51,0,.145,.18,.145,personMat,person);sphere(0,1.08,0,.22,.35,.13,personMat,person);rod([0,1.2,0],[0,1.39,0],.065,personMat,person);
 const limbs=[];for(const x of [-.13,.13]){const pivot=new THREE.Group();pivot.position.set(x,.87,0);person.add(pivot);rod([0,0,0],[0,-.71,.01],.078,personMat,pivot);sphere(0,-.72,.065,.085,.06,.145,personMat,pivot);limbs.push(pivot);}
 for(const x of [-.25,.25]){const pivot=new THREE.Group();pivot.position.set(x,1.28,0);person.add(pivot);rod([0,0,0],[0,-.52,.025],.057,personMat,pivot);limbs.push(pivot);}
-const ringMat=new THREE.MeshBasicMaterial({color:0x19734b,transparent:true,opacity:.7,side:THREE.DoubleSide,depthWrite:false});const ring=new THREE.Mesh(new THREE.RingGeometry(.45,.465,64),ringMat);ring.rotation.x=-Math.PI/2;ring.position.y=.18;world.add(ring);
+const ringMat=new THREE.MeshBasicMaterial({color:0x208850,transparent:true,opacity:.7,side:THREE.DoubleSide,depthWrite:false});const ring=new THREE.Mesh(new THREE.RingGeometry(.45,.465,64),ringMat);ring.rotation.x=-Math.PI/2;ring.position.y=.18;world.add(ring);
 const label=document.getElementById('object-label');let lastP=0,lastPhase=0,lastReduced=false;
 function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);const view=innerWidth<701?17.7:16.3;camera.left=-view*w/h/2;camera.right=view*w/h/2;camera.top=view/2;camera.bottom=-view/2;camera.updateProjectionMatrix();render(lastP,lastPhase,lastReduced);}
 function render(p,phase,reduced){lastP=p;lastPhase=phase;lastReduced=reduced;const angle=.66+(reduced?0:Math.sin(p*Math.PI)*.1);camera.position.set(Math.sin(angle)*17,12.5,Math.cos(angle)*17);camera.lookAt(target);
@@ -98,7 +98,7 @@ const catT=THREE.MathUtils.clamp((p-.3)/.35,0,1), humanT=THREE.MathUtils.clamp((
 cat.visible=phase===1;person.visible=phase===2;ring.visible=phase>0;
 cat.position.set(3.75-catT*3,.17,3.2);cat.rotation.y=Math.PI;catLegs.forEach((leg,i)=>leg.rotation.z=reduced?0:Math.sin(catT*26+i%2*Math.PI)*.22);
 person.position.set(4.1-humanT*2.1,.17,3.45);person.rotation.y=-Math.PI/2;limbs.forEach((limb,i)=>limb.rotation.x=reduced?0:Math.sin(humanT*18+(i%2)*Math.PI)*(i<2?.42:.32));
-const color=phase===1?0x269263:phase===2?0xcd4141:0x707873;footprintMat.color.setHex(color);beamMat.color.setHex(color);beamLineMat.color.setHex(color);ringMat.color.setHex(color);footprintMat.opacity=phase?.13:.065;beamMat.opacity=phase?.045:.018;beamLineMat.opacity=phase?.45:.15;
+const color=phase===1?0x208850:phase===2?0xd43e0a:0x707873;footprintMat.color.setHex(color);beamMat.color.setHex(color);beamLineMat.color.setHex(color);ringMat.color.setHex(color);footprintMat.opacity=phase?.13:.065;beamMat.opacity=phase?.045:.018;beamLineMat.opacity=phase?.45:.15;
 const entity=phase===1?cat:person;ring.position.x=entity.position.x;ring.position.z=entity.position.z;label.classList.toggle('visible',Boolean(phase));label.dataset.kind=phase===1?'cat':'human';label.textContent=phase===1?'GATTO · IGNORATO':'PERSONA · ALLARME';
 scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);if(phase){const pos=entity.position.clone();pos.y+=phase===1?.9:1.9;pos.project(camera);if(objectLabelRule){objectLabelRule.style.left=(host.offsetLeft+(pos.x*.5+.5)*host.clientWidth)+'px';objectLabelRule.style.top=(host.offsetTop+(-pos.y*.5+.5)*host.clientHeight)+'px';}}
 renderer.render(scene,camera);}

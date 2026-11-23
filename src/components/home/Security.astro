@@ -1,0 +1,52 @@
+---
+// Brochure page `security` (`security.caption`, `feature.alarm`, `feature.locks`), panna:
+// the phone with the alarm notification, two alarm sensors, then the front door with its lock
+// and the app's access card. Scenes from dymora-app art/; the access card is the brochure piece.
+import Band from '../Band.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+import DeviceTile from '../DeviceTile.astro';
+---
+<Band tone="paper" class="security" labelledby="security-title" innerClass="security__inner">
+  <div class="security__head">
+    <Headline id="security-title" size="l" text="Migliora la **sicurezza** della tua casa con Dymora." />
+    <Sprite name="phone_notification" layers="arrive>buzz!" play alt="Un telefono riceve la notifica dell'allarme" class="security__phone" />
+  </div>
+
+  <div class="security__block" id="allarme">
+    <div class="security__copy">
+      <Eyebrow text="Allarme" />
+      <Headline as="h3" size="m" text="Se scatta l'**allarme**, lo sai subito." />
+      <p class="w-lead w-muted">Inserisci e disinserisci l'allarme dall'app e ricevi una notifica sul telefono se scatta.</p>
+      <ul class="w-body points">
+        <li>Inserisci e disinserisci nelle modalità configurate.</li>
+        <li>Vedi i sensori zona per zona.</li>
+        <li>Ricevi una notifica in tempo reale se l'allarme scatta.</li>
+      </ul>
+    </div>
+    <div class="tile-row tile-row--2">
+      <DeviceTile id="sec-motion" sprite="alarm_motion_sensor" layers="detect_mounted!" play name="Movimento soggiorno" state="Movimento" />
+      <DeviceTile id="sec-window" sprite="alarm_french_window" layers="leaf!" play name="Portafinestra camera" state="Aperta" />
+    </div>
+  </div>
+
+  <div class="security__block security__block--locks" id="serrature">
+    <div class="security__copy">
+      <Eyebrow text="Serrature" />
+      <Headline as="h3" size="m" text="Gestisci e controlla lo stato delle tue **serrature**." />
+      <p class="w-lead w-muted">Dall'app gestisci serrature, cancelli e citofoni anche quando non sei in casa, mantenendo tutto sotto controllo.</p>
+      <ul class="w-body points">
+        <li>Blocchi o sblocchi la serratura e azioni cancelli o citofoni compatibili.</li>
+        <li>Vedi lo stato della serratura e, se ci sono i sensori, della porta e delle batterie.</li>
+        <li>Crei e cancelli codici di accesso, sulle serrature con tastierino.</li>
+      </ul>
+    </div>
+    <div class="security__lock">
+      <Sprite id="sec-door" name="lock_door" layers="" alt="La porta d'ingresso con la serratura smart" class="security__door" />
+      <button class="tag security__lock-btn" type="button" aria-pressed="false" aria-label="Serratura della porta d'ingresso" data-sprite-target="sec-door" data-sprite-layer="turn_closed>click_lock_closed!"><span class="is-on" aria-hidden="true">Bloccata</span><span class="is-off" aria-hidden="true">Sbloccata</span></button>
+      <img class="security__access" src="/assets/images/pieces/lock-access.webp" alt="La scheda Accessi della serratura nell'app Dymora" width="800" height="923" loading="lazy" />
+    </div>
+  </div>
+  <p class="w-note w-muted">Immagini dimostrative. Funzioni e rilevamenti dipendono dai dispositivi e dalla configurazione scelta.</p>
+</Band>

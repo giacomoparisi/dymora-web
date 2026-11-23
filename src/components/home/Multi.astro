@@ -1,0 +1,38 @@
+---
+// Brochure page 3 (`multi`): three buildings on carbon, the three devices on panna.
+// The title has no full stop: the sentence goes on in `line`, under the devices.
+// Montagna and Ufficio are the brochure placeholders until the real renders arrive
+// (scripts/app-assets.json, docs/PLAN-brochure.md decision 5).
+import Headline from '../Headline.astro';
+
+const buildings = [
+  { label: 'Casa', src: '/assets/images/edificio-casa.webp', w: 1200, h: 810 },
+  { label: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
+  { label: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
+];
+---
+<section class="multi" id="edifici" aria-labelledby="multi-title">
+  <div class="band band--ink">
+    <div class="band__inner multi__top">
+      <Headline id="multi-title" size="l" text="Gestisci tutte le tue proprietà nella **stessa applicazione**" />
+      <ul class="multi__buildings">
+        {buildings.map((b) => (
+          <li>
+            <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" />
+            <span class="tag">{b.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="band band--paper">
+    <div class="band__inner multi__bottom">
+      <div class="multi__devices" aria-hidden="true">
+        <div class="mdev mdev--laptop"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
+        <div class="mdev mdev--tablet"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
+        <div class="mdev mdev--phone"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
+      </div>
+      <p class="h-s multi__line">sul device che preferisci.</p>
+    </div>
+  </div>
+</section>

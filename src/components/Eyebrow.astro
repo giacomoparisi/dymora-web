@@ -1,0 +1,10 @@
+---
+// Orange square, then the label in Doto. `rule` draws the thin line after it.
+interface Props {
+  text: string;
+  rule?: boolean;
+  class?: string;
+}
+const { text, rule = false, class: className } = Astro.props;
+---
+<p class:list={['w-label', 'eyebrow', { 'eyebrow--rule': rule }, className]}>{text}</p>

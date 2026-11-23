@@ -1,31 +1,119 @@
 ---
+// /videosorveglianza/ in the brochure language. The three.js scene and its demo stay as they were
+// (site/decision.md): ids and classes read by /videosorveglianza/demo.js and scene.js are kept.
+// Texts from dymora-app design/marketing/copy/it.md: `feature.video` (eyebrow, title, line, web,
+// points), `faq.cameras.*`, `faq.platforms`, `cta`; the `24/7` metric as written on the site.
+// Camera frames: generated images of an invented house (store-screenshots/CAMERAS.md), boxes drawn here.
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import Band from '../../components/Band.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Headline from '../../components/Headline.astro';
+import '../../styles/features.css';
 import '../../styles/video.css';
+
+const cams = [
+  { kind: 'person', src: '/assets/images/cam-person.webp', label: 'Persona', alt: "Telecamera dell'ingresso: una persona sul vialetto" },
+  { kind: 'car', src: '/assets/images/cam-car.webp', label: 'Auto', alt: "Telecamera dell'ingresso: un'auto al cancello" },
+  { kind: 'animal', src: '/assets/images/cam-animal.webp', label: 'Animale', alt: "Telecamera dell'ingresso: un animale sul prato" },
+];
+const faq: [string, string][] = [
+  ['Posso tenere le telecamere che ho già?', 'Valutiamo le telecamere che hai e la loro compatibilità. Da lì progettiamo la soluzione, riutilizzando quelle compatibili.'],
+  ['Una persona rilevata è sempre un intruso?', 'No. Il sistema riconosce una persona, non le sue intenzioni.'],
+  ['Su quali dispositivi funziona?', "L'app è sviluppata per Android, iOS e computer. Sul computer funzionano anche diretta e registrazioni. Le notifiche arrivano sul telefono, non sul computer."],
+];
 ---
 <BaseLayout title="Videosorveglianza Dymora — Persone, veicoli e animali" description="Guardi le telecamere in diretta, rivedi eventi e registrazioni autorizzate e ricevi una notifica quando rilevano un evento." pageClass="video-page">
-<a class="skip" href="#potenzialita">Salta la dimostrazione</a>
-<nav class="nav" aria-label="Navigazione principale"><a class="brand" href="/" aria-label="Dymora — homepage"><img src="/assets/images/logo-word-ink.svg" alt="Dymora" width="119" height="17"></a><div class="nav-links"><a class="back" href="/#servizi">← Tutti i servizi</a><a href="#potenzialita">Come funziona</a><a class="contact" href="/#contatti">Parliamone <span aria-hidden="true">↗</span></a></div></nav>
+  <a class="vs-skip w-button" href="#potenzialita">Salta la dimostrazione</a>
+  <SiteHeader />
+  <main>
+    <section class="band band--paper vs-hero" id="demo" aria-labelledby="video-title">
+      <div class="vs-stage">
+        <div class="vs-intro">
+          <Eyebrow text="Telecamere" />
+          <Headline as="h1" id="video-title" size="m" text="L'**AI in locale** distingue persone, veicoli e animali." />
+          <p class="w-body w-muted">Guardi le telecamere in diretta, rivedi eventi e registrazioni autorizzate e ricevi una notifica quando rilevano un evento.</p>
+          <a class="w-cta w-button vs-explore" href="#potenzialita">Scopri cosa può fare</a>
+        </div>
+        <p class="w-label vs-scene-note">Scenario dimostrativo · Giardino di casa</p>
+        <div class="vs-scene">
+          <div class="scene-wrap" id="scene" role="img" aria-label="Modello 3D di una villa con due telecamere puntate verso il giardino. Usa i pulsanti sotto la scena per esplorare il rilevamento.">
+            <div class="fallback" aria-hidden="true"><svg viewBox="0 0 800 600" fill="none"><path d="m80 400 330-160 315 165-329 166z" fill="#ddd9d1"/><path d="m210 360 200-103 198 108-200 104z" fill="#fdfcf9"/><path d="M210 360V210l198 103v156z" fill="#d4d2cc"/><path d="M408 313 608 210v155L408 469z" fill="#eceae5"/><path d="m210 210 200-101 198 101-200 103z" fill="#fffefa"/><path d="M238 269v67l64 33v-67zm87 44v66l58 30v-66z" fill="#646461"/><path d="m439 327 140-71v79l-140 73z" fill="#777773"/><path id="fallback-beam" d="m440 347 181 88-189 78z" fill="#a5a9a4" fill-opacity=".2"/><g id="fallback-cat" display="none" fill="#333"><ellipse cx="505" cy="457" rx="19" ry="9"/><circle cx="523" cy="448" r="9"/><path d="m517 442 2-10 6 10 6-9-1 16M490 460v15h4v-15m17-2v17h4v-17"/><path d="M488 453q-19-3-13-20" fill="none" stroke="#333" stroke-width="5"/></g><g id="fallback-human" display="none" fill="#333"><circle cx="506" cy="400" r="9"/><rect x="498" y="413" width="17" height="32" rx="6"/><path d="m498 437-5 39h7l7-31 5 31h7l-5-39m-15-20-13 26 5 3 12-25m8-4 13 26-5 3-12-25"/></g><circle cx="440" cy="347" r="9" fill="#242424"/></svg></div>
+          </div>
+          <div class="object-label" id="object-label" aria-hidden="true"></div>
+          <div class="notification" id="notification" aria-hidden="true">
+            <div class="notification-top w-label"><span class="app-icon"><img src="/assets/images/logo-mark-white.svg" alt="" width="16" height="16" /></span><span>Dymora</span><time>adesso</time></div>
+            <strong class="w-body-strong">Persona rilevata in giardino</strong>
+            <p class="w-note">Telecamera esterna · Zona giardino</p>
+            <div class="notification-result w-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>Notifica inviata all’app</div>
+          </div>
+          <p class="static-note w-note">Anteprima semplificata. Esplora gli esempi con i pulsanti qui sotto.</p>
+        </div>
+        <button class="playback tag" id="playback" type="button" aria-label="Metti in pausa l’animazione" data-paused="false"><svg class="pause-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2h3v12H4zm5 0h3v12H9z"/></svg><svg class="play-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m4 2 10 6-10 6z"/></svg><span>Pausa animazione</span></button>
+        <div class="story-bottom">
+          <div class="caption" aria-live="polite" aria-atomic="true">
+            <div class="state w-label" id="state">SISTEMA ATTIVO</div>
+            <h2 class="h-s" id="caption-title">Tutto tranquillo. Anche per te.</h2>
+            <p class="w-note w-muted" id="caption-copy">Le telecamere osservano il giardino. L’IA analizza ciò che accade.</p>
+          </div>
+          <div class="steps" role="group" aria-label="Scegli una fase della dimostrazione">
+            <button class="step" type="button" data-phase="0" aria-pressed="true"><span class="w-label">01 / Osserva</span><strong class="w-note">Il tuo spazio, protetto</strong></button>
+            <button class="step" type="button" data-phase="1" aria-pressed="false"><span class="w-label">02 / Distingue</span><strong class="w-note">Un gatto. Nessun allarme.</strong></button>
+            <button class="step" type="button" data-phase="2" aria-pressed="false"><span class="w-label">03 / Ti avvisa</span><strong class="w-note">Una persona. Una notifica.</strong></button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<main>
-<section class="story" id="demo" aria-label="Dimostrazione della videosorveglianza intelligente">
-<div class="hero">
-  <div class="intro"><div class="eyebrow">Videosorveglianza intelligente</div><h1>L’AI in locale distingue <span>persone, veicoli e animali.</span></h1><p>Guardi le telecamere in diretta, rivedi eventi e registrazioni autorizzate e ricevi una notifica quando rilevano un evento.</p><a class="explore" href="#potenzialita">Scopri cosa può fare <span aria-hidden="true">↗</span></a></div>
-  <div class="scene-note"><div class="eyebrow">Intelligenza attiva. Sempre.</div><small>Scenario dimostrativo · Giardino di casa</small></div>
-  <div class="scene-wrap" id="scene" role="img" aria-label="Modello 3D di una villa con due telecamere puntate verso il giardino. Usa i pulsanti sotto la scena per esplorare il rilevamento.">
-    <div class="fallback" aria-hidden="true"><svg viewBox="0 0 800 600" fill="none"><path d="m80 400 330-160 315 165-329 166z" fill="#ddd9d1"/><path d="m210 360 200-103 198 108-200 104z" fill="#fdfcf9"/><path d="M210 360V210l198 103v156z" fill="#d4d2cc"/><path d="M408 313 608 210v155L408 469z" fill="#eceae5"/><path d="m210 210 200-101 198 101-200 103z" fill="#fffefa"/><path d="M238 269v67l64 33v-67zm87 44v66l58 30v-66z" fill="#646461"/><path d="m439 327 140-71v79l-140 73z" fill="#777773"/><path id="fallback-beam" d="m440 347 181 88-189 78z" fill="#a5a9a4" fill-opacity=".2"/><g id="fallback-cat" display="none" fill="#333"><ellipse cx="505" cy="457" rx="19" ry="9"/><circle cx="523" cy="448" r="9"/><path d="m517 442 2-10 6 10 6-9-1 16M490 460v15h4v-15m17-2v17h4v-17"/><path d="M488 453q-19-3-13-20" fill="none" stroke="#333" stroke-width="5"/></g><g id="fallback-human" display="none" fill="#333"><circle cx="506" cy="400" r="9"/><rect x="498" y="413" width="17" height="32" rx="6"/><path d="m498 437-5 39h7l7-31 5 31h7l-5-39m-15-20-13 26 5 3 12-25m8-4 13 26-5 3-12-25"/></g><circle cx="440" cy="347" r="9" fill="#242424"/></svg></div>
-  </div>
-  <div class="object-label" id="object-label" aria-hidden="true"></div>
-  <div class="notification" id="notification" aria-hidden="true"><div class="notification-top"><span class="app-icon">d</span><span>Dymora</span><time>adesso</time></div><strong>Persona rilevata in giardino</strong><p>Telecamera esterna · Zona giardino</p><div class="notification-result"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>Notifica inviata all’app</div></div>
-  <p class="static-note">Anteprima semplificata. Esplora gli esempi con i pulsanti qui sotto.</p>
-  <button class="playback" id="playback" type="button" aria-label="Metti in pausa l’animazione" data-paused="false"><svg class="pause-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2h3v12H4zm5 0h3v12H9z"/></svg><svg class="play-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="m4 2 10 6-10 6z"/></svg><span>Pausa animazione</span></button>
-  <div class="story-bottom"><div class="caption" aria-live="polite" aria-atomic="true"><div class="state" id="state">SISTEMA ATTIVO</div><h2 id="caption-title">Tutto tranquillo. Anche per te.</h2><p id="caption-copy">Le telecamere osservano il giardino. L’IA analizza ciò che accade.</p></div><div class="steps" role="group" aria-label="Scegli una fase della dimostrazione"><button class="step" data-phase="0" aria-pressed="true"><span>01 / OSSERVA</span><strong>Il tuo spazio, protetto</strong></button><button class="step" data-phase="1" aria-pressed="false"><span>02 / DISTINGUE</span><strong>Un gatto. Nessun allarme.</strong></button><button class="step" data-phase="2" aria-pressed="false"><span>03 / TI AVVISA</span><strong>Una persona. Una notifica.</strong></button></div></div>
-</div>
-</section>
-<section class="section" id="potenzialita"><div class="eyebrow">Meno rumore. Più consapevolezza.</div><div class="section-head"><h2>Non un altro video<br>da tenere d’occhio.</h2><p>Il movimento, da solo, non racconta tutto. Dymora usa l’intelligenza artificiale per distinguere persone, veicoli e animali e segnalarti gli eventi rilevanti. Senza chiederti di guardare continuamente uno schermo.</p></div><div class="features"><article class="feature"><span class="num">01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><circle cx="12" cy="10" r="3"/><path d="M7 18c0-6 10-6 10 0"/></svg><h3>Riconosce la differenza.</h3><p>Persone, veicoli, animali: l’IA distingue le entità inquadrate. Un passaggio del gatto può essere ignorato, mentre una persona nella zona sorvegliata può generare un allarme.</p></article><article class="feature"><span class="num">02</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 4h16v16H4zM8 1v6M16 17v6M1 16h6M17 8h6"/><path d="m9 12 2 2 4-4"/></svg><h3>Conta ciò che scegli tu.</h3><p>Definiamo insieme le aree da sorvegliare e le categorie da segnalare. Il rilevamento diventa utile quando rispecchia il tuo spazio e le tue esigenze, dalla casa all’attività.</p></article><article class="feature"><span class="num">03</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4m-4 14h4m-4-8 2 2 4-4"/></svg><h3>Ti raggiunge sull’app.</h3><p>Quando un evento soddisfa le regole impostate, ricevi una notifica in tempo reale. Apri Dymora e controlla la telecamera interessata, dalla stessa app con cui gestisci l’edificio.</p></article></div></section>
-<section class="peace"><div class="peace-inner"><div><div class="eyebrow">Tu vivi. Dymora osserva.</div><h2>La tranquillità<br>non va in pausa.</h2><p>A casa, al lavoro o lontano. Il sistema analizza i flussi video e ti avvisa quando serve. Noi seguiamo progettazione, configurazione e assistenza: un unico interlocutore, anche dopo l’installazione.</p></div><div class="metric"><div class="big">24/7</div><div class="metric-label">Analisi automatica · Notifiche sull’app</div><p class="fine">Funzioni e rilevamenti dipendono dalle telecamere e dalla configurazione scelta. Le notifiche richiedono sistema e connessione attivi e autorizzazioni abilitate sull’app.</p></div></div></section>
-<section class="section faq"><div class="eyebrow">Qualche dettaglio in più</div><h2>Chiaro, fin dall’inizio.</h2><details><summary>Devo controllare continuamente le telecamere?</summary><p>No. Il sistema analizza il video automaticamente e invia una notifica quando rileva un evento che corrisponde alle regole configurate. Puoi comunque aprire l’app e consultare le telecamere quando vuoi.</p></details><details><summary>Un animale fa scattare l’allarme?</summary><p>Non necessariamente. Nell’esempio il gatto viene riconosciuto e filtrato: nessun allarme e nessuna notifica. La persona, invece, rientra nella regola impostata per il giardino. Le categorie da segnalare vengono definite durante la configurazione.</p></details><details><summary>Una persona rilevata è sempre un intruso?</summary><p>No. L’IA classifica una presenza come persona: non ne determina le intenzioni. L’allarme dipende dalle regole dell’area sorvegliata. La notifica ti permette di verificare cosa sta succedendo nell’app.</p></details><details><summary>Posso tenere le telecamere che ho già?</summary><p>Valutiamo le telecamere che hai e la loro compatibilità. Da lì progettiamo la soluzione, riutilizzando quelle compatibili.</p></details></section>
-<section class="cta"><div><h2>Uno sguardo in più.<br>Un pensiero in meno.</h2><p>Raccontaci il tuo spazio. Al sistema giusto pensiamo noi.</p></div><a class="pill" href="/#contatti">Progettiamo la tua tranquillità <span aria-hidden="true">↗</span></a></section>
-</main><footer><a href="/">© Dymora · Un solo ecosistema.</a><div><a href="/#servizi">Tutti i servizi</a><a href="/privacy/">Privacy</a><a href="/support/">Supporto</a></div></footer>
-<script is:inline src="/videosorveglianza/demo.js" defer></script>
-<script is:inline type="module" src="/videosorveglianza/scene.js"></script>
+    <Band tone="ink" id="potenzialita" class="vs-web" labelledby="vs-web-title" innerClass="vs-web__inner">
+      <div class="vs-web__copy">
+        <Eyebrow text="Telecamere" rule />
+        <Headline id="vs-web-title" size="l" text="Il movimento da solo non racconta tutto." />
+        <p class="w-lead w-muted">Dymora riconosce persone, veicoli e animali, e può ignorare gli animali secondo le regole che scegliamo con te. Quando le telecamere rilevano un evento ricevi una notifica sul telefono. Guardi le telecamere in diretta e rivedi eventi e registrazioni autorizzate. Se hai già delle telecamere, valutiamo la compatibilità e riutilizziamo quelle compatibili.</p>
+        <ul class="w-body points">
+          <li>Guardi le telecamere in diretta e rivedi eventi e registrazioni autorizzate.</li>
+          <li>Il sistema riconosce persone, veicoli e animali e può ignorare gli animali, secondo le regole scelte.</li>
+          <li>Ricevi una notifica sul telefono quando le telecamere rilevano un evento.</li>
+        </ul>
+      </div>
+      <div class="vs-web__cams">
+        {cams.map((c) => (
+          <figure class:list={['cam', `cam--${c.kind}`]}>
+            <img src={c.src} alt={c.alt} width="960" height="542" loading="lazy" />
+            <span class="cam__box" aria-hidden="true"><span class="tag tag--hit">{c.label}</span></span>
+          </figure>
+        ))}
+        <p class="w-note w-muted">Immagini dimostrative.</p>
+      </div>
+    </Band>
+
+    <Band tone="paper" class="vs-faq" innerClass="vs-faq__inner">
+      <div class="vs-metric">
+        <p class="w-num-l">24/7</p>
+        <p class="w-label w-muted">Analisi automatica · Notifiche sull’app</p>
+        <p class="w-note w-muted">Funzioni e rilevamenti dipendono dalle telecamere e dalla configurazione scelta. Le notifiche richiedono sistema e connessione attivi e l'autorizzazione abilitata sull'app.</p>
+      </div>
+      <div class="faq__list">
+        {faq.map(([q, a]) => (
+          <details>
+            <summary class="w-body-strong">{q}</summary>
+            <p class="w-body w-muted">{a}</p>
+          </details>
+        ))}
+      </div>
+    </Band>
+
+    <Band tone="ink" class="vs-cta" labelledby="vs-cta-title" innerClass="vs-cta__inner">
+      <div class="vs-cta__copy">
+        <Eyebrow text="Consulenza" />
+        <Headline id="vs-cta-title" size="l" text="Raccontaci cosa vuoi **controllare**." />
+        <p class="w-lead w-muted">Ci dici cosa vuoi tenere sotto controllo e noi ti diciamo come si può fare.</p>
+      </div>
+      <a class="w-cta w-button" href="mailto:info@dymora.eu?subject=Richiesta%20di%20consulenza%20Videosorveglianza">Richiedi una consulenza</a>
+    </Band>
+  </main>
+  <SiteFooter />
+  <script is:inline src="/videosorveglianza/demo.js" defer></script>
+  <script is:inline type="module" src="/videosorveglianza/scene.js"></script>
 </BaseLayout>

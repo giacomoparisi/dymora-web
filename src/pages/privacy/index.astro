@@ -2,12 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
+import Band from '../../components/Band.astro';
+import PageHead from '../../components/PageHead.astro';
+import '../../styles/legal.css';
 ---
 <BaseLayout title="Privacy — Dymora" description="Resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 e del Codice Privacy.">
 <SiteHeader />
-<main class="legal-page">
-  <h1 class="w-title">Informativa sul trattamento dei dati personali</h1>
-  <p class="w-note w-muted">Ultimo aggiornamento: 12 ottobre 2026</p>
+<main>
+  <PageHead eyebrow="Privacy" title="Informativa sul trattamento dei dati personali" note="Ultimo aggiornamento: 12 ottobre 2026" />
+  <Band tone="paper" innerClass="legal-page">
 <section id="titolare">
       <h2>Titolare del trattamento e contatti</h2>
       <p>Il Titolare del trattamento dei dati personali &egrave; <strong>Alberto Citi</strong>, che svolge attivit&agrave; con il marchio &ldquo;Dymora&rdquo; (di seguito anche &ldquo;Dymora&rdquo;, &ldquo;noi&rdquo;).</p>
@@ -176,6 +179,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
       <h2>Modifiche all&rsquo;informativa</h2>
       <p>La presente informativa pu&ograve; essere aggiornata, anche in conseguenza di modifiche normative o dei servizi offerti. La versione vigente &egrave; sempre quella pubblicata, con indicazione della data di ultimo aggiornamento. Si invita a consultarla periodicamente.</p>
     </section>
+  </Band>
 </main>
 <SiteFooter />
 </BaseLayout>

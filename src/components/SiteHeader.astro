@@ -1,14 +1,14 @@
 ---
-interface Props { dark?: boolean }
-const { dark = false } = Astro.props;
-import ThemeToggle from './ThemeToggle.astro';
+// Brochure masthead: carbon, logo on the left, the cover eyebrow and the links on the right.
 ---
-<header class:list={['site-header', { 'site-header--dark': dark }]}>
-  <a href="/" aria-label="Dymora — homepage"><img src={dark ? '/assets/images/logo-word-white.svg' : '/assets/images/logo-word-ink.svg'} alt="Dymora" width="144" height="30" /></a>
-  <nav aria-label="Navigazione principale">
-    <a class="w-body-strong" href="/#funzioni">Funzioni</a>
-    <a class="w-body-strong" href="/#edifici">Più edifici</a>
-    <ThemeToggle />
-    <a class="w-cta w-button" href="mailto:info@dymora.eu">Contattaci</a>
-  </nav>
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="masthead__logo" href="/" aria-label="Dymora, pagina iniziale"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
+    <nav aria-label="Navigazione principale">
+      <span class="w-label masthead__kicker">Casa e piccole attività</span>
+      <a class="w-body-strong" href="/#panoramica">Funzioni</a>
+      <a class="w-body-strong" href="/#edifici">Più edifici</a>
+      <a class="w-cta w-button" href="/#contatti">Contattaci</a>
+    </nav>
+  </div>
 </header>

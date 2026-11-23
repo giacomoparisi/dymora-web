@@ -2,12 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
+import Band from '../../components/Band.astro';
+import PageHead from '../../components/PageHead.astro';
+import '../../styles/legal.css';
 ---
 <BaseLayout title="Cookie — Dymora" description="Il sito non usa cookie, analytics o contenuti caricati da terze parti.">
 <SiteHeader />
-<main class="legal-page">
-  <h1 class="w-title">Cookie e tecnologie simili</h1>
-  <p class="w-note w-muted">Ultimo aggiornamento: 12 ottobre 2026</p>
+<main>
+  <PageHead eyebrow="Cookie" title="Cookie e tecnologie simili" note="Ultimo aggiornamento: 12 ottobre 2026" />
+  <Band tone="paper" innerClass="legal-page">
 <section id="cookie-tecnici">
       <h2>Cookie sul sito</h2>
       <p>Il sito dymora.eu <strong>non imposta cookie</strong> e non salva informazioni sul tuo dispositivo (non usa n&eacute; <em>localStorage</em> n&eacute; tecnologie simili).</p>
@@ -34,6 +37,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
       <h2>Contatti</h2>
       <p>Per domande su cookie e privacy scrivi a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a>. Il titolare del trattamento &egrave; Alberto Citi, Via Giovanni Paolo II 21b, 57023 Cecina (LI), P.IVA 02100310495.</p>
     </section>
+  </Band>
 </main>
 <SiteFooter />
 </BaseLayout>

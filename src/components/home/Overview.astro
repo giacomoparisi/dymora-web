@@ -1,0 +1,51 @@
+---
+// Brochure page 2 (`overview`): the house with eight tags and their leaders on panna,
+// then the title and the eight functions on carbon. On the web each tag is a button
+// that plays its part of the house (sprites from dymora-app art/house).
+// Leader points: brochure decision.html, page `overview`, normalised on the house
+// (x − 2) / 206, (y − 31) / 139 mm. They point at the HouseElements of the app's Home legend.
+import Band from '../Band.astro';
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+
+const items = [
+  { id: 'clima', label: 'Clima', row: 'top', layer: 'climate_hp_fan_start_off>climate_hp_fan_run_off climate_hp_air_off climate_hp_led_off climate_ac_fan_start_off>climate_ac_fan_run_off climate_ac_air_off climate_ac_led_off' },
+  { id: 'allarme', label: 'Allarme', row: 'top', layer: 'alarm_armed_off' },
+  { id: 'consumi', label: 'Consumi', row: 'top', layer: 'grid_flow_off grid_light_off' },
+  { id: 'luci', label: 'Luci', row: 'top', layer: 'lit_off', on: true },
+  { id: 'irrigazione', label: 'Irrigazione', row: 'bot', layer: 'irrigation_on_off>irrigation_run_off', on: true },
+  { id: 'tapparelle', label: 'Tapparelle', row: 'bot', layer: 'shutters_down_off! awning_out_off!' },
+  { id: 'telecamere', label: 'Telecamere', row: 'bot', layer: 'camera_left_on_off>camera_left_scan_off camera_right_on_off>camera_right_scan_off' },
+  { id: 'serrature', label: 'Serrature', row: 'bot', layer: 'door_led_off!' },
+];
+// The app's draw order (art/house/brief.md): light, then curtains, shutters, awning, the rest.
+const order = 'lit_off shutters_down_off shutters_through_off awning_shade_off balustrade_off awning_out_off grid_light_off grid_flow_off irrigation_on_off irrigation_run_off camera_left_on_off camera_left_scan_off camera_right_on_off camera_right_scan_off climate_hp_air_off climate_hp_fan_start_off climate_hp_fan_run_off climate_hp_led_off climate_ac_air_off climate_ac_fan_start_off climate_ac_fan_run_off climate_ac_led_off alarm_armed_off door_led_off';
+const initial = ['balustrade_off', ...items.filter((i) => i.on).map((i) => i.layer)].join(' ');
+const functions = ['Luci', 'Allarme', 'Clima', 'Telecamere', 'Tapparelle', 'Consumi', 'Serrature', 'Irrigazione'];
+---
+<Band tone="paper" id="panoramica" class="overview" labelledby="overview-title">
+  <p class="w-label w-muted overview__hint" id="overview-hint">Prova tu: tocca un'etichetta.</p>
+  <div class="ov-stage">
+    <div class="ov-house">
+      <Sprite id="ov-house" name="house" variant="light" layers={initial} order={order} alt="La casa con luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione gestiti da Dymora" />
+      <div class="ov-items" role="group" aria-labelledby="overview-hint">
+        {items.map((item) => (
+          <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]}>
+            <span class="ov-lead" aria-hidden="true"></span>
+            <button class="tag ov-tag" type="button" aria-pressed={item.on ? 'true' : 'false'} data-sprite-target="ov-house" data-sprite-layer={item.layer}>{item.label}</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Band>
+<Band tone="ink" class="overview-text" labelledby="overview-title" innerClass="overview-text__inner">
+  <div class="overview-text__copy">
+    <Headline id="overview-title" size="l" text="**Controlla** la tua casa sotto ogni aspetto." />
+    <p class="w-lead">Con progettazione, installazione, configurazione e assistenza di Dymora.</p>
+    <p class="w-note w-muted">Funzioni e rilevamenti dipendono dai dispositivi e dalla configurazione scelta.</p>
+  </div>
+  <ul class="overview-list">
+    {functions.map((f) => <li><a class="w-label eyebrow" href={`#${f.toLowerCase()}`}>{f}</a></li>)}
+  </ul>
+</Band>

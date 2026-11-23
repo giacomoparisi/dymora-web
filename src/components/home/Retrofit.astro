@@ -1,0 +1,37 @@
+---
+// Brochure page `retrofit` (2026-11-22/23): the period house and the modern one on carbon,
+// a badge over each; on panna a block under each and the closing line, centred.
+import Headline from '../Headline.astro';
+---
+<section class="retrofit" id="ristrutturazioni" aria-labelledby="retrofit-title">
+  <div class="band band--ink">
+    <div class="band__inner retrofit__top">
+      <Headline id="retrofit-title" size="l" text="**Dymora si adatta** al tuo edificio." />
+      <div class="retrofit__pair">
+        <figure>
+          <span class="tag tag--accent">Senza ristrutturazione</span>
+          <img src="/assets/images/edificio-epoca.webp" alt="Un edificio d'epoca con l'impianto esistente" width="1600" height="1080" loading="lazy" />
+        </figure>
+        <figure>
+          <span class="tag tag--accent">Con ristrutturazione</span>
+          <img src="/assets/images/edificio-moderna.webp" alt="Una casa moderna con luci, tenda e irrigazione accese" width="1600" height="1080" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </div>
+  <div class="band band--paper">
+    <div class="band__inner retrofit__bottom">
+      <div class="retrofit__pair retrofit__pair--text">
+        <div>
+          <Headline as="h3" size="s" text="**Pronta in un giorno**, senza cantiere." />
+          <p class="w-body w-muted">Soluzioni poco invasive: niente opere murarie e nessun impianto elettrico da rifare.</p>
+        </div>
+        <div>
+          <Headline as="h3" size="s" text="**Pianificata con te**, in ogni dettaglio." />
+          <p class="w-body w-muted">Impianto progettato su misura durante la fase di ristrutturazione sulle tue esigenze.</p>
+        </div>
+      </div>
+      <Headline as="p" size="m" class="retrofit__close" text="Non c'è una soluzione unica. **C'è la tua.**" />
+    </div>
+  </div>
+</section>

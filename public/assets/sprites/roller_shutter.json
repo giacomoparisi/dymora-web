@@ -1,0 +1,1 @@
+{"name":"roller_shutter","scene":[312,486],"fps":24,"variants":{"light":{"still":"/assets/sprites/roller_shutter/still_light.webp","travel_frame":"/assets/sprites/roller_shutter/travel_frame_light.webp"}},"sheets":{"still":{"frames":1,"columns":1,"frame":[312,486],"offset":[0,0]},"travel_frame":{"frames":21,"columns":6,"frame":[215,387],"offset":[66,72]}},"anchors":{}}

@@ -1,0 +1,16 @@
+---
+// A full-width band: carbon (`ink`) or panna (`paper`), as the brochure alternates them.
+interface Props {
+  tone: 'ink' | 'paper';
+  id?: string;
+  labelledby?: string;
+  class?: string;
+  innerClass?: string;
+}
+const { tone, id, labelledby, class: className, innerClass } = Astro.props;
+---
+<section class:list={['band', `band--${tone}`, className]} id={id} aria-labelledby={labelledby}>
+  <div class:list={['band__inner', innerClass]}>
+    <slot />
+  </div>
+</section>

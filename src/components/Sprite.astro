@@ -1,0 +1,50 @@
+---
+// An animated device scene from dymora-app, played by /assets/js/sprite.js.
+// The still is a real <img>: it is what shows without JavaScript, before the sheets
+// load and to crawlers. Manifests come from scripts/sync-app-assets.py.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Props {
+  name: string;
+  variant?: 'light' | 'dark';
+  /** Tokens for data-layers: `sheet`, `sheet!`, `a>b`. See sprite.js. */
+  layers?: string;
+  /** Sheets in paint order, bottom to top (data-order). */
+  order?: string;
+  /** Play the starting layers in when the scene shows, instead of starting at rest. */
+  play?: boolean;
+  /** Empty when the scene is decorative and the text around it says the same. */
+  alt: string;
+  id?: string;
+  class?: string;
+}
+
+const { name, variant = 'light', layers = '', order, play = false, alt, id, class: className } = Astro.props;
+const spec = JSON.parse(readFileSync(join(process.cwd(), 'public/assets/sprites', `${name}.json`), 'utf-8'));
+const files = spec.variants[variant] ?? Object.values(spec.variants)[0];
+if (!files) throw new Error(`Sprite ${name}: no variant ${variant}`);
+for (const token of layers.split(/\s+/).filter(Boolean)) {
+  for (const sheet of token.replace(/!$/, '').split('>')) {
+    if (!spec.sheets[sheet]) throw new Error(`Sprite ${name}: unknown sheet "${sheet}" in layers`);
+  }
+}
+for (const sheet of (order ?? '').split(/\s+/).filter(Boolean)) {
+  if (!spec.sheets[sheet]) throw new Error(`Sprite ${name}: unknown sheet "${sheet}" in order`);
+}
+const [width, height] = spec.scene;
+---
+<div
+  class:list={['sprite', className]}
+  id={id}
+  data-sprite={name}
+  data-variant={variant}
+  data-layers={layers}
+  data-order={order}
+  data-play={play ? '' : undefined}
+  role={alt ? 'img' : undefined}
+  aria-label={alt || undefined}
+>
+  <img src={files.still} alt="" width={width} height={height} loading="lazy" decoding="async" />
+  <canvas width={width} height={height} aria-hidden="true"></canvas>
+</div>

@@ -1,14 +1,32 @@
-.energy-page{background:var(--c-surface-muted);color:var(--c-on-background)}
-.energy-page .w-accent{color:var(--c-secondary-text)}
-.energy-page .w-cta{background:var(--c-secondary-button)}
-.energy-hero,.energy-explain,.energy-detail{background:var(--c-surface-muted)}
-.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{width:var(--content);margin:auto;padding-block:var(--w-air);display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:clamp(38px,7vw,120px);align-items:center}
-.energy-copy{display:grid;gap:24px;align-content:center;min-width:0}.energy-copy .w-cta{justify-self:start}.energy-copy .w-body{color:var(--c-on-background-variant)}
-.energy-stage,.energy-detail__media{display:grid;gap:14px;min-width:0}.energy-stage figcaption,.energy-detail__media figcaption,.energy-phone figcaption{color:var(--c-on-background-variant)}
-.energy-explain{border-top:1px solid var(--c-outline)}.energy-explain__inner{grid-template-columns:minmax(0,1fr) minmax(240px,.45fr)}
-.energy-phone{width:min(330px,74vw);justify-self:center;display:grid;gap:14px}.energy-phone .device{box-shadow:0 24px 55px var(--c-shadow)}
-.energy-points{background:var(--c-primary);color:var(--c-on-primary)}.energy-points__inner{width:var(--content);margin:auto;padding-block:var(--w-air);display:grid;gap:60px}.energy-points__intro{max-width:900px;display:grid;gap:22px}.energy-points ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,5vw,72px)}.energy-points li{display:grid;gap:18px;border-top:1px solid #ffffff3d;padding-top:22px}.energy-points p{color:var(--c-on-primary-muted)}
-.energy-detail__inner{grid-template-columns:minmax(280px,.65fr) minmax(0,1.35fr)}
-.energy-cta{width:var(--content);margin:auto;padding-block:var(--w-air);display:flex;justify-content:space-between;align-items:end;gap:40px}.energy-cta>div{display:grid;gap:20px;max-width:850px}
-@media(max-width:900px){.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{grid-template-columns:minmax(0,1fr)}.energy-explain__inner .energy-copy{order:0}.energy-phone{order:1}.energy-points ol{grid-template-columns:1fr}.energy-cta{align-items:flex-start;flex-direction:column}}
-@media(max-width:560px){.energy-hero__inner,.energy-explain__inner,.energy-detail__inner{gap:34px}.energy-stage .device,.energy-detail__media .device{border-width:5px;border-radius:14px}.energy-cta .w-cta{width:100%}}
+/* /consumi/ — bands, eyebrows, tags and tiles in bands.css and features.css. */
+
+/* Hero, carbon: copy and the app's house with its power badges */
+.en-hero__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px) clamp(28px,5vw,80px);align-items:center;padding-block:clamp(56px,7vw,110px)}
+.en-hero__copy{display:grid;gap:clamp(16px,2vw,26px);align-content:center}
+.en-hero__copy .w-cta{justify-self:start}
+.en-hero__house{width:min(100%,680px);justify-self:center}
+.en-hero__note{grid-column:1/-1}
+
+/* The web text, panna: why one appliance at a time, two app scenes */
+.en-web__inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
+.en-web__copy{display:grid;gap:clamp(16px,2vw,24px)}
+.en-web__copy .w-body{max-width:62ch}
+
+/* Points, carbon, with the pie */
+.en-points__inner{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,80px);align-items:center}
+.en-points__copy{display:grid;gap:clamp(20px,3vw,36px)}
+.en-points__list li{padding-block:clamp(14px,1.6vw,22px)}
+.en-points__list li::before{top:calc(clamp(14px,1.6vw,22px) + .55em)}
+.en-points__pie{width:min(100%,400px);justify-self:center}
+
+/* Consultation, panna */
+.en-cta__inner{display:flex;justify-content:space-between;align-items:end;gap:clamp(24px,4vw,60px)}
+.en-cta__copy{display:grid;gap:clamp(14px,1.8vw,22px);max-width:860px}
+
+@media(max-width:900px){
+  .en-hero__inner,.en-web__inner,.en-points__inner{grid-template-columns:1fr}
+  .en-cta__inner{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:560px){
+  .en-cta .w-cta{width:100%}
+}

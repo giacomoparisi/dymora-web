@@ -1,0 +1,20 @@
+---
+// Brochure last page (`closing`) with the site's `cta`: carbon, the cascade, the hub, mail only
+// (decision 3: no phone on the site). `#contatti` is the brochure QR target: keep it.
+import Headline from '../Headline.astro';
+---
+<section class="closing band band--ink" id="contatti" aria-labelledby="closing-title">
+  <img class="closing__cascade" src="/assets/images/cascata-retro.svg" alt="" width="1200" height="800" loading="lazy" />
+  <div class="band__inner closing__inner">
+    <div class="closing__copy">
+      <img class="closing__word" src="/assets/images/logo-word-white.svg" alt="" width="144" height="30" />
+      <Headline id="closing-title" size="xl" text="Raccontaci di cosa hai bisogno." />
+      <p class="w-lead w-muted">Ci dici cosa vuoi tenere sotto controllo e noi ti diciamo come si può fare.</p>
+      <div class="closing__actions">
+        <a class="w-cta w-button" href="mailto:info@dymora.eu?subject=Richiesta%20di%20consulenza">Richiedi una consulenza</a>
+        <a class="h-s closing__mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
+      </div>
+    </div>
+    <img class="closing__hub" src="/assets/images/hub.webp" alt="L'hub Dymora" width="1200" height="987" loading="lazy" />
+  </div>
+</section>

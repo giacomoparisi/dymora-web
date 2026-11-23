@@ -17,7 +17,7 @@
     const next = p < .3 ? 0 : p < .65 ? 1 : 2;
     if (next !== phase) {
       phase = next;
-      document.getElementById('fallback-beam').setAttribute('fill',['#a5a9a4','#269263','#cd4141'][next]);
+      document.getElementById('fallback-beam').setAttribute('fill',['#a5a9a4','#208850','#d43e0a'][next]);
       document.getElementById('fallback-cat').setAttribute('display',next===1?'inline':'none');
       document.getElementById('fallback-human').setAttribute('display',next===2?'inline':'none');
       document.getElementById('state').textContent = states[next][0];

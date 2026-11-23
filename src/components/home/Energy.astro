@@ -1,0 +1,48 @@
+---
+// Brochure page `energy` (`feature.energy`), all carbon: the house with its power badges and the pie
+// are the app's own pieces (brochure build, store render); the three devices are the app's
+// energy tiles rebuilt with their animated scenes. Figures are the demo home's, as in the
+// store render energy-current-page-iphone-tall-dark-it: demonstrative images.
+import Band from '../Band.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Headline from '../Headline.astro';
+import DeviceTile from '../DeviceTile.astro';
+
+const devices = [
+  { id: 'en-hob', sprite: 'induction_hob', layers: 'switch_on_idle! steam_in_idle>steam_loop_idle', name: 'Piano a induzione', power: '760 W', state: 'In uso', tone: 'on', kwh: '18,9', share: 31, bar: 'peach' },
+  { id: 'en-hp', sprite: 'heat_pump', layers: 'start_base>running_base', name: 'Pompa di calore', power: '520 W', state: 'In uso', tone: 'on', kwh: '11,2', share: 18, bar: 'mint' },
+  { id: 'en-dw', sprite: 'dishwasher', layers: '', name: 'Lavastoviglie', power: '0 W', state: 'A riposo', tone: 'off', kwh: '4,2', share: 7, bar: 'lilac' },
+];
+---
+<Band tone="ink" id="consumi" class="energy" labelledby="energy-title" innerClass="energy__inner">
+  <div class="energy__copy">
+    <Eyebrow text="Consumi" />
+    <Headline id="energy-title" size="l" text="Controlla i **consumi** degli apparecchi." />
+    <p class="w-lead w-muted">Rivedi lo storico di tutti i consumi dell'edificio: Dymora analizza per te gli sprechi e trova le inefficienze, permettendoti di risparmiare soldi in bolletta.</p>
+    <ul class="w-body points">
+      <li>Vedi quanta potenza sta usando adesso ogni apparecchio monitorato.</li>
+      <li>I dati sono misurati se c'è un contatore, stimati dalla potenza se non c'è.</li>
+      <li>Accendi e spegni dall'app le prese intelligenti configurate.</li>
+    </ul>
+    <a class="w-cta w-button" href="/consumi/">Scopri i consumi</a>
+  </div>
+  <figure class="energy__house">
+    <img src="/assets/images/pieces/energy-house.webp" alt="La casa nell'app Dymora con la potenza in uso di ogni apparecchio" width="1200" height="1031" loading="lazy" />
+  </figure>
+  <figure class="energy__pie">
+    <img src="/assets/images/pieces/energy-pie.webp" alt="La ripartizione dei consumi per apparecchio nell'app Dymora" width="800" height="1227" loading="lazy" />
+  </figure>
+  <div class="energy__devices">
+    <Eyebrow text="Ogni apparecchio" rule />
+    <div class="tile-row tile-row--3">
+      {devices.map((d) => (
+        <DeviceTile id={d.id} sprite={d.sprite} variant="dark" layers={d.layers} play name={d.name} meta={d.power} state={d.state} stateTone={d.tone as 'on' | 'off'}>
+          <p class="energy-kwh"><span class="tile__value">{d.kwh}</span> kWh</p>
+          <span class:list={['energy-bar', `energy-bar--${d.bar}`, `energy-bar--${d.share}`]} aria-hidden="true"></span>
+          <p class="w-note energy-share"><span>nel periodo</span><span>{d.share} %</span></p>
+        </DeviceTile>
+      ))}
+    </div>
+    <p class="w-note w-muted">Immagini dimostrative.</p>
+  </div>
+</Band>
