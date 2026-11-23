@@ -16,6 +16,9 @@
  *   sheet        a still patch, or a loop when the sheet has more than one frame
  *   sheet!       plays once and holds the last frame
  *   a>b          plays a once, then b (looping if b has frames)
+ *   a>b~N        as a>b, but b loops ping-pong (forward then reversed) entering at
+ *                frame N (0-based, default 0); ~-N enters at N going backwards.
+ *                Removed, it runs on to its next pass through N, then a reversed.
  * Removing a `sheet!` or `a>b` token plays its first clip backwards before it goes:
  * the part switches off the way it switched on. A loop just stops.
  *
@@ -110,8 +113,21 @@
   };
 
   Scene.prototype.sheetsOf = function (token) {
-    return token.replace(/!$/, "").split(">");
+    return token.replace(/!$/, "").replace(/~-?\d*$/, "").split(">");
   };
+
+  /* `~N` / `~-N` at the end of a token: the last sheet loops ping-pong. */
+  function bounceOf(token) {
+    var m = /~(-?)(\d*)$/.exec(token);
+    return m ? { at: parseInt(m[2] || "0", 10), back: m[1] === "-" } : null;
+  }
+
+  /* Position in the ping-pong cycle (0 … 2n-3) of frame f counted from the loop's start. */
+  function bouncePos(b, n, f) {
+    var p = Math.max(1, 2 * n - 2);
+    var off = b.back && b.at > 0 ? p - b.at : b.at;
+    return (f + off) % p;
+  }
 
   Scene.prototype.frames = function (sheet) {
     return this.spec.sheets[sheet] ? this.spec.sheets[sheet].frames : 1;
@@ -127,7 +143,19 @@
     this.layers.forEach(function (l) {
       if (l.gone || tokens.indexOf(l.token) !== -1) return;
       var held = l.once || l.seq.length > 1;
-      if (held && !reduced.matches && !l.pending) {
+      if (l.bounce && l.seq.length > 1 && l.step === l.seq.length - 1 && !reduced.matches && !l.pending) {
+        // Ping-pong loop: run on to the next pass through the entry frame, where the first clip ends.
+        var bn = self.frames(l.seq[l.step]);
+        var p = Math.max(1, 2 * bn - 2);
+        var fNow = Math.floor((now - l.t0) * FPS / 1000);
+        var c = bouncePos(l.bounce, bn, fNow);
+        var wait = p;
+        [l.bounce.at, p - l.bounce.at].forEach(function (target) {
+          var w = ((target % p) - c + p) % p;
+          if (w < wait) wait = w;
+        });
+        l.exitAt = fNow + wait; l.gone = true;
+      } else if (held && !reduced.matches && !l.pending) {
         // Still inside the first clip: turn back from the frame on screen, no jump.
         var n = self.frames(l.seq[0]);
         var back = 0;
@@ -144,7 +172,7 @@
       if (existing && !existing.gone) return;
       if (existing) self.layers.splice(self.layers.indexOf(existing), 1);
       var seq = self.sheetsOf(t);
-      var layer = { token: t, seq: seq, once: /!$/.test(t), step: 0, t0: now, reverse: false, gone: false, pending: true };
+      var layer = { token: t, seq: seq, once: /!$/.test(t), bounce: bounceOf(t), step: 0, t0: now, reverse: false, gone: false, pending: true };
       // A layer whose sheets are in flight joins when they arrive.
       Promise.all(seq.map(function (s) { return self.image(s); })).then(function () {
         layer.pending = false;
@@ -190,6 +218,16 @@
         continue;
       }
       if (l.once || n === 1) return { sheet: sheet, i: Math.min(f, n - 1) };
+      if (l.exitAt != null && f >= l.exitAt) {
+        // Back at the entry frame: the first clip plays out backwards from there.
+        l.t0 += l.exitAt * 1000 / FPS; l.exitAt = null;
+        l.seq = [l.seq[0]]; l.step = 0; l.reverse = true;
+        continue;
+      }
+      if (l.bounce) {
+        var pos = bouncePos(l.bounce, n, f);
+        return { sheet: sheet, i: pos < n ? pos : 2 * n - 2 - pos };
+      }
       return { sheet: sheet, i: f % n };
     }
   };

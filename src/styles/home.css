@@ -2,7 +2,6 @@
 
 /* 2 — Overview: the house with tags and leaders */
 .overview .band__inner{padding-block:clamp(36px,5vw,72px) clamp(28px,4vw,56px)}
-.overview__hint{text-align:center;margin-bottom:clamp(8px,1.5vw,18px)}
 .ov-stage{container-type:inline-size;width:min(100%,1080px);margin:auto}
 .ov-house{--row:8.5cqw;position:relative;margin-block:var(--row)}
 .ov-items{position:absolute;inset:0}
@@ -16,9 +15,10 @@
 .ov-tag{position:absolute;left:var(--x);transform:translateX(-50%);font-size:clamp(10px,1.75cqw,15px)}
 .ov-item--top .ov-tag{top:calc(-1 * var(--row))}
 .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row))}
-.ov-tag:hover{box-shadow:0 0 0 2px var(--c-secondary-button)}
-.ov-item:has(.ov-tag[aria-pressed="true"]) .ov-lead{border-color:var(--c-secondary-button)}
-.ov-item:has(.ov-tag[aria-pressed="true"]) .ov-lead::after{background:var(--c-secondary-button)}
+.ov-tag,.ov-lead,.ov-lead::after{transition:background-color .35s,border-color .35s,color .35s}
+.ov-item.is-active .ov-tag{background:var(--c-secondary-button);color:var(--c-on-secondary)}
+.ov-item.is-active .ov-lead{border-color:var(--c-secondary-button)}
+.ov-item.is-active .ov-lead::after{background:var(--c-secondary-button)}
 .ov-i--clima{--x:38.54%;--y:32.01%}
 .ov-i--allarme{--x:47.57%;--y:31.22%}
 .ov-i--consumi{--x:63.50%;--y:25.83%}
@@ -40,6 +40,29 @@
 .overview-list li{border-top:1px solid #ffffff36}
 .overview-list a{padding:18px 0;color:var(--c-on-primary);transition:color .2s}
 .overview-list a:hover{color:var(--c-secondary)}
+/* Wide desktop: house on panna and text on carbon side by side, edges aligned to --content */
+@media(min-width:1280px){
+  .overview-split{--edge:max(var(--w-gutter),(100vw - 1440px) / 2);display:grid;grid-template-columns:minmax(0,1fr) min(45%,100% - 760px)}
+  .overview-split>.band{display:flex;flex-direction:column;justify-content:center}
+  .overview-split .band__inner{width:auto;margin:0}
+  .overview .band__inner{padding-inline:var(--edge) clamp(28px,3vw,56px);padding-block:clamp(20px,3svh,40px)}
+  /* The house, tags included, sits well inside the screen height: 0.845 = (484/717 + 2 × 0.085).
+     Over 640px the stage keeps the tags on their leaders (container query above). */
+  .overview .ov-stage{width:min(100%,clamp(660px,(100svh - 240px) / .845,760px))}
+  .overview-split{min-height:min(100svh,1100px)}
+  .overview-text .band__inner{padding-inline:clamp(40px,4vw,72px) var(--edge);padding-block:clamp(32px,5svh,72px)}
+  .overview-text .h-l{font-size:min(clamp(2.2rem,5.2vw,4.6rem),7.5svh)}
+  .overview-text .w-lead{font-size:min(clamp(1.15rem,1.8vw,1.7rem),3.2svh)}
+  .overview-list a{padding-block:min(18px,1.8svh)}
+  .overview-text__inner{grid-template-columns:1fr;gap:clamp(28px,3vw,44px)}
+  /* Narrower house: smaller tags, and the two crowded middle ones step towards the house */
+  .overview .ov-tag{font-size:clamp(10px,1.4cqw,14px)}
+  .ov-i--allarme,.ov-i--telecamere{--lift:4.2cqw}
+  .ov-item--top .ov-tag{top:calc(-1 * var(--row) + var(--lift,0px))}
+  .ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em + var(--lift,0px));height:calc(var(--y) + var(--row) - 1em - var(--lift,0px))}
+  .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row) + var(--lift,0px))}
+  .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
+}
 
 /* 3 — Multi */
 .multi__top{display:grid;gap:clamp(32px,5vw,70px);padding-bottom:clamp(36px,5vw,64px)}

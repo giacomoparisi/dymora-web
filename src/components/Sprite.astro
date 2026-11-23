@@ -8,7 +8,7 @@ import { join } from 'node:path';
 interface Props {
   name: string;
   variant?: 'light' | 'dark';
-  /** Tokens for data-layers: `sheet`, `sheet!`, `a>b`. See sprite.js. */
+  /** Tokens for data-layers: `sheet`, `sheet!`, `a>b`, `a>b~N`. See sprite.js. */
   layers?: string;
   /** Sheets in paint order, bottom to top (data-order). */
   order?: string;
@@ -25,7 +25,7 @@ const spec = JSON.parse(readFileSync(join(process.cwd(), 'public/assets/sprites'
 const files = spec.variants[variant] ?? Object.values(spec.variants)[0];
 if (!files) throw new Error(`Sprite ${name}: no variant ${variant}`);
 for (const token of layers.split(/\s+/).filter(Boolean)) {
-  for (const sheet of token.replace(/!$/, '').split('>')) {
+  for (const sheet of token.replace(/!$/, '').replace(/~-?\d*$/, '').split('>')) {
     if (!spec.sheets[sheet]) throw new Error(`Sprite ${name}: unknown sheet "${sheet}" in layers`);
   }
 }
