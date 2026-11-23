@@ -1,5 +1,6 @@
 ---
 // Brochure page 3 (`multi`): three buildings on carbon, the three devices on panna.
+// Web layout: one carbon section, buildings and devices standing bare on it.
 // The title has no full stop: the sentence goes on in `line`, under the devices.
 // The brochure's orange comb joins the buildings to the devices: on the web it is drawn
 // one building at a time (multi.js), and the screens light up when it arrives.
@@ -19,11 +20,13 @@ const buildings = [
 // centre; a trunk to the panna band, where the stem carries the arrow to the devices.
 const devices = ['laptop', 'tablet', 'phone'];
 ---
-<section class="multi" id="edifici" aria-labelledby="multi-title" data-multi>
-  <div class="band band--ink">
-    <div class="band__inner multi__top">
-      <Headline id="multi-title" size="l" text="Gestisci tutte le tue proprietà nella **stessa applicazione**" />
-      <div class="multi__stage">
+<section class="multi band band--ink" id="edifici" aria-labelledby="multi-title" data-multi>
+  <div class="band__inner multi__inner">
+    <div class="multi__top">
+      <div data-reveal>
+        <Headline id="multi-title" size="l" text="Gestisci tutte le tue proprietà nella **stessa applicazione**" />
+      </div>
+      <div class="multi__stage" data-reveal data-reveal-step="1">
         <ul class="multi__buildings">
           {buildings.map((b) => (
             <li data-multi-item={b.id}>
@@ -41,9 +44,7 @@ const devices = ['laptop', 'tablet', 'phone'];
         </div>
       </div>
     </div>
-  </div>
-  <div class="band band--paper">
-    <div class="band__inner multi__bottom">
+    <div class="multi__panel" data-reveal="panel" data-reveal-step="2">
       <div class="multi__screens">
         <span class="multi__stem" aria-hidden="true"></span>
         <div class="multi__group">

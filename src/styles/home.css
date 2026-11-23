@@ -1,13 +1,22 @@
 /* Home, brochure order. Components and bands in bands.css. */
 
-/* 2 — Overview: the house with tags and leaders */
-.overview .band__inner{padding-block:clamp(36px,5vw,72px) clamp(28px,4vw,56px)}
+/* One background: every home section is carbon. Two bands of the same section run on
+   without a second top padding; sections are told apart by the air between them. */
+html:has(body.home-page),body.home-page{background:var(--c-primary)}
+.home-page section>.band+.band>.band__inner{padding-top:0}
+
+/* 2 — Overview: one carbon section, the house standing bare on it.
+   Phone: title, panel, functions. Wide (>=1100px): copy and functions left, panel right. */
+.overview__inner{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "panel" "list";gap:clamp(28px,4vw,48px)}
+.overview__copy{grid-area:copy;display:grid;gap:clamp(16px,2vw,26px);max-width:40rem}
+.overview__copy .h-l .w-accent{display:block;font-size:1.45em;line-height:.95}
+.ov-panel{grid-area:panel}
 .ov-stage{container-type:inline-size;width:min(100%,1080px);margin:auto}
 .ov-house{--row:8.5cqw;position:relative;margin-block:var(--row)}
 .ov-items{position:absolute;inset:0}
 .ov-item{display:contents}
-.ov-lead{position:absolute;left:var(--x);width:0;border-left:1.5px solid var(--c-primary);pointer-events:none}
-.ov-lead::after{content:"";position:absolute;left:-4.5px;width:8px;height:8px;border-radius:50%;background:var(--c-primary);box-shadow:0 0 0 2px var(--c-surface-muted)}
+.ov-lead{position:absolute;left:var(--x);width:0;border-left:1.5px solid #ffffff59;pointer-events:none}
+.ov-lead::after{content:"";position:absolute;left:-4.5px;width:8px;height:8px;border-radius:50%;background:#ffffffb3;box-shadow:0 0 0 2px var(--c-primary)}
 .ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em);height:calc(var(--y) + var(--row) - 1em)}
 .ov-item--top .ov-lead::after{bottom:-4px}
 .ov-item--bot .ov-lead{top:var(--y);height:calc(100% - var(--y) + var(--row) - 1em)}
@@ -15,10 +24,11 @@
 .ov-tag{position:absolute;left:var(--x);transform:translateX(-50%);font-size:clamp(10px,1.75cqw,15px)}
 .ov-item--top .ov-tag{top:calc(-1 * var(--row))}
 .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row))}
+.ov-tag{background:var(--c-primary)}
 .ov-tag,.ov-lead,.ov-lead::after{transition:background-color .35s,border-color .35s,color .35s}
-.ov-item.is-active .ov-tag{background:var(--c-secondary-button);color:var(--c-on-secondary)}
-.ov-item.is-active .ov-lead{border-color:var(--c-secondary-button)}
-.ov-item.is-active .ov-lead::after{background:var(--c-secondary-button)}
+.ov-item.is-active .ov-tag{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary)}
+.ov-item.is-active .ov-lead{border-color:var(--c-secondary)}
+.ov-item.is-active .ov-lead::after{background:var(--c-secondary)}
 .ov-i--clima{--x:38.54%;--y:32.01%}
 .ov-i--allarme{--x:47.57%;--y:31.22%}
 .ov-i--consumi{--x:63.50%;--y:25.83%}
@@ -33,28 +43,14 @@
   .ov-lead{display:none}
   .ov-tag{position:static;transform:none;font-size:12px}
 }
-.overview-text__inner{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,6vw,100px);align-items:start}
-.overview-text__copy{display:grid;gap:clamp(16px,2vw,26px)}
-.overview-text__copy .h-l .w-accent{display:block;font-size:1.45em;line-height:.95}
-.overview-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(20px,3vw,44px)}
-.overview-list li{border-top:1px solid #ffffff36}
+.overview-list{grid-area:list;list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(20px,3vw,44px)}
+.overview-list li{border-top:1px solid #ffffff2a}
 .overview-list a{padding:18px 0;color:var(--c-on-primary);transition:color .2s}
 .overview-list a:hover{color:var(--c-secondary)}
-/* Wide desktop: house on panna and text on carbon side by side, edges aligned to --content */
-@media(min-width:1280px){
-  .overview-split{--edge:max(var(--w-gutter),(100vw - 1440px) / 2);display:grid;grid-template-columns:minmax(0,1fr) min(45%,100% - 760px)}
-  .overview-split>.band{display:flex;flex-direction:column;justify-content:center}
-  .overview-split .band__inner{width:auto;margin:0}
-  .overview .band__inner{padding-inline:var(--edge) clamp(28px,3vw,56px);padding-block:clamp(20px,3svh,40px)}
-  /* The house, tags included, sits well inside the screen height: 0.845 = (484/717 + 2 × 0.085).
-     Over 640px the stage keeps the tags on their leaders (container query above). */
-  .overview .ov-stage{width:min(100%,clamp(660px,(100svh - 240px) / .845,760px))}
-  .overview-split{min-height:min(100svh,1100px)}
-  .overview-text .band__inner{padding-inline:clamp(40px,4vw,72px) var(--edge);padding-block:clamp(32px,5svh,72px)}
-  .overview-text .h-l{font-size:min(clamp(2.2rem,5.2vw,4.6rem),7.5svh)}
-  .overview-text .w-lead{font-size:min(clamp(1.15rem,1.8vw,1.7rem),3.2svh)}
-  .overview-list a{padding-block:min(18px,1.8svh)}
-  .overview-text__inner{grid-template-columns:1fr;gap:clamp(28px,3vw,44px)}
+@media(min-width:1100px){
+  .overview__inner{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"copy panel" "list panel";column-gap:clamp(40px,5vw,96px);row-gap:clamp(32px,4vw,56px)}
+  .overview__copy{align-self:end}
+  .overview-list{align-self:start}
   /* Narrower house: smaller tags, and the two crowded middle ones step towards the house */
   .overview .ov-tag{font-size:clamp(10px,1.4cqw,14px)}
   .ov-i--allarme,.ov-i--telecamere{--lift:4.2cqw}
@@ -64,10 +60,12 @@
   .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
 }
 
-/* 3 — Multi: buildings on carbon joined by the orange comb to the devices on panna.
-   Phone and tablet: bands stacked, the comb goes down. Wide (>=1100px): bands side by
-   side, buildings stacked, the comb goes right. multi.js draws one property at a time. */
-.multi__top{display:grid;gap:clamp(32px,5vw,70px);padding-bottom:0}
+/* 3 — Multi: one carbon section; the orange comb joins the buildings to the devices,
+   both bare on carbon. Phone and tablet: devices below, the comb goes down. Wide
+   (>=1280px): devices on the right, buildings stacked, the comb goes right.
+   multi.js draws one property at a time. */
+.multi__inner{display:grid}
+.multi__top{display:grid;gap:clamp(32px,5vw,70px)}
 .multi__top .h-l{max-width:16ch}
 .multi__stage{display:grid}
 .multi__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
@@ -83,18 +81,18 @@
 .multi__bus{top:55%;height:1.7px;translate:0 -50%}
 .multi__bus--casa{left:16.667%;right:50%}.multi__bus--ufficio{left:50%;right:16.667%}
 .multi__trunk{left:50%;top:55%;bottom:0}
-.multi__bottom{padding-top:0}
+.multi__panel{padding-inline:clamp(0px,3vw,40px)}
 .multi__screens{display:grid;justify-items:center}
-.multi__stem{position:relative;width:1.7px;height:clamp(36px,5vw,72px);background:var(--c-secondary-button);color:var(--c-secondary-button)}
+.multi__stem{position:relative;width:1.7px;height:clamp(36px,5vw,72px);background:var(--c-secondary);color:var(--c-secondary)}
 .multi__stem::after{content:"";position:absolute;left:50%;bottom:-2px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid;transition:color .2s}
 .multi__group{display:grid;justify-items:center;gap:clamp(24px,3vw,40px);width:min(100%,640px);margin-top:clamp(10px,1.4vw,18px)}
 .multi__devices{position:relative;width:100%;padding-bottom:4%}
-.mdev{display:grid;background:var(--c-primary);border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:0 24px 50px var(--c-shadow)}
-.mdev__screen{display:grid;place-items:center;border-radius:inherit;background:var(--c-primary-container);overflow:hidden}
+.mdev{display:grid;background:#3a3a36;border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:inset 0 0 0 1px #ffffff2e,0 30px 60px #0008}
+.mdev__screen{display:grid;place-items:center;border-radius:calc(clamp(8px,1.2vw,18px) - 4px);background:var(--c-primary-container);overflow:hidden}
 .mdev__screen img{width:30%;height:auto}
 .mdev--laptop{width:62%;margin-inline:auto}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
-.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:var(--c-primary)}
-.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:0 0 0 clamp(3px,.4vw,6px) var(--c-surface-muted),0 24px 50px var(--c-shadow)}
+.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:#4a4a45;box-shadow:inset 0 1px 0 #ffffff33}
+.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary),0 30px 60px #0008}
 .mdev--tablet{left:0;width:34%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
 .mdev--phone{right:0;width:17%}.mdev--phone .mdev__screen{aspect-ratio:9/19}
 .multi__line{text-align:center}
@@ -106,35 +104,33 @@
 .multi.is-live .multi__comb>span,.multi.is-live .multi__arm{background:#ffffff38}
 .multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before,.multi.is-live .multi__stem::before{content:"";position:absolute;inset:0;transform:scale(0);transform-origin:top left}
 .multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before{background:var(--c-secondary)}
-.multi.is-live .multi__stem::before{background:var(--c-secondary-button)}
+.multi.is-live .multi__stem::before{background:var(--c-secondary)}
 .multi.is-live .multi__bus--ufficio::before{transform-origin:right}
 .multi.is-live.is-flow .multi__drop.is-active::before{animation:multi-y .16s ease-in forwards}
 .multi.is-live.is-flow .multi__bus.is-active::before{animation:multi-x .12s linear .16s forwards}
 .multi.is-live.is-flow .multi__trunk::before{animation:multi-y .08s linear .28s forwards}
 .multi.is-live.is-flow .multi__stem::before{animation:multi-y .14s linear .36s forwards}
-.multi.is-live .multi__stem{background:#1c1c1a2e;color:#1c1c1a2e}
-.multi.is-live.is-arrived .multi__stem{color:var(--c-secondary-button)}
+.multi.is-live .multi__stem{background:#ffffff38;color:#ffffff38}
+.multi.is-live.is-arrived .multi__stem{color:var(--c-secondary)}
 .multi.is-live.is-arrived .mdev__screen{animation:multi-glow .6s ease-out}
 .multi.is-live.is-arrived .mdev__screen img{animation:multi-pop .45s cubic-bezier(.2,1.6,.4,1)}
 @keyframes multi-x{from{transform:scaleX(0)}to{transform:none}}
 @keyframes multi-y{from{transform:scaleY(0)}to{transform:none}}
-@keyframes multi-glow{from{background:#45443f}}
+@keyframes multi-glow{from{background:#55544e}}
 @keyframes multi-pop{from{transform:scale(.88)}}
 
-/* Wide: carbon and panna side by side, the split mirrored on Overview's above
-   (.overview-split: same columns and --edge), so the two sections form a checkerboard */
+/* Wide: the panel on the right, the comb running into its left edge */
 @media(min-width:1280px){
-  .multi{--edge:max(var(--w-gutter),(100vw - 1440px) / 2);display:grid;grid-template-columns:minmax(0,1fr) min(45%,100% - 760px)}
-  .multi>.band{display:flex;flex-direction:column;justify-content:center}
-  .multi .band__inner{width:auto;margin:0;padding-block:clamp(64px,6vw,104px)}
-  .multi>.band--ink>.band__inner{padding-inline:var(--edge) 0}
-  .multi>.band--paper>.band__inner{padding-inline:0 var(--edge)}
-  .multi__top{grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,3vw,56px);align-items:center}
-  .multi__top .h-l{font-size:clamp(2.1rem,2.7vw,2.9rem)}
+  .multi__inner{grid-template-columns:auto minmax(0,1fr);align-items:center;row-gap:clamp(48px,5vw,80px)}
+  .multi__panel{display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,5vw,80px) 0}
+  /* The title spans the section, as every other section title; stage and panel below it */
+  .multi__top{display:contents}
+  .multi__top>:first-child{grid-column:1/-1}
+  .multi__top .h-l{max-width:20ch}
   .multi__stage{grid-template-columns:minmax(0,1fr) clamp(20px,2.4vw,40px)}
   .multi__buildings{grid-template-columns:1fr;grid-auto-rows:1fr}
   .multi__buildings li{display:flex;align-items:center;gap:12px;padding:clamp(4px,.6vw,10px) 0}
-  .multi__buildings img{flex:none;width:clamp(112px,10vw,180px)}
+  .multi__buildings img{flex:none;width:clamp(140px,13vw,220px)}
   .multi__buildings .tag{flex:none;min-width:7.6em;justify-content:center}
   .multi__arm{display:block;position:relative;flex:none;width:clamp(20px,2.4vw,44px);height:1.7px}
   .multi.is-live.is-flow li.is-active .multi__arm::before{animation:multi-x .16s ease-in forwards}
@@ -146,10 +142,10 @@
   .multi__trunk{left:0;right:0;top:50%;bottom:auto;width:auto;height:1.7px;translate:0 -50%}
   .multi.is-live.is-flow .multi__trunk::before{animation-name:multi-x}
   .multi__screens{display:flex;align-items:center}
-  .multi__stem{flex:none;width:clamp(36px,4vw,64px);height:1.7px}
+  .multi__stem{flex:1 1 clamp(36px,4vw,64px);min-width:clamp(36px,4vw,64px);height:1.7px}
   .multi__stem::after{left:auto;right:-2px;top:50%;bottom:auto;translate:0 -50%;border:5px solid transparent;border-right:0;border-left:9px solid}
   .multi.is-live.is-flow .multi__stem::before{animation-name:multi-x}
-  .multi__group{position:relative;flex:1;margin:0 0 0 clamp(14px,1.6vw,24px);width:auto}
+  .multi__group{position:relative;flex:0 1 600px;margin:0 0 0 clamp(14px,1.6vw,24px);width:auto}
   .multi__line{position:absolute;top:calc(100% + clamp(20px,2.4vw,32px));left:0;right:0}
 }
 
@@ -179,7 +175,7 @@
 
 /* Phone and narrow */
 @media(max-width:900px){
-  .overview-text__inner,.away__top,.away__bottom{grid-template-columns:1fr}
+  .away__top,.away__bottom{grid-template-columns:1fr}
 }
 @media(max-width:560px){
   .multi__buildings .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}

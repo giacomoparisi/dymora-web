@@ -5,6 +5,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/home.css';
 import '../styles/features.css';
+import '../styles/reveal.css';
 import SiteFooter from '../components/SiteFooter.astro';
 import Opening from '../components/Opening.astro';
 import Overview from '../components/home/Overview.astro';
@@ -21,6 +22,7 @@ import Faq from '../components/home/Faq.astro';
 import Closing from '../components/home/Closing.astro';
 ---
 <BaseLayout title="Dymora — La tua casa. In una sola app." description="Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
+  <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script></Fragment>
   <main>
     <Opening />
     <Overview />

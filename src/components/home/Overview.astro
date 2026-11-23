@@ -2,7 +2,8 @@
 // Brochure page 2 (`overview`): the house with eight tags and their leaders on panna,
 // then the title and the eight functions on carbon. On the web the functions switch on
 // one after another and each plays its part of the house (sprites from dymora-app art/house).
-// On wide desktops the two bands sit side by side (`.overview-split`, home.css).
+// Web layout: one carbon section, the house standing bare on it,
+// copy and functions beside it on wide screens (`.overview__inner`, home.css).
 // Leader points: brochure decision.html, page `overview`, normalised on the house
 // (x − 2) / 206, (y − 31) / 139 mm. They point at the HouseElements of the app's Home legend.
 import Band from '../Band.astro';
@@ -29,31 +30,31 @@ const order = 'lit_off shutters_down_off shutters_through_off awning_shade_off b
 const rest = 'balustrade_off shutters_down_off!';
 const functions = ['Luci', 'Allarme', 'Clima', 'Telecamere', 'Tapparelle', 'Consumi', 'Serrature', 'Irrigazione'];
 ---
-<div class="overview-split">
-<Band tone="paper" id="panoramica" class="overview" labelledby="overview-title">
-  <div class="ov-stage" data-ov-sequence={sequence.join(' ')} data-ov-rest={rest}>
-    <div class="ov-house">
-      <Sprite id="ov-house" name="house" variant="light" layers={rest} order={order} alt="La casa con luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione gestiti da Dymora" />
-      <div class="ov-items" aria-hidden="true">
-        {items.map((item) => (
-          <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]} data-ov-item={item.id} data-ov-on={item.on} data-ov-off={item.off}>
-            <span class="ov-lead"></span>
-            <span class="tag ov-tag">{item.label}</span>
-          </div>
-        ))}
+<Band tone="ink" id="panoramica" class="overview" labelledby="overview-title" innerClass="overview__inner">
+  <div class="overview__copy">
+    <div data-reveal>
+      <Headline id="overview-title" size="l" text="**Controlla** la tua casa sotto ogni aspetto." />
+    </div>
+    <p class="w-lead" data-reveal data-reveal-step="1">Con progettazione, installazione, configurazione e assistenza di Dymora.</p>
+    <p class="w-note w-muted" data-reveal data-reveal-step="2">Funzioni e rilevamenti dipendono dai dispositivi e dalla configurazione scelta.</p>
+  </div>
+  <div class="ov-panel" data-reveal="panel" data-reveal-step="1">
+    <div class="ov-stage" data-ov-sequence={sequence.join(' ')} data-ov-rest={rest}>
+      <div class="ov-house">
+        <Sprite id="ov-house" name="house" variant="dark" layers={rest} order={order} alt="La casa con luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione gestiti da Dymora" />
+        <div class="ov-items" aria-hidden="true">
+          {items.map((item) => (
+            <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]} data-ov-item={item.id} data-ov-on={item.on} data-ov-off={item.off}>
+              <span class="ov-lead"></span>
+              <span class="tag ov-tag">{item.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
-</Band>
-<Band tone="ink" class="overview-text" labelledby="overview-title" innerClass="overview-text__inner">
-  <div class="overview-text__copy">
-    <Headline id="overview-title" size="l" text="**Controlla** la tua casa sotto ogni aspetto." />
-    <p class="w-lead">Con progettazione, installazione, configurazione e assistenza di Dymora.</p>
-    <p class="w-note w-muted">Funzioni e rilevamenti dipendono dai dispositivi e dalla configurazione scelta.</p>
-  </div>
-  <ul class="overview-list">
+  <ul class="overview-list" data-reveal data-reveal-step="3">
     {functions.map((f) => <li><a class="w-label eyebrow" href={`#${f.toLowerCase()}`}>{f}</a></li>)}
   </ul>
 </Band>
-</div>
 <script is:inline src="/assets/js/overview.js" defer></script>
