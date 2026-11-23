@@ -149,16 +149,24 @@ html:has(body.home-page),body.home-page{background:var(--c-primary)}
   .multi__line{position:absolute;top:calc(100% + clamp(20px,2.4vw,32px));left:0;right:0}
 }
 
-/* 4 — Retrofit */
-.retrofit__top{display:grid;gap:clamp(28px,4vw,56px);padding-bottom:clamp(36px,5vw,64px)}
-.retrofit__top .h-l{max-width:14ch}
-.retrofit__pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,90px)}
-.retrofit__pair figure{display:grid;justify-items:center;gap:clamp(10px,1.4vw,18px)}
-.retrofit__pair img{width:100%;height:auto}
-.retrofit__pair--text>div{display:grid;gap:10px;text-align:center;justify-items:center}
-.retrofit__pair--text p{max-width:38ch}
-.retrofit__bottom{display:grid;gap:clamp(40px,6vw,80px)}
-.retrofit__close{text-align:center}
+/* 4 — Retrofit: one carbon section, each option's picture and block together.
+   Phone: title, options, closing line. Wide (>=1100px): title and closing line left,
+   the two options side by side on the right. */
+.retrofit__inner{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "options" "close";gap:clamp(36px,5vw,72px)}
+.retrofit__title{grid-area:title}
+.retrofit__title .h-l{max-width:14ch}
+.retrofit__options{grid-area:options;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,90px) clamp(20px,5vw,90px)}
+.retrofit__options li{display:grid;grid-template-rows:auto auto 1fr;gap:10px;justify-items:center;align-content:start;text-align:center}
+.retrofit__options figure{display:grid;justify-items:center;gap:clamp(10px,1.4vw,18px);margin-bottom:clamp(8px,1.4vw,18px)}
+.retrofit__options img{width:100%;height:auto}
+.retrofit__options p{max-width:38ch}
+.retrofit__close{grid-area:close;text-align:center}
+@media(min-width:1100px){
+  .retrofit__inner{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"title options" "close options";column-gap:clamp(40px,5vw,96px);row-gap:clamp(32px,4vw,56px);align-items:center}
+  .retrofit__title{align-self:end}
+  .retrofit__close{align-self:start;text-align:left;max-width:14ch}
+  .retrofit__options{column-gap:clamp(28px,3vw,56px)}
+}
 
 /* 5 — Away */
 .away__top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3.5vw,52px) clamp(28px,5vw,80px);align-items:start}
@@ -179,7 +187,7 @@ html:has(body.home-page),body.home-page{background:var(--c-primary)}
 }
 @media(max-width:560px){
   .multi__buildings .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
-  .retrofit__pair{grid-template-columns:1fr}
+  .retrofit__options{grid-template-columns:1fr}
   .overview-list{grid-template-columns:1fr 1fr}
   .away__media{grid-template-columns:1fr}
   .away__phone{max-width:240px}
