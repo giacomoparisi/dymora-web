@@ -1,38 +1,63 @@
 ---
 // Brochure page 3 (`multi`): three buildings on carbon, the three devices on panna.
 // The title has no full stop: the sentence goes on in `line`, under the devices.
+// The brochure's orange comb joins the buildings to the devices: on the web it is drawn
+// one building at a time (multi.js), and the screens light up when it arrives.
+// The app opens one installation at a time (multi-installazione/note.md): the sequence
+// shows exactly that, never all the buildings at once on a screen.
 // Montagna and Ufficio are the brochure placeholders until the real renders arrive
 // (scripts/app-assets.json, docs/PLAN-brochure.md decision 5).
 import Headline from '../Headline.astro';
 
 const buildings = [
-  { label: 'Casa', src: '/assets/images/edificio-casa.webp', w: 1200, h: 810 },
-  { label: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
-  { label: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
+  { id: 'casa', label: 'Casa', src: '/assets/images/edificio-casa.webp', w: 1200, h: 810 },
+  { id: 'montagna', label: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
+  { id: 'ufficio', label: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
 ];
+// The comb: from each building a drop (stacked bands) or an arm (wide, side by side),
+// centres at 1/6, 1/2, 5/6 of the list (no gap); a bus from the side buildings to the
+// centre; a trunk to the panna band, where the stem carries the arrow to the devices.
+const devices = ['laptop', 'tablet', 'phone'];
 ---
-<section class="multi" id="edifici" aria-labelledby="multi-title">
+<section class="multi" id="edifici" aria-labelledby="multi-title" data-multi>
   <div class="band band--ink">
     <div class="band__inner multi__top">
       <Headline id="multi-title" size="l" text="Gestisci tutte le tue proprietà nella **stessa applicazione**" />
-      <ul class="multi__buildings">
-        {buildings.map((b) => (
-          <li>
-            <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" />
-            <span class="tag">{b.label}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="multi__stage">
+        <ul class="multi__buildings">
+          {buildings.map((b) => (
+            <li data-multi-item={b.id}>
+              <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" />
+              <span class="tag">{b.label}</span>
+              <span class="multi__arm" data-multi-path={b.id} aria-hidden="true"></span>
+            </li>
+          ))}
+        </ul>
+        <div class="multi__comb" aria-hidden="true">
+          {buildings.map((b) => <span class={`multi__drop multi__drop--${b.id}`} data-multi-path={b.id}></span>)}
+          <span class="multi__bus multi__bus--casa" data-multi-path="casa"></span>
+          <span class="multi__bus multi__bus--ufficio" data-multi-path="ufficio"></span>
+          <span class="multi__trunk"></span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="band band--paper">
     <div class="band__inner multi__bottom">
-      <div class="multi__devices" aria-hidden="true">
-        <div class="mdev mdev--laptop"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
-        <div class="mdev mdev--tablet"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
-        <div class="mdev mdev--phone"><span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span></div>
+      <div class="multi__screens">
+        <span class="multi__stem" aria-hidden="true"></span>
+        <div class="multi__group">
+          <div class="multi__devices" aria-hidden="true">
+            {devices.map((d) => (
+              <div class={`mdev mdev--${d}`}>
+                <span class="mdev__screen"><img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" /></span>
+              </div>
+            ))}
+          </div>
+          <p class="h-s multi__line">sul device che preferisci.</p>
+        </div>
       </div>
-      <p class="h-s multi__line">sul device che preferisci.</p>
     </div>
   </div>
 </section>
+<script is:inline src="/assets/js/multi.js" defer></script>

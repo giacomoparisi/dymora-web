@@ -64,22 +64,94 @@
   .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
 }
 
-/* 3 — Multi */
-.multi__top{display:grid;gap:clamp(32px,5vw,70px);padding-bottom:clamp(36px,5vw,64px)}
+/* 3 — Multi: buildings on carbon joined by the orange comb to the devices on panna.
+   Phone and tablet: bands stacked, the comb goes down. Wide (>=1100px): bands side by
+   side, buildings stacked, the comb goes right. multi.js draws one property at a time. */
+.multi__top{display:grid;gap:clamp(32px,5vw,70px);padding-bottom:0}
 .multi__top .h-l{max-width:16ch}
-.multi__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,3vw,48px);align-items:end}
-.multi__buildings li{display:grid;justify-items:center;gap:14px}
+.multi__stage{display:grid}
+.multi__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
+.multi__buildings li{display:grid;justify-items:center;gap:14px;padding-inline:clamp(4px,1.5vw,24px);transition:opacity .3s}
 .multi__buildings img{width:100%;height:auto}
-.multi__bottom{display:grid;justify-items:center;gap:clamp(24px,3vw,40px)}
-.multi__devices{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,2.5vw,36px);width:min(100%,900px)}
-.mdev{display:grid;background:var(--c-primary);border-radius:clamp(10px,1.4vw,20px);padding:clamp(5px,.7vw,10px);box-shadow:0 24px 50px var(--c-shadow)}
-.mdev__screen{display:grid;place-items:center;border-radius:inherit;background:var(--c-primary-container)}
+.multi__buildings .tag{transition:color .3s,border-color .3s}
+.multi__arm{display:none}
+.multi__comb{position:relative;height:clamp(44px,6vw,96px);margin-top:clamp(10px,1.2vw,16px)}
+.multi__comb>span,.multi__arm{position:absolute;background:var(--c-secondary)}
+.multi__drop,.multi__trunk{width:1.7px;translate:-50% 0}
+.multi__drop{top:0;height:55%}
+.multi__drop--casa{left:16.667%}.multi__drop--montagna{left:50%}.multi__drop--ufficio{left:83.333%}
+.multi__bus{top:55%;height:1.7px;translate:0 -50%}
+.multi__bus--casa{left:16.667%;right:50%}.multi__bus--ufficio{left:50%;right:16.667%}
+.multi__trunk{left:50%;top:55%;bottom:0}
+.multi__bottom{padding-top:0}
+.multi__screens{display:grid;justify-items:center}
+.multi__stem{position:relative;width:1.7px;height:clamp(36px,5vw,72px);background:var(--c-secondary-button);color:var(--c-secondary-button)}
+.multi__stem::after{content:"";position:absolute;left:50%;bottom:-2px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid;transition:color .2s}
+.multi__group{display:grid;justify-items:center;gap:clamp(24px,3vw,40px);width:min(100%,640px);margin-top:clamp(10px,1.4vw,18px)}
+.multi__devices{position:relative;width:100%;padding-bottom:4%}
+.mdev{display:grid;background:var(--c-primary);border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:0 24px 50px var(--c-shadow)}
+.mdev__screen{display:grid;place-items:center;border-radius:inherit;background:var(--c-primary-container);overflow:hidden}
 .mdev__screen img{width:30%;height:auto}
-.mdev--laptop{flex:0 1 52%}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
-.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(5px,.7vw,10px) -9% calc(-1 * clamp(5px,.7vw,10px));border-radius:0 0 12px 12px;background:var(--c-primary)}
-.mdev--tablet{flex:0 1 26%}.mdev--tablet .mdev__screen{aspect-ratio:3/4}
-.mdev--phone{flex:0 1 13%}.mdev--phone .mdev__screen{aspect-ratio:9/19}
+.mdev--laptop{width:62%;margin-inline:auto}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
+.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:var(--c-primary)}
+.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:0 0 0 clamp(3px,.4vw,6px) var(--c-surface-muted),0 24px 50px var(--c-shadow)}
+.mdev--tablet{left:0;width:34%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
+.mdev--phone{right:0;width:17%}.mdev--phone .mdev__screen{aspect-ratio:9/19}
 .multi__line{text-align:center}
+
+/* Live (multi.js, motion allowed): one property at a time, about half a second to arrive */
+.multi.is-live .multi__buildings li{opacity:.38}
+.multi.is-live .multi__buildings li.is-active{opacity:1}
+.multi.is-live li.is-active .tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
+.multi.is-live .multi__comb>span,.multi.is-live .multi__arm{background:#ffffff38}
+.multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before,.multi.is-live .multi__stem::before{content:"";position:absolute;inset:0;transform:scale(0);transform-origin:top left}
+.multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before{background:var(--c-secondary)}
+.multi.is-live .multi__stem::before{background:var(--c-secondary-button)}
+.multi.is-live .multi__bus--ufficio::before{transform-origin:right}
+.multi.is-live.is-flow .multi__drop.is-active::before{animation:multi-y .16s ease-in forwards}
+.multi.is-live.is-flow .multi__bus.is-active::before{animation:multi-x .12s linear .16s forwards}
+.multi.is-live.is-flow .multi__trunk::before{animation:multi-y .08s linear .28s forwards}
+.multi.is-live.is-flow .multi__stem::before{animation:multi-y .14s linear .36s forwards}
+.multi.is-live .multi__stem{background:#1c1c1a2e;color:#1c1c1a2e}
+.multi.is-live.is-arrived .multi__stem{color:var(--c-secondary-button)}
+.multi.is-live.is-arrived .mdev__screen{animation:multi-glow .6s ease-out}
+.multi.is-live.is-arrived .mdev__screen img{animation:multi-pop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes multi-x{from{transform:scaleX(0)}to{transform:none}}
+@keyframes multi-y{from{transform:scaleY(0)}to{transform:none}}
+@keyframes multi-glow{from{background:#45443f}}
+@keyframes multi-pop{from{transform:scale(.88)}}
+
+/* Wide: carbon and panna side by side, the split mirrored on Overview's above
+   (.overview-split: same columns and --edge), so the two sections form a checkerboard */
+@media(min-width:1280px){
+  .multi{--edge:max(var(--w-gutter),(100vw - 1440px) / 2);display:grid;grid-template-columns:minmax(0,1fr) min(45%,100% - 760px)}
+  .multi>.band{display:flex;flex-direction:column;justify-content:center}
+  .multi .band__inner{width:auto;margin:0;padding-block:clamp(64px,6vw,104px)}
+  .multi>.band--ink>.band__inner{padding-inline:var(--edge) 0}
+  .multi>.band--paper>.band__inner{padding-inline:0 var(--edge)}
+  .multi__top{grid-template-columns:minmax(0,1fr) auto;gap:clamp(28px,3vw,56px);align-items:center}
+  .multi__top .h-l{font-size:clamp(2.1rem,2.7vw,2.9rem)}
+  .multi__stage{grid-template-columns:minmax(0,1fr) clamp(20px,2.4vw,40px)}
+  .multi__buildings{grid-template-columns:1fr;grid-auto-rows:1fr}
+  .multi__buildings li{display:flex;align-items:center;gap:12px;padding:clamp(4px,.6vw,10px) 0}
+  .multi__buildings img{flex:none;width:clamp(112px,10vw,180px)}
+  .multi__buildings .tag{flex:none;min-width:7.6em;justify-content:center}
+  .multi__arm{display:block;position:relative;flex:none;width:clamp(20px,2.4vw,44px);height:1.7px}
+  .multi.is-live.is-flow li.is-active .multi__arm::before{animation:multi-x .16s ease-in forwards}
+  .multi__comb{height:auto;margin:0}
+  .multi__drop{display:none}
+  .multi__bus{left:0;right:auto;width:1.7px;height:auto;translate:-50% 0}
+  .multi__bus--casa{top:16.667%;bottom:50%}.multi__bus--ufficio{top:50%;bottom:16.667%}
+  .multi.is-live .multi__bus--ufficio::before{transform-origin:bottom}
+  .multi__trunk{left:0;right:0;top:50%;bottom:auto;width:auto;height:1.7px;translate:0 -50%}
+  .multi.is-live.is-flow .multi__trunk::before{animation-name:multi-x}
+  .multi__screens{display:flex;align-items:center}
+  .multi__stem{flex:none;width:clamp(36px,4vw,64px);height:1.7px}
+  .multi__stem::after{left:auto;right:-2px;top:50%;bottom:auto;translate:0 -50%;border:5px solid transparent;border-right:0;border-left:9px solid}
+  .multi.is-live.is-flow .multi__stem::before{animation-name:multi-x}
+  .multi__group{position:relative;flex:1;margin:0 0 0 clamp(14px,1.6vw,24px);width:auto}
+  .multi__line{position:absolute;top:calc(100% + clamp(20px,2.4vw,32px));left:0;right:0}
+}
 
 /* 4 — Retrofit */
 .retrofit__top{display:grid;gap:clamp(28px,4vw,56px);padding-bottom:clamp(36px,5vw,64px)}
@@ -110,8 +182,7 @@
   .overview-text__inner,.away__top,.away__bottom{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .multi__buildings{grid-template-columns:1fr 1fr}
-  .multi__buildings li:first-child{grid-column:1/-1}
+  .multi__buildings .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
   .retrofit__pair{grid-template-columns:1fr}
   .overview-list{grid-template-columns:1fr 1fr}
   .away__media{grid-template-columns:1fr}
