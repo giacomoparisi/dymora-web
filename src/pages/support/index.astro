@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import Band from '../../components/Band.astro';
+import PageHead from '../../components/PageHead.astro';
+import '../../styles/legal.css';
+---
+<BaseLayout title="Assistenza — Dymora" description="Contatta l'assistenza Dymora per la tua installazione.">
+  <SiteHeader />
+  <main>
+    <PageHead eyebrow="Dymora Support" title="Hai bisogno di **assistenza**?">
+      <p class="w-lead w-muted">Per problemi relativi all'installazione o alla configurazione del sistema Dymora, contatta il nostro team di assistenza.</p>
+    </PageHead>
+    <Band tone="paper" innerClass="legal-page support-grid">
+      <section><p class="w-label w-muted">Email</p><h2 class="h-s"><a href="mailto:support@dymora.eu">support@dymora.eu</a></h2></section>
+      <section><p class="w-label w-muted">Orari</p><p class="h-s">Lunedì – Venerdì<br />09:00 – 18:00 (ora italiana)</p></section>
+    </Band>
+  </main>
+  <SiteFooter />
+</BaseLayout>

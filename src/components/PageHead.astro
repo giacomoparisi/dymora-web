@@ -1,0 +1,21 @@
+---
+// Head of an inner page (privacy, cookie, support, 404): a carbon band with the eyebrow,
+// the page's only <h1> (`**word**` in orange, as Headline) and an optional note or lead.
+import Band from './Band.astro';
+import Eyebrow from './Eyebrow.astro';
+import Headline from './Headline.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** Small line under the title, e.g. the last update. */
+  note?: string;
+}
+const { eyebrow, title, note } = Astro.props;
+---
+<Band tone="ink" class="page-head" labelledby="page-title" innerClass="page-head__inner">
+  <Eyebrow text={eyebrow} />
+  <Headline as="h1" id="page-title" size="l" text={title} />
+  {note && <p class="w-note w-muted">{note}</p>}
+  <slot />
+</Band>

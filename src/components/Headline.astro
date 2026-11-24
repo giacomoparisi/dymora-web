@@ -1,0 +1,14 @@
+---
+// Brochure title: sentence case, the key word in orange (`**bold**` in copy/it.md).
+// Pass the copy title as-is: `**word**` becomes the accent.
+interface Props {
+  text: string;
+  as?: 'h1' | 'h2' | 'h3';
+  size?: 'xl' | 'l' | 'm' | 's';
+  id?: string;
+  class?: string;
+}
+const { text, as: Tag = 'h2', size = 'l', id, class: className } = Astro.props;
+const parts = text.split(/\*\*(.+?)\*\*/);
+---
+<Tag class:list={[`h-${size}`, className]} id={id}>{parts.map((part, i) => (i % 2 ? <span class="w-accent">{part}</span> : part))}</Tag>

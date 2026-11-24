@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import PageHead from '../components/PageHead.astro';
+import '../styles/legal.css';
+---
+<BaseLayout title="Pagina non trovata — Dymora" description="La pagina richiesta non esiste." canonical="/404.html" pageClass="page-404">
+  <meta slot="head" name="robots" content="noindex" />
+  <SiteHeader />
+  <main>
+    <PageHead eyebrow="Errore 404" title="Questa pagina non c'è.">
+      <p class="w-lead w-muted page-head__links">Torna alla <a href="/">home di Dymora</a> o scrivi a <a href="mailto:info@dymora.eu">info@dymora.eu</a>.</p>
+    </PageHead>
+  </main>
+  <SiteFooter />
+</BaseLayout>

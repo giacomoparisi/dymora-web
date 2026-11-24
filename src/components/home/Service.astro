@@ -1,0 +1,43 @@
+---
+// Site-only blocks between the features and the closing: `service`, `service.principles` with
+// `site.stats` (text as on the current site, never widened), `start` and its four steps.
+import Band from '../Band.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Headline from '../Headline.astro';
+
+const principles = [
+  ['Semplice.', "Una sola app per le funzioni della tua casa, invece di una per ogni marca. Ti aiutiamo a scegliere ciò che serve davvero."],
+  ['Chiaro.', "L'app mostra ciò che i dispositivi comunicano. Se una luce non risponde te lo dice, e uno storico stimato non diventa una misura."],
+  ['Seguito.', "Il lavoro non finisce con l'installazione: l'assistenza resta anche dopo."],
+];
+const stats = [['1', 'Sola app'], ['6+', 'Sistemi unificati'], ['24/7', 'Monitoraggio'], ['0', 'Vendor lock-in']];
+const steps = [
+  ['Ci sentiamo.', 'Ci dici cosa vuoi tenere sotto controllo: anche solo alcuni apparecchi.'],
+  ['Progettiamo la tua installazione.', 'Scegliamo insieme cosa serve. Se hai già delle telecamere, valutiamo se sono compatibili.'],
+  ['Installiamo e configuriamo.', "Posiamo i dispositivi e prepariamo l'app con le funzioni che hai scelto."],
+  ["Usi l'app, con la nostra assistenza.", 'Se hai un problema, scrivi a support@dymora.eu.'],
+];
+---
+<Band tone="ink" id="servizio" class="service" labelledby="service-title" innerClass="service__inner">
+  <Eyebrow text="Il servizio" />
+  <Headline id="service-title" size="l" text="Progettiamo, installiamo, configuriamo e ti **assistiamo**." />
+  <p class="w-lead w-muted">Dymora non è un'app da scaricare e arrangiarsi: ci occupiamo di progettazione, installazione, configurazione e assistenza.</p>
+</Band>
+<Band tone="ink" class="principles-band" labelledby="trust-title" innerClass="principles-band__inner">
+  <Headline id="trust-title" size="l" text="Su cosa puoi **contare**." />
+  <ul class="stat-row">
+    {stats.map(([n, l]) => <li><span class="w-num-m">{n}</span><span class="w-label w-muted">{l}</span></li>)}
+  </ul>
+  <ul class="principle-list">
+    {principles.map(([t, l]) => <li><h3 class="h-s">{t}</h3><p class="w-body w-muted">{l}</p></li>)}
+  </ul>
+</Band>
+<Band tone="ink" id="come-si-parte" class="start" labelledby="start-title" innerClass="start__inner">
+  <div>
+    <Eyebrow text="Come si parte" />
+    <Headline id="start-title" size="l" text="Si parte da una **chiamata**." />
+  </div>
+  <ol class="step-list">
+    {steps.map(([t, l], i) => <li><span class="w-num-m">{i + 1}</span><h3 class="h-s">{t}</h3><p class="w-body w-muted">{l}</p></li>)}
+  </ol>
+</Band>

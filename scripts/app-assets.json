@@ -1,0 +1,264 @@
+{
+  "_comment": "Assets imported from dymora-app by scripts/sync-app-assets.py. Sprites: art/<dir>/sprites.json + core composeResources drawables. Variant 'light' for panna sections, 'dark' for carbon sections. Files: static images, converted to WebP when 'width' is set.",
+  "sprites": [
+    {
+      "art": "house",
+      "variants": [
+        "light",
+        "dark"
+      ]
+    },
+    {
+      "art": "heat-pump",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "induction-hob",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "dishwasher",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "motion-sensor",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "alarm-french-window",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "phone-notification",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "lock-door",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "keypad",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "pendant-cone",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "ceiling-light",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "recessed-spotlight",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "roller-shutter",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "awning",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "thermostat",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "thermostatic-valve",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "air-conditioner",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "ir-remote",
+      "variants": [
+        "dark"
+      ]
+    },
+    {
+      "art": "water-tap",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "lawn-tile",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "washing-machine",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "wall-socket",
+      "variants": [
+        "light"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "from": "design/marketing/brochure/assets/hub.png",
+      "to": "images/hub.webp",
+      "width": 1200
+    },
+    {
+      "from": "design/marketing/brochure/assets/edificio-epoca.png",
+      "to": "images/edificio-epoca.webp",
+      "width": 1600
+    },
+    {
+      "from": "design/marketing/brochure/assets/edificio-moderna.png",
+      "to": "images/edificio-moderna.webp",
+      "width": 1600
+    },
+    {
+      "from": "design/marketing/brochure/assets/house-2-light.png",
+      "to": "images/edificio-casa.webp",
+      "width": 1200
+    },
+    {
+      "from": "design/marketing/brochure/assets/edificio-montagna.svg",
+      "to": "images/edificio-montagna.svg",
+      "_note": "placeholder until the real render (brochure/README.md)"
+    },
+    {
+      "from": "design/marketing/brochure/assets/edificio-ufficio.svg",
+      "to": "images/edificio-ufficio.svg",
+      "_note": "placeholder until the real render (brochure/README.md)"
+    },
+    {
+      "from": "design/store-screenshots/cameras/event-person.jpg",
+      "to": "images/cam-person.webp",
+      "width": 960
+    },
+    {
+      "from": "design/store-screenshots/cameras/event-car.jpg",
+      "to": "images/cam-car.webp",
+      "width": 960
+    },
+    {
+      "from": "design/store-screenshots/cameras/event-animal.jpg",
+      "to": "images/cam-animal.webp",
+      "width": 960
+    },
+    {
+      "from": "design/marketing/site/assets/cascata.svg",
+      "to": "images/cascata.svg"
+    },
+    {
+      "from": "design/marketing/site/assets/cascata-retro.svg",
+      "to": "images/cascata-retro.svg"
+    },
+    {
+      "from": "@pieces/piece-energy-house.png",
+      "to": "images/pieces/energy-house.webp",
+      "width": 1200
+    },
+    {
+      "from": "@pieces/piece-climate-thermostat.png",
+      "to": "images/pieces/climate-thermostat.webp",
+      "width": 800
+    },
+    {
+      "from": "@pieces/piece-climate-chart.png",
+      "to": "images/pieces/climate-chart.webp",
+      "width": 900
+    },
+    {
+      "from": "@pieces/piece-lights-house.png",
+      "to": "images/pieces/lights-house.webp",
+      "width": 1200
+    },
+    {
+      "from": "@pieces/piece-irrigation-house.png",
+      "to": "images/pieces/irrigation-house.webp",
+      "width": 1200
+    },
+    {
+      "from": "@pieces/piece-irrigation-valve.png",
+      "to": "images/pieces/irrigation-valve.webp",
+      "width": 1000
+    },
+    {
+      "from": "@pieces/piece-irrigation-programme.png",
+      "to": "images/pieces/irrigation-programme.webp",
+      "width": 900
+    },
+    {
+      "from": "@pieces/piece-irrigation-lawn-english.png",
+      "to": "images/pieces/irrigation-lawn-english.webp",
+      "width": 400
+    },
+    {
+      "from": "@pieces/piece-irrigation-lawn-roses.png",
+      "to": "images/pieces/irrigation-lawn-roses.webp",
+      "width": 400
+    },
+    {
+      "from": "@pieces/piece-irrigation-lawn-terrace.png",
+      "to": "images/pieces/irrigation-lawn-terrace.webp",
+      "width": 400
+    },
+    {
+      "from": "@pieces/piece-irrigation-lawn-lemon.png",
+      "to": "images/pieces/irrigation-lawn-lemon.webp",
+      "width": 400
+    },
+    {
+      "from": "@pieces/piece-lock-access.png",
+      "to": "images/pieces/lock-access.webp",
+      "width": 800
+    },
+    {
+      "from": "design/store-screenshots/renders/it/energy-pie-detail-iphone-tall-dark-it.png",
+      "to": "images/pieces/energy-pie.webp",
+      "crop": [
+        60,
+        60,
+        1200,
+        1840
+      ],
+      "width": 800
+    }
+  ]
+}

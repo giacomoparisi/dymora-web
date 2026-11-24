@@ -1,0 +1,42 @@
+@font-face{font-family:"Asta Sans";font-style:normal;font-weight:400;font-display:swap;src:url("/assets/fonts/asta-sans-regular.woff2") format("woff2")}
+@font-face{font-family:"Asta Sans";font-style:normal;font-weight:700;font-display:swap;src:url("/assets/fonts/asta-sans-bold.woff2") format("woff2")}
+@font-face{font-family:"Asta Sans";font-style:normal;font-weight:800;font-display:swap;src:url("/assets/fonts/asta-sans-extrabold.woff2") format("woff2")}
+@font-face{font-family:"Doto";font-style:normal;font-weight:900;font-display:swap;src:url("/assets/fonts/doto-black.woff2") format("woff2")}
+:root{
+  --c-primary:#1C1C1A;--c-on-primary:#FFFFFF;--c-primary-container:#2A2A28;--c-on-primary-container:#FFFFFF;
+  --c-secondary:#F45118;--c-on-secondary:#FFFFFF;--c-secondary-container:#FFE8DD;--c-on-secondary-container:#6B2A12;
+  --c-tertiary:#F7C14A;--c-error:#C0271C;--c-background:#E2DED7;--c-on-background:#1C1C1A;--c-surface:#FFFFFF;
+  --c-on-surface:#1C1C1A;--c-surface-variant:#E2EAEF;--c-on-surface-variant:#5A574F;--c-outline:#A7B6BC;
+  --c-outline-variant:#CFD9E0;--c-background-secondary:#D6D1C6;--c-on-background-variant:#5A574F;--c-shadow:#0000001A;
+  --c-surface-muted:#EDEAE3;--c-on-surface-muted:#7C7A72;--c-secondary-variant:#9A380E;--c-secondary-button:#D43E0A;--c-secondary-text:#9A380E;--c-secondary-on-ink:#FF7543;
+  --c-on-primary-muted:#FFFFFF94;--c-success:#208850;--c-warning:#E0A200;--c-water:#1183C0;
+  --font-text:"Asta Sans",system-ui,sans-serif;--font-mono:"Doto",ui-monospace,monospace;
+  --r-small:8px;--r-medium:12px;--r-large:16px;--r-extra-large:28px;
+  --w-gutter:clamp(20px,5vw,80px);--w-air:clamp(76px,9vw,150px);--content:min(100% - 2 * var(--w-gutter),1440px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px;background:var(--c-surface-muted)}
+body{margin:0;background:var(--c-surface-muted);color:var(--c-on-background);font-family:var(--font-text);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:clip;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+body>main{flex:1 0 auto}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}
+img,svg,canvas{display:block;max-width:100%}img{height:auto}h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0}
+:focus-visible{outline:3px solid var(--c-secondary);outline-offset:4px}
+::selection{background:var(--c-secondary);color:var(--c-on-secondary)}
+.w-lead{font:400 clamp(1.15rem,1.8vw,1.7rem)/1.42 var(--font-text)}
+.w-body,.w-body-strong{font:400 clamp(1rem,1.15vw,1.18rem)/1.6 var(--font-text)}.w-body-strong{font-weight:700}
+.w-note{font:400 clamp(.8rem,.9vw,.95rem)/1.45 var(--font-text)}
+.w-label{font:900 max(13px,.9vw)/1.15 var(--font-mono);letter-spacing:.07em;text-transform:uppercase}
+.w-num-l,.w-num-m{font:900 clamp(4rem,8vw,8.5rem)/.85 var(--font-mono);letter-spacing:-.06em}.w-num-m{font-size:clamp(2.2rem,4.5vw,4.8rem)}
+.w-accent{color:var(--c-secondary)}.w-muted{color:var(--c-on-background-variant)}
+.w-button{font:900 max(13px,.9vw)/1 var(--font-mono);letter-spacing:.035em;text-transform:uppercase}
+.w-cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:14px 22px;border:1px solid transparent;border-radius:999px;background:var(--c-secondary);color:var(--c-on-secondary);transition:transform .2s,background .2s}
+.w-cta:hover{transform:translateY(-2px);background:var(--c-secondary-button)}
+.device{position:relative;background:#111;border:8px solid #111;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px #0007}.device img{width:100%;height:100%;object-fit:cover}.device--phone{aspect-ratio:411/760;border-width:7px;border-radius:26px}.device--phone-tall{aspect-ratio:900/1951}.device--phone-tall img{object-fit:contain}
+.site-footer{background:var(--c-primary);color:var(--c-on-primary-muted);border-top:1px solid #ffffff24;padding:28px var(--w-gutter);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.site-footer nav{display:flex;gap:20px;flex-wrap:wrap}.site-footer a:hover{color:var(--c-on-primary)}
+@media(max-width:560px){
+  :root{--w-gutter:20px;--w-air:70px}.site-footer{padding-bottom:92px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}
+}

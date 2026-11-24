@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import Band from '../../components/Band.astro';
+import PageHead from '../../components/PageHead.astro';
+import '../../styles/legal.css';
+---
+<BaseLayout title="Privacy — Dymora" description="Resa ai sensi degli articoli 13 e 14 del Regolamento (UE) 2016/679 e del Codice Privacy.">
+<SiteHeader />
+<main>
+  <PageHead eyebrow="Privacy" title="Informativa sul trattamento dei dati personali" note="Ultimo aggiornamento: 12 ottobre 2026" />
+  <Band tone="paper" innerClass="legal-page">
+<section id="titolare">
+      <h2>Titolare del trattamento e contatti</h2>
+      <p>Il Titolare del trattamento dei dati personali &egrave; <strong>Alberto Citi</strong>, che svolge attivit&agrave; con il marchio &ldquo;Dymora&rdquo; (di seguito anche &ldquo;Dymora&rdquo;, &ldquo;noi&rdquo;).</p>
+      <div class="idcard">
+        <dl>
+          <dt>Titolare</dt><dd>Alberto Citi (&ldquo;Dymora&rdquo;)</dd>
+          <dt>Partita IVA</dt><dd>02100310495</dd>
+          <dt>Sede</dt><dd>Via Giovanni Paolo II 21b, 57023 Cecina (LI)</dd>
+          <dt>Email privacy</dt><dd><a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a></dd>
+          <dt>Email generale</dt><dd><a href="mailto:info@dymora.eu">info@dymora.eu</a></dd>
+          <dt>PEC</dt><dd><a href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a></dd>
+        </dl>
+      </div>
+      <p>Il Titolare pu&ograve; essere contattato per ogni questione relativa al trattamento dei dati e all&rsquo;esercizio dei diritti agli indirizzi sopra indicati.</p>
+      <p><strong>Responsabile della protezione dei dati (DPO).</strong> Il Titolare non &egrave; tenuto alla nomina di un DPO ai sensi dell&rsquo;art. 37 GDPR e non ne ha designato uno. Per qualsiasi richiesta in materia di protezione dei dati &egrave; possibile scrivere a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a>.</p>
+    </section>
+
+    <section id="ambito">
+      <h2>Ambito di applicazione</h2>
+      <p>La presente informativa descrive come trattiamo i dati personali nell&rsquo;ambito di:</p>
+      <ul>
+        <li>l&rsquo;<strong>applicazione Dymora</strong> (Android, iOS), tramite la quale l&rsquo;utente si registra e gestisce il proprio impianto domotico;</li>
+        <li>il <strong>sito web</strong> <a class="inline" href="/">dymora.eu</a> e le comunicazioni che ci invii via email;</li>
+        <li>il <strong>servizio di installazione, manutenzione e assistenza</strong> degli impianti domotici presso le abitazioni dei clienti, basato su un mini&#8209;PC installato in loco.</li>
+      </ul>
+      <div class="note">
+        <span class="lbl">Il sito web</span>
+        Il sito dymora.eu &egrave; informativo: non contiene moduli di contatto, newsletter, aree riservate, strumenti di analisi, pubblicit&agrave; o contenuti caricati da terze parti, e non imposta cookie. Se ci scrivi agli indirizzi indicati sul sito, trattiamo i dati che ci invii per risponderti (vedi sezioni 4, 5 e 7). La registrazione e l&rsquo;inserimento dei dati di contatto per il servizio avvengono tramite l&rsquo;applicazione.
+      </div>
+    </section>
+
+    <section id="ruoli">
+      <h2>Ruoli nel trattamento: dati sul server e dati sul mini&#8209;PC</h2>
+      <p>L&rsquo;architettura Dymora &egrave; &ldquo;local&#8209;first&rdquo;: i dati operativi dell&rsquo;impianto sono conservati nell&rsquo;abitazione del cliente. Questo si riflette in una distinzione di ruoli importante.</p>
+
+      <h3>Dati per i quali Dymora &egrave; Titolare</h3>
+      <p>Dymora agisce come <strong>Titolare del trattamento</strong> per i dati raccolti tramite l&rsquo;app e conservati sui propri server (es. dati di registrazione, contatto, abbonamento e pagamento), nonch&eacute; per i dati di geolocalizzazione e le notifiche descritti pi&ugrave; avanti.</p>
+
+      <h3>Dati per i quali il cliente &egrave; Titolare e Dymora &egrave; Responsabile</h3>
+      <p>I dati generati dall&rsquo;impianto (stati dei sensori, riprese delle videocamere, registro delle automazioni, storico) sono raccolti e conservati <strong>localmente sul mini&#8209;PC installato presso l&rsquo;abitazione</strong> e sono nella titolarit&agrave; del cliente, per le proprie finalit&agrave; domestiche. Quando l&rsquo;utente accede all&rsquo;impianto da remoto tramite l&rsquo;app, stati dei dispositivi e immagini delle videocamere transitano attraverso i server Dymora su connessioni cifrate, per essere consegnati all&rsquo;app.</p>
+      <p>Nello svolgimento delle attivit&agrave; di assistenza, manutenzione e aggiornamento &mdash; che possono comportare l&rsquo;accesso remoto al mini&#8209;PC tramite una rete privata virtuale (VPN) cifrata e l&rsquo;esecuzione di backup cifrati della configurazione del sistema a fini di ripristino (sono esclusi lo storico dei dati dell&rsquo;impianto e le registrazioni video) &mdash; Dymora opera quale <strong>Responsabile del trattamento</strong> per conto del cliente, ai sensi dell&rsquo;art. 28 GDPR, sulla base di apposito atto di nomina. I dati locali <strong>non vengono copiati o estratti</strong> per finalit&agrave; proprie di Dymora; gli eventuali backup hanno la sola finalit&agrave; di consentire il ripristino del sistema in caso di guasto.</p>
+      <div class="note">
+        <span class="lbl">Videosorveglianza</span>
+        Se l&rsquo;impianto include videocamere, il cliente &egrave; titolare del relativo trattamento. Qualora le riprese interessino aree esterne alla propriet&agrave; o spazi frequentati da terzi, non si applica l&rsquo;esenzione per uso esclusivamente personale/domestico e il cliente &egrave; tenuto al rispetto degli obblighi previsti dalla normativa e dai provvedimenti del Garante in materia.
+      </div>
+    </section>
+
+    <section id="dati">
+      <h2>Categorie di dati personali trattati</h2>
+      <ul>
+        <li><strong>Dati di registrazione e account:</strong> nome, indirizzo email, numero di telefono forniti al momento della creazione dell&rsquo;account tramite l&rsquo;app.</li>
+        <li><strong>Dati relativi al servizio:</strong> prodotti e dispositivi installati, stato dell&rsquo;abbonamento.</li>
+        <li><strong>Dati di pagamento:</strong> dati necessari alla gestione di abbonamenti e pagamenti, trattati tramite il fornitore di servizi di pagamento (Stripe). Dymora non conserva i dati completi delle carte di pagamento.</li>
+        <li><strong>Dati di geolocalizzazione (facoltativi):</strong> qualora l&rsquo;utente attivi la relativa funzione e conceda i permessi del dispositivo, l&rsquo;app pu&ograve; trattare la posizione per consentire l&rsquo;esecuzione di automazioni domotiche tramite il mini&#8209;PC (es. attivazione dell&rsquo;allarme all&rsquo;uscita da casa).</li>
+        <li><strong>Notifiche push:</strong> identificativi tecnici del dispositivo (token di notifica) necessari all&rsquo;invio delle notifiche, anche generate dal mini&#8209;PC e instradate tramite i nostri server.</li>
+        <li><strong>Dati tecnici di assistenza:</strong> log e informazioni tecniche necessarie alla manutenzione, all&rsquo;aggiornamento e alla risoluzione dei problemi degli impianti.</li>
+        <li><strong>Dati locali sul mini&#8209;PC:</strong> stati dei sensori, riprese video, automazioni e relativo storico (titolarit&agrave; del cliente, conservati in locale &mdash; cfr. sezione 3).</li>
+        <li><strong>Dati di diagnostica dell&rsquo;app:</strong> in caso di errore o arresto anomalo, l&rsquo;app invia un rapporto tecnico (tipo di errore, versione dell&rsquo;app e del sistema operativo, modello del dispositivo) tramite il servizio Sentry, con server nell&rsquo;Unione Europea.</li>
+        <li><strong>Dati di navigazione del sito:</strong> quando visiti dymora.eu, il fornitore di hosting (GitHub) tratta dati tecnici come indirizzo IP, data e ora, pagina richiesta e tipo di browser, necessari a consegnare le pagine e a proteggere il servizio. Il sito non usa cookie n&eacute; strumenti di analisi.</li>
+        <li><strong>Comunicazioni via email:</strong> indirizzo email, nome e contenuto dei messaggi che ci invii (ad esempio a info@dymora.eu, support@dymora.eu o privacy@dymora.eu).</li>
+        <li><strong>Dati di navigazione e utilizzo dell&rsquo;app (futuri):</strong> con l&rsquo;eventuale introduzione di strumenti di analisi e diagnostica (Firebase Analytics, Crashlytics), dati statistici e di crash, trattati <strong>solo previo consenso</strong> dell&rsquo;utente.</li>
+      </ul>
+    </section>
+
+    <section id="finalita">
+      <h2>Finalit&agrave; del trattamento e basi giuridiche</h2>
+      <p>I dati sono trattati per le finalit&agrave; e sulle basi giuridiche di seguito indicate (art. 6 GDPR).</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Finalit&agrave;</th><th>Base giuridica</th></tr></thead>
+          <tbody>
+            <tr><td>Registrazione, gestione dell&rsquo;account e fornitura del servizio (app, installazione, assistenza, manutenzione, aggiornamenti, notifiche di servizio)</td><td>Esecuzione del contratto &mdash; art. 6(1)(b)</td></tr>
+            <tr><td>Esecuzione di automazioni basate sulla geolocalizzazione</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a), prestato attivando la funzione e concedendo i permessi del dispositivo, revocabile in ogni momento</td></tr>
+            <tr><td>Gestione di pagamenti e abbonamenti</td><td>Esecuzione del contratto &mdash; art. 6(1)(b)</td></tr>
+            <tr><td>Adempimenti contabili, fiscali e di legge (es. fatturazione)</td><td>Obbligo legale &mdash; art. 6(1)(c)</td></tr>
+            <tr><td>Risposta alle richieste inviate via email (informazioni, preventivi, assistenza)</td><td>Misure precontrattuali o esecuzione del contratto &mdash; art. 6(1)(b); per le altre richieste, legittimo interesse a rispondere &mdash; art. 6(1)(f)</td></tr>
+            <tr><td>Funzionamento e sicurezza del sito web (dati di navigazione trattati dal fornitore di hosting)</td><td>Legittimo interesse &mdash; art. 6(1)(f)</td></tr>
+            <tr><td>Diagnostica degli errori dell&rsquo;app (Sentry)</td><td>Legittimo interesse a garantire il funzionamento e la sicurezza del servizio &mdash; art. 6(1)(f)</td></tr>
+            <tr><td>Analisi statistiche, diagnostica e miglioramento dell&rsquo;app (futuri &mdash; Firebase Analytics / Crashlytics)</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a)</td></tr>
+            <tr><td>Eventuali comunicazioni promozionali (offerte via email, messaggistica o feed in&#8209;app)</td><td>Consenso dell&rsquo;interessato &mdash; art. 6(1)(a), revocabile in ogni momento</td></tr>
+            <tr><td>Accertamento, esercizio o difesa di un diritto in sede giudiziaria</td><td>Legittimo interesse &mdash; art. 6(1)(f)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Il conferimento dei dati di registrazione e di quelli necessari all&rsquo;erogazione del servizio &egrave; necessario per usufruire del servizio: il mancato conferimento ne impedisce la fornitura. Il conferimento dei dati per le finalit&agrave; basate sul consenso (geolocalizzazione, analisi, marketing) &egrave; facoltativo e l&rsquo;eventuale rifiuto o revoca non pregiudica la fruizione delle funzioni essenziali.</p>
+    </section>
+
+    <section id="modalita">
+      <h2>Modalit&agrave; del trattamento e misure di sicurezza</h2>
+      <p>I dati sono trattati con strumenti informatici e telematici, adottando misure tecniche e organizzative adeguate ai sensi dell&rsquo;art. 32 GDPR per garantirne riservatezza, integrit&agrave; e disponibilit&agrave;, tra cui: cifratura dei canali di comunicazione, controllo e limitazione degli accessi, accesso remoto agli impianti riservato al solo personale tecnico autorizzato e tramite canali protetti, conservazione &ldquo;local&#8209;first&rdquo; dei dati operativi presso l&rsquo;abitazione del cliente.</p>
+    </section>
+
+    <section id="conservazione">
+      <h2>Periodo di conservazione</h2>
+      <ul>
+        <li><strong>Dati di account e di servizio</strong> (nome, email, telefono, prodotti installati, stato abbonamento): per tutta la durata del rapporto contrattuale e fino a <strong>1 anno dalla disdetta dell&rsquo;abbonamento</strong>, decorso il quale sono cancellati.</li>
+        <li><strong>Dati contabili e fiscali</strong> (fatture, documenti di pagamento): conservati per <strong>10 anni</strong>, in adempimento agli obblighi di legge (art. 2220 c.c. e normativa fiscale), anche oltre la cancellazione dell&rsquo;account.</li>
+        <li><strong>Backup della configurazione del mini&#8209;PC:</strong> conservati per il tempo necessario a garantire il ripristino e quindi cancellati secondo i cicli di rotazione (attualmente 7 copie giornaliere, 4 settimanali e 6 mensili).</li>
+        <li><strong>Email ricevute:</strong> per il tempo necessario a gestire la richiesta; se la richiesta porta a un contratto, per la durata del rapporto e per i termini di legge.</li>
+        <li><strong>Dati di navigazione del sito:</strong> conservati dal fornitore di hosting per il tempo necessario alla sicurezza del servizio.</li>
+        <li><strong>Dati locali sul mini&#8209;PC:</strong> conservati in locale per consentire al cliente la consultazione dello storico, sotto il controllo del cliente medesimo.</li>
+        <li><strong>Dati trattati sulla base del consenso</strong> (analisi, marketing): fino alla revoca del consenso.</li>
+      </ul>
+    </section>
+
+    <section id="destinatari">
+      <h2>Destinatari dei dati e responsabili del trattamento</h2>
+      <p>I dati possono essere comunicati a soggetti che forniscono servizi strumentali all&rsquo;attivit&agrave; di Dymora, nominati Responsabili del trattamento ai sensi dell&rsquo;art. 28 GDPR. In particolare:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Fornitore</th><th>Servizio</th><th>Ubicazione</th></tr></thead>
+          <tbody>
+            <tr><td>Fornitore di hosting (server europei)</td><td>Hosting dei server e dei servizi Dymora</td><td>Unione Europea</td></tr>
+            <tr><td>Stripe</td><td>Gestione pagamenti e abbonamenti</td><td>UE / USA</td></tr>
+            <tr><td>Google / Firebase</td><td>Notifiche push (FCM) e, in futuro, analisi e diagnostica</td><td>UE / USA</td></tr>
+            <tr><td>Google Workspace (Google Ireland Limited)</td><td>Posta elettronica aziendale ed email di servizio inviate dall&rsquo;app</td><td>UE / USA</td></tr>
+            <tr><td>Sentry (Functional Software, Inc.)</td><td>Rapporti di errore dell&rsquo;app</td><td>Unione Europea</td></tr>
+            <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Hosting del sito web dymora.eu</td><td>USA</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>I dati possono inoltre essere comunicati ad autorit&agrave; pubbliche e organi di vigilanza ove richiesto dalla legge. I dati <strong>non sono diffusi</strong> e non sono oggetto di vendita a terzi.</p>
+    </section>
+
+    <section id="trasferimenti">
+      <h2>Trasferimenti di dati verso Paesi extra&#8209;UE</h2>
+      <p>Alcuni fornitori (Stripe, Google/Firebase, Google Workspace, GitHub) possono trattare dati negli Stati Uniti. Tali trasferimenti avvengono nel rispetto del Capo V del GDPR, in particolare sulla base della <strong>decisione di adeguatezza relativa al Data Privacy Framework UE&#8209;USA</strong> (per i soggetti certificati) e/o delle <strong>Clausole Contrattuali Standard</strong> approvate dalla Commissione Europea, quali garanzie adeguate ai sensi dell&rsquo;art. 46 GDPR. L&rsquo;interessato pu&ograve; richiedere copia delle garanzie adottate ai contatti indicati nella sezione 1.</p>
+    </section>
+
+    <section id="diritti">
+      <h2>Diritti dell&rsquo;interessato</h2>
+      <p>In relazione ai dati trattati, l&rsquo;interessato pu&ograve; esercitare in qualsiasi momento i diritti previsti dagli artt. 15&#8209;22 GDPR:</p>
+      <ul>
+        <li>diritto di <strong>accesso</strong> ai propri dati;</li>
+        <li>diritto di <strong>rettifica</strong> dei dati inesatti o incompleti;</li>
+        <li>diritto alla <strong>cancellazione</strong> (&ldquo;diritto all&rsquo;oblio&rdquo;);</li>
+        <li>diritto di <strong>limitazione</strong> del trattamento;</li>
+        <li>diritto alla <strong>portabilit&agrave;</strong> dei dati;</li>
+        <li>diritto di <strong>opposizione</strong> al trattamento;</li>
+        <li>diritto di <strong>revocare il consenso</strong> in qualsiasi momento, senza pregiudicare la liceit&agrave; del trattamento effettuato prima della revoca.</li>
+      </ul>
+      <p>Le richieste possono essere inviate a <a class="inline" href="mailto:privacy@dymora.eu">privacy@dymora.eu</a> o via PEC a <a class="inline" href="mailto:dymora@pec.dymora.eu">dymora@pec.dymora.eu</a>. Il Titolare risponde senza ingiustificato ritardo e comunque entro un mese.</p>
+    </section>
+
+    <section id="reclamo">
+      <h2>Diritto di reclamo</h2>
+      <p>L&rsquo;interessato che ritenga il trattamento dei propri dati in violazione del GDPR ha diritto di proporre reclamo all&rsquo;autorit&agrave; di controllo &mdash; il <strong>Garante per la protezione dei dati personali</strong> (<a class="inline" href="https://www.garanteprivacy.it" target="_blank" rel="noopener">www.garanteprivacy.it</a>) &mdash; ferma restando ogni altra forma di tutela amministrativa o giurisdizionale.</p>
+    </section>
+
+    <section id="minori">
+      <h2>Minori</h2>
+      <p>I servizi Dymora sono rivolti a persone maggiorenni in qualit&agrave; di titolari del rapporto contrattuale. Non trattiamo consapevolmente dati di minori di 14 anni senza il consenso di chi esercita la responsabilit&agrave; genitoriale, conformemente all&rsquo;art. 2&#8209;quinquies del Codice Privacy. Qualora si riscontri un trattamento di dati di un minore in assenza di valido consenso, i dati saranno cancellati.</p>
+    </section>
+
+    <section id="automatizzate">
+      <h2>Assenza di decisioni automatizzate</h2>
+      <p>Dymora non adotta processi decisionali automatizzati, n&eacute; attivit&agrave; di profilazione, che producano effetti giuridici o incidano in modo analogo significativo sull&rsquo;interessato ai sensi dell&rsquo;art. 22 GDPR. Le automazioni domotiche sono configurate e controllate dall&rsquo;utente.</p>
+    </section>
+
+    <section id="cookie">
+      <h2>Cookie</h2>
+      <p>Il sito dymora.eu non imposta cookie e non usa strumenti di analisi, pubblicit&agrave; o contenuti di terze parti: font e immagini sono serviti dallo stesso dominio. Per questo non viene mostrato un banner di consenso. I dettagli sono nell&rsquo;<a class="inline" href="/cookie/">informativa sui cookie</a>. L&rsquo;app utilizza identificativi tecnici (es. token di notifica) necessari al funzionamento del servizio.</p>
+    </section>
+
+    <section id="modifiche">
+      <h2>Modifiche all&rsquo;informativa</h2>
+      <p>La presente informativa pu&ograve; essere aggiornata, anche in conseguenza di modifiche normative o dei servizi offerti. La versione vigente &egrave; sempre quella pubblicata, con indicazione della data di ultimo aggiornamento. Si invita a consultarla periodicamente.</p>
+    </section>
+  </Band>
+</main>
+<SiteFooter />
+</BaseLayout>

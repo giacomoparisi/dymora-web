@@ -1,0 +1,64 @@
+---
+import '../styles/site.css';
+import '../styles/bands.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  pageClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  pageClass = '',
+} = Astro.props;
+const canonicalUrl = new URL(canonical, Astro.site);
+
+// `astro dev` injects stylesheets as inline <style> tags and talks to Vite over a
+// WebSocket. The production build ships external CSS only, so the relaxed
+// directives exist in dev and never reach the published pages.
+const dev = import.meta.env.DEV;
+const csp = [
+  "default-src 'self'",
+  "script-src 'self'",
+  dev ? "style-src 'self' 'unsafe-inline'" : "style-src 'self'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  dev ? "connect-src 'self' ws: wss:" : "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+---
+<!doctype html>
+<html lang="it" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1C1C1A" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <link rel="preload" href="/assets/fonts/asta-sans-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/asta-sans-extrabold.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dymora" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://dymora.eu/images/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <slot name="head" />
+    <script src="/assets/js/sprite.js" defer></script>
+  </head>
+  <body class={pageClass}>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,34 @@
+---
+// Site FAQ, every entry of copy/it.md "FAQ del sito" in its order; `faq.cost` leads.
+import Band from '../Band.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Headline from '../Headline.astro';
+
+const faq: [string, string][] = [
+  ['Devo saperne di tecnologia?', "No. Progettazione, installazione e configurazione le facciamo noi: tu usi l'app. Se hai un problema, c'è l'assistenza."],
+  ['Posso partire da una sola funzione?', 'Sì. Puoi partire da una sola funzione, per esempio i consumi.'],
+  ['Vedo i consumi di tutta la casa?', 'Con le prese intelligenti vedi i consumi delle prese monitorate, non il totale della casa. Cosa misurare lo decidiamo insieme nella consulenza.'],
+  ['Quanto risparmio?', 'Dipende da come usi la casa. Dymora ti mostra quanto consumano gli apparecchi monitorati; cosa farne lo decidi tu.'],
+  ['Vedo se le tapparelle sono aperte o chiuse?', 'Dipende dal motore. Se comunica la posizione la vedi; se non la comunica hai i comandi, ma non lo stato.'],
+  ['Posso tenere le telecamere che ho già?', 'Valutiamo le telecamere che hai e la loro compatibilità. Da lì progettiamo la soluzione, riutilizzando quelle compatibili.'],
+  ['Una persona rilevata è sempre un intruso?', 'No. Il sistema riconosce una persona, non le sue intenzioni.'],
+  ['Funziona anche da fuori casa?', "Sì. Quando sei sulla rete di casa l'app prova il collegamento locale; se non risponde usa quello remoto, che è anche quello che usi da fuori. Accesso e funzioni passano comunque dal server Dymora."],
+  ['Su quali dispositivi funziona?', "L'app è sviluppata per Android, iOS e computer. Sul computer funzionano anche diretta e registrazioni. Le notifiche arrivano sul telefono, non sul computer."],
+  ['Va bene anche per una piccola attività?', 'Sì, con le stesse funzioni della casa, configurate per il tuo locale. Non è un prodotto specifico per uffici o negozi.'],
+];
+---
+<Band tone="ink" id="domande" class="faq" labelledby="faq-title" innerClass="faq__inner">
+  <div class="faq__intro">
+    <Eyebrow text="Domande" rule />
+    <Headline id="faq-title" size="m" text="Quanto **costa**?" />
+    <p class="w-lead w-muted">Dipende da cosa vuoi controllare e da cosa c'è già in casa. Oltre all'installazione c'è un abbonamento: ti diciamo tutto nella consulenza.</p>
+  </div>
+  <div class="faq__list">
+    {faq.map(([q, a]) => (
+      <details>
+        <summary class="w-body-strong">{q}</summary>
+        <p class="w-body w-muted">{a}</p>
+      </details>
+    ))}
+  </div>
+</Band>
