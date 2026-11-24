@@ -184,25 +184,7 @@ html:has(body.home-page),body.home-page{background:var(--c-primary)}
   .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
 }
 
-/* 5 — Away */
-.away__top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3.5vw,52px) clamp(28px,5vw,80px);align-items:start}
-.away__top .away__copy{display:contents}
-.away__top .h-xl{grid-column:1/-1;max-width:14ch}
-.away__copy{display:grid;gap:clamp(16px,2vw,26px);align-content:start}
-.away__questions{list-style:none;display:grid;gap:6px;color:var(--c-on-primary-muted)}
-.away__bottom{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,80px);align-items:center}
-.away__bottom .away__copy .w-cta{justify-self:start}
-.away__media{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(14px,2vw,28px);align-items:center}
-.away__cams{display:grid;gap:clamp(14px,2vw,24px)}
-.away__phone{width:100%;max-width:300px;justify-self:center}
-.away__note{grid-column:1/-1}
-
 /* Phone and narrow */
-@media(max-width:900px){
-  .away__top,.away__bottom{grid-template-columns:1fr}
-}
 @media(max-width:560px){
-  .away__media{grid-template-columns:1fr}
-  .away__phone{max-width:240px}
   .intro__buildings .tag,.intro__options .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
 }

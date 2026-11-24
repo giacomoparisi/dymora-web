@@ -1,0 +1,76 @@
+---
+// A function's page in the brochure language, as /consumi/. No function uses it today: they open
+// a popup on the home until they have enough to show (see src/data/features.ts). Layout: carbon hero with the brochure title,
+// panna band with the site text (`web`) and the device scenes, carbon band with the points,
+// the other functions, the consultation. Texts from src/data/features.ts.
+// Slots: `hero` (the hero's picture), `detail` (scenes beside the web text),
+// `extra` (whole bands after the detail), `points` (picture beside the points).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import Band from './Band.astro';
+import Eyebrow from './Eyebrow.astro';
+import Headline from './Headline.astro';
+import FeatureLinks from './FeatureLinks.astro';
+import { feature, plain } from '../data/features';
+import '../styles/features.css';
+import '../styles/feature-page.css';
+
+interface Props {
+  slug: string;
+}
+const f = feature(Astro.props.slug);
+const subject = encodeURIComponent(`Richiesta di consulenza ${f.label}`);
+const hasPoints = Astro.slots.has('points');
+// The web text's first sentence is the band's title, the rest its body.
+const [webTitle, ...webBody] = f.web.split(/(?<=\.) /);
+---
+<BaseLayout title={`${f.label} Dymora — ${plain(f.title)}`} description={f.line} pageClass={`feature-page feature-page--${f.slug}`}>
+  <SiteHeader />
+  <main>
+    <Band tone="ink" class="fp-hero" labelledby="fp-title" innerClass="fp-hero__inner">
+      <div class="fp-hero__copy">
+        <Eyebrow text={f.eyebrow} />
+        <Headline as="h1" id="fp-title" size="xl" text={f.title} />
+        <p class="w-lead w-muted">{f.line}</p>
+        <a class="w-cta w-button" href="#come-funziona">Scopri come funziona</a>
+      </div>
+      <div class="fp-hero__media"><slot name="hero" /></div>
+      <p class="w-note w-muted fp-hero__note">Immagini dimostrative.</p>
+    </Band>
+
+    <Band tone="paper" id="come-funziona" class="fp-web" labelledby="fp-web-title" innerClass="fp-web__inner">
+      <div class="fp-web__copy">
+        <Eyebrow text="Come funziona" rule />
+        <Headline id="fp-web-title" size="m" text={webTitle} />
+        <p class="w-body w-muted">{webBody.join(' ')}</p>
+      </div>
+      <div class="fp-web__media"><slot name="detail" /></div>
+    </Band>
+
+    <slot name="extra" />
+
+    <Band tone="ink" class="fp-points" innerClass={hasPoints ? 'fp-points__inner' : 'fp-points__inner fp-points__inner--solo'}>
+      <div class="fp-points__copy">
+        <Eyebrow text={f.eyebrow} rule />
+        <ul class="w-lead points fp-points__list">
+          {f.points.map((p) => <li>{p}</li>)}
+        </ul>
+        <p class="w-note w-muted">Immagini dimostrative. Funzioni e rilevamenti dipendono dai dispositivi e dalla configurazione scelta.</p>
+      </div>
+      {hasPoints && <div class="fp-points__media"><slot name="points" /></div>}
+    </Band>
+
+    <FeatureLinks tone="paper" current={f.slug} />
+
+    <Band tone="ink" class="fp-cta" labelledby="fp-cta-title" innerClass="fp-cta__inner">
+      <div class="fp-cta__copy">
+        <Eyebrow text="Consulenza" />
+        <Headline id="fp-cta-title" size="l" text="Raccontaci cosa vuoi **controllare**." />
+        <p class="w-lead w-muted">Ci dici cosa vuoi tenere sotto controllo e noi ti diciamo come si può fare.</p>
+      </div>
+      <a class="w-cta w-button" href={`mailto:info@dymora.eu?subject=${subject}`}>Richiedi una consulenza</a>
+    </Band>
+  </main>
+  <SiteFooter />
+</BaseLayout>

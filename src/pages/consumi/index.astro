@@ -11,6 +11,7 @@ import Band from '../../components/Band.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import Headline from '../../components/Headline.astro';
 import DeviceTile from '../../components/DeviceTile.astro';
+import FeatureLinks from '../../components/FeatureLinks.astro';
 import '../../styles/features.css';
 import '../../styles/energy.css';
 ---
@@ -56,7 +57,9 @@ import '../../styles/energy.css';
       </figure>
     </Band>
 
-    <Band tone="paper" class="en-cta" labelledby="en-cta-title" innerClass="en-cta__inner">
+    <FeatureLinks tone="paper" current="consumi" />
+
+    <Band tone="ink" class="en-cta" labelledby="en-cta-title" innerClass="en-cta__inner">
       <div class="en-cta__copy">
         <Eyebrow text="Consulenza" />
         <Headline id="en-cta-title" size="l" text="Raccontaci cosa vuoi **controllare**." />

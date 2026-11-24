@@ -10,6 +10,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import Band from '../../components/Band.astro';
 import Eyebrow from '../../components/Eyebrow.astro';
 import Headline from '../../components/Headline.astro';
+import FeatureLinks from '../../components/FeatureLinks.astro';
 import '../../styles/features.css';
 import '../../styles/video.css';
 
@@ -103,6 +104,8 @@ const faq: [string, string][] = [
         ))}
       </div>
     </Band>
+
+    <FeatureLinks tone="ink" current="telecamere" />
 
     <Band tone="ink" class="vs-cta" labelledby="vs-cta-title" innerClass="vs-cta__inner">
       <div class="vs-cta__copy">

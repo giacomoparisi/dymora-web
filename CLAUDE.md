@@ -12,6 +12,8 @@ Current pages:
 
 - `src/pages/index.astro` — home page with the approved scroll-driven opening; engine in `public/assets/js/home.js`.
 - `src/pages/videosorveglianza/index.astro` — AI video-surveillance page with the existing three.js scene and demo controls under `public/videosorveglianza/`.
+- `src/pages/consumi/index.astro` — energy page.
+- Home section "Cosa puoi fare con Dymora" (`src/components/FeatureLinks.astro`, `#funzioni`), data in `src/data/features.ts`: functions with `page: true` (video surveillance, energy) link to their page; the others (luci, clima, tapparelle, serrature, allarme, irrigazione) open a native `<dialog>` on the home (`src/components/FeatureDialog.astro`, `public/assets/js/feature-dialog.js`, URL `/#funzione-<slug>`). To promote a function to a page once it has enough content: build it with `src/components/FeaturePage.astro`, set `page: true` and its `href`, add it to the sitemap.
 - `src/pages/privacy/index.astro` — GDPR privacy policy. The URL is also used by the app: keep it stable.
 - `src/pages/cookie/index.astro` — cookie policy (no cookies, no third parties).
 - `src/pages/support/index.astro` — support contact page.

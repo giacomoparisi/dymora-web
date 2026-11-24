@@ -1,0 +1,5 @@
+/* The overview's house with one function playing (HouseHero.astro). */
+.house-hero{display:grid;justify-items:center;gap:clamp(14px,2vw,24px);width:100%}
+.house-hero__scene{width:min(100%,720px)}
+.house-hero__buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.house-hero__btn{min-height:44px;padding-inline:1.1em;font-size:max(13px,.85vw)}

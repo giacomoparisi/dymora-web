@@ -1,0 +1,56 @@
+/* The home's detail popup (FeatureDialog.astro, feature-dialog.js): a carbon panel centred on
+   wide screens, a sheet from the bottom on phones. Points from features.css, tags from bands.css.
+   Without JavaScript (no html.fd-on) the targeted dialog shows in place under the cards. */
+.fdialog{width:min(980px,100% - 2 * var(--w-gutter));max-width:none;max-height:calc(100dvh - 48px);margin:auto;padding:0;border:0;border-radius:var(--r-extra-large);background:var(--c-primary);color:var(--c-on-primary);box-shadow:0 40px 120px #000a;overflow:hidden}
+.fdialog[open]{display:flex;animation:fd-in .28s cubic-bezier(.2,.8,.2,1)}
+.fdialog::backdrop{background:#0e0e0dcc;backdrop-filter:blur(6px);animation:fd-fade .28s ease}
+html:has(.fdialog[open]){overflow:hidden}
+
+.fdialog__panel{flex:1;min-width:0;display:grid;gap:clamp(18px,2vw,26px);padding:0 clamp(20px,3vw,40px) clamp(20px,2.6vw,34px);overflow-y:auto;overscroll-behavior:contain;border:1px solid #ffffff1f;border-radius:inherit}
+.fdialog__bar{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 calc(-1 * clamp(20px,3vw,40px));padding:clamp(14px,1.6vw,20px) clamp(20px,3vw,40px);background:var(--c-primary);border-bottom:1px solid #ffffff1f}
+.fdialog__label{color:var(--c-on-primary-muted)}
+.fdialog .eyebrow::before{background:var(--c-secondary)}
+.fdialog__close{position:relative;display:block;flex:none;width:44px;height:44px;border-radius:50%;border:1px solid #ffffff3d;background:transparent;transition:background .2s,border-color .2s}
+.fdialog__close::before,.fdialog__close::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:2px;background:currentColor;translate:-50% -50%;rotate:45deg}
+.fdialog__close::after{rotate:-45deg}
+.fdialog__close:hover{background:#ffffff14;border-color:#ffffff80}
+
+.fdialog__body{display:grid;gap:clamp(20px,3vw,40px)}
+.fdialog__body--media{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center}
+.fdialog__copy{display:grid;gap:clamp(12px,1.4vw,18px);align-content:start}
+.fdialog .h-m{font-size:clamp(1.6rem,2.6vw,2.4rem)}
+.fdialog__line{color:var(--c-on-primary-muted)}
+.fdialog .points li{border-color:#ffffff2a}
+.fdialog .points li::before{background:var(--c-secondary)}
+.fdialog__media--house{min-width:0}
+.fdialog .house-hero__scene{width:100%}
+.fdialog button.tag{border:1px solid #ffffff59;background:transparent}
+.fdialog button.tag[aria-pressed="true"]{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary)}
+.fdialog__media img{width:100%;max-height:min(440px,52dvh);object-fit:contain;border-radius:var(--r-large)}
+.fdialog__note{color:var(--c-on-primary-muted)}
+
+.fdialog__actions{display:flex;flex-wrap:wrap;gap:12px}
+
+.fdialog__nav{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:clamp(14px,1.6vw,20px);border-top:1px solid #ffffff1f}
+.fdialog__step{display:grid;gap:4px;padding:6px 0;font-weight:800;font-size:clamp(1rem,1.2vw,1.15rem)}
+.fdialog__step .w-label{color:var(--c-on-primary-muted);font-size:12px}
+.fdialog__step--next{text-align:right}
+.fdialog__step:hover{color:var(--c-secondary-on-ink)}
+
+html:not(.fd-on) .fdialog:target{display:flex;position:static;max-height:none;margin:0 auto clamp(40px,6vw,80px);box-shadow:none}
+html:not(.fd-on) .fdialog:target .fdialog__panel{overflow:visible}
+
+@keyframes fd-in{from{opacity:0;translate:0 24px}}
+@keyframes fd-fade{from{opacity:0}}
+
+@media(max-width:760px){
+  .fdialog__body--media{grid-template-columns:1fr}
+  .fdialog__media img{max-height:320px}
+}
+@media(max-width:600px){
+  .fdialog{width:100%;max-height:88dvh;margin:auto 0 0;border-radius:var(--r-extra-large) var(--r-extra-large) 0 0}
+  .fdialog[open]{animation-name:fd-up}
+  .fdialog__panel{border-bottom:0;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+  .fdialog__actions>*{flex:1 1 100%}
+}
+@keyframes fd-up{from{translate:0 100%}}
