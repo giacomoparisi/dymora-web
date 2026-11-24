@@ -5,13 +5,17 @@
 html:has(body.home-page),body.home-page{background:var(--c-primary)}
 .home-page section>.band+.band>.band__inner{padding-top:0}
 
-/* 2 — Overview: one carbon section, the house standing bare on it.
-   Phone: title, panel, functions. Wide (>=1100px): copy and functions left, panel right. */
-.overview__inner{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "panel" "list";gap:clamp(28px,4vw,48px)}
-.overview__copy{grid-area:copy;display:grid;gap:clamp(16px,2vw,26px);max-width:40rem}
-.overview__copy .h-l .w-accent{display:block;font-size:1.45em;line-height:.95}
-.ov-panel{grid-area:panel}
-.ov-stage{container-type:inline-size;width:min(100%,1080px);margin:auto}
+/* 2–4 — Intro: overview, multi and retrofit as one bento section (Intro.astro).
+   Phone: the three tiles one after another. Wide (>=1100px): the house in the large tile
+   on the left, properties and retrofit stacked on the right, about one screen tall. */
+.intro__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(12px,1.4vw,20px)}
+.intro__tile{display:grid;gap:clamp(14px,1.6vw,22px);align-content:start;min-width:0;padding:clamp(20px,2.4vw,36px);border-radius:var(--r-extra-large);background:var(--c-primary-container);color:var(--c-on-primary-container)}
+.intro__tile .h-m{font-size:clamp(1.8rem,3vw,2.8rem)}
+.intro__tile .h-s{font-size:clamp(1.2rem,1.6vw,1.55rem)}
+.intro__copy{display:grid;gap:clamp(10px,1.2vw,16px)}
+
+/* House: the eight functions light up one at a time (overview.js) */
+.ov-stage{container-type:inline-size;width:100%;margin:auto}
 .ov-house{--row:8.5cqw;position:relative;margin-block:var(--row)}
 .ov-items{position:absolute;inset:0}
 .ov-item{display:contents}
@@ -43,129 +47,141 @@ html:has(body.home-page),body.home-page{background:var(--c-primary)}
   .ov-lead{display:none}
   .ov-tag{position:static;transform:none;font-size:12px}
 }
-.overview-list{grid-area:list;list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(20px,3vw,44px)}
-.overview-list li{border-top:1px solid #ffffff2a}
-.overview-list a{padding:18px 0;color:var(--c-on-primary);transition:color .2s}
-.overview-list a:hover{color:var(--c-secondary)}
+
+/* Properties: one at a time reaches the devices (multi.js; without it, all lit) */
+.intro__props{display:grid;gap:clamp(14px,1.8vw,24px);min-width:0}
+.intro__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.4vw,20px);align-items:end}
+.intro__buildings li{display:grid;justify-items:center;gap:10px;transition:opacity .3s}
+.intro__buildings img{width:100%}
+.intro__buildings .tag{transition:color .3s,border-color .3s}
+.intro__props.is-live li{opacity:.38}
+.intro__props.is-live li.is-active{opacity:1}
+.intro__props.is-live li.is-active .tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
+.intro__screens{display:grid;justify-items:center;gap:clamp(10px,1.2vw,16px)}
+
+/* The comb: a drop from each building, a bus to the target, the trunk with the arrow.
+   Stacked: buildings at 1/6, 1/2, 5/6, the trunk down from the middle to the devices.
+   Wide: buildings in the left 60%, the trunk up into the devices at 80% (media below). */
+.intro__comb{--bus:42%;position:relative;height:clamp(48px,5vw,64px);margin-top:4px}
+.intro__comb>span{position:absolute;background:var(--c-secondary)}
+.intro__drop,.intro__trunk{width:1.7px;translate:-50% 0}
+.intro__drop{top:0;height:var(--bus)}
+.intro__drop--casa{left:16.667%}.intro__drop--montagna{left:50%}.intro__drop--ufficio{left:83.333%}
+.intro__bus{top:var(--bus);height:1.7px;translate:0 -50%}
+.intro__bus--casa{left:16.667%;right:50%}.intro__bus--montagna{left:50%;right:50%}.intro__bus--ufficio{left:50%;right:16.667%}
+.intro__trunk{left:50%;top:var(--bus);bottom:6px}
+.intro__trunk::after{content:"";position:absolute;left:50%;bottom:-6px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid var(--c-secondary)}
+
+/* Live (multi.js, motion allowed): the active building's branch draws in, then the trunk */
+.intro__props.is-live .intro__drop,.intro__props.is-live .intro__bus{background:#ffffff26}
+.intro__props.is-live .intro__drop::before,.intro__props.is-live .intro__bus::before{content:"";position:absolute;inset:0;background:var(--c-secondary);transform:scale(0);transform-origin:top left}
+.intro__props.is-live .intro__bus--ufficio::before{transform-origin:right}
+.intro__props.is-live.is-flow .intro__drop.is-active::before{animation:intro-y .16s ease-in forwards}
+.intro__props.is-live.is-flow .intro__bus.is-active::before{animation:intro-x .14s linear .16s forwards}
+@keyframes intro-x{from{transform:scaleX(0)}to{transform:none}}
+@keyframes intro-y{from{transform:scaleY(0)}to{transform:none}}
+.intro__devices{position:relative;width:min(100%,400px);padding-bottom:4%}
+.mdev{display:grid;background:#3a3a36;border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:inset 0 0 0 1px #ffffff2e,0 30px 60px #0008}
+.mdev__screen{display:grid;place-items:center;border-radius:calc(clamp(8px,1.2vw,18px) - 4px);background:var(--c-primary-container);overflow:hidden}
+.mdev__screen img{width:100%;height:100%;object-fit:cover}
+.mdev--laptop{width:62%;margin-inline:auto}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
+.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:#4a4a45;box-shadow:inset 0 1px 0 #ffffff33}
+.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary-container),0 30px 60px #0008}
+.mdev--tablet{left:0;width:34%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
+.mdev--phone{right:0;width:17%}.mdev--phone .mdev__screen{aspect-ratio:1644/3564}
+.intro__line{text-align:center}
+
+/* Retrofit: the two options side by side */
+.intro__options{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,32px)}
+.intro__options li{display:grid;gap:8px;align-content:start;justify-items:center;text-align:center}
+.intro__options figure{display:grid;justify-items:center;gap:10px}
+.intro__options img{width:100%}
+.intro__options .tag{white-space:normal;text-align:center;line-height:1.2}
+.intro__tile .intro__options .h-s{font-size:clamp(1rem,1.4vw,1.25rem)}
+.intro__close{color:var(--c-on-primary-container);text-align:center}
+
+/* Retrofit arrows: picture to title, then both options into the closing line */
+.intro__flow{position:relative;display:block;width:1.7px;height:clamp(18px,2vw,26px);background:var(--c-secondary);justify-self:center}
+.intro__flow::after{content:"";position:absolute;left:50%;bottom:-2px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid var(--c-secondary)}
+.intro__tile--retro{--gap:clamp(14px,2vw,32px)}
+.intro__options{column-gap:var(--gap)}
+.intro__join{position:relative;display:grid;justify-items:center;padding-top:clamp(18px,2vw,26px)}
+.intro__join::before,.intro__join::after{content:"";position:absolute;top:0;width:1.7px;height:clamp(18px,2vw,26px);background:var(--c-secondary)}
+.intro__join::before{left:calc((100% - var(--gap)) / 4)}
+.intro__join::after{right:calc((100% - var(--gap)) / 4)}
+.intro__join-bus{position:absolute;top:clamp(18px,2vw,26px);left:calc((100% - var(--gap)) / 4);right:calc((100% - var(--gap)) / 4);height:1.7px;background:var(--c-secondary)}
+
+/* Tablet: copy beside the house, properties and retrofit side by side under it */
+@media(min-width:760px) and (max-width:1099px){
+  .intro__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"house house" "multi retro"}
+  .intro__tile--house{grid-area:house;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-areas:"copy stage";align-items:center}
+  .intro__tile--house .intro__copy{grid-area:copy}
+  .intro__tile--house .ov-stage{grid-area:stage}
+  .intro__tile--multi{grid-area:multi}
+  .intro__tile--retro{grid-area:retro}
+  .intro__options p{display:none}
+}
 @media(min-width:1100px){
-  .overview__inner{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"copy panel" "list panel";column-gap:clamp(40px,5vw,96px);row-gap:clamp(32px,4vw,56px)}
-  .overview__copy{align-self:end}
-  .overview-list{align-self:start}
+  .intro .band__inner{padding-block:clamp(40px,5vw,80px)}
+  .intro__grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-areas:"house multi" "house retro"}
+  .intro__tile--house{grid-area:house;align-content:stretch}
+  .intro__tile--house .ov-stage{align-self:center}
+  .intro__tile--multi{grid-area:multi}
+  .intro__tile--retro{grid-area:retro}
+  .intro__options p{display:none}
+  /* Properties: buildings in a column on the left, the comb running right into the
+     devices. Arms at 1/6, 1/2, 5/6 of the column, a bus to the middle, the trunk right. */
+  .intro__props{grid-template-columns:auto clamp(28px,2.4vw,40px) minmax(0,1fr);grid-template-areas:"buildings comb screens";align-items:center;gap:0}
+  .intro__buildings{grid-area:buildings;grid-template-columns:1fr;grid-auto-rows:1fr;gap:clamp(8px,1vw,14px)}
+  .intro__buildings li{grid-template-columns:auto auto;align-items:center;gap:8px}
+  .intro__buildings .tag{font-size:10px;padding:.4em .55em;letter-spacing:.04em;min-width:7.4em;justify-content:center}
+  .intro__comb{grid-area:comb;align-self:stretch;height:auto;margin:0}
+  .intro__drop{left:0;top:auto;width:50%;height:1.7px;translate:0 -50%}
+  .intro__drop--casa{left:0;top:16.667%}.intro__drop--montagna{left:0;top:50%}.intro__drop--ufficio{left:0;top:83.333%}
+  .intro__bus{left:50%;width:1.7px;height:auto;translate:-50% 0}
+  .intro__bus--casa{left:50%;right:auto;top:16.667%;bottom:50%}.intro__bus--montagna{left:50%;right:auto;top:50%;bottom:50%}.intro__bus--ufficio{left:50%;right:auto;top:50%;bottom:16.667%}
+  .intro__trunk{left:50%;right:4px;top:50%;bottom:auto;width:auto;height:1.7px;translate:0 -50%}
+  .intro__trunk::after{left:auto;right:-6px;top:50%;bottom:auto;translate:0 -50%;border:5px solid transparent;border-right:0;border-left:9px solid var(--c-secondary)}
+  .intro__props.is-live .intro__bus--ufficio::before{transform-origin:bottom}
+  .intro__props.is-live.is-flow .intro__drop.is-active::before{animation-name:intro-x}
+  .intro__props.is-live.is-flow .intro__bus.is-active::before{animation-name:intro-y}
+  .intro__screens{grid-area:screens;padding-left:clamp(10px,1vw,16px)}
+
+  /* Fit the window: the grid is one window tall (never under 600px) and every picture
+     takes what its row leaves, measured with size containers (.intro__fit, the
+     screens, the buildings), so the whole section shows without scrolling. */
+  .intro{--pad:clamp(16px,3svh,36px)}
+  .intro .band__inner{padding-block:var(--pad)}
+  .intro__grid{height:max(600px,calc(100svh - 2 * var(--pad)));grid-template-rows:minmax(0,.7fr) minmax(0,1fr)}
+  .intro__tile{min-height:0;padding:clamp(18px,2.8svh,32px) clamp(20px,2.2vw,34px);gap:clamp(8px,1.6svh,18px)}
+  .intro__tile .h-m{font-size:clamp(1.8rem,min(3vw,4.6svh),2.8rem)}
+  .intro__tile .h-s{font-size:clamp(1.1rem,min(1.6vw,2.6svh),1.55rem)}
+  .intro__tile--house{grid-template-rows:auto minmax(0,1fr)}
+  .intro__fit{container-type:size;min-height:0;display:grid;place-items:center}
+  .intro__fit .ov-stage{width:min(100cqw,calc(100cqh / .86))}
+  .intro__tile--multi{grid-template-rows:auto minmax(0,1fr)}
+  .intro__props{min-height:0;height:100%;grid-template-rows:minmax(0,1fr)}
+  .intro__buildings{height:100%;min-height:0;grid-auto-rows:minmax(0,1fr);align-items:stretch}
+  .intro__buildings li{grid-template-rows:minmax(0,1fr);min-height:0}
+  .intro__buildings img{width:auto;height:100%;max-width:none;min-height:0;object-fit:contain}
+  .intro__screens{container-type:size;height:100%;align-content:center}
+  .intro__devices{width:min(100cqw,calc((100cqh - 3.2em) * 2.05))}
+  .intro__tile--retro{grid-template-rows:auto minmax(0,1fr) auto auto}
+  .intro__options{min-height:0;height:100%;grid-template-rows:minmax(0,1fr)}
+  .intro__options li{grid-template-rows:minmax(0,1fr) auto auto;min-height:0}
+  .intro__options figure{grid-template-rows:auto minmax(0,1fr);min-height:0;height:100%;margin:0}
+  .intro__options img{width:100%;height:100%;min-height:0;object-fit:contain}
+  .intro__tile .intro__options .h-s{font-size:clamp(.95rem,min(1.25vw,2.1svh),1.2rem)}
+  .intro__flow,.intro__join::before,.intro__join::after{height:clamp(12px,2svh,24px)}
+  .intro__join{padding-top:clamp(12px,2svh,24px)}
+  .intro__join-bus{top:clamp(12px,2svh,24px)}
   /* Narrower house: smaller tags, and the two crowded middle ones step towards the house */
-  .overview .ov-tag{font-size:clamp(10px,1.4cqw,14px)}
+  .intro .ov-tag{font-size:clamp(10px,1.4cqw,14px)}
   .ov-i--allarme,.ov-i--telecamere{--lift:4.2cqw}
   .ov-item--top .ov-tag{top:calc(-1 * var(--row) + var(--lift,0px))}
   .ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em + var(--lift,0px));height:calc(var(--y) + var(--row) - 1em - var(--lift,0px))}
   .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row) + var(--lift,0px))}
   .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
-}
-
-/* 3 — Multi: one carbon section; the orange comb joins the buildings to the devices,
-   both bare on carbon. Phone and tablet: devices below, the comb goes down. Wide
-   (>=1280px): devices on the right, buildings stacked, the comb goes right.
-   multi.js draws one property at a time. */
-.multi__inner{display:grid}
-.multi__top{display:grid;gap:clamp(32px,5vw,70px)}
-.multi__top .h-l{max-width:16ch}
-.multi__stage{display:grid}
-.multi__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
-.multi__buildings li{display:grid;justify-items:center;gap:14px;padding-inline:clamp(4px,1.5vw,24px);transition:opacity .3s}
-.multi__buildings img{width:100%;height:auto}
-.multi__buildings .tag{transition:color .3s,border-color .3s}
-.multi__arm{display:none}
-.multi__comb{position:relative;height:clamp(44px,6vw,96px);margin-top:clamp(10px,1.2vw,16px)}
-.multi__comb>span,.multi__arm{position:absolute;background:var(--c-secondary)}
-.multi__drop,.multi__trunk{width:1.7px;translate:-50% 0}
-.multi__drop{top:0;height:55%}
-.multi__drop--casa{left:16.667%}.multi__drop--montagna{left:50%}.multi__drop--ufficio{left:83.333%}
-.multi__bus{top:55%;height:1.7px;translate:0 -50%}
-.multi__bus--casa{left:16.667%;right:50%}.multi__bus--ufficio{left:50%;right:16.667%}
-.multi__trunk{left:50%;top:55%;bottom:0}
-.multi__panel{padding-inline:clamp(0px,3vw,40px)}
-.multi__screens{display:grid;justify-items:center}
-.multi__stem{position:relative;width:1.7px;height:clamp(36px,5vw,72px);background:var(--c-secondary);color:var(--c-secondary)}
-.multi__stem::after{content:"";position:absolute;left:50%;bottom:-2px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid;transition:color .2s}
-.multi__group{display:grid;justify-items:center;gap:clamp(24px,3vw,40px);width:min(100%,640px);margin-top:clamp(10px,1.4vw,18px)}
-.multi__devices{position:relative;width:100%;padding-bottom:4%}
-.mdev{display:grid;background:#3a3a36;border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:inset 0 0 0 1px #ffffff2e,0 30px 60px #0008}
-.mdev__screen{display:grid;place-items:center;border-radius:calc(clamp(8px,1.2vw,18px) - 4px);background:var(--c-primary-container);overflow:hidden}
-.mdev__screen img{width:30%;height:auto}
-.mdev--laptop{width:62%;margin-inline:auto}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
-.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:#4a4a45;box-shadow:inset 0 1px 0 #ffffff33}
-.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary),0 30px 60px #0008}
-.mdev--tablet{left:0;width:34%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
-.mdev--phone{right:0;width:17%}.mdev--phone .mdev__screen{aspect-ratio:9/19}
-.multi__line{text-align:center}
-
-/* Live (multi.js, motion allowed): one property at a time, about half a second to arrive */
-.multi.is-live .multi__buildings li{opacity:.38}
-.multi.is-live .multi__buildings li.is-active{opacity:1}
-.multi.is-live li.is-active .tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
-.multi.is-live .multi__comb>span,.multi.is-live .multi__arm{background:#ffffff38}
-.multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before,.multi.is-live .multi__stem::before{content:"";position:absolute;inset:0;transform:scale(0);transform-origin:top left}
-.multi.is-live .multi__comb>span::before,.multi.is-live .multi__arm::before{background:var(--c-secondary)}
-.multi.is-live .multi__stem::before{background:var(--c-secondary)}
-.multi.is-live .multi__bus--ufficio::before{transform-origin:right}
-.multi.is-live.is-flow .multi__drop.is-active::before{animation:multi-y .16s ease-in forwards}
-.multi.is-live.is-flow .multi__bus.is-active::before{animation:multi-x .12s linear .16s forwards}
-.multi.is-live.is-flow .multi__trunk::before{animation:multi-y .08s linear .28s forwards}
-.multi.is-live.is-flow .multi__stem::before{animation:multi-y .14s linear .36s forwards}
-.multi.is-live .multi__stem{background:#ffffff38;color:#ffffff38}
-.multi.is-live.is-arrived .multi__stem{color:var(--c-secondary)}
-.multi.is-live.is-arrived .mdev__screen{animation:multi-glow .6s ease-out}
-.multi.is-live.is-arrived .mdev__screen img{animation:multi-pop .45s cubic-bezier(.2,1.6,.4,1)}
-@keyframes multi-x{from{transform:scaleX(0)}to{transform:none}}
-@keyframes multi-y{from{transform:scaleY(0)}to{transform:none}}
-@keyframes multi-glow{from{background:#55544e}}
-@keyframes multi-pop{from{transform:scale(.88)}}
-
-/* Wide: the panel on the right, the comb running into its left edge */
-@media(min-width:1280px){
-  .multi__inner{grid-template-columns:auto minmax(0,1fr);align-items:center;row-gap:clamp(48px,5vw,80px)}
-  .multi__panel{display:flex;flex-direction:column;justify-content:center;padding:clamp(48px,5vw,80px) 0}
-  /* The title spans the section, as every other section title; stage and panel below it */
-  .multi__top{display:contents}
-  .multi__top>:first-child{grid-column:1/-1}
-  .multi__top .h-l{max-width:20ch}
-  .multi__stage{grid-template-columns:minmax(0,1fr) clamp(20px,2.4vw,40px)}
-  .multi__buildings{grid-template-columns:1fr;grid-auto-rows:1fr}
-  .multi__buildings li{display:flex;align-items:center;gap:12px;padding:clamp(4px,.6vw,10px) 0}
-  .multi__buildings img{flex:none;width:clamp(140px,13vw,220px)}
-  .multi__buildings .tag{flex:none;min-width:7.6em;justify-content:center}
-  .multi__arm{display:block;position:relative;flex:none;width:clamp(20px,2.4vw,44px);height:1.7px}
-  .multi.is-live.is-flow li.is-active .multi__arm::before{animation:multi-x .16s ease-in forwards}
-  .multi__comb{height:auto;margin:0}
-  .multi__drop{display:none}
-  .multi__bus{left:0;right:auto;width:1.7px;height:auto;translate:-50% 0}
-  .multi__bus--casa{top:16.667%;bottom:50%}.multi__bus--ufficio{top:50%;bottom:16.667%}
-  .multi.is-live .multi__bus--ufficio::before{transform-origin:bottom}
-  .multi__trunk{left:0;right:0;top:50%;bottom:auto;width:auto;height:1.7px;translate:0 -50%}
-  .multi.is-live.is-flow .multi__trunk::before{animation-name:multi-x}
-  .multi__screens{display:flex;align-items:center}
-  .multi__stem{flex:1 1 clamp(36px,4vw,64px);min-width:clamp(36px,4vw,64px);height:1.7px}
-  .multi__stem::after{left:auto;right:-2px;top:50%;bottom:auto;translate:0 -50%;border:5px solid transparent;border-right:0;border-left:9px solid}
-  .multi.is-live.is-flow .multi__stem::before{animation-name:multi-x}
-  .multi__group{position:relative;flex:0 1 600px;margin:0 0 0 clamp(14px,1.6vw,24px);width:auto}
-  .multi__line{position:absolute;top:calc(100% + clamp(20px,2.4vw,32px));left:0;right:0}
-}
-
-/* 4 — Retrofit: one carbon section, each option's picture and block together.
-   Phone: title, options, closing line. Wide (>=1100px): title and closing line left,
-   the two options side by side on the right. */
-.retrofit__inner{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"title" "options" "close";gap:clamp(36px,5vw,72px)}
-.retrofit__title{grid-area:title}
-.retrofit__title .h-l{max-width:14ch}
-.retrofit__options{grid-area:options;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,90px) clamp(20px,5vw,90px)}
-.retrofit__options li{display:grid;grid-template-rows:auto auto 1fr;gap:10px;justify-items:center;align-content:start;text-align:center}
-.retrofit__options figure{display:grid;justify-items:center;gap:clamp(10px,1.4vw,18px);margin-bottom:clamp(8px,1.4vw,18px)}
-.retrofit__options img{width:100%;height:auto}
-.retrofit__options p{max-width:38ch}
-.retrofit__close{grid-area:close;text-align:center}
-@media(min-width:1100px){
-  .retrofit__inner{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"title options" "close options";column-gap:clamp(40px,5vw,96px);row-gap:clamp(32px,4vw,56px);align-items:center}
-  .retrofit__title{align-self:end}
-  .retrofit__close{align-self:start;text-align:left;max-width:14ch}
-  .retrofit__options{column-gap:clamp(28px,3vw,56px)}
 }
 
 /* 5 — Away */
@@ -186,9 +202,7 @@ html:has(body.home-page),body.home-page{background:var(--c-primary)}
   .away__top,.away__bottom{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .multi__buildings .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
-  .retrofit__options{grid-template-columns:1fr}
-  .overview-list{grid-template-columns:1fr 1fr}
   .away__media{grid-template-columns:1fr}
   .away__phone{max-width:240px}
+  .intro__buildings .tag,.intro__options .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
 }

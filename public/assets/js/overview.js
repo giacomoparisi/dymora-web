@@ -1,7 +1,7 @@
 /*
  * Home overview: the house switches its functions on one at a time, by itself.
  *
- * Markup (src/components/home/Overview.astro):
+ * Markup (src/components/home/Intro.astro):
  *   .ov-stage[data-ov-sequence="id id …"][data-ov-rest="tokens"]
  *     .sprite#ov-house[data-layers]            played by sprite.js
  *     .ov-item[data-ov-item=id][data-ov-on="tokens"][data-ov-off="tokens"]

@@ -1,22 +1,19 @@
 /*
  * Home multi: the properties reach the devices one at a time.
  *
- * Markup (src/components/home/Multi.astro):
+ * Markup (src/components/home/Intro.astro):
  *   [data-multi]
  *     li[data-multi-item=id]                      the buildings
- *     [data-multi-path=id]                        the comb segments of each building
+ *     [data-multi-path=id]                        optional segments drawn for each building
  *
- * Without JavaScript, or with prefers-reduced-motion, the section stays as printed:
- * every branch drawn, every building lit.
- * With motion, `is-live` dims the buildings; each step lights one, replays the
- * `is-flow` drawing (branch, then the stem to the devices) and, when the arrow
- * arrives, `is-arrived` lights the screens. The story only runs while on screen.
+ * Without JavaScript, or with prefers-reduced-motion, every building stays lit.
+ * With motion, `is-live` dims the buildings; each step lights one and restarts `is-flow`,
+ * which draws its branch of the comb. The story only runs while on screen.
  */
 (function () {
   "use strict";
 
   var STEP = 2000;   // ms each property stays open
-  var ARRIVE = 500;  // comb, then the stem on panna (home.css: ends at .36s + .14s)
 
   function init() {
     var root = document.querySelector("[data-multi]");
@@ -28,7 +25,7 @@
     var paths = Array.prototype.slice.call(root.querySelectorAll("[data-multi-path]"));
     if (!items.length) return;
 
-    var index = -1, timer = 0, arrive = 0, visible = false;
+    var index = -1, timer = 0, visible = false;
 
     function show(i) {
       index = i;
@@ -36,13 +33,9 @@
       var id = item.getAttribute("data-multi-item");
       items.forEach(function (el) { el.classList.toggle("is-active", el === item); });
       paths.forEach(function (p) { p.classList.toggle("is-active", p.getAttribute("data-multi-path") === id); });
-      root.classList.remove("is-flow", "is-arrived");
+      root.classList.remove("is-flow");
       void root.offsetWidth; // restart the drawing
       root.classList.add("is-flow");
-      clearTimeout(arrive);
-      arrive = setTimeout(function () {
-        root.classList.add("is-arrived");
-      }, ARRIVE);
     }
 
     function tick() {
@@ -57,7 +50,7 @@
     }
 
     function stop() {
-      clearTimeout(timer); clearTimeout(arrive);
+      clearTimeout(timer);
       timer = 0;
       // Resume from the same property.
       if (index >= 0) index = (index + items.length - 1) % items.length;
