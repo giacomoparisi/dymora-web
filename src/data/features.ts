@@ -119,7 +119,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'telecamere',
-    device: { src: '/assets/images/devices/telecamere.webp', width: 228, height: 320 },
+    device: { src: '/assets/images/devices/telecamere.webp', width: 292, height: 402 },
     href: '/videosorveglianza/',
     page: true,
     label: 'Telecamere',
