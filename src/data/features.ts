@@ -15,6 +15,8 @@ export interface Feature {
   line: string;
   points: string[];
   web: string;
+  /** Render of a device that stands for the function, on its card in "Cosa puoi fare" (FeatureLinks.astro). Decorative: the card's name says what it is. */
+  device: { src: string; width: number; height: number };
   /** Has a page of its own: its card links there instead of opening the popup. */
   page?: boolean;
   /** The app screen shown in the home's detail popup (FeatureDialog.astro), when there is one. */
@@ -26,6 +28,7 @@ export interface Feature {
 export const features: Feature[] = [
   {
     slug: 'luci',
+    device: { src: '/assets/images/devices/luci.webp', width: 428, height: 360 },
     href: '/#funzione-luci',
     label: 'Luci',
     eyebrow: 'Luci',
@@ -41,6 +44,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'clima',
+    device: { src: '/assets/images/devices/clima.webp', width: 285, height: 360 },
     href: '/#funzione-clima',
     label: 'Clima',
     eyebrow: 'Clima',
@@ -57,6 +61,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'tapparelle',
+    device: { src: '/assets/images/devices/tapparelle.webp', width: 301, height: 360 },
     href: '/#funzione-tapparelle',
     label: 'Tende e tapparelle',
     eyebrow: 'Tende e tapparelle',
@@ -78,6 +83,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'serrature',
+    device: { src: '/assets/images/devices/serrature.webp', width: 186, height: 360 },
     href: '/#funzione-serrature',
     label: 'Serrature',
     eyebrow: 'Serrature',
@@ -93,6 +99,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'allarme',
+    device: { src: '/assets/images/devices/allarme.webp', width: 378, height: 360 },
     href: '/#funzione-allarme',
     label: 'Allarme',
     eyebrow: 'Allarme',
@@ -112,6 +119,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'telecamere',
+    device: { src: '/assets/images/devices/telecamere.webp', width: 228, height: 320 },
     href: '/videosorveglianza/',
     page: true,
     label: 'Telecamere',
@@ -123,6 +131,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'consumi',
+    device: { src: '/assets/images/devices/consumi.webp', width: 183, height: 256 },
     href: '/consumi/',
     page: true,
     label: 'Consumi',
@@ -134,6 +143,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'irrigazione',
+    device: { src: '/assets/images/devices/irrigazione.webp', width: 136, height: 113 },
     href: '/#funzione-irrigazione',
     label: 'Irrigazione',
     eyebrow: 'Irrigazione',

@@ -1,5 +1,6 @@
 ---
-// "Cosa puoi fare con Dymora": one card per function of the brochure (`overview.labels`),
+// "Cosa puoi fare con Dymora": one card per function of the brochure (`overview.labels`), each with
+// the render of a device that stands for it (`device` in features.ts), linking
 // to its page or, for the functions without one, to its popup on the home (`/#funzione-<slug>`). On a feature page `current` leaves that page out and the title
 // becomes "Scopri anche" instead of the home's section title. On the home (no `current`) the
 // popups are rendered here (FeatureDialog.astro) and open in place.
@@ -29,6 +30,9 @@ const titleId = `${id ?? current ?? 'funzioni'}-links-title`;
     {list.map((f) => (
       <li>
         <a class="flink" href={f.href} data-feature={popup && !f.page ? f.slug : undefined}>
+          <span class="flink__media" aria-hidden="true">
+            <img class="flink__device" src={f.device.src} width={f.device.width} height={f.device.height} alt="" loading="lazy" decoding="async" />
+          </span>
           <span class="w-label flink__num" aria-hidden="true">{String(features.indexOf(f) + 1).padStart(2, '0')}</span>
           <span class="flink__name">{f.label}</span>
           <span class="w-note flink__line">{plain(f.title)}</span>
