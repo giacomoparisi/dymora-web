@@ -17,6 +17,14 @@ export interface Feature {
   web: string;
   /** Render of a device that stands for the function, on its card in "Cosa puoi fare" (FeatureLinks.astro). Decorative: the card's name says what it is. */
   device: { src: string; width: number; height: number };
+  /**
+   * The device's animated scene from dymora-app (Sprite.astro, scripts/app-assets.json), shown on the
+   * card in place of `device` and switched on while the card is hovered or focused
+   * (assets/js/feature-fx.js), with the app's own clips:
+   * `on` tokens are added on enter, `then` ones `wait` frames (24 fps) later, both removed on leave —
+   * a one-shot plays back the way it came — and `off` ones added for the way out.
+   */
+  scene?: { name: string; on: string; then?: string; wait?: number; off?: string; order?: string };
   /** Has a page of its own: its card links there instead of opening the popup. */
   page?: boolean;
   /** The app screen shown in the home's detail popup (FeatureDialog.astro), when there is one. */
@@ -28,6 +36,7 @@ export interface Feature {
 export const features: Feature[] = [
   {
     slug: 'luci',
+    scene: { name: 'pendant_cone', on: 'glow_idle' },
     device: { src: '/assets/images/devices/luci.webp', width: 428, height: 360 },
     href: '/#funzione-luci',
     label: 'Luci',
@@ -44,6 +53,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'clima',
+    scene: { name: 'thermostat', on: '' },
     device: { src: '/assets/images/devices/clima.webp', width: 285, height: 360 },
     href: '/#funzione-clima',
     label: 'Clima',
@@ -61,6 +71,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'tapparelle',
+    scene: { name: 'awning', on: 'extend_closed!' },
     device: { src: '/assets/images/devices/tapparelle.webp', width: 301, height: 360 },
     href: '/#funzione-tapparelle',
     label: 'Tende e tapparelle',
@@ -83,6 +94,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'serrature',
+    scene: { name: 'lock_door', on: 'turn_closed>click_lock_closed!' },
     device: { src: '/assets/images/devices/serrature.webp', width: 186, height: 360 },
     href: '/#funzione-serrature',
     label: 'Serrature',
@@ -99,6 +111,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'allarme',
+    scene: { name: 'alarm_motion_sensor', on: 'detect_mounted!' },
     device: { src: '/assets/images/devices/allarme.webp', width: 378, height: 360 },
     href: '/#funzione-allarme',
     label: 'Allarme',
@@ -119,6 +132,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'telecamere',
+    scene: { name: 'ptz_camera', on: 'led_on_idle! pan_right_idle!', order: 'pan_right_idle led_on_idle' },
     device: { src: '/assets/images/devices/telecamere.webp', width: 292, height: 402 },
     href: '/videosorveglianza/',
     page: true,
@@ -131,6 +145,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'consumi',
+    scene: { name: 'circuit_breaker', on: 'switch_on_idle>led_breathe_idle' },
     device: { src: '/assets/images/devices/consumi.webp', width: 183, height: 256 },
     href: '/consumi/',
     page: true,
@@ -143,6 +158,7 @@ export const features: Feature[] = [
   },
   {
     slug: 'irrigazione',
+    scene: { name: 'water_tap', on: 'turn_tap>accent_tap', then: 'pour_tap>flow_tap.', wait: 14, off: 'stop_tap!.' },
     device: { src: '/assets/images/devices/irrigazione.webp', width: 136, height: 113 },
     href: '/#funzione-irrigazione',
     label: 'Irrigazione',

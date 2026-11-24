@@ -29,7 +29,8 @@
     {
       "art": "motion-sensor",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -47,7 +48,8 @@
     {
       "art": "lock-door",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -59,7 +61,8 @@
     {
       "art": "pendant-cone",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -83,12 +86,14 @@
     {
       "art": "awning",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
       "art": "thermostat",
       "variants": [
+        "light",
         "dark"
       ]
     },
@@ -113,7 +118,8 @@
     {
       "art": "water-tap",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -132,6 +138,20 @@
       "art": "wall-socket",
       "variants": [
         "light"
+      ]
+    },
+    {
+      "art": "ptz-camera",
+      "variants": [
+        "light",
+        "dark"
+      ]
+    },
+    {
+      "art": "circuit-breaker",
+      "variants": [
+        "light",
+        "dark"
       ]
     }
   ],

@@ -1,0 +1,196 @@
+---
+// PREVIEW ONLY (branch preview/feature-variants): five candidate designs for the home's
+// "Cosa puoi fare con Dymora" section, stacked so the owner can pick one. Not in the
+// sitemap, noindex. Delete this page, its CSS/JS and src/components/preview/ once chosen.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import Headline from '../../components/Headline.astro';
+import Sprite from '../../components/Sprite.astro';
+import FxScene from '../../components/preview/FxScene.astro';
+import { features } from '../../data/features';
+import { overview } from '../../data/intro';
+import '../../styles/feature-links.css';
+import '../../styles/preview-features.css';
+
+const num = (f: (typeof features)[number]) => String(features.indexOf(f) + 1).padStart(2, '0');
+const cta = (f: (typeof features)[number]) => (f.page ? 'Scopri la funzione' : 'Vedi i dettagli');
+const big = features.filter((f) => f.page);
+const small = features.filter((f) => !f.page);
+const options = [
+  { id: 'opzione-1', n: 1, name: 'Elenco + palco' },
+  { id: 'opzione-2', n: 2, name: 'Bento con gerarchia' },
+  { id: 'opzione-3', n: 3, name: 'Indice editoriale' },
+  { id: 'opzione-4', n: 4, name: 'Casa interattiva' },
+  { id: 'opzione-5', n: 5, name: 'Card ripensate' },
+];
+---
+<BaseLayout title="Anteprima — sezione Funzioni" description="Anteprima interna delle varianti della sezione Funzioni.">
+  <meta slot="head" name="robots" content="noindex" />
+  <main>
+    <header class="band band--paper pv-top">
+      <div class="band__inner pv-top__inner">
+        <Eyebrow text="Anteprima interna" />
+        <h1 class="h-m">Sezione <span class="w-accent">Funzioni</span>: cinque varianti</h1>
+        <nav aria-label="Varianti">
+          <ul class="pv-nav">
+            {options.map((o) => <li><a class="tag" href={`#${o.id}`}>{o.n} · {o.name}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 1 · Elenco + palco -->
+    <p class="pv-label" id="opzione-1"><span>Opzione 1</span> Elenco + palco</p>
+    <section class="band band--ink pv1" aria-labelledby="pv1-title">
+      <div class="band__inner pv-inner">
+        <div class="pv-head">
+          <Eyebrow text="Funzioni" />
+          <Headline id="pv1-title" text="Cosa puoi fare con **Dymora**." />
+        </div>
+        <div class="pv1__wrap" data-pv1>
+          <div class="pv1__list" role="tablist" aria-label="Funzioni" aria-orientation="vertical">
+            {features.map((f, i) => (
+              <button class="pv1__tab" role="tab" type="button" id={`pv1-tab-${f.slug}`} aria-controls={`pv1-panel-${f.slug}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                <span class="w-label pv1__num">{num(f)}</span>
+                <span class="pv1__name">{f.label}</span>
+                {f.page && <span class="pv1__page w-label">Pagina</span>}
+              </button>
+            ))}
+          </div>
+          <div class="pv1__stage">
+            {features.map((f, i) => (
+              <div class:list={['pv1__panel', { 'is-active': i === 0 }]} role="tabpanel" id={`pv1-panel-${f.slug}`} aria-labelledby={`pv1-tab-${f.slug}`} data-fx-card inert={i === 0 ? undefined : true}>
+                <div class="pv1__media"><FxScene f={f} /></div>
+                <div class="pv1__copy">
+                  <Headline as="h3" size="s" text={f.title} />
+                  <p class="w-body w-muted">{f.line}</p>
+                  <a class="w-cta w-button pv1__cta" href={f.href}>{cta(f)}</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · Bento con gerarchia -->
+    <p class="pv-label" id="opzione-2"><span>Opzione 2</span> Bento con gerarchia</p>
+    <section class="band band--ink pv2" aria-labelledby="pv2-title">
+      <div class="band__inner pv-inner">
+        <div class="pv-head">
+          <Eyebrow text="Funzioni" />
+          <Headline id="pv2-title" text="Cosa puoi fare con **Dymora**." />
+        </div>
+        <ul class="pv2__grid">
+          {big.map((f) => (
+            <li class="pv2__cell pv2__cell--big">
+              <a class="pv2__card pv2__card--big" href={f.href} data-fx-card data-fx-hover>
+                <span class="pv2__copy">
+                  <span class="tag tag--accent">Pagina dedicata</span>
+                  <span class="pv2__name pv2__name--big">{f.label}</span>
+                  <span class="w-body w-muted">{f.line}</span>
+                  <span class="w-button pv2__more">Scopri <span class="pv-arrow" aria-hidden="true"></span></span>
+                </span>
+                <span class="pv2__media pv2__media--big"><FxScene f={f} /></span>
+              </a>
+            </li>
+          ))}
+          {small.map((f) => (
+            <li class="pv2__cell">
+              <a class="pv2__card" href={f.href} data-fx-card data-fx-hover>
+                <span class="pv2__media"><FxScene f={f} /></span>
+                <span class="pv2__foot">
+                  <span class="pv2__name">{f.label}</span>
+                  <span class="pv-arrow" aria-hidden="true"></span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3 · Indice editoriale -->
+    <p class="pv-label" id="opzione-3"><span>Opzione 3</span> Indice editoriale</p>
+    <section class="band band--ink pv3" aria-labelledby="pv3-title">
+      <div class="band__inner pv-inner">
+        <div class="pv-head">
+          <Eyebrow text="Funzioni" />
+          <Headline id="pv3-title" text="Cosa puoi fare con **Dymora**." />
+        </div>
+        <ul class="pv3__list" data-pv3>
+          {features.map((f) => (
+            <li>
+              <a class="pv3__row" href={f.href} data-fx-card data-fx-hover>
+                <span class="w-label pv3__num">{num(f)}</span>
+                <span class="pv3__name">{f.label}</span>
+                <span class="w-body w-muted pv3__line">{f.line}</span>
+                <span class="pv-arrow" aria-hidden="true"></span>
+                <span class="pv3__float"><FxScene f={f} /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 · Casa interattiva -->
+    <p class="pv-label" id="opzione-4"><span>Opzione 4</span> Casa interattiva</p>
+    <section class="band band--ink pv4" aria-labelledby="pv4-title">
+      <div class="band__inner pv-inner">
+        <div class="pv-head">
+          <Eyebrow text="Funzioni" />
+          <Headline id="pv4-title" text="Cosa puoi fare con **Dymora**." />
+        </div>
+        <div class="pv4__wrap" data-pv4 data-pv4-rest={overview.rest}>
+          <div class="pv4__house">
+            <Sprite id="pv4-house" name="house" variant="dark" layers={overview.rest} order={overview.order} alt={overview.alt} />
+          </div>
+          <div class="pv4__side">
+            <div class="pv4__tags" role="tablist" aria-label="Funzioni">
+              {features.map((f, i) => {
+                const item = overview.items.find((x) => x.id === f.slug)!;
+                return (
+                  <button class="tag pv4__tag" role="tab" type="button" id={`pv4-tab-${f.slug}`} aria-controls={`pv4-panel-${f.slug}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-on={item.on} data-off={item.off}>{f.label}</button>
+                );
+              })}
+            </div>
+            {features.map((f, i) => (
+              <div class:list={['pv4__panel', { 'is-active': i === 0 }]} role="tabpanel" id={`pv4-panel-${f.slug}`} aria-labelledby={`pv4-tab-${f.slug}`} inert={i === 0 ? undefined : true}>
+                <span class="w-label pv4__num">{num(f)} / 08</span>
+                <Headline as="h3" size="s" text={f.title} />
+                <p class="w-body w-muted">{f.line}</p>
+                <a class="w-cta w-button" href={f.href}>{cta(f)}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · Card ripensate -->
+    <p class="pv-label" id="opzione-5"><span>Opzione 5</span> Card ripensate</p>
+    <section class="band band--ink pv5" aria-labelledby="pv5-title">
+      <div class="band__inner pv-inner">
+        <div class="pv-head">
+          <Eyebrow text="Funzioni" />
+          <Headline id="pv5-title" text="Cosa puoi fare con **Dymora**." />
+        </div>
+        <ul class="pv5__grid" data-pv5>
+          {features.map((f) => (
+            <li>
+              <a class="pv5__card" href={f.href} data-fx-card data-fx-hover>
+                <span class="pv5__media"><FxScene f={f} /></span>
+                <span class="w-label pv5__num">{num(f)}</span>
+                <span class="pv5__name">{f.label}</span>
+                <span class="w-note w-muted pv5__line">{f.line}</span>
+                <span class="w-button pv5__more">{f.page ? 'Scopri' : 'Dettagli'} <span class="pv-arrow pv-arrow--bare" aria-hidden="true"></span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+  <script is:inline src="/assets/js/preview-features.js" defer></script>
+</BaseLayout>

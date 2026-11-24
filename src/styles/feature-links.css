@@ -4,18 +4,36 @@
 .flinks__head{display:grid;gap:clamp(14px,1.8vw,22px)}
 .flinks__list{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.2vw,18px)}
 .flinks__list>li{display:flex}
-.flink{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto 1fr;gap:10px 14px;align-items:end;padding:clamp(18px,1.8vw,26px);border-radius:var(--r-extra-large);border:1px solid var(--c-outline-variant);background:var(--c-surface);color:var(--c-on-surface);transition:transform .2s,border-color .2s,background .2s}
+.flink{position:relative;flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;gap:8px 12px;align-items:center;padding:clamp(14px,1.4vw,20px);border-radius:var(--r-extra-large);border:1px solid var(--c-outline-variant);background:var(--c-surface);color:var(--c-on-surface);transition:transform .2s,border-color .2s,background .2s}
 .band--ink .flink{border-color:#ffffff1f;background:var(--c-primary-container);color:var(--c-on-primary-container)}
-.flink__media{grid-column:1/-1;position:relative;display:flex;align-items:center;justify-content:center;height:clamp(140px,12vw,180px);margin-bottom:6px;border-radius:var(--r-large);background:radial-gradient(ellipse 60% 55% at 50% 58%,#1c1c1a14,transparent 72%)}
+.flink__media{grid-column:1/-1;position:relative;display:flex;align-items:center;justify-content:center;height:clamp(104px,8.5vw,132px);margin-bottom:2px;border-radius:var(--r-large);background:radial-gradient(ellipse 60% 55% at 50% 58%,#1c1c1a14,transparent 72%)}
 .band--ink .flink__media{background:radial-gradient(ellipse 60% 55% at 50% 58%,#ffffff17,transparent 72%)}
 .flink__device{display:block;min-width:0;max-width:72%;max-height:80%;width:auto;height:auto;object-fit:contain;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
 .flink:hover .flink__device,.flink:focus-visible .flink__device{transform:translateY(-4px) scale(1.04)}
-.flink__num{position:absolute;top:clamp(18px,1.8vw,26px);left:clamp(18px,1.8vw,26px);color:var(--c-secondary-button)}
+/* The device's scene from the app (Sprite.astro), switched on by feature-fx.js while the card is
+   hovered or focused. Sized by its height: the box is as wide as the still. */
+.flink__scene{position:relative;height:var(--fx-h,80%);min-width:0;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.flink__scene>.flink__device{max-width:none;max-height:none;height:100%;transition:none}
+.flink__scene>.flink__device>img{width:auto;height:100%}
+.flink:hover .flink__scene,.flink:focus-visible .flink__scene{transform:translateY(-4px) scale(1.04)}
+.flink:hover .flink__scene>.flink__device,.flink:focus-visible .flink__scene>.flink__device{transform:none}
+/* Each scene's canvas has its own margins: the heights that make the devices read alike. */
+.flink--luci{--fx-h:92%}
+.flink--tapparelle{--fx-h:86%}
+.flink--allarme{--fx-h:90%}
+.flink--irrigazione{--fx-h:84%}
+/* The thermostat's seam (ThermostatSeam.astro), lit while the card is on; its glow breathes. */
+.tseam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.tseam__glow,.tseam__line{opacity:0;transition:opacity .25s}
+.tseam__glow{mix-blend-mode:plus-lighter}
+.flink--on .tseam__line{opacity:1}
+.flink--on .tseam__glow{opacity:.62;animation:tseam-breath 5.2s ease-in-out .25s infinite}
+@keyframes tseam-breath{0%,100%{opacity:.62}50%{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.flink--on .tseam__glow{animation:none}.flink__scene{transition:none}}
+.flink__num{position:absolute;top:clamp(14px,1.4vw,20px);left:clamp(14px,1.4vw,20px);color:var(--c-secondary-button)}
 .band--ink .flink__num{color:var(--c-secondary)}
-.flink__name{grid-column:1/-1;font:800 clamp(1.3rem,1.8vw,1.75rem)/1.1 var(--font-text);letter-spacing:-.015em}
-.flink__line{align-self:start;color:var(--c-on-surface-muted);max-width:34ch}
-.band--ink .flink__line{color:var(--c-on-primary-muted)}
-.flink__arrow{justify-self:end;align-self:end;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid currentColor;opacity:.55;transition:background .2s,border-color .2s,opacity .2s,color .2s}
+.flink__name{min-width:0;font:800 clamp(1.05rem,1.35vw,1.3rem)/1.15 var(--font-text);letter-spacing:-.015em}
+.flink__arrow{justify-self:end;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid currentColor;opacity:.55;transition:background .2s,border-color .2s,opacity .2s,color .2s}
 .flink__arrow::before{content:"";width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;translate:-2px 0;rotate:45deg}
 .flink:hover,.flink:focus-visible{transform:translateY(-3px);border-color:var(--c-secondary-button)}
 .band--ink .flink:hover,.band--ink .flink:focus-visible{border-color:var(--c-secondary)}
@@ -23,15 +41,15 @@
 .band--ink .flink:hover .flink__arrow,.band--ink .flink:focus-visible .flink__arrow{background:var(--c-secondary);border-color:var(--c-secondary)}
 
 @media(max-width:1100px){.flinks__list{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){.flinks__list{grid-template-columns:repeat(2,minmax(0,1fr))}.flink__media{height:130px}}
+@media(max-width:760px){.flinks__list{grid-template-columns:repeat(2,minmax(0,1fr))}.flink__media{height:110px}}
 @media(max-width:420px){
   .flinks__list{grid-template-columns:1fr}
-  .flink{grid-template-columns:76px minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:14px;align-items:center}
-  .flink__media{grid-column:1;grid-row:1/3;height:76px;margin:0}
+  .flink{grid-template-columns:60px minmax(0,1fr) auto;grid-template-rows:auto;column-gap:14px;padding-block:10px}
+  .flink__media{grid-column:1;height:60px;margin:0}
   .flink__device{max-width:92%;max-height:92%}
+  .flink--luci,.flink--allarme{--fx-h:68%}
   .flink__num{display:none}
-  .flink__name{grid-column:2;align-self:end}
-  .flink__line{grid-column:2}
-  .flink__arrow{grid-column:3;grid-row:1/3;align-self:center;width:34px;height:34px}
+  .flink__name{grid-column:2}
+  .flink__arrow{grid-column:3;width:32px;height:32px}
 }
 .band--ink.flinks+.band--ink>.band__inner{padding-top:0}
