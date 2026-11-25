@@ -172,11 +172,6 @@
       "width": 1600
     },
     {
-      "from": "design/marketing/brochure/assets/house-2-light.png",
-      "to": "images/edificio-casa.webp",
-      "width": 1200
-    },
-    {
       "from": "design/marketing/brochure/assets/edificio-montagna.svg",
       "to": "images/edificio-montagna.svg",
       "_note": "placeholder until the real render (brochure/README.md)"

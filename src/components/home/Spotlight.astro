@@ -38,12 +38,10 @@ const subject = encodeURIComponent(`Richiesta di consulenza ${f.label}`);
     <figure class="spot__media">
       <img class="spot__main" src={main.src} alt={main.alt} width={main.width} height={main.height} loading="lazy" decoding="async" />
       {extra.map((m, i) => <img class={`spot__float spot__float--${i + 1}`} src={m.src} alt={m.alt} width={m.width} height={m.height} loading="lazy" decoding="async" />)}
-      <figcaption class="w-note w-muted">Immagini dimostrative.</figcaption>
     </figure>
   ) : f.house && (
     <figure class="spot__media spot__media--house">
       <HouseHero id={`spot-house-${slug}`} variant={tone === 'paper' ? 'light' : 'dark'} layers={f.house.layers} alt={f.house.alt} buttons={f.house.buttons} />
-      <figcaption class="w-note w-muted">Immagini dimostrative.</figcaption>
     </figure>
   )}
 </Band>

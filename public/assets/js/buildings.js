@@ -2,129 +2,134 @@
  * Home "Più edifici" and retrofit (src/components/home/Buildings.astro).
  *
  * Multi  [data-multi]
- *   [data-multi-tabs] button[data-multi-tab=id]   the pills (hidden without JavaScript)
- *   [data-multi-item=id]                          the renders, one active at a time
- *   [data-multi-row=id]                           the rows of the app's picker, on every device
+ *   [data-multi-item=id]   the renders, one active at a time
+ *   [data-multi-row=id]    the rows of the app's picker on the phone
+ *   [data-multi-seg=id]    the segments of the progress rail
  * Retro  [data-retro]
- *   [data-retro-switch] .bld__toggle[role=switch] the switch (hidden without JavaScript)
- *   [data-retro-side=0|1]                         its two labels, also clickable
- *   [data-retro-item=i] [data-retro-opt=i]        the renders and the texts of the two options
+ *   .bld__swap / .bld__wipe   the render and its sweep (buildings.css, --split)
+ *   [data-retro-opt=0|1]      the texts of the two options
  *
- * While on screen each one steps by itself (Multi every STEP ms with a progress bar on the active
- * pill, Retro every FLIP ms) until the visitor uses a control; hovering or focusing pauses it.
- * With prefers-reduced-motion nothing steps by itself: the controls still work.
- * The root gets `is-live` once its controls are on; `is-auto` while it steps by itself.
+ * Both loop while on screen and pause when they leave it or the tab is hidden; each starts from
+ * its first state when it comes back. Nothing to click.
+ * Multi: Casa → Montagna → Ufficio → Casa → …; before each change a tap lands on the next row.
+ * Retro: the period building, the line sweeps to the modern house, then back, and again.
+ * With prefers-reduced-motion (or without JavaScript) nothing moves: the static markup stays.
  */
 (function () {
   "use strict";
 
-  var STEP = 3200;
-  var FLIP = 4200;
+  var STEP = 2200;  // multi: how long each property shows
+  var TAP = 400;    // multi: from the tap to the change
+  var HOLD = 1800;  // retro: how long each building shows
+  var SWEEP = 1000; // retro: the sweep
 
-  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
 
   function all(root, sel) {
     return Array.prototype.slice.call(root.querySelectorAll(sel));
   }
 
-  // Calls `step` every `ms` while `root` is on screen, not hovered or focused, and not taken over.
-  function autoplay(root, ms, step) {
-    var timer = 0, visible = false, held = false, stopped = still;
-
-    function run() {
-      clearTimeout(timer);
-      timer = 0;
-      var go = visible && !held && !stopped && !document.hidden;
-      root.classList.toggle("is-auto", go);
-      if (go) timer = setTimeout(function () { step(); run(); }, ms);
+  // Calls `start` when `root` is on screen (and the tab visible), `stop` when it no longer is.
+  function whileOnScreen(root, start, stop) {
+    var seen = false, running = false;
+    function update() {
+      var go = seen && !document.hidden;
+      if (go === running) return;
+      running = go;
+      if (go) start(); else stop();
     }
+    new IntersectionObserver(function (entries) {
+      var e = entries[entries.length - 1];
+      if (e.intersectionRatio >= 0.4) seen = true;
+      else if (!e.isIntersecting) seen = false;
+      update();
+    }, { threshold: [0, 0.4] }).observe(root);
+    document.addEventListener("visibilitychange", update);
+  }
 
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
-        run();
-      }, { threshold: 0.35 }).observe(root);
-    }
-    root.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { held = true; run(); } });
-    root.addEventListener("pointerleave", function () { held = false; run(); });
-    root.addEventListener("focusin", function () { held = true; run(); });
-    root.addEventListener("focusout", function () { held = false; run(); });
-    document.addEventListener("visibilitychange", run);
-
+  // A list of timers that can be cancelled together.
+  function timers() {
+    var ids = [];
     return {
-      restart: run,
-      stop: function () { stopped = true; run(); },
+      at: function (ms, fn) { ids.push(setTimeout(fn, ms)); },
+      clear: function () { ids.forEach(clearTimeout); ids = []; },
     };
   }
 
   function multi(root) {
-    var tabs = all(root, "[data-multi-tab]");
     var items = all(root, "[data-multi-item]");
     var rows = all(root, "[data-multi-row]");
-    var group = root.querySelector("[data-multi-tabs]");
-    if (!tabs.length || !items.length) return;
-    var ids = tabs.map(function (t) { return t.getAttribute("data-multi-tab"); });
+    var segs = all(root, "[data-multi-seg]");
+    if (!items.length || !rows.length) return;
+    var ids = rows.map(function (r) { return r.getAttribute("data-multi-row"); });
+    var t = timers();
     var index = 0;
+    root.style.setProperty("--bld-dwell", STEP + "ms");
 
+    function mark(list, attr, id, cls) {
+      list.forEach(function (el) { el.classList.toggle(cls, el.getAttribute(attr) === id); });
+    }
     function show(i) {
       index = i;
-      var id = ids[i];
-      tabs.forEach(function (t, j) { t.setAttribute("aria-pressed", j === i ? "true" : "false"); });
-      items.forEach(function (el) { el.classList.toggle("is-active", el.getAttribute("data-multi-item") === id); });
-      rows.forEach(function (el) { el.classList.toggle("is-active", el.getAttribute("data-multi-row") === id); });
-      root.setAttribute("data-multi-active", id);
-      root.classList.remove("is-flow");
-      void root.offsetWidth; // restart the pulse and the pill's progress
-      root.classList.add("is-flow");
+      mark(items, "data-multi-item", ids[i], "is-active");
+      mark(rows, "data-multi-row", ids[i], "is-active");
+      segs.forEach(function (s, j) {
+        s.classList.remove("is-run");
+        s.classList.toggle("is-on", j < i);
+      });
+      if (segs[i]) { void segs[i].offsetWidth; segs[i].classList.add("is-run"); }
+    }
+    function tap(i) {
+      rows[i].classList.remove("is-tap");
+      void rows[i].offsetWidth;
+      rows[i].classList.add("is-tap");
+    }
+    function step() {
+      var next = (index + 1) % ids.length;
+      t.at(STEP - TAP, function () { tap(next); });
+      t.at(STEP, function () { show(next); step(); });
     }
 
-    var play = autoplay(root, STEP, function () { show((index + 1) % ids.length); });
-
-    tabs.forEach(function (t, i) {
-      t.addEventListener("click", function () {
-        play.stop();
-        show(i);
-      });
-    });
-
-    group.hidden = false;
     root.classList.add("is-live");
-    show(0);
-    play.restart();
+    whileOnScreen(root, function () { show(0); step(); }, function () {
+      t.clear();
+      rows.forEach(function (r) { r.classList.remove("is-tap"); });
+      show(0);
+      segs.forEach(function (s, j) { s.classList.remove("is-run"); s.classList.toggle("is-on", j === 0); });
+    });
   }
 
   function retro(root) {
-    var box = root.querySelector("[data-retro-switch]");
-    var toggle = root.querySelector(".bld__toggle");
-    var items = all(root, "[data-retro-item]");
     var opts = all(root, "[data-retro-opt]");
-    var sides = all(root, "[data-retro-side]");
-    if (!box || !toggle || items.length < 2) return;
+    var after = root.querySelector(".bld__after");
+    if (opts.length < 2 || !after) return;
+    // Fully clipped, a lazy image would only load mid-sweep: fetch it with the page.
+    after.loading = "eager";
+    var t = timers();
     var on = false;
+    root.style.setProperty("--bld-sweep", SWEEP + "ms");
 
     function set(value) {
       on = value;
-      var i = on ? 1 : 0;
-      toggle.setAttribute("aria-checked", on ? "true" : "false");
-      items.forEach(function (el, j) { el.classList.toggle("is-active", j === i); });
-      opts.forEach(function (el, j) { el.classList.toggle("is-active", j === i); });
-      sides.forEach(function (el) { el.classList.toggle("is-active", el.getAttribute("data-retro-side") === String(i)); });
+      root.classList.toggle("is-after", on);
+      opts.forEach(function (el, j) { el.classList.toggle("is-active", j === (on ? 1 : 0)); });
+    }
+    function step() {
+      t.at(HOLD, function () {
+        root.classList.add("is-moving");
+        set(!on);
+        t.at(SWEEP, function () { root.classList.remove("is-moving"); step(); });
+      });
     }
 
-    var play = autoplay(root, FLIP, function () { set(!on); });
-
-    toggle.addEventListener("click", function () { play.stop(); set(!on); });
-    sides.forEach(function (el) {
-      el.addEventListener("click", function () {
-        play.stop();
-        set(el.getAttribute("data-retro-side") === "1");
-      });
-    });
-
-    box.hidden = false;
     root.classList.add("is-live");
     set(false);
-    play.restart();
+    whileOnScreen(root, step, function () {
+      t.clear();
+      root.classList.remove("is-moving");
+      set(false);
+    });
   }
 
   function init() {

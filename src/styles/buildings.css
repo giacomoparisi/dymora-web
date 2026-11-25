@@ -1,62 +1,44 @@
 /* ─── Più edifici and retrofit on carbon (Buildings.astro, buildings.js) ───
-   Without JavaScript: Casa is selected, the retrofit options sit side by side.
-   .is-live: the controls are on. .is-auto: the chapter steps by itself. .is-flow: a step just started. */
-.bld__inner{display:grid;gap:clamp(96px,12vw,200px)}
-.bld__head,.bld__copy{display:grid;gap:clamp(14px,1.8vw,22px);align-content:start;justify-items:start}
-.bld .h-l{font-size:clamp(2rem,4.4vw,4rem)}
+   Same language as #app and #funzioni: no panels, the product floats on the carbon with the glow.
+   Without JavaScript (or with reduced motion): Casa selected, the retrofit split half and half.
+   .is-live: buildings.js runs. Multi .is-tap: a tap is landing on the next row.
+   Retro .is-after: the modern house shows; .is-moving: the line is sweeping. Both loop while on screen. */
+.bld__inner{display:grid;gap:clamp(64px,7vw,112px)}
+.bld .h-l{font-size:clamp(2rem,4.2vw,3.8rem)}
+.bld__stage{position:relative;isolation:isolate;margin:0}
+.bld__glow{position:absolute;left:50%;top:50%;z-index:-1;width:130%;aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511852,#f4511812 55%,transparent);pointer-events:none}
 
-/* The stage: a lit panel on carbon */
-.bld__stage{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--r-extra-large);background:linear-gradient(160deg,#2f2f2c,#222220 60%,#1f1f1d);box-shadow:inset 0 0 0 1px #ffffff14}
-.bld__glow{position:absolute;inset:-20% -10% auto;height:120%;z-index:-1;background:radial-gradient(50% 45% at 30% 55%,#f4511840,#f4511810 55%,transparent 72%);pointer-events:none;transition:background-position 1s}
-
-/* ── Multi: title row, then the full-width stage with the renders, the pulse and the devices ── */
-.bld__multi{display:grid;gap:clamp(32px,4vw,56px)}
-.bld__head{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);grid-template-areas:"eye eye" "title side";column-gap:clamp(32px,5vw,96px);align-items:end;justify-items:stretch}
-.bld__head .eyebrow{grid-area:eye}
-.bld__head .h-l{grid-area:title}
-.bld__side-col{grid-area:side;display:grid;gap:clamp(14px,1.6vw,20px);justify-items:start;padding-bottom:.35em}
-.bld__pills{display:flex;flex-wrap:wrap;gap:10px}
-.bld__pills[hidden]{display:none}
-.bld__pill{position:relative;overflow:hidden;min-height:44px;padding-inline:1.2em;border-radius:999px;font-size:max(13px,.85vw)}
-.bld__pill::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:100%;background:#fff9;transform:scaleX(0);transform-origin:left;pointer-events:none}
-.bld__multi.is-auto.is-flow .bld__pill[aria-pressed="true"]::after{animation:bld-progress 3.2s linear forwards}
-@keyframes bld-progress{to{transform:none}}
-.bld__pill:hover{border-color:#ffffffb3}
-
-.bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,.9fr) 7% minmax(0,1.15fr);align-items:center;gap:clamp(8px,1.5vw,24px);padding:clamp(28px,4vw,72px) clamp(20px,3.5vw,64px)}
-.bld__props{display:grid;position:relative}
-.bld__prop{grid-area:1/1;display:grid;justify-items:center;gap:clamp(10px,1.2vw,16px);opacity:0;transform:translateY(22px) scale(.95);filter:blur(8px);transition:opacity .6s,transform .9s cubic-bezier(.16,1,.3,1),filter .6s;pointer-events:none}
-.bld__prop.is-active{opacity:1;transform:none;filter:none;transition-delay:.12s}
-.bld__prop img{width:100%;filter:drop-shadow(0 30px 40px #0007)}
-.bld__prop .tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
+/* ── Multi: the title on the left, the render beside the phone on the right (the retrofit mirrors it) ── */
+.bld__multi{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;gap:clamp(32px,5vw,88px)}
+.bld__head{display:grid;gap:clamp(12px,1.4vw,18px);justify-items:start;align-content:center}
+.bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(140px,13vw,190px);grid-template-areas:"props phone" "rail rail";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
+.bld__multi .bld__glow{left:38%}
+.bld__props{grid-area:props;display:grid}
+.bld__prop{grid-area:1/1;display:grid;justify-items:center;gap:clamp(8px,1vw,14px);opacity:0;transform:translateY(18px) scale(.95);filter:blur(8px);transition:opacity .45s,transform .7s cubic-bezier(.16,1,.3,1),filter .45s;pointer-events:none}
+.bld__prop.is-active{opacity:1;transform:none;filter:none;transition-delay:.08s}
+.bld__prop img{width:min(100%,600px);filter:drop-shadow(0 30px 40px #0007)}
+.bld__name{color:var(--c-secondary-on-ink)}
 @media(prefers-reduced-motion:no-preference){.bld__props{animation:bld-float 7s ease-in-out infinite}}
 @keyframes bld-float{50%{transform:translateY(-8px)}}
 
-/* The pulse: a line from the render to the devices, a dot runs along it at each step */
-.bld__signal{position:relative;align-self:center;height:2px;background:linear-gradient(90deg,#f4511800,#f45118 30%,#f45118 70%,#f4511800);opacity:.55}
-.bld__signal span{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--c-secondary);box-shadow:0 0 0 5px #f4511833,0 0 18px #f45118;opacity:0}
-.bld__multi.is-flow .bld__signal span{animation:bld-pulse-x .7s cubic-bezier(.5,0,.5,1) .15s both}
-@keyframes bld-pulse-x{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}
+/* The phone: same frame as the one in #app */
+.bld__phone{grid-area:phone}
+.bld__screen{display:grid;container-type:inline-size;aspect-ratio:9/19.5;overflow:hidden;padding:clamp(3px,.45vw,6px);border-radius:clamp(16px,2.2vw,32px);background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary),0 40px 90px #000b}
+.bld__screen>.pk{border-radius:clamp(13px,1.8vw,26px)}
 
-/* The devices: a computer with a tablet and a phone in front */
-.bld__devices{position:relative;padding-bottom:6%}
-.mdev{display:grid;background:#3a3a36;border-radius:clamp(8px,1.1vw,16px);padding:clamp(4px,.55vw,8px);box-shadow:inset 0 0 0 1px #ffffff2e,0 30px 60px #0008}
-.mdev__screen{display:grid;container-type:inline-size;overflow:hidden;border-radius:calc(clamp(8px,1.1vw,16px) - 4px);background:#1c1c1a}
-.mdev--laptop{width:72%;margin-left:auto;margin-right:12%}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
-.mdev--laptop::after{content:"";display:block;height:clamp(6px,.8vw,12px);margin:clamp(4px,.55vw,8px) -8% calc(-1 * clamp(4px,.55vw,8px));border-radius:0 0 12px 12px;background:linear-gradient(#4a4a45,#2c2c29);box-shadow:inset 0 1px 0 #ffffff33}
-.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) #242422,0 30px 60px #0009}
-.mdev--tablet{left:0;width:42%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
-.mdev--phone{right:0;width:17%;border-radius:clamp(12px,1.8vw,26px)}.mdev--phone .mdev__screen{aspect-ratio:9/19.5;border-radius:clamp(9px,1.4vw,21px)}
+/* The rail: one segment per property, the current one fills while it shows (not a control) */
+.bld__rail{grid-area:rail;justify-self:center;display:flex;gap:8px;width:min(240px,60%)}
+.bld__rail span{position:relative;flex:1;height:2px;border-radius:2px;background:#ffffff1f;overflow:hidden}
+.bld__rail span::after{content:"";position:absolute;inset:0;background:var(--c-secondary);transform:scaleX(0);transform-origin:left}
+.bld__rail span.is-on::after{transform:none}
+.bld__rail span.is-run::after{animation:bld-fill var(--bld-dwell,3s) linear forwards}
+@keyframes bld-fill{from{transform:scaleX(0)}to{transform:none}}
 
-/* The app's installation picker, drawn in HTML so its selection can move.
-   Sizes in --u: 1cqw of the wide layout; the phone's compact layout is about three times as big. */
-.pk{display:grid;width:100%;height:100%;color:#ece9e2;font-family:var(--font-text);line-height:1.2;text-align:left}
-.pk--wide{--u:1cqw;grid-template-columns:1fr 1fr;align-items:center;gap:4cqw;padding:0 8cqw 0 6cqw}
-.pk--compact{--u:2.9cqw;align-content:center;gap:calc(var(--u) * 4);padding:0 6cqw;text-align:center}
+/* The app's installation picker, drawn in HTML so its selection can move (sizes in --u, ≈1/34 of the screen) */
+.pk{--u:2.9cqw;display:grid;align-content:center;gap:calc(var(--u) * 4);padding:0 6cqw;background:#1c1c1a;color:#ece9e2;font-family:var(--font-text);line-height:1.2;text-align:center}
 .pk__brand{display:grid;justify-items:center;gap:calc(var(--u) * 2)}
-.pk__mark{width:calc(var(--u) * 20);opacity:.92}
-.pk__word{width:calc(var(--u) * 16);opacity:.92}
-.pk--compact .pk__mark{width:calc(var(--u) * 13)}.pk--compact .pk__word{width:calc(var(--u) * 11)}
+.pk__mark{width:calc(var(--u) * 13);opacity:.92}
+.pk__word{width:calc(var(--u) * 11);opacity:.92}
 .pk__dots{display:flex;gap:calc(var(--u) * .9)}
 .pk__dots i{width:calc(var(--u) * .7);aspect-ratio:1;border-radius:50%;background:#ffffff59}
 .pk__dots i:nth-child(n+4):nth-child(-n+6){background:var(--c-secondary)}
@@ -65,80 +47,58 @@
 .pk__title span{color:var(--c-secondary)}
 .pk__sub{margin:calc(var(--u) * 1) 0 calc(var(--u) * 3.4);font-size:calc(var(--u) * 1.2);opacity:.72}
 .pk__list{list-style:none;display:grid;gap:calc(var(--u) * 1.1);text-align:left}
-.pk__row{--d:0s;position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:calc(var(--u) * 1.4);height:calc(var(--u) * 6);padding:0 calc(var(--u) * 1.6) 0 calc(var(--u) * 1.1);border:max(1px,calc(var(--u) * .12)) solid #ffffff2e;border-radius:calc(var(--u) * 1.2);background:#262624;transition:border-color .45s var(--d),background .45s var(--d),box-shadow .45s var(--d)}
-.pk__row--d1{--d:.12s}.pk__row--d2{--d:.24s}
+.pk__row{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:calc(var(--u) * 1.4);height:calc(var(--u) * 6);padding:0 calc(var(--u) * 1.6) 0 calc(var(--u) * 1.1);border:max(1px,calc(var(--u) * .12)) solid #ffffff2e;border-radius:calc(var(--u) * 1.2);background:#262624;transition:border-color .4s,background .4s,box-shadow .4s}
 .pk__row.is-active{border-color:var(--c-secondary);background:#2b221e;box-shadow:0 0 calc(var(--u) * 2) #f4511833}
-.pk__ico{display:grid;place-items:center;width:calc(var(--u) * 3.6);aspect-ratio:1;border-radius:calc(var(--u) * .9);background:#ffffff0f;transition:background .45s var(--d)}
-.pk__ico::before{content:"";width:calc(var(--u) * 1.7);height:calc(var(--u) * .9);border:max(1px,calc(var(--u) * .16)) solid #ffffffb3;border-radius:calc(var(--u) * .3);transition:border-color .45s var(--d)}
+.pk__ico{display:grid;place-items:center;width:calc(var(--u) * 3.6);aspect-ratio:1;border-radius:calc(var(--u) * .9);background:#ffffff0f;transition:background .4s}
+.pk__ico::before{content:"";width:calc(var(--u) * 1.7);height:calc(var(--u) * .9);border:max(1px,calc(var(--u) * .16)) solid #ffffffb3;border-radius:calc(var(--u) * .3);transition:border-color .4s}
 .pk__row.is-active .pk__ico{background:#f451182e}
 .pk__row.is-active .pk__ico::before{border-color:var(--c-secondary)}
 .pk__name{display:grid;font:700 calc(var(--u) * 1.3)/1.2 var(--font-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pk__name small{max-height:0;opacity:0;font:400 calc(var(--u) * 1.02)/1.3 var(--font-text);transition:max-height .45s var(--d),opacity .45s var(--d)}
+.pk__name small{max-height:0;opacity:0;font:400 calc(var(--u) * 1.02)/1.3 var(--font-text);transition:max-height .4s,opacity .4s}
 .pk__row.is-active .pk__name small{max-height:2em;opacity:.72}
 .pk__more{width:calc(var(--u) * .32);height:calc(var(--u) * .32);border-radius:50%;background:#ffffffb3;box-shadow:0 calc(var(--u) * -.55) #ffffffb3,0 calc(var(--u) * .55) #ffffffb3}
 .pk__end{position:relative;width:calc(var(--u) * 1.4);height:calc(var(--u) * 1.4)}
-.pk__end::before{content:"";position:absolute;inset:25% 35% 25% 15%;border-top:max(1px,calc(var(--u) * .16)) solid #ffffff99;border-right:max(1px,calc(var(--u) * .16)) solid #ffffff99;transform:rotate(45deg);transition:all .45s var(--d)}
+.pk__end::before{content:"";position:absolute;inset:25% 35% 25% 15%;border-top:max(1px,calc(var(--u) * .16)) solid #ffffff99;border-right:max(1px,calc(var(--u) * .16)) solid #ffffff99;transform:rotate(45deg);transition:all .4s}
 .pk__row.is-active .pk__end::before{inset:10% 30% 35% 30%;border-color:var(--c-secondary);border-top:0;transform:rotate(45deg) scale(1.05);border-bottom:max(1px,calc(var(--u) * .16)) solid var(--c-secondary)}
+/* The tap: a finger-sized dot lands on the row and ripples out */
+.pk__row::after{content:"";position:absolute;left:50%;top:50%;width:calc(var(--u) * 5);aspect-ratio:1;margin:calc(var(--u) * -2.5);border-radius:50%;background:#ffffff40;box-shadow:0 0 0 calc(var(--u) * .2) #ffffff80;opacity:0;pointer-events:none}
+.pk__row.is-tap::after{animation:bld-tap .6s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes bld-tap{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(2.2)}}
 
-/* ── Retrofit: the render on the left, the switch and the option's text on the right ── */
-.bld__retro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:clamp(32px,5vw,96px)}
-.bld__stage--retro{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,28px);padding:clamp(24px,3.5vw,56px)}
-.bld__shot{display:grid;justify-items:center;gap:12px}
-.bld__shot img{width:100%;filter:drop-shadow(0 30px 40px #0007)}
-.bld__shot .tag{white-space:normal;text-align:center;line-height:1.2}
+/* ── Retrofit: the render on the left, the title and both options on the right ── */
+.bld__retro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:clamp(32px,5vw,88px)}
+.bld__stage--retro{display:grid;gap:clamp(12px,1.4vw,20px);justify-items:center}
+.bld__swap{position:relative;display:grid;width:min(100%,680px)}
+.bld__swap img{grid-area:1/1;width:100%;filter:drop-shadow(0 30px 40px #0007)}
+/* The modern house shows from the line to the right edge; the line sits at --split (animatable) */
+@property --split{syntax:"<percentage>";inherits:true;initial-value:50%}
+.bld__swap{--split:50%}
+.bld__after{clip-path:inset(0 0 0 var(--split))}
+.bld__wipe{position:absolute;top:4%;bottom:4%;left:var(--split);width:2px;margin-left:-1px;background:linear-gradient(#f4511800,#f45118 20%,#f45118 80%,#f4511800);box-shadow:0 0 18px #f45118;transition:opacity .25s}
+.bld__retro.is-live .bld__swap{--split:100%;transition:--split var(--bld-sweep,1s) cubic-bezier(.65,0,.35,1)}
+.bld__retro.is-live.is-after .bld__swap{--split:0%}
+.bld__retro.is-live .bld__wipe{opacity:0}
+.bld__retro.is-live.is-moving .bld__wipe{opacity:1}
 
-.bld__switch{display:flex;flex-wrap:wrap;align-items:center;gap:14px 16px;margin-block:clamp(6px,1vw,14px)}
-.bld__switch[hidden]{display:none}
-.bld__side{color:var(--c-on-primary-muted);cursor:pointer;transition:color .3s;user-select:none}
-.bld__side.is-active{color:var(--c-on-primary)}
-.bld__side[data-retro-side="1"].is-active{color:var(--c-secondary-on-ink)}
-.bld__toggle{position:relative;flex:none;width:68px;height:38px;padding:0;border:1px solid #ffffff59;border-radius:999px;background:#ffffff14;transition:background .4s,border-color .4s}
-.bld__toggle span{position:absolute;top:4px;left:4px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 4px 12px #0006;transition:transform .45s cubic-bezier(.34,1.4,.64,1)}
-.bld__toggle[aria-checked="true"]{background:var(--c-secondary);border-color:var(--c-secondary)}
-.bld__toggle[aria-checked="true"] span{transform:translateX(30px)}
-.bld__toggle:hover{border-color:#fff}
-
-.bld__opts{list-style:none;display:grid;gap:clamp(24px,3vw,40px)}
-.bld__opt{display:grid;gap:clamp(10px,1.2vw,16px);align-content:start}
+.bld__copy{display:grid;gap:clamp(20px,2.4vw,32px);align-content:start}
+.bld__opts{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,36px)}
+.bld__opt{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(12px,1.2vw,16px);border-top:2px solid #ffffff1f;transition:opacity .4s,border-color .4s}
 .bld__opt-tag{color:var(--c-secondary-on-ink)}
-.bld__opt .h-m{font-size:clamp(1.6rem,2.8vw,2.5rem)}
-.bld__opt p{max-width:44ch}
-.bld__close{text-align:center;max-width:24ch;justify-self:center;margin-top:calc(-1 * clamp(32px,6vw,110px))}
+.bld__opt .w-body{font-size:clamp(.95rem,1.05vw,1.08rem)}
+.bld__retro.is-live .bld__opt{opacity:.32}
+.bld__retro.is-live .bld__opt.is-active{opacity:1;border-color:var(--c-secondary)}
+.bld__close{color:var(--c-on-primary)}
 
-/* Live: one render and one text at a time, on top of each other */
-.bld__retro.is-live .bld__stage--retro{grid-template-columns:1fr}
-.bld__retro.is-live .bld__shot{grid-area:1/1;opacity:0;transform:scale(.94);filter:blur(6px);clip-path:circle(0% at 50% 60%);transition:opacity .5s .3s,transform .9s cubic-bezier(.16,1,.3,1),filter .6s,clip-path 0s .9s}
-.bld__retro.is-live .bld__shot.is-active{z-index:1;opacity:1;transform:none;filter:none;clip-path:circle(75% at 50% 60%);transition:opacity .3s,transform .9s cubic-bezier(.16,1,.3,1),filter .6s,clip-path .9s cubic-bezier(.65,0,.35,1)}
-.bld__retro.is-live .bld__shot img{max-width:760px;margin-inline:auto}
-.bld__retro.is-live .bld__glow{background-position:0 0}
-.bld__retro.is-live .bld__stage--retro:has(.bld__shot:last-child.is-active) .bld__glow{background:radial-gradient(50% 45% at 55% 55%,#f4511859,#f4511814 55%,transparent 72%)}
-.bld__retro.is-live .bld__opt-tag{display:none}
-.bld__retro.is-live .bld__opt{grid-area:1/1;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
-.bld__retro.is-live .bld__opt.is-active{opacity:1;transform:none;transition-delay:.25s;pointer-events:auto}
-.bld__retro.is-live .bld__opts{grid-template-columns:minmax(0,1fr)}
-
-/* Narrow: everything stacks; the stage's pulse runs down */
+/* Narrow: the phone stays beside the render, smaller; the retrofit stacks with its text first */
 @media(max-width:900px){
-  .bld__head{grid-template-columns:minmax(0,1fr);grid-template-areas:"eye" "title" "side"}
-  .bld__multi .bld__stage{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 44px auto;justify-items:center;gap:8px}
-  .bld__props{width:min(100%,460px)}
-  .bld__signal{width:2px;height:100%;background:linear-gradient(#f4511800,#f45118 30%,#f45118 70%,#f4511800)}
-  .bld__signal span{left:50%;top:0;margin:-5px 0 0 -5px}
-  .bld__multi.is-flow .bld__signal span{animation-name:bld-pulse-y}
-  .bld__devices{width:min(100%,560px)}
-  .bld__retro{grid-template-columns:minmax(0,1fr)}
-  .bld__retro .bld__copy{grid-row:1}
+  .bld__multi,.bld__retro{grid-template-columns:minmax(0,1fr)}
+  .bld__multi .bld__stage{width:min(100%,640px);justify-self:center}
+  /* The render between the title and the options, so the sweep plays where the eye is */
+  .bld__retro .bld__copy{display:contents}
+  .bld__retro .h-l{order:1}.bld__stage--retro{order:2}.bld__opts{order:3}.bld__close{order:4}
 }
-@keyframes bld-pulse-y{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
 @media(max-width:560px){
-  .bld__pill{padding-inline:.9em;font-size:12px}
-  .bld__switch{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center}
-  .bld__toggle{grid-row:1/3;grid-column:1}
-  .bld__side{grid-column:2;font-size:12px;letter-spacing:.04em}
-  .mdev--laptop{width:78%;margin-right:8%}
-  .mdev--tablet{width:44%}
-  .mdev--phone{width:20%}
-  .bld__stage--retro .tag,.bld__prop .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
-  .bld__retro:not(.is-live) .bld__opts{grid-template-columns:minmax(0,1fr)}
+  .bld__multi .bld__stage{grid-template-columns:minmax(0,1fr) 34%;column-gap:14px}
+  .bld__name{font-size:11px}
+  .bld__opts{grid-template-columns:minmax(0,1fr)}
 }
-@media(min-width:561px){.bld__retro:not(.is-live) .bld__opts{grid-template-columns:1fr 1fr}}

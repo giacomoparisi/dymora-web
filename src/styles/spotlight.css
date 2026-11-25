@@ -15,7 +15,6 @@
 .band--ink .spot__float{border-color:var(--c-primary);box-shadow:0 30px 70px #000b}
 .spot__float--1{right:0;bottom:4%}
 .spot__float--2{left:-4%;top:0}
-.spot__media figcaption{position:absolute;left:0;bottom:0}
 .spot--consumi .spot__media,.spot--clima .spot__media{padding:0 14% 12% 0}
 .spot--consumi .spot__float--1,.spot--clima .spot__float--1{width:30%;right:0;bottom:0}
 @media(prefers-reduced-motion:no-preference){
@@ -38,4 +37,3 @@
 .spot .h-l{font-size:clamp(2rem,4vw,3.8rem)}
 /* Chapters without pictures: the overview's house with the function playing (HouseHero.astro). */
 .spot__media--house{padding:0}
-.spot__media--house figcaption{position:static;justify-self:center}
