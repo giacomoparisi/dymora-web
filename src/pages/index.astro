@@ -22,7 +22,7 @@ import Faq from '../components/home/Faq.astro';
 import Closing from '../components/home/Closing.astro';
 ---
 <BaseLayout title="Dymora — La tua casa. In una sola app." description="Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
-  <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script></Fragment>
+  <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script><script src="/assets/js/opening-video.js" defer></script></Fragment>
   <SiteHeader overlay />
   <main>
     <Opening />

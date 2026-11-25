@@ -1,14 +1,21 @@
 ---
-// Home hero: Federico's opening (commit 5401a7d), the cascade and the hook, with the site header
-// floating over it (SiteHeader `overlay`). The app follows in the next section (HouseStory).
-// Texts: `cover.map.payoff`,
-// `cover.map.stop4`, `cta.primary`.
+// Home hero: Federico's opening (commit 5401a7d), the hook over the "Rientro" film, with the site
+// header floating over it (SiteHeader `overlay`). The app follows in the next section (HouseStory).
+// Texts: `cover.map.payoff`, `cover.map.stop4`, `cta.primary`.
+// The film (public/assets/video/, AI-generated scenes, so labelled "Scene dimostrative") shows a
+// return home: the house welcomes the owner without a touch. opening-video.js loads it after the
+// page, keeps only the poster with prefers-reduced-motion or Save-Data and drives the pause button.
+// Sources of the cut: ~/Desktop/reference_video/clips/ on the owner's machine.
 import '../styles/opening.css';
 ---
 <div class="frame">
   <div class="site">
-    <div class="open" id="top">
-      <img class="dots" src="/assets/images/cascata.svg" alt="" width="864" height="704" />
+    <div class="open" id="top" data-hv-root>
+      <div class="open__media" aria-hidden="true">
+        <video class="open__video" data-hv-video muted loop playsinline preload="none"
+          poster="/assets/video/rientro-poster.jpg" width="1920" height="1080"
+          data-src-large="/assets/video/rientro-1080.mp4" data-src-small="/assets/video/rientro-720.mp4"></video>
+      </div>
       <div class="hook">
         <h1 class="w-display-xxl"><span class="ln"><span>The Art</span></span><span class="ln"><span>of Living</span></span><span class="ln"><span class="w-accent">Smart.</span></span></h1>
         <p class="sub w-subtitle">Goditi l'esperienza, al resto pensiamo noi.</p>
@@ -18,6 +25,12 @@ import '../styles/opening.css';
         </div>
       </div>
       <a class="open__cue" href="#app" aria-label="Scorri per scoprire Dymora"><span></span></a>
+      <div class="open__foot">
+        <p class="open__note">Scene dimostrative</p>
+        <button class="open__pause" type="button" data-hv-pause aria-pressed="false" aria-label="Metti in pausa il video" hidden>
+          <span class="open__pause-icon" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@ The GitHub Pages Actions workflow is prepared in `.github/workflows/deploy-pages
 
 Current pages:
 
-- `src/pages/index.astro` — home page, restructured after premium smart-home sites (one idea per section, product first, scroll storytelling). Order: opening (`Opening.astro`) → one carbon section (`home/HouseStory.astro`): "La tua casa. In una sola app." on the energy screen (`#app`, the only app render shown for now) then the `#funzioni` house scroll story (`story.js`) → `#servizio` → `#edifici` (`home/Buildings.astro`) → `#come-si-parte` → `#domande` → `#contatti` (orange closing). Carbon and panna bands alternate.
+- `src/pages/index.astro` — home page, restructured after premium smart-home sites (one idea per section, product first, scroll storytelling). Order: opening (`Opening.astro`: the hook over the "Rientro" film, `public/assets/video/`, AI-generated scenes labelled "Scene dimostrative", loaded after the page by `opening-video.js` with a pause button and poster-only under reduced motion or Save-Data) → one carbon section (`home/HouseStory.astro`): "La tua casa. In una sola app." on the energy screen (`#app`, the only app render shown for now) then the `#funzioni` house scroll story (`story.js`) → `#servizio` → `#edifici` (`home/Buildings.astro`) → `#come-si-parte` → `#domande` → `#contatti` (orange closing). Carbon and panna bands alternate.
 - `src/components/SiteHeader.astro` — sticky glass header on every page with the "Funzioni" mega menu (each function links to its chapter on `/funzioni/`, plus a "Tutte le funzioni" link) and a burger panel on phones (`header.js`, `header.css`; no-JS fallback in `public/assets/css/nojs.css`). On the home it floats over the opening (`overlay`). `SiteFooter.astro` — column footer with the legal data.
 - `src/pages/funzioni/index.astro` — all eight functions on one page for now, one chapter each (`home/Spotlight.astro`), at `/funzioni/#<slug>`. Data in `src/data/features.ts` (`points`, `media`; functions without `media` show the house with `house` layers via `HouseHero.astro`). No per-function pages or popups.
 - `src/pages/videosorveglianza/` and `src/pages/consumi/` — `noindex` meta-refresh redirects to their chapter on `/funzioni/`, kept so old links work. The old pages (three.js scene, popups, FeaturePage) are in git history before this change.
@@ -45,7 +45,7 @@ The site now uses Astro with external CSS and JavaScript. Shared tokens and typo
 
 - The app token export is authoritative: primary `#1C1C1A`, secondary `#F45118`, and `--c-surface-muted` as the page background in both themes.
 - Asta Sans is the text face; Doto 900 is limited to labels and numbers. Fonts are self-hosted WOFF2 files in `public/assets/fonts/` with the OFL license beside them.
-- The opening remains carbon in both themes. Product screenshots switch between their light and dark renders with `.w-only-light` and `.w-only-dark`.
+- The opening remains carbon in both themes, with the film under a carbon scrim. Keep the film self-hosted, short (loop under ~20 s, 1080p under ~4 MB plus a 720p file) and warm in tone; sources live outside the repo. Product screenshots switch between their light and dark renders with `.w-only-light` and `.w-only-dark`.
 - Use the `w-*` typography classes and the existing section components. Headlines are sentence case with the key phrase in `w-accent`.
 - Keep image dimensions and meaningful alt text in markup. Product renders are demonstrative and must say so nearby.
 - All user-facing content is Italian, except the approved hook “The Art of Living Smart”.
