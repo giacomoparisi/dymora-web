@@ -1,0 +1,74 @@
+---
+// "Dispositivi" (2026-11-25): Dymora does not tie the customer to one brand. A preview, not the full
+// list: well-known home-automation brands that have an official Home Assistant integration, the
+// base Dymora runs on (owner, 2026-11-25). Not a promise for every model: the note under the stage
+// says compatibility is checked per model, as the claims on cameras already do (claims.md 13).
+// Brand names only, in plain text: no logos, no protocol marks (Matter, Zigbee, Z-Wave are
+// certification marks), and a note that the marks belong to their owners.
+//
+// The eyebrow and the title stay pinned under the site header while the lead and the stage scroll
+// under them, as the Funzioni and Servizio titles do.
+// On carbon, right after the service, so it reads with Più edifici below as one carbon stretch.
+// The stage: rows of brand names, each led by its category, slide in opposite directions as the
+// page scrolls (brands.js sets --brd-p); in the middle the Dymora hub, "Una sola app". When the
+// stage comes on screen the names light up from the middle outwards, every time it comes back.
+// The rows are decorative (aria-hidden, repeated to fill the width): the list below them in
+// visually-hidden text says the same once.
+// Without JavaScript or with reduced motion: the rows rest, every name lit.
+import Headline from '../Headline.astro';
+
+const rows = [
+  { cat: 'Luci', brands: ['Philips Hue', 'IKEA', 'Shelly', 'LIFX', 'Nanoleaf', 'TP-Link', 'Govee', 'Yeelight'] },
+  { cat: 'Clima', brands: ['Daikin', 'Mitsubishi Electric', 'tado°', 'Netatmo', 'Google Nest', 'Honeywell', 'Bosch', 'LG'] },
+  { cat: 'Tapparelle e serrature', brands: ['Somfy', 'Velux', 'Hunter Douglas', 'Motionblinds', 'Nuki', 'Yale', 'SwitchBot', 'Aqara'] },
+  { cat: 'Telecamere ed energia', brands: ['Reolink', 'Ezviz', 'Axis', 'Ring', 'Fronius', 'SolarEdge', 'Enphase', 'Wallbox'] },
+];
+// Each row repeats its set so it fills the widest window while it slides.
+const REPEAT = 3;
+// Light-up order: from the middle of a row outwards (data-d, delays in brands.css).
+const wave = (i: number, n: number) => Math.min(8, Math.round(Math.abs(i - (n - 1) / 2)));
+---
+<section class="band band--ink brd" id="dispositivi" aria-labelledby="brands-title">
+  <div class="band__inner brd__inner">
+    <div class="brd__head">
+      <p class="w-label eyebrow">Dispositivi</p>
+      <Headline id="brands-title" size="l" text="Scegli tu i **dispositivi**." />
+    </div>
+    <p class="w-lead w-muted brd__lead" data-reveal>Non ti leghiamo a un marchio: lavoriamo con i dispositivi di centinaia di produttori e li comandi dalla stessa app. Se hai già dei dispositivi, valutiamo quali sono compatibili e li riutilizziamo.</p>
+
+    <figure class="brd__stage" data-brd-stage data-reveal="panel" data-reveal-step="1">
+      <div class="brd__field">
+      <div class="brd__glow" aria-hidden="true"></div>
+      <div class="brd__rows" aria-hidden="true">
+        {rows.map((r, ri) => {
+          const items = Array.from({ length: REPEAT }, () => [{ cat: r.cat }, ...r.brands.map((b) => ({ name: b }))]).flat();
+          return (
+            <div class:list={['brd__row', ri % 2 ? 'brd__row--rev' : 'brd__row--fwd']}>
+              <ul class="brd__track">
+                {items.map((it, i) =>
+                  'cat' in it
+                    ? <li class="brd__cat w-label" data-d={wave(i, items.length)}>{it.cat}</li>
+                    : <li class="brd__chip" data-d={wave(i, items.length)}>{it.name}</li>
+                )}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+      <div class="brd__hub" aria-hidden="true">
+        <span class="brd__ring"></span>
+        <img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" loading="lazy" decoding="async" />
+        <span class="w-label">Una sola app</span>
+      </div>
+      </div>
+      <figcaption class="brd__foot">
+        <span class="tag tag--accent">E molti altri</span>
+        <span class="w-note w-muted">Alcuni dei marchi compatibili: la compatibilità dipende dal modello e la verifichiamo con te nella consulenza. I marchi citati appartengono ai rispettivi titolari; Dymora non è affiliata a loro né sponsorizzata da loro.</span>
+      </figcaption>
+      <ul class="visually-hidden">
+        {rows.map((r) => <li>{r.cat}: {r.brands.join(', ')}.</li>)}
+      </ul>
+    </figure>
+  </div>
+</section>
+<script is:inline src="/assets/js/brands.js" defer></script>
