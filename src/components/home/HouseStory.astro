@@ -1,0 +1,81 @@
+---
+// First section after the opening, on carbon: the cover's promise ("La tua casa. In una sola
+// app.", `cover.title`, `cover.line`) shown on the app (the energy screen on a computer and a
+// phone, rising into place while the page scrolls), then "Controlla la tua casa sotto ogni
+// aspetto" (`overview.title`) as a scroll story: the house
+// stays pinned while the eight functions scroll past (`feature.*` eyebrow, title, line). Each
+// function that reaches the middle of the window plays in on the house and joins the ones before
+// it; scrolling back plays them out (story.js, sprite.js). Each step leads to the function's page
+// or its popup on the home (data-feature, feature-dialog.js).
+// `#funzioni` is the anchor of the header, of the opening and of the popups.
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+import FeatureDialog from '../FeatureDialog.astro';
+import { overview } from '../../data/intro';
+import { features } from '../../data/features';
+
+const items = Object.fromEntries(overview.items.map((it) => [it.id, it]));
+// The functions play in two at a time (luci + clima, tapparelle + serrature, …): half the scroll.
+const fns = features.filter((f) => items[f.slug]);
+const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.slice(i * 2, i * 2 + 2));
+---
+<section class="band band--ink story" aria-labelledby="app-title">
+  <div class="band__inner story__inner">
+    <div class="app" id="app">
+      <div class="app__glow" aria-hidden="true"></div>
+      <div class="app__head" data-reveal>
+        <p class="w-label eyebrow">Casa e piccole attività</p>
+        <Headline id="app-title" size="l" text="La tua **casa**. In una sola app." />
+        <p class="w-lead w-muted">Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora.</p>
+      </div>
+      <figure class="app__devices">
+        <div class="app__laptop">
+          <div class="app__screen"><img src="/assets/images/app/energy-current-page-wide-light.webp" alt="I consumi della casa nell'app Dymora sul computer: la casa con la potenza di ogni apparecchio, il consumo della settimana dalla rete e dal fotovoltaico" width="1600" height="930" loading="lazy" decoding="async" /></div>
+          <div class="app__base" aria-hidden="true"></div>
+        </div>
+        <div class="app__phone">
+          <div class="app__screen"><img src="/assets/images/app/energy-current-page-phone-light.webp" alt="I consumi della casa nell'app Dymora sul telefono" width="660" height="1290" loading="lazy" decoding="async" /></div>
+        </div>
+        <figcaption class="w-note app__note">Immagini dimostrative.</figcaption>
+      </figure>
+    </div>
+    <div class="story__head" id="funzioni" data-reveal>
+      <p class="w-label eyebrow">Funzioni</p>
+      <Headline id="overview-title" as="h3" size="l" text={overview.title} />
+    </div>
+    <div class="story__body">
+      <div class="story__pin">
+        <div class="ov-stage story__stage" data-story-house data-ov-rest={overview.rest}>
+          <div class="ov-house">
+            <Sprite id="story-house" name="house" variant="dark" layers={overview.rest} order={overview.order} alt={overview.alt} />
+            <div class="ov-items" aria-hidden="true">
+              {overview.items.map((item) => (
+                <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]} data-ov-item={item.id} data-ov-on={item.on} data-ov-off={item.off}>
+                  <span class="ov-lead"></span>
+                  <span class="tag ov-tag">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="story__rail" aria-hidden="true"><span class="story__fill"></span></div>
+      </div>
+      <ol class="story__steps">
+        {pairs.map((pair) => (
+          <li class="story__step" data-story-step={pair.map((f) => f.slug).join(' ')}>
+            {pair.map((f) => (
+              <div class="story__fn">
+                <p class="w-label story__num"><span>{String(fns.indexOf(f) + 1).padStart(2, '0')}</span> {f.eyebrow}</p>
+                <Headline as="h4" size="m" text={f.title} />
+                <p class="w-body w-muted">{f.line}</p>
+                <a class="story__link" href={f.href} data-feature={f.page ? undefined : f.slug}>{f.page ? 'Vai alla pagina' : 'Scopri di più'}<span class="visually-hidden"> su {f.label}</span><span class="story__arrow" aria-hidden="true"></span></a>
+              </div>
+            ))}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+<FeatureDialog />
+<script is:inline src="/assets/js/story.js" defer></script>

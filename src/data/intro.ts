@@ -2,7 +2,7 @@
 // dymora-app design/marketing/copy/it.md, never rewritten here.
 
 // Overview — the tags light up one at a time and each part of the house plays in
-// (overview.js): `on` tokens join data-layers, `off` tokens leave it (their clip reversed).
+// (story.js): `on` tokens join data-layers, `off` tokens leave it (their clip reversed).
 // The house starts closed: shutters down, awning in, everything off.
 // Leader points: brochure decision.html, page `overview`, normalised on the house.
 export const overview = {

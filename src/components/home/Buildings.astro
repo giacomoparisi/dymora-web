@@ -1,43 +1,16 @@
 ---
-// Brochure pages 2–4 (`overview`, `multi`, `retrofit`) as one bento section, chosen on
-// 2026-11-24 among the layout prototypes: about one screen on desktop instead of three.
-// Wide (>=1100px): the house in the large tile on the left, properties and retrofit
-// stacked on the right (`.intro__grid`, home.css). Phone: the three tiles one after another.
-// The house plays its functions one at a time (overview.js); the properties light up
-// one at a time and their branch of the orange comb runs to the devices (multi.js),
-// whose screens show the app's installation picker (Casa, Montagna, Ufficio).
-// In retrofit an arrow leads from each picture to its title, and both options join
-// into the closing line. Anchors kept for the site header:
-// #panoramica, #edifici, #ristrutturazioni.
+// Brochure pages 3–4 (`multi`, `retrofit`) as two bento tiles on carbon. The house of `overview`
+// moved to the scroll story (HouseStory.astro). Wide (>=960px): the tiles side by side.
+// The properties light up one at a time and their branch of the orange comb runs to the devices
+// (multi.js), whose screens show the app's installation picker (Casa, Montagna, Ufficio).
+// In retrofit an arrow leads from each picture to its title, and both options join into the
+// closing line. Anchors kept for the header and the footer: #edifici, #ristrutturazioni.
 import Headline from '../Headline.astro';
-import Sprite from '../Sprite.astro';
-import { overview, multi, retrofit } from '../../data/intro';
+import { multi, retrofit } from '../../data/intro';
 ---
-<section class="band band--ink intro" id="panoramica" aria-labelledby="overview-title">
+<section class="band band--ink intro" id="edifici" aria-labelledby="multi-title">
   <div class="band__inner intro__grid">
-    <article class="intro__tile intro__tile--house" data-reveal="panel">
-      <div class="intro__copy">
-        <Headline id="overview-title" size="m" text={overview.title} />
-        <p class="w-body w-muted">{overview.lead}</p>
-      </div>
-      <div class="intro__fit">
-      <div class="ov-stage" data-ov-sequence={overview.sequence.join(' ')} data-ov-rest={overview.rest}>
-        <div class="ov-house">
-          <Sprite id="ov-house" name="house" variant="dark" layers={overview.rest} order={overview.order} alt={overview.alt} />
-          <div class="ov-items" aria-hidden="true">
-            {overview.items.map((item) => (
-              <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]} data-ov-item={item.id} data-ov-on={item.on} data-ov-off={item.off}>
-                <span class="ov-lead"></span>
-                <span class="tag ov-tag">{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      </div>
-    </article>
-
-    <article class="intro__tile intro__tile--multi" id="edifici" aria-labelledby="multi-title" data-reveal="panel" data-reveal-step="1">
+    <article class="intro__tile intro__tile--multi" data-reveal="panel">
       <Headline id="multi-title" size="s" text={multi.title} />
       <div class="intro__props" data-multi>
         <ul class="intro__buildings">
@@ -68,7 +41,7 @@ import { overview, multi, retrofit } from '../../data/intro';
       </div>
     </article>
 
-    <article class="intro__tile intro__tile--retro" id="ristrutturazioni" aria-labelledby="retrofit-title" data-reveal="panel" data-reveal-step="2">
+    <article class="intro__tile intro__tile--retro" id="ristrutturazioni" aria-labelledby="retrofit-title" data-reveal="panel" data-reveal-step="1">
       <Headline id="retrofit-title" size="s" text={retrofit.title} />
       <ul class="intro__options">
         {retrofit.options.map((o) => (
@@ -88,5 +61,4 @@ import { overview, multi, retrofit } from '../../data/intro';
     </article>
   </div>
 </section>
-<script is:inline src="/assets/js/overview.js" defer></script>
 <script is:inline src="/assets/js/multi.js" defer></script>

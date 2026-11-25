@@ -1,4 +1,47 @@
-<footer class="site-footer w-note">
-  <p>Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
-  <nav aria-label="Informazioni legali"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a><a href="/support/">Supporto</a><a href="mailto:info@dymora.eu">info@dymora.eu</a></nav>
+---
+// Site footer, on every page: the payoff (copy `cover.map.payoff`, `cover.map.stop4`), link columns
+// mirroring the header, then the verified legal data.
+import { features } from '../data/features';
+import '../styles/footer.css';
+
+const year = new Date().getFullYear();
+---
+<footer class="sf">
+  <div class="sf__inner">
+    <div class="sf__brand">
+      <img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" loading="lazy" />
+      <p class="sf__payoff">The Art of Living <span class="w-accent">Smart.</span></p>
+      <p class="w-body sf__muted">Goditi l'esperienza, al resto pensiamo noi.</p>
+      <a class="w-cta w-button" href="/#contatti">Richiedi una consulenza</a>
+    </div>
+    <nav class="sf__cols" aria-label="Collegamenti del sito">
+      <div>
+        <p class="w-label sf__title">Funzioni</p>
+        <ul>{features.map((f) => <li><a href={f.href}>{f.label}</a></li>)}</ul>
+      </div>
+      <div>
+        <p class="w-label sf__title">Dymora</p>
+        <ul>
+          <li><a href="/#servizio">Il servizio</a></li>
+          <li><a href="/#edifici">Più edifici</a></li>
+          <li><a href="/#come-si-parte">Come si parte</a></li>
+          <li><a href="/#domande">Domande</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="w-label sf__title">Assistenza</p>
+        <ul>
+          <li><a href="/support/">Supporto</a></li>
+          <li><a href="mailto:support@dymora.eu">support@dymora.eu</a></li>
+          <li><a href="mailto:info@dymora.eu">info@dymora.eu</a></li>
+          <li><a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="sf__legal w-note">
+    <p>© {year} Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
+    <nav aria-label="Informazioni legali"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a></nav>
+  </div>
 </footer>

@@ -1,23 +1,23 @@
 ---
-// Home hero from Federico's opening (commit 5401a7d), restored 2026-11-23 in place of the
-// brochure cover. The scroll scene that followed it (house, devices, phrases) is removed.
+// Home hero: Federico's opening (commit 5401a7d), the cascade and the hook, with the site header
+// floating over it (SiteHeader `overlay`). The app follows in the next section (HouseStory).
+// Texts: `cover.map.payoff`,
+// `cover.map.stop4`, `cta.primary`.
 import '../styles/opening.css';
 ---
 <div class="frame">
   <div class="site">
     <div class="open" id="top">
-      <header class="nav">
-        <a class="brand" href="#top"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
-        <div class="nav-end">
-          <a class="nav-link w-body-strong" href="mailto:info@dymora.eu">info@dymora.eu</a>
-          <a class="w-cta w-button nav-cta" href="#contatti">Richiedi una consulenza</a>
-        </div>
-      </header>
       <img class="dots" src="/assets/images/cascata.svg" alt="" width="864" height="704" />
       <div class="hook">
         <h1 class="w-display-xxl"><span class="ln"><span>The Art</span></span><span class="ln"><span>of Living</span></span><span class="ln"><span class="w-accent">Smart.</span></span></h1>
         <p class="sub w-subtitle">Goditi l'esperienza, al resto pensiamo noi.</p>
+        <div class="hook__actions">
+          <a class="w-cta w-button" href="#contatti">Richiedi una consulenza</a>
+          <a class="hook__more" href="#funzioni">Scopri le funzioni<span aria-hidden="true"></span></a>
+        </div>
       </div>
+      <a class="open__cue" href="#app" aria-label="Scorri per scoprire Dymora"><span></span></a>
     </div>
   </div>
 </div>

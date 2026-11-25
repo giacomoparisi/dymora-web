@@ -1,0 +1,43 @@
+---
+// A function with a page of its own, told as one large chapter: copy on one side (`feature.*`
+// eyebrow, title, line, points), a composition of app pieces or photos on the other, which drift
+// at different speeds while the section scrolls (spotlight.css, scroll-driven where supported).
+// Used on the home for Telecamere (panna) and Consumi (carbon).
+import Band from '../Band.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Headline from '../Headline.astro';
+import { feature } from '../../data/features';
+
+interface Media { src: string; alt: string; width: number; height: number }
+interface Props {
+  slug: string;
+  tone: 'ink' | 'paper';
+  cta: string;
+  /** The large picture, then up to two that float over its edge. */
+  media: [Media, ...Media[]];
+  flip?: boolean;
+  /** `feature.*.points` from copy/it.md, when the function's data leaves them to its page. */
+  points?: string[];
+}
+const { slug, tone, cta, media, flip = false, points } = Astro.props;
+const f = feature(slug);
+const list = points ?? f.points;
+const titleId = `spot-${slug}-title`;
+const [main, ...extra] = media;
+---
+<Band tone={tone} id={`spot-${slug}`} class:list={['spot', `spot--${slug}`, { 'spot--flip': flip }]} labelledby={titleId} innerClass="spot__inner">
+  <div class="spot__copy">
+    <Eyebrow text={f.eyebrow} />
+    <Headline id={titleId} size="l" text={f.title} />
+    <p class="w-lead w-muted">{f.line}</p>
+    {list.length > 0 && <ol class="spot__points">
+      {list.map((p, i) => <li><span class="w-label spot__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span class="w-body">{p}</span></li>)}
+    </ol>}
+    <a class="w-cta w-button" href={f.href}>{cta}</a>
+  </div>
+  <figure class="spot__media">
+    <img class="spot__main" src={main.src} alt={main.alt} width={main.width} height={main.height} loading="lazy" decoding="async" />
+    {extra.map((m, i) => <img class={`spot__float spot__float--${i + 1}`} src={m.src} alt={m.alt} width={m.width} height={m.height} loading="lazy" decoding="async" />)}
+    <figcaption class="w-note w-muted">Immagini dimostrative.</figcaption>
+  </figure>
+</Band>
