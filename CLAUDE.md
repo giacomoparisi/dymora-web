@@ -45,7 +45,7 @@ The site now uses Astro with external CSS and JavaScript. Shared tokens and typo
 
 - The app token export is authoritative: primary `#1C1C1A`, secondary `#F45118`, and `--c-surface-muted` as the page background in both themes.
 - Asta Sans is the text face; Doto 900 is limited to labels and numbers. Fonts are self-hosted WOFF2 files in `public/assets/fonts/` with the OFL license beside them.
-- The opening remains carbon in both themes, with the film under a carbon scrim. Keep the film self-hosted, short (loop under ~20 s, 1080p under ~4 MB plus a 720p file) and warm in tone; sources live outside the repo. Product screenshots switch between their light and dark renders with `.w-only-light` and `.w-only-dark`.
+- The opening remains carbon in both themes, with the film under a carbon scrim. Keep the film self-hosted, unhurried (loop around 30 s with slow warm crossfades, 1080p under ~5 MB plus a 720p file; owner decision, 2026-11-25) and warm in tone; sources live outside the repo. Product screenshots switch between their light and dark renders with `.w-only-light` and `.w-only-dark`.
 - Use the `w-*` typography classes and the existing section components. Headlines are sentence case with the key phrase in `w-accent`.
 - Keep image dimensions and meaningful alt text in markup. No "Immagini dimostrative." notes next to product renders or drawings (owner decision, 2026-11-25); the opening film keeps its "Scene dimostrative" label because its scenes are AI-generated.
 - All user-facing content is Italian, except the approved hook “The Art of Living Smart”.
