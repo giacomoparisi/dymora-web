@@ -98,49 +98,11 @@
   .story__step{min-height:0;padding-block:6svh;gap:40px}
 }
 
-/* ─── Il servizio on panna (Service.astro) ─── */
-.service__inner{display:grid;gap:clamp(40px,5vw,72px);max-width:none}
-.service__head{display:grid;gap:clamp(16px,2vw,26px);max-width:1100px}
-.service__head .w-lead{max-width:60ch}
-.service .stat-row{border-color:#1c1c1a1f}
-.service .stat-row .w-num-l{color:var(--c-on-background)}
-.service .stat-row li:first-child .w-num-l{color:var(--c-secondary-button)}
-.service__trust{display:grid;gap:clamp(22px,3vw,40px)}
-.service .principle-list li{gap:12px;padding:clamp(22px,2.4vw,34px);border:0;border-radius:var(--r-extra-large);background:var(--c-surface);transition:transform .35s var(--ease-out),box-shadow .35s}
-.service .principle-list li:hover{transform:translateY(-4px);box-shadow:0 24px 50px #1c1c1a1f}
-.principle__n{color:var(--c-secondary-text)}
-.service .principle-list .h-s{font-size:clamp(1.5rem,2.2vw,2rem);font-weight:800}
-
-/* ─── Come si parte (Steps.astro) ─── */
-.start__inner{gap:clamp(40px,5vw,72px)}
-.start__head{display:grid;gap:clamp(14px,1.8vw,22px)}
-.start__steps{position:relative}
-.step-list__track{position:absolute;left:22px;right:0;top:21px;height:2px;background:#1c1c1a1f}
-.step-list__track span{display:block;height:100%;background:var(--c-secondary-button);transform-origin:left}
-.start .step-list li{position:relative;gap:12px;padding:64px 0 0;border:0}
-.step-list__dot{position:absolute;left:0;top:0;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--c-primary);color:var(--c-on-primary);font-size:15px;box-shadow:0 0 0 6px var(--c-surface-muted)}
-@media(prefers-reduced-motion:no-preference){
-  @supports (animation-timeline:view()){
-    .step-list__track span{animation:track-fill linear both;animation-timeline:view();animation-range:entry 60% cover 55%}
-  }
-}
-@keyframes track-fill{from{transform:scaleX(0)}to{transform:none}}
-@media(max-width:900px){
-  .step-list__track{left:21px;right:auto;top:0;bottom:0;width:2px;height:auto}
-  .step-list__track span{transform-origin:top}
-  .start .step-list{grid-template-columns:1fr;gap:36px}
-  .start .step-list li{padding:8px 0 0 68px;min-height:44px}
-}
-@keyframes track-fill-y{from{transform:scaleY(0)}to{transform:none}}
-@media(max-width:900px) and (prefers-reduced-motion:no-preference){
-  @supports (animation-timeline:view()){.step-list__track span{animation-name:track-fill-y}}
-}
-
 /* ─── FAQ (Faq.astro): smoother accordion where supported ─── */
 .faq__inner{padding-top:var(--w-air)}
 .faq__intro{position:sticky;top:calc(var(--sh-h) + 32px);align-self:start}
 .faq__list summary{padding-block:6px;transition:color .2s}
-.faq__list summary:hover{color:var(--c-secondary-on-ink)}
+.faq__list summary:hover{color:var(--c-secondary-text)}
 .faq__list summary::after{content:"+";transition:rotate .3s var(--ease-out)}
 .faq__list details[open] summary::after{content:"+";rotate:45deg}
 @supports (interpolate-size:allow-keywords){

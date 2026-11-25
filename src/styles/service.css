@@ -1,0 +1,161 @@
+/* ─── Il servizio (Service.astro, service.js): the five moments as a scroll story on panna ───
+   The carbon stage stays pinned on the left while the steps scroll on the right. The step at the
+   reading line is .is-active, and so are its scene and its node on the rail. Each scene plays in
+   from its rest state: its parts carry a delay (--d) that only applies on the way in, so a scene
+   that leaves resets at once and plays again when it comes back. */
+
+.svc__inner{display:grid;gap:clamp(40px,5vw,80px)}
+.svc__story{display:grid;gap:clamp(20px,2.4vw,32px)}
+/* The eyebrow and the title stay pinned under the site header while the steps scroll (its height → --svc-head, service.js) */
+.svc__head{position:sticky;top:var(--sh-h);z-index:3;display:grid;gap:clamp(8px,1vw,14px);padding-block:clamp(14px,2svh,24px);background:var(--c-surface-muted)}
+.svc__head::before{content:"";position:absolute;inset:0 calc(-1 * var(--w-gutter));z-index:-1;background:var(--c-surface-muted)}
+.svc__head::after{content:"";position:absolute;left:calc(-1 * var(--w-gutter));right:calc(-1 * var(--w-gutter));top:100%;height:32px;background:linear-gradient(var(--c-surface-muted),#edeae300);pointer-events:none}
+.svc__head .h-l{font-size:clamp(1.7rem,3.6vw,3.4rem)}
+.svc__lead{max-width:60ch}
+
+.svc__body{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(32px,6vw,112px)}
+.svc__pin{grid-column:1;grid-row:1;position:sticky;top:calc(var(--sh-h) + var(--svc-head,130px) + 2svh);height:calc(100svh - var(--sh-h) - var(--svc-head,130px) - 4svh);display:grid;grid-template-rows:minmax(0,1fr) auto;gap:clamp(16px,2svh,26px);align-self:start;container-type:size}
+.svc__steps{grid-column:2;grid-row:1;list-style:none;display:grid;padding-block:14svh 30svh}
+.svc__step{min-height:72svh;display:grid;gap:clamp(12px,1.4vw,18px);align-content:center}
+.svc__step .h-m{font-size:clamp(1.8rem,3.2vw,3rem)}
+.svc__step .w-body{max-width:44ch}
+.svc__num{color:var(--c-on-surface-muted)}
+.svc__num span{color:var(--c-secondary-text)}
+.svc.is-live .svc__step{opacity:.25;transition:opacity .5s}
+.svc.is-live .svc__step.is-active{opacity:1}
+
+/* The stage: a carbon panel with the orange glow, its scenes stacked on one another */
+.svc__stage{position:relative;align-self:center;justify-self:center;width:min(100cqw,calc((100cqh - 70px) * 1.18));aspect-ratio:1.18;border-radius:var(--r-extra-large);background:var(--c-primary);color:var(--c-on-primary);overflow:hidden;container-type:inline-size;box-shadow:0 40px 90px #1c1c1a33}
+.svc__glow{position:absolute;left:50%;top:58%;width:130cqw;aspect-ratio:1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511840,#f451180d 60%,transparent);pointer-events:none}
+.svc-scene{--d:0s;position:absolute;inset:0;display:grid;place-items:center;align-content:center;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+.svc-scene.is-active{opacity:1;visibility:visible;transition:opacity .6s .15s,visibility 0s}
+.svc-scene *{transition-delay:0s}
+.svc-scene.is-active *{transition-delay:var(--d)}
+
+/* Rail: five nodes under the stage, filled in orange through --svc-p (service.js) */
+.svc__nav{position:relative;width:min(100cqw,calc((100cqh - 70px) * 1.18));justify-self:center}
+.svc__rail{position:absolute;left:10%;right:10%;top:6px;height:2px;background:#1c1c1a1f;border-radius:2px;overflow:hidden}
+.svc__fill{display:block;height:100%;background:var(--c-secondary-button);transform:scaleX(var(--svc-p,0));transform-origin:left}
+.svc__nav ol{position:relative;list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.svc__nav li{display:grid;justify-items:center;gap:12px;text-align:center;color:var(--c-on-surface-muted);transition:color .4s}
+.svc__nav .w-label{font-size:clamp(10px,.75vw,12px)}
+.svc__node{width:14px;height:14px;border-radius:50%;background:var(--c-surface-muted);box-shadow:inset 0 0 0 2px #1c1c1a40;transition:background .4s,box-shadow .4s,transform .4s var(--ease-out)}
+.svc__nav li.is-done .svc__node{background:var(--c-secondary-button);box-shadow:none}
+.svc__nav li.is-active{color:var(--c-on-background)}
+.svc__nav li.is-active .svc__node{background:var(--c-secondary-button);box-shadow:0 0 0 5px #d43e0a2e;transform:scale(1.15)}
+
+/* 1 · Ascolto — the call, then the functions picked one by one */
+.svc-scene--listen{gap:4.5cqw;padding:0 9cqw;text-align:center}
+.sc-call{display:inline-flex;align-items:center;gap:2cqw;padding:1.6cqw 2.6cqw;border:1px solid #ffffff2e;border-radius:999px;color:var(--c-on-primary-muted)}
+.sc-call .w-label{font-size:max(10px,1.9cqw)}
+.sc-call__dot{width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--c-success);box-shadow:0 0 0 .6cqw #20885033}
+.sc-wave{display:flex;align-items:center;gap:.6cqw;height:4cqw}
+.sc-wave i{width:.55cqw;height:100%;border-radius:1cqw;background:var(--c-secondary);transform:scaleY(.25)}
+.svc-scene--listen.is-active .sc-wave i{animation:sc-wave 1.1s ease-in-out infinite alternate}
+.sc-wave i:nth-child(3n){animation-delay:-.4s}.sc-wave i:nth-child(3n+1){animation-delay:-.8s}.sc-wave i:nth-child(4n){animation-duration:.8s}.sc-wave i:nth-child(5n){animation-duration:1.4s}
+@keyframes sc-wave{to{transform:scaleY(1)}}
+.sc-q{font:800 5.6cqw/1.08 var(--font-text);letter-spacing:-.02em;text-wrap:balance}
+.sc-q span{color:var(--c-secondary)}
+.sc-chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:1.6cqw}
+.sc-chip{padding:1.3cqw 2.1cqw;border:1px solid #ffffff3a;border-radius:1cqw;font:900 max(9px,2cqw)/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-on-primary-muted);transition:background .35s,border-color .35s,color .35s,transform .45s var(--ease-out)}
+.sc-chip[data-n="1"]{--d:.5s}.sc-chip[data-n="2"]{--d:.95s}.sc-chip[data-n="3"]{--d:1.4s}.sc-chip[data-n="4"]{--d:1.85s}
+.svc-scene--listen.is-active .sc-chip--on{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary);transform:translateY(-.4cqw)}
+
+/* 2 · Progetto — the house on graph paper, drawn in, then the chosen functions pinned on it */
+.svc-scene--plan{background:linear-gradient(#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw,linear-gradient(90deg,#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw}
+.sc-plan{position:relative;width:84cqw}
+.sc-plan__house{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.25) contrast(.85);opacity:.55;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s var(--ease-out),filter .8s,opacity .8s}
+.svc-scene--plan.is-active .sc-plan__house{clip-path:inset(0);filter:grayscale(.65) brightness(1.05);opacity:.9}
+.sc-pin{position:absolute;display:grid;justify-items:center;gap:.8cqw;translate:-50% calc(-100% + .9cqw);opacity:0;transform:translateY(2cqw);transition:opacity .4s,transform .5s var(--ease-out)}
+.sc-pin b{padding:.9cqw 1.4cqw;border:1px solid var(--c-secondary);border-radius:.8cqw;background:var(--c-primary);color:var(--c-on-primary);font-size:max(9px,1.8cqw)}
+.sc-pin i{position:relative;width:1.8cqw;height:1.8cqw;border-radius:50%;background:var(--c-secondary);box-shadow:0 0 0 .5cqw #1c1c1a}
+.sc-pin i::after{content:"";position:absolute;inset:-1.2cqw;border-radius:50%;border:1px solid var(--c-secondary);opacity:0}
+.svc-scene--plan.is-active .sc-pin{opacity:1;transform:none}
+.svc-scene--plan.is-active .sc-pin i::after{animation:sc-ping 2s var(--d) ease-out infinite}
+@keyframes sc-ping{from{transform:scale(.4);opacity:.9}to{transform:scale(1.6);opacity:0}}
+.sc-pin--1{left:39%;top:47%;--d:.9s}
+.sc-pin--2{left:55%;top:52%;--d:1.15s}
+.sc-pin--3{left:59%;top:31%;--d:1.4s}
+.sc-pin--4{left:77.5%;top:57%;--d:1.65s}
+.sc-stamp{position:absolute;left:5cqw;bottom:4.5cqw;display:flex;gap:1.4cqw;font-size:max(9px,1.8cqw);color:var(--c-on-primary-muted);opacity:0;transition:opacity .5s;--d:1.9s}
+.sc-stamp span{color:var(--c-secondary)}
+.svc-scene--plan.is-active .sc-stamp{opacity:1}
+
+/* 3 · Installazione — the devices come to the hub, the links draw in */
+.sc-net{position:relative;width:88cqw;aspect-ratio:100/80}
+.sc-net__links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sc-net__links path{fill:none;stroke:var(--c-secondary);stroke-width:1.5px;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:.85;transition:stroke-dashoffset .7s ease-out}
+.sc-net__links path:nth-child(1){--d:.95s}.sc-net__links path:nth-child(2){--d:1.1s}.sc-net__links path:nth-child(3){--d:1.25s}.sc-net__links path:nth-child(4){--d:1.4s}
+.svc-scene--install.is-active .sc-net__links path{stroke-dashoffset:0}
+.sc-hub{position:absolute;left:50%;top:52.5%;width:27cqw;translate:-50% -50%;transform:scale(.88);transition:transform .8s var(--ease-out),filter .8s;--d:.1s}
+.sc-hub img{display:block;width:100%;height:auto}
+.svc-scene--install.is-active .sc-hub{transform:none;filter:drop-shadow(0 0 3cqw #f4511866);--d:1.5s}
+.sc-dev{position:absolute;height:17cqw;translate:-50% -50%;opacity:0;transition:opacity .5s,transform .8s var(--ease-out)}
+.sc-dev img{display:block;height:100%;width:auto;filter:drop-shadow(0 2cqw 3cqw #0008)}
+.sc-dev--tl{left:20%;top:22.5%;transform:translate(-8cqw,-6cqw);--d:.2s}
+.sc-dev--tr{left:80%;top:22.5%;transform:translate(8cqw,-6cqw);--d:.35s}
+.sc-dev--bl{left:20%;top:82.5%;transform:translate(-8cqw,6cqw);--d:.5s}
+.sc-dev--br{left:80%;top:82.5%;transform:translate(8cqw,6cqw);--d:.65s}
+.svc-scene--install.is-active .sc-dev{opacity:1;transform:none}
+
+/* 4 · Configurazione — the app on a phone, its switches turning on */
+.sc-phone{width:33cqw;aspect-ratio:660/1290;padding:1cqw;border-radius:5cqw;background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 4cqw 8cqw #000a;container-type:inline-size;transform:translateY(5cqw) rotate(-3deg);transition:transform .9s var(--ease-out)}
+.svc-scene--config.is-active .sc-phone{transform:none}
+.sc-app{height:100%;display:grid;align-content:center;gap:7cqw;padding:10cqw 8cqw;border-radius:13cqw;background:var(--c-surface-muted);color:var(--c-on-background)}
+.sc-app__mark{width:18cqw;height:auto}
+.sc-app__title{font:800 10cqw/1.05 var(--font-text);letter-spacing:-.02em}
+.sc-app__title span{color:var(--c-secondary-button)}
+.sc-app__list{list-style:none;display:grid;gap:3.5cqw}
+.sc-app__list li{display:flex;align-items:center;justify-content:space-between;gap:4cqw;padding:4.5cqw 5cqw;border-radius:5cqw;background:var(--c-surface);font:700 6.2cqw/1 var(--font-text)}
+.sc-switch{position:relative;flex:none;width:15cqw;height:8.5cqw;border-radius:9cqw;background:#1c1c1a26;transition:background .3s}
+.sc-switch::after{content:"";position:absolute;left:1cqw;top:1cqw;width:6.5cqw;height:6.5cqw;border-radius:50%;background:#fff;box-shadow:0 .5cqw 1cqw #0003;transition:transform .35s var(--ease-out)}
+.sc-app__list li:nth-child(1) .sc-switch{--d:.6s}.sc-app__list li:nth-child(2) .sc-switch{--d:.95s}.sc-app__list li:nth-child(3) .sc-switch{--d:1.3s}.sc-app__list li:nth-child(4) .sc-switch{--d:1.65s}
+.sc-app__list li:nth-child(1) .sc-switch::after{--d:.6s}.sc-app__list li:nth-child(2) .sc-switch::after{--d:.95s}.sc-app__list li:nth-child(3) .sc-switch::after{--d:1.3s}.sc-app__list li:nth-child(4) .sc-switch::after{--d:1.65s}
+.svc-scene--config.is-active .sc-switch{background:var(--c-secondary-button)}
+.svc-scene--config.is-active .sc-switch::after{transform:translateX(6.5cqw)}
+.svc-scene.is-active .sc-switch::after{transition-delay:var(--d)}
+.sc-app__bar{display:block;height:1.6cqw;margin-top:4cqw;border-radius:2cqw;background:#1c1c1a1a;overflow:hidden}
+.sc-app__bar i{display:block;height:100%;background:var(--c-secondary-button);transform:scaleX(0);transform-origin:left;transition:transform 1.5s ease-in-out;--d:.5s}
+.svc-scene--config.is-active .sc-app__bar i{transform:none}
+.sc-app__done{display:flex;align-items:center;gap:2.5cqw;font:900 5cqw/1 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--c-success);opacity:0;transition:opacity .4s;--d:2.1s}
+.sc-app__done::before{content:"";width:2.6cqw;height:4.6cqw;margin-top:-1.4cqw;border-right:1.1cqw solid currentColor;border-bottom:1.1cqw solid currentColor;rotate:45deg}
+.svc-scene--config.is-active .sc-app__done{opacity:1}
+
+/* 5 · Assistenza — a light stops answering, a mail to support, the light answers again */
+.sc-care{display:grid;gap:3cqw;width:66cqw}
+.sc-card{display:flex;align-items:center;gap:3cqw;padding:3cqw 3.6cqw;border:1px solid #ffffff1f;border-radius:3cqw;background:var(--c-primary-container);box-shadow:0 3cqw 6cqw #0006}
+.sc-card--dev img{width:13cqw;height:auto;filter:grayscale(1) brightness(.55);transition:filter .6s;--d:2.2s}
+.svc-scene--care.is-active .sc-card--dev img{filter:drop-shadow(0 2cqw 3cqw #f7c14a55)}
+.sc-card__name{display:grid;gap:1cqw;font:700 3.6cqw/1.1 var(--font-text)}
+.sc-st{display:flex;align-items:center;gap:1.4cqw;grid-area:2/1;font:900 max(9px,2cqw)/1 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;transition:opacity .35s;--d:2.2s}
+.sc-st::before{content:"";width:1.5cqw;height:1.5cqw;border-radius:50%;background:currentColor}
+.sc-st--ko{color:var(--c-warning)}
+.sc-st--ok{color:#3fbf78;opacity:0}
+.svc-scene--care.is-active .sc-st--ko{opacity:0}
+.svc-scene--care.is-active .sc-st--ok{opacity:1}
+.sc-card--mail{margin-left:9cqw;opacity:0;transform:translateY(4cqw);transition:opacity .5s,transform .6s var(--ease-out);--d:.6s}
+.svc-scene--care.is-active .sc-card--mail{opacity:1;transform:none}
+.sc-card__to{font-size:max(9px,1.9cqw);color:var(--c-on-primary-muted)}
+.sc-card__addr{flex:1;font:700 3.2cqw/1.2 var(--font-text)}
+.sc-card__sent{padding:1cqw 1.6cqw;border-radius:.8cqw;background:var(--c-secondary);color:var(--c-on-secondary);font-size:max(9px,1.7cqw);opacity:0;transform:scale(.8);transition:opacity .3s,transform .4s var(--ease-out);--d:1.4s}
+.svc-scene--care.is-active .sc-card__sent{opacity:1;transform:none}
+
+/* Narrow: the stage pins above the steps, smaller; the rail keeps only its nodes */
+@media(max-width:999px){
+  .svc__body{grid-template-columns:1fr;gap:0}
+  .svc__head{margin-inline:calc(-1 * var(--w-gutter));padding-inline:var(--w-gutter)}
+  .svc__head::before,.svc__head::after{display:none}
+  .svc__head .eyebrow{display:none}
+  .svc__pin{grid-column:1;z-index:2;top:calc(var(--sh-h) + var(--svc-head,64px) - 1px);height:auto;margin-inline:calc(-1 * var(--w-gutter));padding:12px var(--w-gutter) 14px;background:var(--c-surface-muted);container-type:normal;gap:12px}
+  .svc__pin::after{content:"";position:absolute;left:0;right:0;top:100%;height:28px;background:linear-gradient(var(--c-surface-muted),#edeae300);pointer-events:none}
+  .svc__stage,.svc__nav{width:min(100%,calc(34svh * 1.18))}
+  .svc__stage{border-radius:var(--r-large)}
+  .svc__nav .w-label{display:none}
+  .svc__steps{grid-column:1;grid-row:auto;padding-block:4svh 18svh}
+  .svc__step{min-height:0;padding-block:7svh}
+}
+
+/* Reduced motion: the scenes still follow the steps, shown at once in their final state */
+@media(prefers-reduced-motion:reduce){
+  .svc-scene,.svc-scene *,.svc-scene *::before,.svc-scene *::after{transition:none!important;animation:none!important}
+}

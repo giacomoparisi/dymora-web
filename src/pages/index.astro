@@ -4,12 +4,13 @@
 // the closing banner is orange. Texts from dymora-app design/marketing/copy/it.md, never
 // rewritten here: sections only select and order them.
 //   opening (ink) → La tua casa in una sola app + Funzioni, the house story (ink)
-//   → Il servizio (paper) → Più edifici (ink)
-//   → Come si parte (paper) → Domande (ink) → Chiusura (orange) → footer
+//   → Il servizio, with Come si parte (paper) → Più edifici (ink)
+//   → Domande (paper) → Chiusura (orange) → footer
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/features.css';
 import '../styles/home.css';
 import '../styles/buildings.css';
+import '../styles/service.css';
 import '../styles/reveal.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -17,7 +18,6 @@ import Opening from '../components/Opening.astro';
 import HouseStory from '../components/home/HouseStory.astro';
 import Service from '../components/home/Service.astro';
 import Buildings from '../components/home/Buildings.astro';
-import Steps from '../components/home/Steps.astro';
 import Faq from '../components/home/Faq.astro';
 import Closing from '../components/home/Closing.astro';
 ---
@@ -29,7 +29,6 @@ import Closing from '../components/home/Closing.astro';
     <HouseStory />
     <Service />
     <Buildings />
-    <Steps />
     <Faq />
     <Closing />
   </main>
