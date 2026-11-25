@@ -1,5 +1,5 @@
-/* "Cosa puoi fare con Dymora" (FeatureLinks.astro): one card per function, with the render of a
-   device that stands for it, linking to its page or popup. */
+/* Cards of the /anteprima-funzioni/ preview (formerly FeatureLinks.astro): one card per function,
+   with the render of a device that stands for it. */
 .flinks__inner{display:grid;gap:clamp(28px,4vw,56px)}
 .flinks__head{display:grid;gap:clamp(14px,1.8vw,22px)}
 .flinks__list{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.2vw,18px)}

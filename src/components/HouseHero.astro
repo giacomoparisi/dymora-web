@@ -1,6 +1,6 @@
 ---
-// The overview's house (dark), with only one function playing in: the hero of a function's page
-// (FeaturePage.astro) and the picture of a home popup without an app screen (FeatureDialog.astro).
+// The overview's house, with only one function playing in: the picture of a function's chapter
+// without app screens (Spotlight.astro).
 // Each button toggles its layers on the house (sprite.js data-sprite-target), as the overview's
 // tags do on the home. Layer tokens and paint order from src/data/intro.ts.
 import Sprite from './Sprite.astro';
@@ -14,11 +14,13 @@ interface Props {
   buttons: { label: string; layer: string; pressed: boolean }[];
   /** The scene's id, which the buttons target: unique on the page. */
   id?: string;
+  /** `dark` on carbon, `light` on panna. */
+  variant?: 'light' | 'dark';
 }
-const { layers, alt, buttons, id = 'fp-house' } = Astro.props;
+const { layers, alt, buttons, id = 'fp-house', variant = 'dark' } = Astro.props;
 ---
 <div class="house-hero">
-  <Sprite id={id} name="house" variant="dark" layers={`balustrade_off ${layers}`} order={overview.order} play alt={alt} class="house-hero__scene" />
+  <Sprite id={id} name="house" variant={variant} layers={`balustrade_off ${layers}`} order={overview.order} play alt={alt} class="house-hero__scene" />
   <div class="house-hero__buttons">
     {buttons.map((b) => (
       <button class="tag house-hero__btn" type="button" aria-pressed={b.pressed ? 'true' : 'false'} data-sprite-target={id} data-sprite-layer={b.layer}>{b.label}</button>

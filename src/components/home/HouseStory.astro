@@ -5,12 +5,10 @@
 // aspetto" (`overview.title`) as a scroll story: the house
 // stays pinned while the eight functions scroll past (`feature.*` eyebrow, title, line). Each
 // function that reaches the middle of the window plays in on the house and joins the ones before
-// it; scrolling back plays them out (story.js, sprite.js). Each step leads to the function's page
-// or its popup on the home (data-feature, feature-dialog.js).
-// `#funzioni` is the anchor of the header, of the opening and of the popups.
+// it; scrolling back plays them out (story.js, sprite.js). Each step leads to the function's
+// chapter on /funzioni/. `#funzioni` is the anchor of the opening.
 import Headline from '../Headline.astro';
 import Sprite from '../Sprite.astro';
-import FeatureDialog from '../FeatureDialog.astro';
 import { overview } from '../../data/intro';
 import { features } from '../../data/features';
 
@@ -68,7 +66,7 @@ const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.sl
                 <p class="w-label story__num"><span>{String(fns.indexOf(f) + 1).padStart(2, '0')}</span> {f.eyebrow}</p>
                 <Headline as="h4" size="m" text={f.title} />
                 <p class="w-body w-muted">{f.line}</p>
-                <a class="story__link" href={f.href} data-feature={f.page ? undefined : f.slug}>{f.page ? 'Vai alla pagina' : 'Scopri di più'}<span class="visually-hidden"> su {f.label}</span><span class="story__arrow" aria-hidden="true"></span></a>
+                <a class="story__link" href={f.href}>Scopri di più<span class="visually-hidden"> su {f.label}</span><span class="story__arrow" aria-hidden="true"></span></a>
               </div>
             ))}
           </li>
@@ -77,5 +75,4 @@ const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.sl
     </div>
   </div>
 </section>
-<FeatureDialog />
 <script is:inline src="/assets/js/story.js" defer></script>

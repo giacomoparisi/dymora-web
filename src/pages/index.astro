@@ -4,7 +4,7 @@
 // the closing banner is orange. Texts from dymora-app design/marketing/copy/it.md, never
 // rewritten here: sections only select and order them.
 //   opening (ink) → La tua casa in una sola app + Funzioni, the house story (ink)
-//   → Telecamere (paper) → Consumi (ink) → Il servizio (paper) → Più edifici (ink)
+//   → Il servizio (paper) → Più edifici (ink)
 //   → Come si parte (paper) → Domande (ink) → Chiusura (orange) → footer
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/features.css';
@@ -14,7 +14,6 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Opening from '../components/Opening.astro';
 import HouseStory from '../components/home/HouseStory.astro';
-import Spotlight from '../components/home/Spotlight.astro';
 import Service from '../components/home/Service.astro';
 import Buildings from '../components/home/Buildings.astro';
 import Steps from '../components/home/Steps.astro';
@@ -27,23 +26,6 @@ import Closing from '../components/home/Closing.astro';
   <main>
     <Opening />
     <HouseStory />
-    <Spotlight slug="telecamere" tone="paper" cta="Scopri la videosorveglianza" points={[
-      'Guardi le telecamere in diretta e rivedi eventi e registrazioni autorizzate.',
-      'Il sistema riconosce persone, veicoli e animali e può ignorare gli animali, secondo le regole scelte.',
-      'Ricevi una notifica sul telefono quando le telecamere rilevano un evento.',
-    ]} media={[
-      { src: '/assets/images/cam-person.webp', alt: "Una persona ripresa dalla telecamera dell'ingresso", width: 960, height: 543 },
-      { src: '/assets/images/cam-car.webp', alt: "Un'auto ripresa dalla telecamera del vialetto", width: 960, height: 543 },
-      { src: '/assets/images/cam-animal.webp', alt: 'Un animale ripreso dalla telecamera del giardino', width: 960, height: 543 },
-    ]} />
-    <Spotlight slug="consumi" tone="ink" flip cta="Scopri i consumi" points={[
-      'Vedi quanta potenza sta usando adesso ogni apparecchio monitorato.',
-      "I dati sono misurati se c'è un contatore, stimati dalla potenza se non c'è.",
-      "Accendi e spegni dall'app le prese intelligenti configurate.",
-    ]} media={[
-      { src: '/assets/images/pieces/energy-house.webp', alt: "La casa nell'app Dymora con la potenza in uso di ogni apparecchio", width: 1200, height: 1031 },
-      { src: '/assets/images/pieces/energy-pie.webp', alt: "La ripartizione dei consumi del quadro cucina nell'app Dymora", width: 800, height: 1227 },
-    ]} />
     <Service />
     <Buildings />
     <Steps />

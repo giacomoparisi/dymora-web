@@ -1,0 +1,29 @@
+---
+// /funzioni/: every function on one page for now, one chapter each (Spotlight.astro), in the brochure's order (features.ts), at `/funzioni/#<slug>`.
+// Panna and carbon alternate after the carbon head; the closing banner is orange.
+// Texts from dymora-app design/marketing/copy/it.md (`overview.title`, `cover.line`, `feature.*`).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/features.css';
+import '../../styles/home.css';
+import '../../styles/legal.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import PageHead from '../../components/PageHead.astro';
+import Spotlight from '../../components/home/Spotlight.astro';
+import Closing from '../../components/home/Closing.astro';
+import { overview } from '../../data/intro';
+import { features } from '../../data/features';
+---
+<BaseLayout title="Funzioni Dymora — Controlla la tua casa sotto ogni aspetto" description="Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="features-page">
+  <SiteHeader />
+  <main>
+    <PageHead eyebrow="Funzioni" title={overview.title}>
+      <p class="w-lead w-muted">Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora.</p>
+    </PageHead>
+    {features.map((f, i) => (
+      <Spotlight slug={f.slug} id={f.slug} tone={i % 2 ? 'ink' : 'paper'} flip={i % 2 === 1} />
+    ))}
+    <Closing />
+  </main>
+  <SiteFooter />
+</BaseLayout>

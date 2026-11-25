@@ -3,7 +3,7 @@
 // opening, transparent until the page scrolls (header.js sets .is-scrolled).
 // "Funzioni" opens a mega menu with the eight functions (device render, name, the copy's `line`):
 // hover or click on wide screens, an accordion inside the burger panel on phones.
-// On the home the functions without a page open their popup (data-feature, feature-dialog.js).
+// Each function leads to its chapter on /funzioni/.
 // Without JavaScript the menu opens on hover and focus (header.css), the panel stays reachable.
 import { features } from '../data/features';
 import '../styles/header.css';
@@ -22,11 +22,14 @@ const { overlay = false } = Astro.props;
           <button class="sh__link sh__trigger" type="button" aria-expanded="false" aria-controls="sh-funzioni">Funzioni<span class="sh__chev" aria-hidden="true"></span></button>
           <div class="sh__mega" id="sh-funzioni">
             <div class="sh__mega-inner">
-              <p class="w-label eyebrow sh__mega-label">Cosa puoi fare con Dymora</p>
+              <div class="sh__mega-head">
+                <p class="w-label eyebrow sh__mega-label">Cosa puoi fare con Dymora</p>
+                <a class="sh__mega-all" href="/funzioni/">Tutte le funzioni<span aria-hidden="true"> →</span></a>
+              </div>
               <ul class="sh__grid">
                 {features.map((f, i) => (
                   <li>
-                    <a class="sh__fn" href={f.href} data-feature={f.page ? undefined : f.slug}>
+                    <a class="sh__fn" href={f.href}>
                       <span class="sh__fn-media" aria-hidden="true"><img src={f.device.src} width={f.device.width} height={f.device.height} alt="" loading="lazy" decoding="async" /></span>
                       <span class="sh__fn-text">
                         <span class="w-label sh__fn-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

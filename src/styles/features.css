@@ -1,5 +1,4 @@
-/* Home and /consumi/: shared pieces, the site-only blocks and the closing. Bands and tags in bands.css.
-   The home's per-function sections (brochure pages 6–10) were removed: the functions are popups now. */
+/* Home and /funzioni/: shared pieces, the site-only blocks and the closing. Bands and tags in bands.css. */
 
 /* Shared: points, tile rows, device tiles */
 .points{list-style:none;display:grid}
@@ -29,7 +28,7 @@ button.dev-tile__state[aria-pressed="true"]{border-color:var(--c-secondary-butto
 .dev-tile>p:not(.dev-tile__meta):not(.dev-tile__name){justify-self:stretch;text-align:left}
 figure img,.tile img{display:block;width:100%;height:auto}
 
-/* Camera frames with a detection box (home `opening`, /videosorveglianza/) */
+/* Camera frames with a detection box (home `opening`) */
 .cam{position:relative;overflow:hidden;border-radius:var(--r-large);border:3px solid var(--c-primary);background:var(--c-primary);box-shadow:0 20px 44px var(--c-shadow)}
 .band--ink .cam{border-color:#ffffff2e}
 .cam img{width:100%;height:auto}

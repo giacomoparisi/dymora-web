@@ -180,43 +180,6 @@
   .story__step{min-height:0;padding-block:6svh;gap:40px}
 }
 
-/* ─── Spotlight chapters (Spotlight.astro) ─── */
-.spot__inner{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(40px,6vw,110px);align-items:center}
-.spot--flip .spot__copy{order:2}
-.spot__copy{display:grid;gap:clamp(16px,1.8vw,24px);justify-items:start}
-.spot__copy .w-lead{max-width:48ch}
-.spot__points{list-style:none;display:grid;width:100%;margin-block:6px}
-.spot__points li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;padding:14px 0;border-top:1px solid #1c1c1a1f}
-.band--ink .spot__points li{border-color:#ffffff1f}
-.spot__n{padding-top:.25em;color:var(--c-secondary-text)}
-.band--ink .spot__n{color:var(--c-secondary)}
-.spot__media{position:relative;display:grid;gap:14px;margin:0;padding:6% 4% 10% 0}
-.spot__main{width:100%;border-radius:var(--r-extra-large);box-shadow:0 40px 90px #1c1c1a33}
-.band--ink .spot__main{box-shadow:0 40px 90px #0009}
-.spot__float{position:absolute;width:40%;border-radius:var(--r-large);box-shadow:0 30px 60px #1c1c1a4d;border:4px solid var(--c-surface-muted)}
-.band--ink .spot__float{border-color:var(--c-primary);box-shadow:0 30px 70px #000b}
-.spot__float--1{right:0;bottom:4%}
-.spot__float--2{left:-4%;top:0}
-.spot__media figcaption{position:absolute;left:0;bottom:0}
-.spot--consumi .spot__media{padding:0 14% 12% 0}
-.spot--consumi .spot__float--1{width:30%;right:0;bottom:0}
-@media(prefers-reduced-motion:no-preference){
-  @supports (animation-timeline:view()){
-    .spot__float--1{animation:spot-up linear both;animation-timeline:view();animation-range:cover}
-    .spot__float--2{animation:spot-down linear both;animation-timeline:view();animation-range:cover}
-    .spot__main{animation:spot-zoom linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
-  }
-}
-@keyframes spot-up{from{transform:translateY(70px)}to{transform:translateY(-70px)}}
-@keyframes spot-down{from{transform:translateY(-30px)}to{transform:translateY(40px)}}
-@keyframes spot-zoom{from{transform:scale(.92);opacity:.5}to{transform:none;opacity:1}}
-@media(max-width:900px){
-  .spot__inner{grid-template-columns:1fr}
-  .spot--flip .spot__copy{order:0}
-  .spot__media{padding:6% 3% 12% 3%}
-  .spot__float--2{left:0}
-}
-
 /* ─── Il servizio on panna (Service.astro) ─── */
 .service__inner{display:grid;gap:clamp(40px,5vw,72px);max-width:none}
 .service__head{display:grid;gap:clamp(16px,2vw,26px);max-width:1100px}
@@ -284,4 +247,3 @@
 .story .ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em + var(--lift,0px));height:calc(var(--y) + var(--row) - 1em - var(--lift,0px))}
 .story .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row) + var(--lift,0px))}
 .story .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}
-.spot .h-l{font-size:clamp(2rem,4vw,3.8rem)}

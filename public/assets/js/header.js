@@ -71,7 +71,7 @@
     });
   }
 
-  // A link in the header (an anchor on this page, a popup) closes everything.
+  // A link in the header (an anchor on this page) closes everything.
   header.addEventListener("click", function (e) {
     if (e.target.closest("a")) {
       if (burger && header.classList.contains("is-open") && narrow.matches) setPanel(false);

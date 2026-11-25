@@ -27,6 +27,9 @@
 .sh__item--mega.is-open .sh__mega{visibility:visible;opacity:1;transform:none;transition:opacity .25s,transform .35s var(--ease-out)}
 .sh__mega-inner{width:var(--content);margin:auto;padding:clamp(22px,2.6vw,36px) 0 clamp(26px,3vw,44px);display:grid;gap:18px}
 .sh__mega-label{color:var(--c-on-primary-muted)}
+.sh__mega-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px}
+.sh__mega-all{color:var(--c-on-primary);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.sh__mega-all:hover{color:var(--c-secondary)}
 .sh__grid{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 .sh__fn{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center;height:100%;padding:12px;border-radius:var(--r-large);border:1px solid #ffffff12;background:#ffffff08;transition:background .2s,border-color .2s,transform .3s var(--ease-out)}
 .sh__fn:hover,.sh__fn:focus-visible{background:#ffffff12;border-color:#ffffff2e;transform:translateY(-2px)}
@@ -61,6 +64,7 @@
   .sh__item--mega.is-open .sh__mega{display:block}
   .sh__mega-inner{width:auto;padding:0 0 18px}
   .sh__mega-label{display:none}
+  .sh__mega-head{order:2;padding:8px 12px 0}
   .sh__grid{grid-template-columns:1fr;gap:6px}
   .sh__fn{grid-template-columns:52px minmax(0,1fr);padding:8px}
   .sh__fn-media{height:52px}
