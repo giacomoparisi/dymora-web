@@ -1,64 +1,115 @@
 ---
-// Brochure pages 3–4 (`multi`, `retrofit`) as two bento tiles on carbon. The house of `overview`
-// moved to the scroll story (HouseStory.astro). Wide (>=960px): the tiles side by side.
-// The properties light up one at a time and their branch of the orange comb runs to the devices
-// (multi.js), whose screens show the app's installation picker (Casa, Montagna, Ufficio).
-// In retrofit an arrow leads from each picture to its title, and both options join into the
-// closing line. Anchors kept for the header and the footer: #edifici, #ristrutturazioni.
+// Brochure pages 3–4 (`multi`, `retrofit`) as two chapters on carbon, animated like the
+// premium smart-home sites: the product UI plays by itself and the visitor can take over.
+//
+// Multi: pills Casa / Montagna / Ufficio. The active property's render comes in, a pulse runs to
+// the devices and the app's installation picker (drawn in HTML, a demonstrative copy of the
+// installation-selection screen) moves its selection on computer, tablet and phone in turn.
+// Retrofit: a switch between "Senza" and "Con ristrutturazione": the render and the option's
+// text change with it.
+// buildings.js runs both while on screen (one step every few seconds, until the visitor uses a
+// control). Without JavaScript: Casa stays selected and both retrofit options sit side by side.
+// Anchors kept for the header and the footer: #edifici, #ristrutturazioni.
 import Headline from '../Headline.astro';
 import { multi, retrofit } from '../../data/intro';
+
+const first = multi.buildings[0].id;
+const screens = [
+  { device: 'laptop', layout: 'wide' },
+  { device: 'tablet', layout: 'wide' },
+  { device: 'phone', layout: 'compact' },
+];
 ---
-<section class="band band--ink intro" id="edifici" aria-labelledby="multi-title">
-  <div class="band__inner intro__grid">
-    <article class="intro__tile intro__tile--multi" data-reveal="panel">
-      <Headline id="multi-title" size="s" text={multi.title} />
-      <div class="intro__props" data-multi>
-        <ul class="intro__buildings">
-          {multi.buildings.map((b) => (
-            <li data-multi-item={b.id}>
-              <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" />
+<section class="band band--ink bld" id="edifici" aria-labelledby="multi-title">
+  <div class="band__inner bld__inner">
+    <div class="bld__multi" data-multi data-multi-active={first}>
+      <div class="bld__head" data-reveal>
+        <p class="w-label eyebrow">Più edifici</p>
+        <Headline id="multi-title" size="l" text={multi.title} />
+        <div class="bld__side-col">
+          <p class="w-lead w-muted bld__line">{multi.line}</p>
+          <div class="bld__pills" role="group" aria-label="Proprietà" data-multi-tabs hidden>
+            {multi.buildings.map((b, i) => (
+              <button type="button" class="tag bld__pill" data-multi-tab={b.id} aria-pressed={i === 0 ? 'true' : 'false'}>{b.label}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <figure class="bld__stage" data-reveal="panel" data-reveal-step="1">
+        <div class="bld__glow" aria-hidden="true"></div>
+        <div class="bld__props" aria-hidden="true">
+          {multi.buildings.map((b, i) => (
+            <div class:list={['bld__prop', { 'is-active': i === 0 }]} data-multi-item={b.id}>
+              <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" decoding="async" />
               <span class="tag">{b.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="bld__signal" aria-hidden="true"><span></span></div>
+        <div class="bld__devices" aria-hidden="true">
+          {screens.map((s, d) => (
+            <div class={`mdev mdev--${s.device}`}>
+              <div class="mdev__screen">
+                <div class={`pk pk--${s.layout}`}>
+                  <div class="pk__brand">
+                    <img class="pk__mark" src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" loading="lazy" />
+                    <img class="pk__word" src="/assets/images/logo-word-white.svg" alt="" width="1159" height="118" loading="lazy" />
+                    <span class="pk__dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="pk__body">
+                    <p class="pk__title">Seleziona la tua <span>installazione</span>.</p>
+                    <p class="pk__sub">Passa ad un’altra installazione.</p>
+                    <ul class="pk__list">
+                      {multi.buildings.map((b, i) => (
+                        <li class:list={['pk__row', `pk__row--d${d}`, { 'is-active': i === 0 }]} data-multi-row={b.id}>
+                          <span class="pk__ico"></span>
+                          <span class="pk__name">{b.app}<small>Collegata</small></span>
+                          <span class="pk__more"></span>
+                          <span class="pk__end"></span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <figcaption class="visually-hidden">Le proprietà Casa, Montagna e Ufficio nella stessa app Dymora, su computer, tablet e telefono.</figcaption>
+      </figure>
+    </div>
+
+    <div class="bld__retro" id="ristrutturazioni" data-retro>
+      <figure class="bld__stage bld__stage--retro" data-reveal="panel">
+        <div class="bld__glow" aria-hidden="true"></div>
+        {retrofit.options.map((o, i) => (
+          <div class:list={['bld__shot', { 'is-active': i === 0 }]} data-retro-item={i}>
+            <img src={o.src} alt={o.alt} width="1600" height="1080" loading="lazy" decoding="async" />
+            <span class="tag tag--accent">{o.tag}</span>
+          </div>
+        ))}
+      </figure>
+      <div class="bld__copy" data-reveal data-reveal-step="1">
+        <Headline id="retrofit-title" size="l" text={retrofit.title} />
+        <div class="bld__switch" data-retro-switch hidden>
+          <span class="w-label bld__side" data-retro-side="0" id="retro-off">{retrofit.options[0].tag}</span>
+          <button type="button" class="bld__toggle" role="switch" aria-checked="false" aria-labelledby="retro-on"><span></span></button>
+          <span class="w-label bld__side" data-retro-side="1" id="retro-on">{retrofit.options[1].tag}</span>
+        </div>
+        <ul class="bld__opts">
+          {retrofit.options.map((o, i) => (
+            <li class:list={['bld__opt', { 'is-active': i === 0 }]} data-retro-opt={i}>
+              <span class="w-label bld__opt-tag">{o.tag}</span>
+              <Headline as="h3" size="m" text={o.title} />
+              <p class="w-body w-muted">{o.body}</p>
             </li>
           ))}
         </ul>
-        <div class="intro__comb" aria-hidden="true">
-          {multi.buildings.map((b) => <span class={`intro__drop intro__drop--${b.id}`} data-multi-path={b.id}></span>)}
-          {multi.buildings.map((b) => <span class={`intro__bus intro__bus--${b.id}`} data-multi-path={b.id}></span>)}
-          <span class="intro__trunk"></span>
-        </div>
-        <div class="intro__screens">
-          <div class="intro__devices" aria-hidden="true">
-            {multi.devices.map((d) => (
-              <div class={`mdev mdev--${d}`}>
-                <span class="mdev__screen">{d === 'phone'
-                  ? <img src="/assets/images/installation-selection-compact-dark.webp" alt="" width="1644" height="3564" loading="lazy" />
-                  : <img src="/assets/images/installation-selection-expanded-dark.webp" alt="" width="3840" height="2400" loading="lazy" />}</span>
-              </div>
-            ))}
-          </div>
-          <p class="w-body-strong intro__line">{multi.line}</p>
-        </div>
       </div>
-    </article>
+    </div>
 
-    <article class="intro__tile intro__tile--retro" id="ristrutturazioni" aria-labelledby="retrofit-title" data-reveal="panel" data-reveal-step="1">
-      <Headline id="retrofit-title" size="s" text={retrofit.title} />
-      <ul class="intro__options">
-        {retrofit.options.map((o) => (
-          <li>
-            <figure>
-              <span class="tag tag--accent">{o.tag}</span>
-              <img src={o.src} alt={o.alt} width="1600" height="1080" loading="lazy" />
-            </figure>
-            <span class="intro__flow" aria-hidden="true"></span>
-            <Headline as="h3" size="s" text={o.title} />
-            <p class="w-note w-muted">{o.body}</p>
-          </li>
-        ))}
-      </ul>
-      <div class="intro__join" aria-hidden="true"><span class="intro__join-bus"></span><span class="intro__flow"></span></div>
-      <Headline as="p" size="s" class="intro__close" text={retrofit.close} />
-    </article>
+    <Headline as="p" size="m" class="bld__close" text={retrofit.close} />
   </div>
 </section>
-<script is:inline src="/assets/js/multi.js" defer></script>
+<script is:inline src="/assets/js/buildings.js" defer></script>

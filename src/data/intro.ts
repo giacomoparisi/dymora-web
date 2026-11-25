@@ -29,14 +29,15 @@ export const overview = {
 
 // Multi — Montagna and Ufficio are the brochure placeholders until the real renders
 // arrive (scripts/app-assets.json, docs/PLAN-brochure.md decision 5).
-// The title has no full stop: the sentence goes on in `line`, under the devices.
+// The title has no full stop: the sentence goes on in `line`.
+// `app` is the installation's name in the app's picker (installation-selection screen).
 export const multi = {
   title: 'Gestisci tutte le tue proprietà nella **stessa applicazione**',
   line: 'sul device che preferisci.',
   buildings: [
-    { id: 'casa', label: 'Casa', src: '/assets/images/edificio-casa.webp', w: 1200, h: 810 },
-    { id: 'montagna', label: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
-    { id: 'ufficio', label: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
+    { id: 'casa', label: 'Casa', app: 'Casa Gelsomino', src: '/assets/images/edificio-casa.webp', w: 1200, h: 810 },
+    { id: 'montagna', label: 'Montagna', app: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
+    { id: 'ufficio', label: 'Ufficio', app: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
   ],
   devices: ['laptop', 'tablet', 'phone'],
 };

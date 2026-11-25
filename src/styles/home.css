@@ -1,13 +1,6 @@
 /* Home: bands alternate carbon and panna, in the order of src/pages/index.astro.
    Components and bands in bands.css; header and footer in header.css and footer.css. */
 
-/* Più edifici and retrofit: two bento tiles (Buildings.astro), side by side from 960px. */
-.intro__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(12px,1.4vw,20px)}
-.intro__tile{display:grid;gap:clamp(14px,1.6vw,22px);align-content:start;min-width:0;padding:clamp(20px,2.4vw,36px);border-radius:var(--r-extra-large);background:var(--c-primary-container);color:var(--c-on-primary-container)}
-.intro__tile .h-m{font-size:clamp(1.8rem,3vw,2.8rem)}
-.intro__tile .h-s{font-size:clamp(1.2rem,1.6vw,1.55rem)}
-.intro__copy{display:grid;gap:clamp(10px,1.2vw,16px)}
-
 /* House with its tags (HouseStory.astro, story.js): .is-active is the current function, .is-lit the ones before */
 .ov-stage{container-type:inline-size;width:100%;margin:auto}
 .ov-house{--row:8.5cqw;position:relative;margin-block:var(--row)}
@@ -42,80 +35,6 @@
   .ov-items{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
   .ov-lead{display:none}
   .ov-tag{position:static;transform:none;font-size:12px}
-}
-
-/* Properties: one at a time reaches the devices (multi.js; without it, all lit) */
-.intro__props{display:grid;gap:clamp(14px,1.8vw,24px);min-width:0}
-.intro__buildings{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.4vw,20px);align-items:end}
-.intro__buildings li{display:grid;justify-items:center;gap:10px;transition:opacity .3s}
-.intro__buildings img{width:100%}
-.intro__buildings .tag{transition:color .3s,border-color .3s}
-.intro__props.is-live li{opacity:.38}
-.intro__props.is-live li.is-active{opacity:1}
-.intro__props.is-live li.is-active .tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
-.intro__screens{display:grid;justify-items:center;gap:clamp(10px,1.2vw,16px)}
-
-/* The comb: a drop from each building, a bus to the target, the trunk with the arrow.
-   Stacked: buildings at 1/6, 1/2, 5/6, the trunk down from the middle to the devices.
-   Wide: buildings in the left 60%, the trunk up into the devices at 80% (media below). */
-.intro__comb{--bus:42%;position:relative;height:clamp(48px,5vw,64px);margin-top:4px}
-.intro__comb>span{position:absolute;background:var(--c-secondary)}
-.intro__drop,.intro__trunk{width:1.7px;translate:-50% 0}
-.intro__drop{top:0;height:var(--bus)}
-.intro__drop--casa{left:16.667%}.intro__drop--montagna{left:50%}.intro__drop--ufficio{left:83.333%}
-.intro__bus{top:var(--bus);height:1.7px;translate:0 -50%}
-.intro__bus--casa{left:16.667%;right:50%}.intro__bus--montagna{left:50%;right:50%}.intro__bus--ufficio{left:50%;right:16.667%}
-.intro__trunk{left:50%;top:var(--bus);bottom:6px}
-.intro__trunk::after{content:"";position:absolute;left:50%;bottom:-6px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid var(--c-secondary)}
-
-/* Live (multi.js, motion allowed): the active building's branch draws in, then the trunk */
-.intro__props.is-live .intro__drop,.intro__props.is-live .intro__bus{background:#ffffff26}
-.intro__props.is-live .intro__drop::before,.intro__props.is-live .intro__bus::before{content:"";position:absolute;inset:0;background:var(--c-secondary);transform:scale(0);transform-origin:top left}
-.intro__props.is-live .intro__bus--ufficio::before{transform-origin:right}
-.intro__props.is-live.is-flow .intro__drop.is-active::before{animation:intro-y .16s ease-in forwards}
-.intro__props.is-live.is-flow .intro__bus.is-active::before{animation:intro-x .14s linear .16s forwards}
-@keyframes intro-x{from{transform:scaleX(0)}to{transform:none}}
-@keyframes intro-y{from{transform:scaleY(0)}to{transform:none}}
-.intro__devices{position:relative;width:min(100%,400px);padding-bottom:4%}
-.mdev{display:grid;background:#3a3a36;border-radius:clamp(8px,1.2vw,18px);padding:clamp(4px,.6vw,9px);box-shadow:inset 0 0 0 1px #ffffff2e,0 30px 60px #0008}
-.mdev__screen{display:grid;place-items:center;border-radius:calc(clamp(8px,1.2vw,18px) - 4px);background:var(--c-primary-container);overflow:hidden}
-.mdev__screen img{width:100%;height:100%;object-fit:cover}
-.mdev--laptop{width:62%;margin-inline:auto}.mdev--laptop .mdev__screen{aspect-ratio:16/10}
-.mdev--laptop::after{content:"";display:block;height:clamp(6px,.9vw,12px);margin:clamp(4px,.6vw,9px) -9% calc(-1 * clamp(4px,.6vw,9px));border-radius:0 0 12px 12px;background:#4a4a45;box-shadow:inset 0 1px 0 #ffffff33}
-.mdev--tablet,.mdev--phone{position:absolute;bottom:0;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary-container),0 30px 60px #0008}
-.mdev--tablet{left:0;width:34%}.mdev--tablet .mdev__screen{aspect-ratio:4/3}
-.mdev--phone{right:0;width:17%}.mdev--phone .mdev__screen{aspect-ratio:1644/3564}
-.intro__line{text-align:center}
-
-/* Retrofit: the two options side by side */
-.intro__options{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,32px)}
-.intro__options li{display:grid;gap:8px;align-content:start;justify-items:center;text-align:center}
-.intro__options figure{display:grid;justify-items:center;gap:10px}
-.intro__options img{width:100%}
-.intro__options .tag{white-space:normal;text-align:center;line-height:1.2}
-.intro__tile .intro__options .h-s{font-size:clamp(1rem,1.4vw,1.25rem)}
-.intro__close{color:var(--c-on-primary-container);text-align:center}
-
-/* Retrofit arrows: picture to title, then both options into the closing line */
-.intro__flow{position:relative;display:block;width:1.7px;height:clamp(18px,2vw,26px);background:var(--c-secondary);justify-self:center}
-.intro__flow::after{content:"";position:absolute;left:50%;bottom:-2px;translate:-50% 0;border:5px solid transparent;border-bottom:0;border-top:9px solid var(--c-secondary)}
-.intro__tile--retro{--gap:clamp(14px,2vw,32px)}
-.intro__options{column-gap:var(--gap)}
-.intro__join{position:relative;display:grid;justify-items:center;padding-top:clamp(18px,2vw,26px)}
-.intro__join::before,.intro__join::after{content:"";position:absolute;top:0;width:1.7px;height:clamp(18px,2vw,26px);background:var(--c-secondary)}
-.intro__join::before{left:calc((100% - var(--gap)) / 4)}
-.intro__join::after{right:calc((100% - var(--gap)) / 4)}
-.intro__join-bus{position:absolute;top:clamp(18px,2vw,26px);left:calc((100% - var(--gap)) / 4);right:calc((100% - var(--gap)) / 4);height:1.7px;background:var(--c-secondary)}
-
-/* Phone and narrow */
-@media(max-width:560px){
-  .intro__buildings .tag,.intro__options .tag{font-size:10px;padding:.4em .5em;letter-spacing:.04em}
-}
-
-/* Bento of Più edifici and retrofit */
-@media(min-width:960px){
-  .intro__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
-  .intro__options p{display:none}
 }
 
 /* ─── La tua casa in una sola app (HouseStory.astro): the energy screen on a computer and a phone ─── */
