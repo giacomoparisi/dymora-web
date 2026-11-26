@@ -24,16 +24,16 @@
 .ppa__links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .ppa__links path{fill:none;stroke:var(--c-secondary);stroke-width:.22;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .45s ease-out}
 .ppa__links circle{fill:var(--c-primary);stroke:var(--c-secondary);stroke-width:.3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3);transition:opacity .2s,transform .4s var(--ease-out)}
-.ppa.is-active .ppa__links path{stroke-dashoffset:0}
-.ppa.is-active .ppa__links circle{opacity:1;transform:none}
+.ppa.is-active .ppa__links path,.ppb.is-active .ppa__links path{stroke-dashoffset:0}
+.ppa.is-active .ppa__links circle,.ppb.is-active .ppa__links circle{opacity:1;transform:none}
 .ppa__badge{position:absolute;display:flex;align-items:center;gap:1.1cqw;width:18cqw;height:5cqw;padding:0 1.6cqw 0 .8cqw;border:1px solid #ffffff26;border-radius:3cqw;background:#2a2a2880;color:var(--c-on-primary-muted);font:700 max(9px,2.2cqw)/1 var(--font-text);transition:border-color .4s,background .4s,color .4s,box-shadow .5s}
 .ppa__badge i{flex:none;display:grid;place-items:center;width:3.4cqw;height:3.4cqw;border-radius:50%;background:#ffffff1f;transition:background .4s,box-shadow .4s}
 .ppa__badge svg{width:2cqw;height:2cqw;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.6;transition:opacity .4s}
-.ppa.is-active .ppa__badge svg{opacity:1;transition-delay:var(--d)}
+.ppb.is-active .ppa__badge svg,.ppa.is-active .ppa__badge svg{opacity:1;transition-delay:var(--d)}
 .ppa__badge--l{left:3cqw}
 .ppa__badge--r{right:3cqw}
-.ppa.is-active .ppa__badge{border-color:#ffffff40;background:#2a2a28eb;color:#fff;box-shadow:0 1.2cqw 2.6cqw #0008}
-.ppa.is-active .ppa__badge i{background:var(--c-secondary);box-shadow:0 0 1.6cqw #f4511866}
+.ppb.is-active .ppa__badge,.ppa.is-active .ppa__badge{border-color:#ffffff40;background:#2a2a28eb;color:#fff;box-shadow:0 1.2cqw 2.6cqw #0008}
+.ppb.is-active .ppa__badge i,.ppa.is-active .ppa__badge i{background:var(--c-secondary);box-shadow:0 0 1.6cqw #f4511866}
 .ppa__badge--1{top:20cqw}.ppa__badge--2{top:40cqw}.ppa__badge--3{top:60cqw}
 .ppa__badge--4{top:12cqw}.ppa__badge--5{top:32cqw}.ppa__badge--6{top:52cqw}
 /* lighting order: Luci, Clima, Telecamere, Allarme, Serrature, Consumi */
@@ -43,7 +43,7 @@
 .ppa__badge--5,.ppa__links path:nth-of-type(5),.ppa__links circle:nth-of-type(5){--d:1.65s}
 .ppa__badge--3,.ppa__links path:nth-of-type(3),.ppa__links circle:nth-of-type(3){--d:1.9s}
 .ppa__badge--6,.ppa__links path:nth-of-type(6),.ppa__links circle:nth-of-type(6){--d:2.15s}
-.ppa.is-active .ppa__badge i{transition-delay:var(--d)}
+.ppb.is-active .ppa__badge i,.ppa.is-active .ppa__badge i{transition-delay:var(--d)}
 .ppa .pp-icons{position:absolute;width:0;height:0}
 .pp-stamp{--d:2.5s}
 
@@ -88,6 +88,21 @@
 .ppb__mark{left:43%;top:42.6%;--d:.5s}
 .ppb .pp-icons{position:absolute;width:0;height:0}
 .pp-stamp{--d:calc(var(--o) + 2.25s)}
+
+/* B2 · the same plan, smaller and clean; the functions beside it, each with a line to its place */
+.ppb--side .ppb__plan{left:20cqw;top:18cqw;width:60cqw}
+.ppb--side .ppb__room{font-size:max(8px,1.45cqw)}
+.ppb--side .ppa__badge{opacity:0;transform:translateX(var(--dx));transition:opacity .4s,transform .6s var(--ease-out),border-color .4s,background .4s,color .4s,box-shadow .5s}
+.ppb--side .ppa__badge--l{left:2cqw;--dx:-2cqw}
+.ppb--side .ppa__badge--r{right:2cqw;--dx:2cqw}
+.ppb--side.is-active .ppa__badge{opacity:1;transform:none}
+.ppb--side .ppa__badge,.ppb--side .ppa__badge i{--d:calc(var(--o) + 1.45s)}
+.pps--1{top:26cqw}.pps--2{top:44cqw}.pps--3{top:62cqw}.pps--4{top:24cqw}.pps--5{top:44cqw}
+.ppb--side .pps--5,.ppb--side .pps--5 i,.pps__links path:nth-of-type(5),.pps__links circle:nth-of-type(5){--d:calc(var(--o) + 1.45s)}
+.ppb--side .pps--4,.ppb--side .pps--4 i,.pps__links path:nth-of-type(4),.pps__links circle:nth-of-type(4){--d:calc(var(--o) + 1.6s)}
+.ppb--side .pps--1,.ppb--side .pps--1 i,.pps__links path:nth-of-type(1),.pps__links circle:nth-of-type(1){--d:calc(var(--o) + 1.75s)}
+.ppb--side .pps--2,.ppb--side .pps--2 i,.pps__links path:nth-of-type(2),.pps__links circle:nth-of-type(2){--d:calc(var(--o) + 1.9s)}
+.ppb--side .pps--3,.ppb--side .pps--3 i,.pps__links path:nth-of-type(3),.pps__links circle:nth-of-type(3){--d:calc(var(--o) + 2.05s)}
 
 @media(prefers-reduced-motion:reduce){
   .svc-scene *,.svc-scene *::before,.svc-scene *::after{transition:none!important;animation:none!important}
