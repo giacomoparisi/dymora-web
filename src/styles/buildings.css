@@ -1,15 +1,25 @@
-/* ─── Più edifici and retrofit on carbon (Buildings.astro, buildings.js) ───
+/* ─── Per chi è Dymora and retrofit on carbon (Buildings.astro, buildings.js) ───
    Same language as #app and #funzioni: no panels, the product floats on the carbon with the glow.
-   Without JavaScript (or with reduced motion): Casa selected, the retrofit split half and half.
-   .is-live: buildings.js runs. Multi .is-tap: a tap is landing on the next row.
+   Without JavaScript (or with reduced motion): Proprietari selected, the retrofit split half and half.
+   .is-live: buildings.js runs. Multi .is-tap: a tap is landing on the next row; .bld__seg.is-active:
+   the segment whose property shows.
    Retro .is-after: the modern house shows; .is-moving: the line is sweeping. Both loop while on screen. */
 .bld__inner{display:grid;gap:clamp(64px,7vw,112px)}
 .bld .h-l{font-size:clamp(2rem,4.2vw,3.8rem)}
 .bld__stage{position:relative;isolation:isolate;margin:0}
 .bld__glow{position:absolute;left:50%;top:50%;z-index:-1;width:130%;aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511852,#f4511812 55%,transparent);pointer-events:none}
 
-/* ── Multi: the title on the left, the render beside the phone on the right (the retrofit mirrors it) ── */
+/* ── Multi: the title on the left, the render beside the phone on the right (the retrofit mirrors it),
+   the three segments in a row below ── */
 .bld__multi{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;gap:clamp(32px,5vw,88px)}
+.bld__segs{grid-column:1/-1;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);margin-top:clamp(-40px,-2vw,-8px)}
+.bld__seg{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(14px,1.4vw,20px);border-top:2px solid #ffffff1f;scroll-margin-top:calc(var(--sh-h,72px) + 24px);transition:border-color .4s}
+.bld__seg-tag{color:#ffffff8c;transition:color .4s}
+.bld__seg.is-active{border-color:var(--c-secondary)}
+.bld__seg.is-active .bld__seg-tag{color:var(--c-secondary-on-ink)}
+.bld__seg .w-body{font-size:clamp(.95rem,1.05vw,1.08rem)}
+.bld__seg .points{margin-top:4px}
+.bld__seg .points li{padding-block:10px}
 .bld__head{display:grid;gap:clamp(12px,1.4vw,18px);justify-items:start;align-content:center}
 .bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(140px,13vw,190px);grid-template-areas:"props phone" "rail rail";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
 .bld__multi .bld__glow{left:38%}
@@ -99,6 +109,7 @@
 @media(max-width:900px){
   .bld__multi,.bld__retro{grid-template-columns:minmax(0,1fr)}
   .bld__multi .bld__stage{width:min(100%,640px);justify-self:center}
+  .bld__segs{grid-template-columns:minmax(0,1fr);margin-top:0}
   /* The render between the title and the options, so the sweep plays where the eye is */
   .bld__retro .bld__copy{display:contents}
   .bld__retro .h-l{order:1}.bld__stage--retro{order:2}.bld__opts{order:3}.bld__close{order:4}

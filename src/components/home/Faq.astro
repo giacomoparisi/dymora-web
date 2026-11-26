@@ -1,5 +1,6 @@
 ---
-// Site FAQ: the central questions about the service (owner review, 2026-11-26).
+// Site FAQ: the central questions about the service (owner review, 2026-11-26); the two on
+// short-term rentals and companies are `faq.rentals` and `faq.business`.
 import Band from '../Band.astro';
 import Eyebrow from '../Eyebrow.astro';
 import Headline from '../Headline.astro';
@@ -12,7 +13,8 @@ const faq: [string, string][] = [
   ['Posso partire da una sola funzione e aggiungere le altre dopo?', 'Sì. Puoi partire, per esempio, dai consumi o dalle telecamere e aggiungere altre funzioni quando vuoi.'],
   ['Perché c\'è un abbonamento?', "Perché Dymora non finisce con l'installazione. L'abbonamento copre la piattaforma, gli aggiornamenti e l'assistenza, così il sistema resta stabile e sicuro nel tempo."],
   ['Posso collegare più immobili?', "Sì. Casa, casa in montagna, ufficio: ogni immobile ha il suo impianto e li gestisci tutti dalla stessa app, passando dall'uno all'altro quando vuoi."],
-  ['Va bene anche per un negozio o un ufficio?', 'Sì. Le funzioni sono le stesse della casa, configurate per il tuo locale.'],
+  ['Gestite appartamenti in affitto breve?', "Sì. Crei un codice di accesso per ogni ospite e lo cancelli alla partenza, vedi lo storico degli accessi, e clima e luci seguono le automazioni che configuriamo con te. Tutti gli appartamenti stanno nella stessa app."],
+  ["Va bene per un'azienda con più sedi?", "Sì. Ogni sede ha il suo impianto e le gestisci tutte dalla stessa app: accessi, luci, clima e consumi. Ogni collaboratore ha il suo utente, con le sole funzioni che gli servono."],
 ];
 ---
 <Band tone="paper" id="domande" class="faq" labelledby="faq-title" innerClass="faq__inner">

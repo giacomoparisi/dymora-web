@@ -1,4 +1,5 @@
-// Data of the introductory home section (Intro.astro: overview, multi, retrofit). Texts from
+// Data of the home's house story and Per chi è Dymora sections (HouseStory.astro: overview;
+// Buildings.astro: segments, retrofit). Texts from
 // dymora-app design/marketing/copy/it.md, never rewritten here.
 
 // Overview — the tags light up one at a time and each part of the house plays in
@@ -6,7 +7,7 @@
 // The house starts closed: shutters down, awning in, everything off.
 // Leader points: brochure decision.html, page `overview`, normalised on the house.
 export const overview = {
-  title: '**Controlla** la tua casa sotto ogni aspetto.',
+  title: '**Controlla** il tuo edificio sotto ogni aspetto.', // `overview.title.web`
   lead: 'Con progettazione, installazione, configurazione e assistenza di Dymora.',
   alt: 'La casa con luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione gestiti da Dymora',
   items: [
@@ -27,27 +28,62 @@ export const overview = {
   functions: ['Luci', 'Allarme', 'Clima', 'Telecamere', 'Tapparelle', 'Consumi', 'Serrature', 'Irrigazione'],
 };
 
-// Multi — each property is a Blender scene from dymora-app (model-animator, art/<scene>/,
-// web-only, scripts/app-assets.json): its `lights` clip plays when the property is selected and
-// back when the picker moves on. `src`/`w`/`h` draw a plain image instead, for a property
-// without a scene.
-// The title has no full stop: the sentence goes on in `line`.
-// `app` is the installation's name in the app's picker (installation-selection screen).
-export const multi = {
-  title: 'Gestisci tutte le tue proprietà nella **stessa applicazione**',
-  line: 'sul device che preferisci.',
-  buildings: [
-    { id: 'casa', label: 'Casa', app: 'Casa', sprite: 'apartment_building', lights: 'lights_on_idle!' },
-    { id: 'montagna', label: 'Montagna', app: 'Montagna', sprite: 'mountain_chalet', lights: 'lights_on_idle!' },
-    { id: 'ufficio', label: 'Ufficio', app: 'Ufficio', sprite: 'office_building', lights: 'lights_on_idle!' },
-  ] as { id: string; label: string; app: string; sprite?: string; lights?: string; src?: string; w?: number; h?: number }[],
-  devices: ['laptop', 'tablet', 'phone'],
+// Segments — "Per chi è Dymora" (copy `segments`, `segments.owners|rentals|business`): the app's
+// installation picker, where each property stands for one kind of client. Each property is a
+// Blender scene from dymora-app (model-animator, art/<scene>/, web-only, scripts/app-assets.json):
+// its `lights` clip plays when it is selected and back when the picker moves on.
+// `id` is also the anchor of the segment's text (the opening links to it). `app` is the
+// installation's name in the picker.
+export interface Segment {
+  id: string; tag: string; app: string; title: string; line: string; points: string[];
+  sprite: string; lights: string;
+}
+export const segments = {
+  eyebrow: 'Per chi è Dymora',
+  title: 'Una soluzione su misura per **ogni edificio**.',
+  line: 'Per chi vive, affitta o lavora in più edifici: li gestisci tutti dalla stessa app, sul device che preferisci.',
+  items: [
+    {
+      id: 'proprietari', tag: 'Proprietari', app: 'Montagna',
+      title: 'Tutti i tuoi **immobili**, in una sola app.',
+      line: "La casa dove vivi, quella in montagna o al mare: passi dall'una all'altra quando vuoi.",
+      points: [
+        "Ricevi una notifica se scatta l'allarme o le telecamere rilevano un evento.",
+        'Accendi il riscaldamento prima di arrivare.',
+        'Rivedi i consumi di ogni immobile, anche quando è vuoto.',
+      ],
+      sprite: 'mountain_chalet', lights: 'lights_on_idle!',
+    },
+    {
+      id: 'affitti-brevi', tag: 'Affitti brevi', app: 'Appartamento',
+      title: 'I tuoi appartamenti, **pronti** per ogni ospite.',
+      line: 'Meno sopralluoghi, consumi sotto controllo e un soggiorno più comodo, che distingue i tuoi alloggi.',
+      points: [
+        "Un codice di accesso per ogni ospite: lo crei dall'app e lo cancelli alla partenza.",
+        'Clima e luci si spengono dopo la partenza, con le automazioni che configuriamo con te.',
+        'Vedi accessi e consumi di ogni appartamento, e chi fa le pulizie ha un suo utente, con le sole funzioni che servono.',
+      ],
+      sprite: 'apartment_building', lights: 'lights_on_idle!',
+    },
+    {
+      id: 'aziende', tag: 'Aziende', app: 'Ufficio',
+      title: 'Le tue **sedi**, sotto controllo.',
+      line: 'Uffici, negozi e magazzini: accessi, luci, clima e consumi di ogni sede nella stessa app, e ogni collaboratore vede solo le funzioni che gli servono.',
+      points: [
+        'Codici di accesso per personale e fornitori, e lo storico degli accessi della porta.',
+        'Luci e clima seguono gli orari della sede, con le automazioni che configuriamo con te.',
+        'Rivedi lo storico dei consumi di ogni sede: Dymora analizza gli sprechi e trova le inefficienze.',
+      ],
+      sprite: 'office_building', lights: 'lights_on_idle!',
+    },
+  ] as Segment[],
 };
 
 // Retrofit — the period building is a Blender scene from dymora-app (model-animator,
 // art/period-house, web-only): `lights` lights its windows while it shows. The modern house is a
 // plain image of the same plot (buildings.css lines the two plots up).
 export const retrofit = {
+  eyebrow: 'Edifici esistenti e ristrutturazioni',
   title: '**Dymora si adatta** al tuo edificio.',
   close: "Non c'è una soluzione unica. **C'è la tua.**",
   before: { sprite: 'period_house', lights: 'lights_on_house!' },

@@ -1,12 +1,13 @@
 ---
-// First section after the opening, on carbon: the cover's promise ("La tua casa. In una sola
-// app.", `cover.title`, `cover.line`) shown on the app (the energy screen on a computer and a
-// phone, rising into place while the page scrolls), then "Controlla la tua casa sotto ogni
-// aspetto" (`overview.title`) as a scroll story: the house
+// First section after the opening, on carbon: the cover's promise ("I tuoi spazi. In una sola
+// app.", `cover.eyebrow.web`, `cover.title.web`, `cover.line`) shown on the app (the energy screen on a computer and a
+// phone, rising into place while the page scrolls), then "Controlla il tuo edificio sotto ogni
+// aspetto" (`overview.title.web`) as a scroll story: the house
 // stays pinned while the eight functions scroll past (`feature.*` eyebrow, title, line). Each
 // function that reaches the middle of the window plays in on the house and joins the ones before
 // it; scrolling back plays them out (story.js, sprite.js). Each step leads to the function's
 // chapter on /funzioni/. `#funzioni` is the anchor of the opening.
+// The slot, between the app and the functions, takes "Per chi è Dymora" (Segments.astro).
 import Headline from '../Headline.astro';
 import Sprite from '../Sprite.astro';
 import { overview } from '../../data/intro';
@@ -22,8 +23,8 @@ const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.sl
     <div class="app" id="app">
       <div class="app__glow" aria-hidden="true"></div>
       <div class="app__head" data-reveal>
-        <p class="w-label eyebrow">Casa e piccole attività</p>
-        <Headline id="app-title" size="l" text="La tua **casa**. In una sola app." />
+        <p class="w-label eyebrow">Casa, affitti e aziende</p>
+        <Headline id="app-title" size="l" text="I tuoi **spazi**. In una sola app." />
         <p class="w-lead w-muted">Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora.</p>
       </div>
       <figure class="app__devices">
@@ -36,6 +37,7 @@ const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.sl
         </div>
       </figure>
     </div>
+    <slot />
     <div class="story__head" id="funzioni" data-reveal>
       <p class="w-label eyebrow">Funzioni</p>
       <Headline id="overview-title" as="h3" size="l" text={overview.title} />

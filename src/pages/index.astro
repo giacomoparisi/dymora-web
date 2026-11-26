@@ -3,8 +3,9 @@
 // product first, scroll storytelling) in the Dymora design: carbon and panna bands alternate,
 // the closing banner is orange. Texts from dymora-app design/marketing/copy/it.md, never
 // rewritten here: sections only select and order them.
-//   opening (ink) → La tua casa in una sola app + Funzioni, the house story (ink)
-//   → Il servizio, with Come si parte (paper) → Dispositivi + Più edifici (ink)
+//   opening (ink) → I tuoi spazi in una sola app + Per chi è Dymora + Funzioni, the house story (ink)
+//   → Dymora si adatta al tuo edificio (ink) → Il servizio, with Come si parte (paper)
+//   → Dispositivi (ink)
 //   → Domande (paper) → Chiusura (orange) → footer
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/features.css';
@@ -19,19 +20,20 @@ import Opening from '../components/Opening.astro';
 import HouseStory from '../components/home/HouseStory.astro';
 import Service from '../components/home/Service.astro';
 import Brands from '../components/home/Brands.astro';
-import Buildings from '../components/home/Buildings.astro';
+import Segments from '../components/home/Segments.astro';
+import Retrofit from '../components/home/Retrofit.astro';
 import Faq from '../components/home/Faq.astro';
 import Closing from '../components/home/Closing.astro';
 ---
-<BaseLayout title="Dymora — La tua casa. In una sola app." description="Luci, clima, tapparelle, serrature, allarme, telecamere, consumi e irrigazione, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
-  <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script><script src="/assets/js/opening-video.js" defer></script></Fragment>
+<BaseLayout title="Dymora — I tuoi spazi. In una sola app." description="Domotica su misura per la casa, gli affitti brevi e le sedi aziendali: luci, clima, accessi, allarme, telecamere e consumi in una sola app, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
+  <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script><script src="/assets/js/opening-video.js" defer></script><script is:inline src="/assets/js/buildings.js" defer></script></Fragment>
   <SiteHeader overlay />
   <main>
     <Opening />
-    <HouseStory />
+    <HouseStory><Segments /></HouseStory>
+    <Retrofit />
     <Service />
     <Brands />
-    <Buildings />
     <Faq />
     <Closing />
   </main>

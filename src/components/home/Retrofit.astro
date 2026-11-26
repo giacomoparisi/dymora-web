@@ -1,0 +1,45 @@
+---
+// "Dymora si adatta al tuo edificio" (copy `retrofit`), its own chapter on carbon after the
+// functions: one render where a line sweeps from the period building ("Senza ristrutturazione")
+// to the modern house ("Con ristrutturazione"); the matching option's text lights up. The period
+// building is a Blender scene (dymora-app art/period-house, sprite `period_house`) drawn over the
+// same plot as the modern render: its windows light up while it shows (`lights_on_house`) and go
+// out when the line sweeps on. buildings.js (loaded by the page) plays it every time it comes
+// back on screen. Without JavaScript or with reduced motion: split half and half with both texts
+// lit (the period building lit with reduced motion, its dark still without JS).
+// Anchor: #ristrutturazioni.
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+import { retrofit } from '../../data/intro';
+---
+<section class="band band--ink bld" id="ristrutturazioni" aria-labelledby="retrofit-title">
+  <div class="band__inner bld__inner">
+    <div class="bld__retro" data-retro>
+      <figure class="bld__stage bld__stage--retro" data-reveal="panel">
+        <div class="bld__glow" aria-hidden="true"></div>
+        <div class="bld__swap">
+          <div class="bld__before" data-retro-before>
+            <Sprite name={retrofit.before.sprite} variant="light" alt={retrofit.options[0].alt} class="bld__sprite-before"
+              layers={retrofit.before.lights} preload={retrofit.before.lights} />
+          </div>
+          <img class="bld__after" src={retrofit.options[1].src} alt={retrofit.options[1].alt} width="1600" height="1080" loading="lazy" decoding="async" />
+          <span class="bld__wipe" aria-hidden="true"></span>
+        </div>
+      </figure>
+      <div class="bld__copy" data-reveal data-reveal-step="1">
+        <p class="w-label eyebrow">{retrofit.eyebrow}</p>
+        <Headline id="retrofit-title" size="l" text={retrofit.title} />
+        <ul class="bld__opts">
+          {retrofit.options.map((o, i) => (
+            <li class="bld__opt" data-retro-opt={i}>
+              <span class="w-label bld__opt-tag">{o.tag}</span>
+              <Headline as="h3" size="s" text={o.title} />
+              <p class="w-body w-muted">{o.body}</p>
+            </li>
+          ))}
+        </ul>
+        <Headline as="p" size="s" class="bld__close" text={retrofit.close} />
+      </div>
+    </div>
+  </div>
+</section>

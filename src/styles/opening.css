@@ -60,6 +60,11 @@
 .hook__more span::before { content: ""; width: 7px; height: 7px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; rotate: 45deg; translate: 0 -2px; }
 .hook__more:hover span { background: var(--c-secondary); border-color: var(--c-secondary); transform: translateY(3px); }
 
+/* The three segments of #soluzioni, quiet outlined chips under the line */
+.hook__segs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -6px; animation: fade .4s linear .44s both; }
+.hook__segs a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid #ffffff59; border-radius: 999px; background: #1c1c1a66; color: var(--c-on-primary); font: 700 14px/1 var(--w-text); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background .2s, border-color .2s; }
+.hook__segs a:hover { background: var(--c-secondary); border-color: var(--c-secondary); }
+
 /* Scroll cue at the foot of the opening */
 .open__cue { position: absolute; z-index: 1; left: 50%; bottom: 22px; translate: -50% 0; width: 26px; height: 42px; border: 1.5px solid #ffffff59; border-radius: 14px; animation: fade .4s linear 1s both; }
 .open__cue span { position: absolute; left: 50%; top: 8px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: var(--c-secondary); animation: cue 1.8s var(--ease-arrive) 1.4s infinite; }
@@ -69,6 +74,9 @@
 @container frame (max-width: 899px) {
   .site .hook__actions .w-cta { white-space: nowrap; padding: 0 18px; font-size: 12px; }
   .hook__more { padding: 0 6px 0 14px; border-radius: 999px; background: #1c1c1ae0; }
+  /* One row of chips down to 320 px */
+  .hook__segs { gap: 6px; }
+  .hook__segs a { min-height: 32px; padding: 0 10px; font-size: 12px; }
 }
 
 /* Caption (the film is AI-generated) and pause button (WCAG 2.2.2), bottom right */

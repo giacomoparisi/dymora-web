@@ -1,0 +1,83 @@
+---
+// "Per chi è Dymora" (copy `segments`): the three kinds of client Dymora designs for (owners of
+// several properties, short-term rentals, companies with their premises), right under "I tuoi
+// spazi. In una sola app." inside the HouseStory band (its slot), before the functions.
+// Above, the title beside the app's installation picker (drawn in HTML, a demonstrative copy of the
+// installation-selection screen), where each property stands for one kind of client; below, the
+// three segments' texts, all readable at once. While it shows a tap lands on the next row, the row
+// lights up, the render changes and the matching text gets the orange rule: Proprietari → Affitti
+// brevi → Aziende → … A property is a sprite (data `sprite`) that lights up when it is selected and
+// goes dark when the picker moves on (its `lights` layer, sprite.js). Pointing at a text, or arriving
+// on its anchor (#proprietari, #affitti-brevi, #aziende: the opening links to them), selects it and
+// holds it. A thin rail (not a control) shows the progress. buildings.js (loaded by the page).
+// Without JavaScript or with reduced motion: the first segment selected and lit.
+// Anchors: #soluzioni (header, footer) and #edifici (old links to "Più edifici").
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+import { segments } from '../../data/intro';
+const segs = segments.items;
+---
+<section class="bld bld--segs" id="soluzioni" aria-labelledby="segments-title">
+  <div class="bld__multi" id="edifici" data-multi>
+    <div class="bld__head" data-reveal>
+      <p class="w-label eyebrow">{segments.eyebrow}</p>
+      <Headline id="segments-title" size="l" text={segments.title} />
+      <p class="w-lead w-muted">{segments.line}</p>
+    </div>
+
+    <figure class="bld__stage" data-reveal="panel" data-reveal-step="1">
+      <div class="bld__glow" aria-hidden="true"></div>
+      <div class="bld__props" aria-hidden="true">
+        {segs.map((b, i) => (
+          <div class:list={['bld__prop', { 'is-active': i === 0 }]} data-multi-item={b.id}>
+            <Sprite name={b.sprite} variant="light" alt="" class="bld__sprite"
+              layers={i === 0 ? b.lights : ''} preload={b.lights} />
+            <span class="w-label bld__name">{b.tag}</span>
+          </div>
+        ))}
+      </div>
+      <div class="bld__phone" aria-hidden="true">
+        <div class="bld__screen">
+          <div class="pk">
+            <div class="pk__brand">
+              <img class="pk__mark" src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" loading="lazy" />
+              <img class="pk__word" src="/assets/images/logo-word-white.svg" alt="" width="1159" height="118" loading="lazy" />
+              <span class="pk__dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+            <div class="pk__body">
+              <p class="pk__title">Seleziona la tua <span>installazione</span>.</p>
+              <p class="pk__sub">Passa ad un’altra installazione.</p>
+              <ul class="pk__list">
+                {segs.map((b, i) => (
+                  <li class:list={['pk__row', { 'is-active': i === 0 }]} data-multi-row={b.id}>
+                    <span class="pk__ico"></span>
+                    <span class="pk__name">{b.app}<small>Collegata</small></span>
+                    <span class="pk__more"></span>
+                    <span class="pk__end"></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bld__rail" aria-hidden="true">
+        {segs.map((b, i) => <span class:list={{ 'is-on': i === 0 }} data-multi-seg={b.id}></span>)}
+      </div>
+      <figcaption class="visually-hidden">Una casa in montagna, un palazzo di appartamenti e un edificio per uffici nella stessa app Dymora.</figcaption>
+    </figure>
+
+    <ul class="bld__segs">
+      {segs.map((b, i) => (
+        <li class:list={['bld__seg', { 'is-active': i === 0 }]} id={b.id} data-multi-text={b.id} data-reveal data-reveal-step={i + 1}>
+          <p class="w-label bld__seg-tag">{b.tag}</p>
+          <Headline as="h3" size="s" text={b.title} />
+          <p class="w-body w-muted">{b.line}</p>
+          <ul class="points">
+            {b.points.map((p) => <li class="w-body">{p}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

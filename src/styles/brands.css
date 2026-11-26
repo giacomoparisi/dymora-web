@@ -1,5 +1,5 @@
 /* ─── Dispositivi on carbon (Brands.astro, brands.js) ───
-   Same language as #edifici below it: no panels, the names float on the carbon with the glow.
+   Same language as #edifici: no panels, the names float on the carbon with the glow.
    The rows glide on their own in an endless loop, in opposite directions (each track holds its set
    four times and moves by one set, 25%, so the loop is seamless); the hub sits over the middle.
    .is-on: the stage is on screen, the names light up from the middle out and the loop runs.
