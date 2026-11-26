@@ -2,7 +2,6 @@
    small orange text on light uses the dark orange (--c-secondary-text). */
 .cf{--cf-line:#0000002e;--cf-field:#fff;--cf-muted:var(--c-on-background-variant);--cf-err:var(--c-error);--cf-link:var(--c-secondary-text);display:grid;gap:clamp(16px,1.8vw,22px);min-width:0}
 .cf--ink{--cf-line:#ffffff33;--cf-field:#ffffff0d;--cf-muted:var(--c-on-primary-muted);--cf-err:#FF9C8F;--cf-link:var(--c-secondary-on-ink)}
-.cf__title{margin-bottom:2px}
 .cf__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,20px)}
 .cf__field{display:grid;gap:6px;min-width:0}
 .cf__field label{font:600 .95rem/1.3 var(--font-text)}

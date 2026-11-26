@@ -15,8 +15,7 @@ interface Props {
 const { id = 'cf', tone = 'ink', class: className } = Astro.props;
 const f = (name: string) => `${id}-${name}`;
 ---
-<form class:list={['cf', `cf--${tone}`, className]} action="#" method="post" novalidate data-contact-form data-to="info@dymora.eu" aria-labelledby={f('title')}>
-  <p class="h-s cf__title" id={f('title')}>Richiedi un sopralluogo o una demo</p>
+<form class:list={['cf', `cf--${tone}`, className]} action="#" method="post" novalidate data-contact-form data-to="info@dymora.eu" aria-label="Richiesta di sopralluogo o demo">
   <div class="cf__summary" role="alert" tabindex="-1" hidden data-cf-summary></div>
 
   <div class="cf__row">
