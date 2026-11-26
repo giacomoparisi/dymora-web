@@ -65,22 +65,31 @@
 .svc__nav li.is-active button{color:var(--c-on-background)}
 .svc__nav li.is-active .svc__node{background:var(--c-secondary-button);box-shadow:0 0 0 5px #d43e0a2e;transform:scale(1.15)}
 
-/* 1 · Ascolto — the call, then the functions picked one by one */
-.svc-scene--listen{gap:4.5cqw;padding:0 9cqw;text-align:center}
-.sc-call{display:inline-flex;align-items:center;gap:2cqw;padding:1.6cqw 2.6cqw;border:1px solid #ffffff2e;border-radius:999px;color:var(--c-on-primary-muted)}
-.sc-call .w-label{font-size:max(10px,1.9cqw)}
-.sc-call__dot{width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--c-success);box-shadow:0 0 0 .6cqw #20885033}
-.sc-wave{display:flex;align-items:center;gap:.6cqw;height:4cqw}
-.sc-wave i{width:.55cqw;height:100%;border-radius:1cqw;background:var(--c-secondary);transform:scaleY(.25)}
-.svc-scene--listen.is-active .sc-wave i{animation:sc-wave 1.1s ease-in-out infinite alternate}
-.sc-wave i:nth-child(3n){animation-delay:-.4s}.sc-wave i:nth-child(3n+1){animation-delay:-.8s}.sc-wave i:nth-child(4n){animation-duration:.8s}.sc-wave i:nth-child(5n){animation-duration:1.4s}
-@keyframes sc-wave{to{transform:scaleY(1)}}
-.sc-q{font:800 5.6cqw/1.08 var(--font-text);letter-spacing:-.02em;text-wrap:balance}
-.sc-q span{color:var(--c-secondary)}
-.sc-chips{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:1.6cqw}
-.sc-chip{padding:1.3cqw 2.1cqw;border:1px solid #ffffff3a;border-radius:1cqw;font:900 max(9px,2cqw)/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-on-primary-muted);transition:background .35s,border-color .35s,color .35s,transform .45s var(--ease-out)}
-.sc-chip[data-n="1"]{--d:.3s}.sc-chip[data-n="2"]{--d:.57s}.sc-chip[data-n="3"]{--d:.84s}.sc-chip[data-n="4"]{--d:1.11s}
-.svc-scene--listen.is-active .sc-chip--on{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary);transform:translateY(-.4cqw)}
+/* 1 · Ascolto — the consultation as a form: three questions come in, their answers are picked one
+   after another and the bar fills. Unlike the other scenes, its parts rest in their final state and
+   play in through animations that fill backwards (--d for a question, --p for an answer), so the
+   scene shown without JavaScript or with reduced motion is the filled form. */
+.sc-form{display:grid;gap:3.6cqw;width:78cqw;padding:4cqw;border-radius:3cqw;background:var(--c-primary-container);border:1px solid #ffffff1f;box-shadow:0 3cqw 6cqw #0006}
+.sc-form__top{display:flex;align-items:center;gap:2.4cqw;color:var(--c-on-primary-muted)}
+.sc-form__top .w-label{font-size:max(9px,1.7cqw)}
+.sc-form__bar{flex:1;height:.7cqw;border-radius:1cqw;background:#ffffff1f;overflow:hidden}
+.sc-form__bar i{display:block;height:100%;background:var(--c-secondary);transform-origin:left}
+.svc-scene--listen.is-active .sc-form__bar i{animation:sc-bar 2.9s linear .1s both}
+@keyframes sc-bar{0%{transform:scaleX(0)}25%,38%{transform:scaleX(.333)}60%,72%{transform:scaleX(.667)}95%,100%{transform:scaleX(1)}}
+.sc-ask{display:grid;gap:1.6cqw}
+.svc-scene--listen.is-active .sc-ask{animation:sc-in .5s var(--ease-out) var(--d) both}
+@keyframes sc-in{from{opacity:0;transform:translateY(1.6cqw)}}
+.sc-ask:nth-child(2){--d:.1s}.sc-ask:nth-child(3){--d:.95s}.sc-ask:nth-child(4){--d:2.05s}
+.sc-ask__q{font:700 3.3cqw/1.15 var(--font-text)}
+.sc-ask__q span{color:var(--c-secondary)}
+.sc-opts{list-style:none;display:flex;flex-wrap:wrap;gap:1.2cqw}
+.sc-opts li{padding:1.1cqw 1.8cqw;border:1px solid #ffffff3a;border-radius:1cqw;color:var(--c-on-primary-muted);font:900 max(8px,1.7cqw)/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
+.sc-opts li.sc-opt--on{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary)}
+.svc-scene--listen.is-active .sc-opts li.sc-opt--on{animation:sc-pick .3s ease-out var(--p) both}
+@keyframes sc-pick{from{background:transparent;border-color:#ffffff3a;color:var(--c-on-primary-muted);transform:scale(.94)}}
+.sc-ask:nth-child(2) li.sc-opt--on{--p:.6s}
+.sc-ask:nth-child(3) li:nth-child(1){--p:1.35s}.sc-ask:nth-child(3) li:nth-child(2){--p:1.5s}.sc-ask:nth-child(3) li:nth-child(3){--p:1.65s}.sc-ask:nth-child(3) li:nth-child(4){--p:1.8s}
+.sc-ask:nth-child(4) li.sc-opt--on{--p:2.6s}
 
 /* 2 · Progetto — the house on graph paper, drawn in, then the chosen functions pinned on it */
 .svc-scene--plan{background:linear-gradient(#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw,linear-gradient(90deg,#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw}

@@ -7,9 +7,9 @@
 // section shows, the steps take turns and each one plays its scene on the stage (service.js,
 // service.css). The visitor can pick a step (click on it, or the buttons of the rail) and pause
 // the loop with the button on the stage (WCAG 2.2.2). Scenes are drawn in HTML on the site's
-// assets: the functions chosen in the call, the same functions pinned on the drawn house, the
-// devices joining the hub, the switches turning on in the app, a light that stops answering and
-// comes back after a mail to support. Every scene is decorative (aria-hidden): the steps say the
+// assets: the consultation form with the functions chosen in it, the same functions pinned on
+// the drawn house, the devices joining the hub, the switches turning on in the app, a light that
+// stops answering and comes back after a mail to support. Every scene is decorative (aria-hidden): the steps say the
 // same in text.
 // Without JavaScript the first scene rests and the steps read as plain text; with reduced motion
 // nothing plays on its own: the rail and the steps still change the scene, without movement.
@@ -52,17 +52,18 @@ const steps = [
   },
 ];
 
-// Scene 1 and 2: the functions offered in the call, the chosen ones (`on`) pinned on the house.
-const chips = [
-  { label: 'Luci', on: 1 },
-  { label: 'Clima', on: 2 },
-  { label: 'Tapparelle' },
-  { label: 'Consumi', on: 3 },
-  { label: 'Allarme' },
-  { label: 'Serrature', on: 4 },
-  { label: 'Telecamere' },
-  { label: 'Irrigazione' },
+// Scene 1: the consultation as a short form, three questions answered one after another (`on`
+// marks the answers picked). The functions chosen here are the ones scene 2 pins on the house.
+const form = [
+  { q: 'Che casa hai?', opts: [{ t: 'Appartamento', on: true }, { t: 'Villa' }, { t: 'Ufficio' }] },
+  {
+    q: 'Cosa vuoi tenere **sotto controllo**?',
+    opts: [{ t: 'Luci', on: true }, { t: 'Clima', on: true }, { t: 'Consumi', on: true }, { t: 'Serrature', on: true }, { t: 'Allarme' }],
+  },
+  { q: 'Hai già dei dispositivi?', opts: [{ t: 'Telecamere', on: true }, { t: 'Termostato' }, { t: 'Nessuno' }] },
 ];
+// The question's key phrase, between ** **, in orange.
+const parts = (q: string) => q.split('**').map((t, i) => ({ t, accent: i % 2 === 1 }));
 // Their places on the drawing are in service.css (.sc-pin--1–4).
 const pins = ['Luci', 'Clima', 'Consumi', 'Serrature'];
 // Scene 3: the devices around the hub.
@@ -91,19 +92,22 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
           <div class="svc__stage" data-svc-stage aria-hidden="true">
             <div class="svc__glow"></div>
 
-            <!-- 1 · Ascolto: the call, the functions picked one after another -->
+            <!-- 1 · Ascolto: the consultation as a form, its answers picked one after another -->
             <div class="svc-scene svc-scene--listen is-active" data-svc-scene="0">
-              <div class="sc-call">
-                <span class="sc-call__dot"></span>
-                <span class="w-label">Consulenza</span>
-                <span class="sc-wave">{Array.from({ length: 14 }, () => <i></i>)}</span>
-              </div>
-              <p class="sc-q">Cosa vuoi tenere <span>sotto controllo</span>?</p>
-              <ul class="sc-chips">
-                {chips.map((c) => (
-                  <li class:list={['sc-chip', { 'sc-chip--on': c.on }]} data-n={c.on}>{c.label}</li>
+              <div class="sc-form">
+                <div class="sc-form__top">
+                  <span class="w-label">Consulenza</span>
+                  <span class="sc-form__bar"><i></i></span>
+                </div>
+                {form.map((f) => (
+                  <div class="sc-ask">
+                    <p class="sc-ask__q">{parts(f.q).map((p) => (p.accent ? <span>{p.t}</span> : p.t))}</p>
+                    <ul class="sc-opts">
+                      {f.opts.map((o) => <li class:list={{ 'sc-opt--on': o.on }}>{o.t}</li>)}
+                    </ul>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
             <!-- 2 · Progetto: the house as a drawing, the chosen functions pinned on it -->
