@@ -44,13 +44,16 @@ export const multi = {
   devices: ['laptop', 'tablet', 'phone'],
 };
 
+// Retrofit — the period building is a Blender scene from dymora-app (model-animator,
+// art/period-house, web-only): `lights` lights its windows while it shows. The modern house is a
+// plain image of the same plot (buildings.css lines the two plots up).
 export const retrofit = {
   title: '**Dymora si adatta** al tuo edificio.',
   close: "Non c'è una soluzione unica. **C'è la tua.**",
+  before: { sprite: 'period_house', lights: 'lights_on_house!' },
   options: [
     {
       tag: 'Senza ristrutturazione',
-      src: '/assets/images/edificio-epoca.webp',
       alt: "Un edificio d'epoca con l'impianto esistente",
       title: '**Pronta in un giorno**, senza cantiere.',
       body: 'Soluzioni poco invasive: niente opere murarie e nessun impianto elettrico da rifare.',

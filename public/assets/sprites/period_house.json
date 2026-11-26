@@ -1,0 +1,1 @@
+{"name":"period_house","scene":[1360,871],"fps":24,"variants":{"light":{"still":"/assets/sprites/period_house/still_light.webp","lights_on_house":"/assets/sprites/period_house/lights_on_house_light.webp"}},"sheets":{"still":{"frames":1,"columns":1,"frame":[1360,871],"offset":[0,0]},"lights_on_house":{"frames":24,"columns":4,"frame":[564,329],"offset":[398,277]}},"anchors":{}}

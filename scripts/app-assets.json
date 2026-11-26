@@ -23,6 +23,13 @@
       ]
     },
     {
+      "art": "period-house",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
       "art": "house",
       "variants": [
         "light",
@@ -181,11 +188,6 @@
       "from": "design/marketing/brochure/assets/hub.png",
       "to": "images/hub.webp",
       "width": 1200
-    },
-    {
-      "from": "design/marketing/brochure/assets/edificio-epoca.png",
-      "to": "images/edificio-epoca.webp",
-      "width": 1600
     },
     {
       "from": "design/marketing/brochure/assets/edificio-moderna.png",

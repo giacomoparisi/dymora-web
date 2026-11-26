@@ -10,11 +10,15 @@
  * Retro  [data-retro]
  *   .bld__swap / .bld__wipe   the render and its sweep (buildings.css, --split)
  *   [data-retro-opt=0|1]      the texts of the two options
+ *   [data-retro-before]       the period building, a sprite: its data-preload token (the lights
+ *                             clip) joins data-layers while it shows, and leaves as the line sweeps
+ *                             on (sprite.js plays it backwards)
  *
  * Both loop while on screen and pause when they leave it or the tab is hidden; each starts from
  * its first state when it comes back. Nothing to click.
  * Multi: Casa → Montagna → Ufficio → Casa → …; before each change a tap lands on the next row.
- * Retro: the period building, the line sweeps to the modern house, then back, and again.
+ * Retro: the period building, its windows light up, the line sweeps to the modern house, then
+ * back, and again.
  * With prefers-reduced-motion (or without JavaScript) nothing moves: the static markup stays.
  */
 (function () {
@@ -24,6 +28,7 @@
   var TAP = 400;    // multi: from the tap to the change
   var HOLD = 1800;  // retro: how long each building shows
   var SWEEP = 1000; // retro: the sweep
+  var LIGHTS = 500; // retro: from the period building showing to its windows lighting up
 
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (!("IntersectionObserver" in window)) return;
@@ -121,28 +126,40 @@
     if (opts.length < 2 || !after) return;
     // Fully clipped, a lazy image would only load mid-sweep: fetch it with the page.
     after.loading = "eager";
+    // The period building's sprite: its lights clip (data-preload) plays while it shows.
+    var house = root.querySelector("[data-retro-before] .sprite[data-preload]");
     var t = timers();
     var on = false;
     root.style.setProperty("--bld-sweep", SWEEP + "ms");
 
+    function lights(value) {
+      if (house) house.setAttribute("data-layers", value ? house.getAttribute("data-preload") : "");
+    }
     function set(value) {
       on = value;
       root.classList.toggle("is-after", on);
       opts.forEach(function (el, j) { el.classList.toggle("is-active", j === (on ? 1 : 0)); });
     }
     function step() {
-      t.at(HOLD, function () {
+      // On the period building, its windows light up a beat after it shows.
+      if (!on) t.at(LIGHTS, function () { lights(true); });
+      t.at(HOLD + (on ? 0 : LIGHTS), function () {
         root.classList.add("is-moving");
+        // Leaving the period building, the lights go out under the line.
+        if (!on) lights(false);
         set(!on);
         t.at(SWEEP, function () { root.classList.remove("is-moving"); step(); });
       });
     }
 
+    // Lit in the markup (reduced motion); dark until the chapter shows, as in Multi.
     root.classList.add("is-live");
+    lights(false);
     set(false);
     whileOnScreen(root, step, function () {
       t.clear();
       root.classList.remove("is-moving");
+      lights(false);
       set(false);
     });
   }

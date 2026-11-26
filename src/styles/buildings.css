@@ -69,11 +69,17 @@
 .bld__retro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:clamp(32px,5vw,88px)}
 .bld__stage--retro{display:grid;gap:clamp(12px,1.4vw,20px);justify-items:center}
 .bld__swap{position:relative;display:grid;width:min(100%,680px)}
-.bld__swap img{grid-area:1/1;width:100%;filter:drop-shadow(0 30px 40px #0007)}
+.bld__swap>img,.bld__before{grid-area:1/1;width:100%;filter:drop-shadow(0 30px 40px #0007)}
+/* The period building (sprite period_house) on the modern render's 1600x1080 canvas, its plot laid
+   on the modern plot: scale 1.1548 and offset (14.8, 46.0) px, measured on the two plots' corners */
+.bld__before{position:relative;aspect-ratio:1600/1080}
+.bld__sprite-before{position:absolute;left:.926%;top:4.259%;width:98.16%}
 /* The modern house shows from the line to the right edge; the line sits at --split (animatable) */
 @property --split{syntax:"<percentage>";inherits:true;initial-value:50%}
 .bld__swap{--split:50%}
 .bld__after{clip-path:inset(0 0 0 var(--split))}
+/* and the period building up to it, or its trees would show where the modern render is clear */
+.bld__before{clip-path:inset(-10% calc(100% - var(--split)) -10% -10%)}
 .bld__wipe{position:absolute;top:4%;bottom:4%;left:var(--split);width:2px;margin-left:-1px;background:linear-gradient(#f4511800,#f45118 20%,#f45118 80%,#f4511800);box-shadow:0 0 18px #f45118;transition:opacity .25s}
 .bld__retro.is-live .bld__swap{--split:100%;transition:--split var(--bld-sweep,1s) cubic-bezier(.65,0,.35,1)}
 .bld__retro.is-live.is-after .bld__swap{--split:0%}
