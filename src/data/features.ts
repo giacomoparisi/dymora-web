@@ -18,8 +18,9 @@ export interface Feature {
   /** Render of a device that stands for the function, in the header's mega menu. Decorative: the name next to it says what it is. */
   device: { src: string; width: number; height: number };
   /**
-   * The device's animated scene from dymora-app (Sprite.astro, scripts/app-assets.json), used today
-   * only by the /anteprima-funzioni/ preview, switched on while a card is hovered or focused, with the app's own clips:
+   * The device's animated scene from dymora-app (Sprite.astro, scripts/app-assets.json). No page uses
+   * it now (the /anteprima-funzioni/ preview that did was removed); kept for a card that switches it on
+   * while hovered or focused, with the app's own clips:
    * `on` tokens are added on enter, `then` ones `wait` frames (24 fps) later, both removed on leave —
    * a one-shot plays back the way it came — and `off` ones added for the way out.
    */
