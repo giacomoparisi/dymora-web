@@ -74,7 +74,13 @@ const segs = segments.items;
           <Headline as="h3" size="s" text={b.title} />
           <p class="w-body w-muted">{b.line}</p>
           <ul class="points">
-            {b.points.map((p) => <li class="w-body">{p}</li>)}
+            {b.points.map((p) => {
+              // A benefit: its label (before the colon) stands out, then the sentence.
+              const [label, ...rest] = p.split(': ');
+              return rest.length
+                ? <li class="w-body"><strong class="bld__benefit">{label}:</strong> {rest.join(': ')}</li>
+                : <li class="w-body">{p}</li>;
+            })}
           </ul>
         </li>
       ))}

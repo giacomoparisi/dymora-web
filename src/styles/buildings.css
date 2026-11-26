@@ -20,6 +20,7 @@
 .bld__seg .w-body{font-size:clamp(.95rem,1.05vw,1.08rem)}
 .bld__seg .points{margin-top:4px}
 .bld__seg .points li{padding-block:10px}
+.bld__benefit{font-weight:700}
 .bld__head{display:grid;gap:clamp(12px,1.4vw,18px);justify-items:start;align-content:center}
 .bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(140px,13vw,190px);grid-template-areas:"props phone" "rail rail";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
 .bld__multi .bld__glow{left:38%}
