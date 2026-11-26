@@ -8,7 +8,7 @@
 // service.css). The visitor can pick a step (click on it, or the buttons of the rail) and pause
 // the loop with the button on the stage (WCAG 2.2.2). Scenes are drawn in HTML on the site's
 // assets: the consultation form with the functions chosen in it, the flat marked on its building
-// and then its plan with the same functions beside it, the devices joining the hub, the switches turning on in the app, a light that
+// and then its plan with the same functions beside it, the devices joining the hub, the same devices sliding into the app, a light that
 // stops answering and comes back after a mail to support. Every scene is decorative (aria-hidden): the steps say the
 // same in text.
 // Without JavaScript the first scene rests and the steps read as plain text; with reduced motion
@@ -79,13 +79,14 @@ const fnLine = (f: (typeof fns)[number]) => `M${f.side === 'l' ? 19 : 81} ${f.y 
 const rooms = ['Cucina', 'Bagno', 'Soggiorno', 'Camera', 'Terrazzo'];
 // Scene 3: the five devices chosen in scenes 1 and 2 around the hub, linked in this order. `at` is
 // the device's centre in stage units (100 × 84.75); `gap` keeps its wire clear of its name.
+// Scene 4: the same devices slide into the app, each into its row with a sample state (`st`).
 const hubAt = [50, 45];
 const devices = [
-  { t: 'Luci', src: '/assets/images/devices/luci.webp', w: 428, h: 360, at: [50, 12.5], gap: 13 },
-  { t: 'Clima', src: '/assets/images/devices/clima.webp', w: 285, h: 360, at: [84, 34], gap: 8 },
-  { t: 'Consumi', src: '/assets/images/devices/consumi.webp', w: 183, h: 256, at: [72, 71], gap: 8 },
-  { t: 'Serratura', src: '/assets/images/devices/serrature.webp', w: 186, h: 360, at: [28, 71], gap: 8 },
-  { t: 'Telecamera', src: '/assets/images/devices/telecamere.webp', w: 292, h: 402, at: [16, 34], gap: 8 },
+  { t: 'Luci', st: 'Accese', src: '/assets/images/devices/luci.webp', w: 428, h: 360, at: [50, 12.5], gap: 13 },
+  { t: 'Clima', st: '21°', src: '/assets/images/devices/clima.webp', w: 285, h: 360, at: [84, 34], gap: 8 },
+  { t: 'Consumi', st: '1,2 kW', src: '/assets/images/devices/consumi.webp', w: 183, h: 256, at: [72, 71], gap: 8 },
+  { t: 'Serratura', st: 'Chiusa', src: '/assets/images/devices/serrature.webp', w: 186, h: 360, at: [28, 71], gap: 8 },
+  { t: 'Telecamera', st: 'Attiva', src: '/assets/images/devices/telecamere.webp', w: 292, h: 402, at: [16, 34], gap: 8 },
 ];
 // The wire from the hub to a device, stopped short of the hub and of the device.
 const wire = (d: (typeof devices)[number]) => {
@@ -93,8 +94,6 @@ const wire = (d: (typeof devices)[number]) => {
   const f = (n: number) => n.toFixed(2);
   return `M${f(hubAt[0] + (dx * 12) / l)} ${f(hubAt[1] + (dy * 12) / l)} L${f(d.at[0] - (dx * d.gap) / l)} ${f(d.at[1] - (dy * d.gap) / l)}`;
 };
-// Scene 4: the app's switches.
-const toggles = ['Luci', 'Clima', 'Consumi', 'Serrature'];
 const pad = (i: number) => String(i + 1).padStart(2, '0');
 ---
 <section class="band band--paper svc" id="servizio" aria-labelledby="service-title">
@@ -198,19 +197,27 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
               <p class="sc-count w-label"><span>Collegati</span> <b>{[0, 1, 2, 3, 4, 5].map((n) => <i>{n}</i>)}</b>/5</p>
             </div>
 
-            <!-- 4 · Configurazione: the app, its switches turning on one by one -->
+            <!-- 4 · Configurazione: the devices installed in scene 3 slide one by one into the app,
+                 each into its row, and the row shows the device's state -->
             <div class="svc-scene svc-scene--config" data-svc-scene="3">
+              {devices.map((d, i) => (
+                <span class:list={['sc-move', `sc-move--${i + 1}`]}>
+                  <img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" />
+                  <b>{d.t}</b>
+                </span>
+              ))}
               <div class="sc-phone">
                 <div class="sc-app">
                   <img class="sc-app__mark" src="/assets/images/logo-mark-ink.svg" alt="" width="517" height="376" loading="lazy" />
-                  <p class="sc-app__title">Le tue <span>funzioni</span>.</p>
-                  <ul class="sc-app__list">
-                    {toggles.map((t) => <li><span class="sc-app__name">{t}</span><span class="sc-switch"></span></li>)}
+                  <p class="sc-app__title">I tuoi <span>dispositivi</span>.</p>
+                  <ul class="sc-app__rows">
+                    {devices.map((d) => (
+                      <li><span class="sc-app__thumb"><img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" /></span><b>{d.t}</b><small>{d.st}</small></li>
+                    ))}
                   </ul>
-                  <span class="sc-app__bar"><i></i></span>
-                  <p class="sc-app__done">Pronta</p>
                 </div>
               </div>
+              <p class="sc-stamp w-label"><span>Nell'app</span> 5 dispositivi</p>
             </div>
 
             <!-- 5 · Assistenza: a light stops answering, a mail to support, the light answers again -->

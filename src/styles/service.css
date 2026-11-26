@@ -193,28 +193,50 @@
 .svc-scene--install.is-active .sc-count i{opacity:1}
 .sc-count i:nth-child(2){--d:.75s}.sc-count i:nth-child(3){--d:1.25s}.sc-count i:nth-child(4){--d:1.75s}.sc-count i:nth-child(5){--d:2.25s}.sc-count i:nth-child(6){--d:2.75s}
 
-/* 4 · Configurazione — the app on a phone, its switches turning on */
-.sc-phone{width:33cqw;aspect-ratio:660/1290;padding:1cqw;border-radius:5cqw;background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 4cqw 8cqw #000a;container-type:inline-size;transform:translateY(5cqw) rotate(-3deg);transition:transform .9s var(--ease-out)}
-.svc-scene--config.is-active .sc-phone{transform:none}
-.sc-app{height:100%;display:grid;align-content:center;gap:7cqw;padding:10cqw 8cqw;border-radius:13cqw;background:var(--c-surface-muted);color:var(--c-on-background)}
-.sc-app__mark{width:18cqw;height:auto}
-.sc-app__title{font:800 10cqw/1.05 var(--font-text);letter-spacing:-.02em}
+/* 4 · Configurazione — the devices installed in scene 3 slide one by one into the app, each into
+   its row's empty slot, and the row shows its state. The rows sit at fixed places in the app (top
+   52 + 26 per row, in the phone's units) so the devices on the left line up with them: row centres
+   at 28.5, 36.6, 44.6, 52.7, 60.7 stage units, the slot's centre at x 63.6. The renders keep inside
+   their slot (object-fit), whatever their proportions. */
+.svc-scene--config{display:block}
+.sc-phone{position:absolute;left:58cqw;top:8cqw;width:33cqw;aspect-ratio:660/1290;padding:1cqw;border-radius:5cqw;background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 4cqw 8cqw #000a;container-type:inline-size;opacity:0;transform:translateY(3cqw);transition:opacity .4s,transform .7s var(--ease-out);--d:.05s}
+.svc-scene--config.is-active .sc-phone{opacity:1;transform:none}
+.sc-app{position:relative;height:100%;overflow:hidden;padding:13cqw 6cqw 0;border-radius:13cqw;background:var(--c-surface-muted);color:var(--c-on-background)}
+.sc-app__mark{display:block;width:14cqw;height:auto}
+.sc-app__title{margin-top:4cqw;font:800 9cqw/1.05 var(--font-text);letter-spacing:-.02em}
 .sc-app__title span{color:var(--c-secondary-button)}
-.sc-app__list{list-style:none;display:grid;gap:3.5cqw}
-.sc-app__list li{display:flex;align-items:center;justify-content:space-between;gap:4cqw;padding:4.5cqw 5cqw;border-radius:5cqw;background:var(--c-surface);font:700 6.2cqw/1 var(--font-text)}
-.sc-switch{position:relative;flex:none;width:15cqw;height:8.5cqw;border-radius:9cqw;background:#1c1c1a26;transition:background .3s}
-.sc-switch::after{content:"";position:absolute;left:1cqw;top:1cqw;width:6.5cqw;height:6.5cqw;border-radius:50%;background:#fff;box-shadow:0 .5cqw 1cqw #0003;transition:transform .35s var(--ease-out)}
-.sc-app__list li:nth-child(1) .sc-switch{--d:.36s}.sc-app__list li:nth-child(2) .sc-switch{--d:.57s}.sc-app__list li:nth-child(3) .sc-switch{--d:.78s}.sc-app__list li:nth-child(4) .sc-switch{--d:.99s}
-.sc-app__list li:nth-child(1) .sc-switch::after{--d:.36s}.sc-app__list li:nth-child(2) .sc-switch::after{--d:.57s}.sc-app__list li:nth-child(3) .sc-switch::after{--d:.78s}.sc-app__list li:nth-child(4) .sc-switch::after{--d:.99s}
-.svc-scene--config.is-active .sc-switch{background:var(--c-secondary-button)}
-.svc-scene--config.is-active .sc-switch::after{transform:translateX(6.5cqw)}
-.svc-scene.is-active .sc-switch::after{transition-delay:var(--d)}
-.sc-app__bar{display:block;height:1.6cqw;margin-top:4cqw;border-radius:2cqw;background:#1c1c1a1a;overflow:hidden}
-.sc-app__bar i{display:block;height:100%;background:var(--c-secondary-button);transform:scaleX(0);transform-origin:left;transition:transform 1.5s ease-in-out;--d:.3s}
-.svc-scene--config.is-active .sc-app__bar i{transform:none}
-.sc-app__done{display:flex;align-items:center;gap:2.5cqw;font:900 5cqw/1 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--c-success);opacity:0;transition:opacity .4s;--d:1.26s}
-.sc-app__done::before{content:"";width:2.6cqw;height:4.6cqw;margin-top:-1.4cqw;border-right:1.1cqw solid currentColor;border-bottom:1.1cqw solid currentColor;rotate:45deg}
-.svc-scene--config.is-active .sc-app__done{opacity:1}
+.sc-app__rows{position:absolute;left:6cqw;right:6cqw;top:52cqw;list-style:none;display:grid;gap:4cqw}
+.sc-app__rows li{display:flex;align-items:center;gap:3cqw;height:22cqw;padding:0 4cqw 0 3cqw;border-radius:5cqw;background:var(--c-surface);font:700 5.4cqw/1 var(--font-text);opacity:.45;transition:opacity .3s}
+.sc-app__thumb{flex:none;width:14cqw;height:14cqw}
+.sc-app__thumb img{display:block;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .25s}
+.sc-app__rows b{flex:1;min-width:0;font:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .3s}
+.sc-app__rows small{font:900 3.8cqw/1 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--c-on-surface-muted);opacity:0;transition:opacity .3s}
+.svc-scene--config.is-active :is(.sc-app__rows li,.sc-app__rows b,.sc-app__rows small,.sc-app__thumb img){opacity:1}
+.sc-app__rows li:nth-child(1),.sc-app__rows li:nth-child(1) *{--d:.98s}
+.sc-app__rows li:nth-child(2),.sc-app__rows li:nth-child(2) *{--d:1.38s}
+.sc-app__rows li:nth-child(3),.sc-app__rows li:nth-child(3) *{--d:1.78s}
+.sc-app__rows li:nth-child(4),.sc-app__rows li:nth-child(4) *{--d:2.18s}
+.sc-app__rows li:nth-child(5),.sc-app__rows li:nth-child(5) *{--d:2.58s}
+/* The devices on the left: each comes in (--a), then slides into its slot (--f), its name leaving first */
+.sc-move{position:absolute;left:22cqw;width:8cqw;height:6.4cqw;translate:-50% -50%;opacity:0}
+.sc-move img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 2cqw #f4511855)}
+.sc-move b{position:absolute;right:calc(100% + 2cqw);top:50%;translate:0 -50%;font:700 max(10px,2cqw)/1 var(--font-text);color:#fff;white-space:nowrap;transition:opacity .2s}
+.svc-scene--config.is-active .sc-move{opacity:1;animation:sc-in .4s var(--ease-out) var(--a) both,sc-slot .55s cubic-bezier(.6,0,.3,1) var(--f) forwards}
+.svc-scene--config.is-active .sc-move b{opacity:0;transition-delay:var(--f)}
+@keyframes sc-slot{85%{opacity:1}to{opacity:0;transform:translateX(41.6cqw) scale(.68)}}
+.sc-move--1{top:28.5cqw;--a:.05s;--f:.5s}
+.sc-move--2{top:36.6cqw;--a:.12s;--f:.9s}
+.sc-move--3{top:44.6cqw;--a:.19s;--f:1.3s}
+.sc-move--4{top:52.7cqw;--a:.26s;--f:1.7s}
+.sc-move--5{top:60.7cqw;--a:.33s;--f:2.1s}
+.svc-scene--config .sc-stamp{--d:2.8s}
+.svc-scene--config.is-active .sc-stamp{opacity:1}
+/* Small stages (phones): the scene moves left, clear of the pause button, and the devices' names
+   give way (the rows say them) */
+@container (max-width:440px){
+  .svc-scene--config :is(.sc-move,.sc-phone){margin-left:-10cqw}
+  .sc-move b{display:none}
+}
 
 /* 5 · Assistenza — a light stops answering, a mail to support, the light answers again */
 .sc-care{display:grid;gap:3cqw;width:66cqw}
@@ -254,4 +276,5 @@
 /* Reduced motion: nothing plays on its own (service.js); picked scenes show at once in their final state */
 @media(prefers-reduced-motion:reduce){
   .svc__step,.svc__step::after,.svc__fill,.svc-scene,.svc-scene *,.svc-scene *::before,.svc-scene *::after{transition:none!important;animation:none!important}
+  .svc-scene--config.is-active .sc-move{opacity:0}
 }
