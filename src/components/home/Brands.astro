@@ -1,0 +1,79 @@
+---
+// "Dispositivi" (2026-11-25): Dymora does not tie the customer to one brand, and picks the right
+// device with them so they do not lose time choosing (owner, 2026-11-26: title and lead). A preview, not the full
+// list: well-known home-automation brands that have an official Home Assistant integration, the
+// base Dymora runs on (owner, 2026-11-25). Brand names only, in plain text: no logos, no protocol
+// marks (Matter, Zigbee, Z-Wave are certification marks). Under the stage only the line on reusing
+// the customer's devices: the owner removed the compatibility and trademark note (2026-11-26).
+//
+// The eyebrow and the title stay pinned under the site header while the lead and the stage scroll
+// under them, as the Funzioni and Servizio titles do.
+// On carbon, right after the service.
+// The stage: rows of brand names, each led by its category, glide on their own in an endless loop,
+// in opposite directions (owner, 2026-11-26: not tied to the scroll); in the middle the Dymora hub
+// itself, the device everything connects to. When the stage comes on screen the names light up
+// from the middle outwards, every time it comes back. The loop runs only while the stage shows and
+// has a pause button (WCAG 2.2.2), as the opening film does.
+// The rows are decorative (aria-hidden, repeated to fill the width): the list below them in
+// visually-hidden text says the same once.
+// Without JavaScript or with reduced motion: the rows rest, every name lit, no button.
+import Headline from '../Headline.astro';
+
+const rows = [
+  { cat: 'Luci', brands: ['Philips Hue', 'IKEA', 'Shelly', 'LIFX', 'Nanoleaf', 'TP-Link', 'Govee', 'Yeelight'] },
+  { cat: 'Clima', brands: ['Daikin', 'Mitsubishi Electric', 'tado°', 'Netatmo', 'Google Nest', 'Honeywell', 'Bosch', 'LG'] },
+  { cat: 'Tapparelle e serrature', brands: ['Somfy', 'Velux', 'Hunter Douglas', 'Motionblinds', 'Nuki', 'Yale', 'SwitchBot', 'Aqara'] },
+  { cat: 'Telecamere ed energia', brands: ['Reolink', 'Ezviz', 'Axis', 'Ring', 'Fronius', 'SolarEdge', 'Enphase', 'Wallbox'] },
+];
+// Each row repeats its set so it still fills the widest window after sliding by one set (brands.css
+// moves each track by 1/REPEAT of its width, so keep the two in step).
+const REPEAT = 4;
+// Light-up order: from the middle of a row outwards (data-d, delays in brands.css).
+const wave = (i: number, n: number) => Math.min(8, Math.round(Math.abs(i - (n - 1) / 2)));
+---
+<section class="band band--ink brd" id="dispositivi" aria-labelledby="brands-title">
+  <div class="band__inner brd__inner">
+    <div class="brd__head">
+      <p class="w-label eyebrow">Dispositivi</p>
+      <Headline id="brands-title" size="l" text="Nessun vincolo di marchio. **Solo il dispositivo giusto.**" />
+    </div>
+    <p class="w-lead w-muted brd__lead" data-reveal>Lavoriamo con moltissimi produttori e li integriamo tutti nell'hub Dymora, in un'unica app. Così possiamo consigliarti ogni volta il prodotto migliore per le tue esigenze, non quello di un marchio: la scelta la facciamo con te, con la nostra esperienza, senza farti perdere tempo.</p>
+
+    <figure class="brd__stage" data-brd-stage data-reveal="panel" data-reveal-step="1">
+      <div class="brd__field">
+      <div class="brd__glow" aria-hidden="true"></div>
+      <div class="brd__rows" aria-hidden="true">
+        {rows.map((r, ri) => {
+          const items = Array.from({ length: REPEAT }, () => [{ cat: r.cat }, ...r.brands.map((b) => ({ name: b }))]).flat();
+          return (
+            <div class:list={['brd__row', ri % 2 ? 'brd__row--rev' : 'brd__row--fwd']}>
+              <ul class="brd__track">
+                {items.map((it, i) =>
+                  'cat' in it
+                    ? <li class="brd__cat w-label" data-d={wave(i, items.length)}>{it.cat}</li>
+                    : <li class="brd__chip" data-d={wave(i, items.length)}>{it.name}</li>
+                )}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+      <div class="brd__hub" aria-hidden="true">
+        <span class="brd__ring"></span>
+        <img src="/assets/images/hub.webp" alt="" width="1200" height="987" loading="lazy" decoding="async" />
+        <span class="w-label">Hub Dymora</span>
+      </div>
+      <button class="brd__pause" type="button" data-brd-pause aria-pressed="false" aria-label="Metti in pausa l'animazione dei marchi" hidden>
+        <span class="brd__pause-icon" aria-hidden="true"></span>
+      </button>
+      </div>
+      <figcaption class="brd__foot">
+        <span class="brd__reuse">Se hai già dei dispositivi, verifichiamo quali riutilizzare.</span>
+      </figcaption>
+      <ul class="visually-hidden">
+        {rows.map((r) => <li>{r.cat}: {r.brands.join(', ')}.</li>)}
+      </ul>
+    </figure>
+  </div>
+</section>
+<script is:inline src="/assets/js/brands.js" defer></script>

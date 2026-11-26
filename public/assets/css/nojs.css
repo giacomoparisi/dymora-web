@@ -1,0 +1,7 @@
+/* Loaded only without JavaScript (<noscript> in BaseLayout.astro). */
+@media(max-width:1080px){
+  .sh__burger,.sh__nav{display:none}
+  .sh__cta{display:inline-flex}
+}
+.cf{display:none}
+.cf-nojs{display:block}

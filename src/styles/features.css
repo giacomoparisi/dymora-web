@@ -1,5 +1,4 @@
-/* Home and /consumi/: shared pieces, the site-only blocks and the closing. Bands and tags in bands.css.
-   The home's per-function sections (brochure pages 6–10) were removed: the functions are popups now. */
+/* Home: shared pieces, the site-only blocks. Bands and tags in bands.css. */
 
 /* Shared: points, tile rows, device tiles */
 .points{list-style:none;display:grid}
@@ -29,19 +28,6 @@ button.dev-tile__state[aria-pressed="true"]{border-color:var(--c-secondary-butto
 .dev-tile>p:not(.dev-tile__meta):not(.dev-tile__name){justify-self:stretch;text-align:left}
 figure img,.tile img{display:block;width:100%;height:auto}
 
-/* Camera frames with a detection box (home `opening`, /videosorveglianza/) */
-.cam{position:relative;overflow:hidden;border-radius:var(--r-large);border:3px solid var(--c-primary);background:var(--c-primary);box-shadow:0 20px 44px var(--c-shadow)}
-.band--ink .cam{border-color:#ffffff2e}
-.cam img{width:100%;height:auto}
-.cam__where{position:absolute;left:12px;top:10px;padding:5px 8px;border-radius:6px;background:#1c1c1acc;color:var(--c-on-primary)}
-.cam__box{position:absolute;border:2px solid var(--c-secondary);border-radius:4px}
-.cam__box .tag{position:absolute;left:-2px;bottom:calc(100% + 4px);font-size:11px}
-.tag--hit,.band--ink .tag--hit{background:var(--c-secondary);border:0;color:var(--c-on-secondary)}
-.cam--person .cam__box{left:40%;top:50%;width:10%;height:38%}
-.cam--car .cam__box{left:66.5%;top:44%;width:13%;height:13%}
-.cam--animal .cam__box{left:59.5%;top:64%;width:11%;height:12%}
-.cam--animal .cam__box .tag{left:auto;right:-2px}
-
 /* Service, principles, start */
 .service__inner{display:grid;gap:clamp(16px,2vw,26px);max-width:1100px}
 .service__inner .w-lead{max-width:60ch}
@@ -70,21 +56,11 @@ figure img,.tile img{display:block;width:100%;height:auto}
 .band--ink .faq__list details{border-color:#ffffff2a}
 .band--ink .faq__list summary::after{color:var(--c-secondary)}
 
-/* 11 — Closing (carbon, cascade, hub) */
-.closing__cascade{position:absolute;inset:0 0 auto 0;width:100%;height:55%;object-fit:cover;object-position:top center;-webkit-mask-image:linear-gradient(to bottom,#000 10%,transparent 95%);mask-image:linear-gradient(to bottom,#000 10%,transparent 95%);pointer-events:none}
-.closing__inner{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,80px);align-items:end;padding-top:clamp(160px,22vw,320px)}
-.closing__copy{display:grid;gap:clamp(16px,2vw,26px)}
-.closing__word{width:clamp(110px,12vw,170px);height:auto}
-.closing__actions{display:flex;flex-wrap:wrap;align-items:center;gap:24px}
-.closing__mail{padding-bottom:4px;border-bottom:2px solid currentColor}
-.closing__hub{width:min(100%,440px);height:auto;justify-self:center}
-
 @media(max-width:900px){
-  .faq__inner,.closing__inner{grid-template-columns:1fr}
+  .faq__inner{grid-template-columns:1fr}
   .tile-row--4,.principle-list,.step-list,.stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:560px){
   .tile-row--3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .principle-list,.step-list{grid-template-columns:1fr}
-  .closing__inner{padding-top:140px}
 }

@@ -1,4 +1,54 @@
-<footer class="site-footer w-note">
-  <p>Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
-  <nav aria-label="Informazioni legali"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a><a href="/support/">Supporto</a><a href="mailto:info@dymora.eu">info@dymora.eu</a></nav>
+---
+// Site footer, on every page, one carbon block (owner choice 2026-11-26, replacing the orange
+// closing band): the contact block with the request form (`#contatti`, the brochure QR target
+// and the header CTA: keep it), then the payoff (copy `cover.map.payoff`, `cover.map.stop4`),
+// link columns mirroring the header, then the verified legal data.
+import Headline from './Headline.astro';
+import ContactForm from './ContactForm.astro';
+import '../styles/footer.css';
+
+const year = new Date().getFullYear();
+---
+<footer class="sf">
+  <div class="sf__contact" id="contatti">
+    <div class="sf__contact-copy">
+      <Headline id="contatti-title" size="l" text="Raccontaci di cosa hai **bisogno**." />
+      <p class="w-lead sf__muted">Dicci quali sono le tue esigenze in modo da trovare la soluzione che fa per te.</p>
+      <a class="h-s sf__mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
+    </div>
+    <ContactForm id="richiesta" tone="ink" />
+  </div>
+  <div class="sf__inner">
+    <div class="sf__brand">
+      <img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" loading="lazy" />
+      <p class="sf__payoff">The Art of Living <span class="w-accent">Smart.</span></p>
+      <p class="w-body sf__muted">Goditi l'esperienza, al resto pensiamo noi.</p>
+    </div>
+    <nav class="sf__cols" aria-label="Collegamenti del sito">
+      <div>
+        <p class="w-label sf__title">Dymora</p>
+        <ul>
+          <li><a href="/#servizio">Il servizio</a></li>
+          <li><a href="/#come-si-parte">Come si parte</a></li>
+          <li><a href="/#soluzioni">Per chi è Dymora</a></li>
+          <li><a href="/#domande">Domande</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="w-label sf__title">Assistenza</p>
+        <ul>
+          <li><a href="/support/">Supporto</a></li>
+          <li><a href="mailto:support@dymora.eu">support@dymora.eu</a></li>
+          <li><a href="mailto:info@dymora.eu">info@dymora.eu</a></li>
+          <li><a href="mailto:privacy@dymora.eu">privacy@dymora.eu</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="sf__legal w-note">
+    <p>© {year} Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
+    <nav aria-label="Informazioni legali"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a></nav>
+  </div>
+  <script src="/assets/js/contact-form.js" defer></script>
 </footer>

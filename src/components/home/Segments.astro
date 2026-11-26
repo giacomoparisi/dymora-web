@@ -1,0 +1,112 @@
+---
+// "Per chi è Dymora" (copy `segments`): the three kinds of client Dymora designs for (owners of
+// several properties, short-term rentals, companies with their premises), right under "I tuoi
+// spazi. In una sola app." inside the HouseStory band (its slot), before the functions.
+// The title stays pinned under the site header while the section scrolls (as #funzioni and
+// #dispositivi; its height → --bld-head, buildings.js), with the line under it (valid for all three
+// clients: one or more buildings in the same app). Below, one row: on the left
+// the app's installation picker (drawn in HTML, a demonstrative copy of the installation-selection
+// screen) beside the render of the selected property, each property standing for one kind of
+// client; on the right one tab per segment and the selected segment's text, one at a time.
+// The segments take turns on their own while the section shows (Proprietari → Affitti →
+// Aziende → …): before each change a tap lands on the next row of the picker, the row lights up, the
+// render changes, the tab fills and the text changes. A click on a tab (or the arrow keys), or on a
+// row of the picker on the phone, picks a segment and the turns go on from there; pointing at the
+// text or at the picker holds it; the pause button
+// (WCAG 2.2.2) stops the turns. Arriving on a segment's anchor (#proprietari, #affitti-brevi,
+// #aziende) selects it and pauses. A property is a sprite (data `sprite`) that lights up when it is
+// selected and goes dark when the picker moves on (its `lights` layer, sprite.js). buildings.js
+// (loaded by the page). Without JavaScript: the first segment selected and lit, the tabs hidden and
+// the three texts one under the other. With reduced motion the tabs work but nothing turns alone.
+// Anchors: #soluzioni (header, footer) and #edifici (old links to "Più edifici").
+import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
+import { segments } from '../../data/intro';
+const segs = segments.items;
+// The line, valid for all three segments, stays pinned with the title; `**…**` is the accent.
+const lineParts = segments.line.split(/\*\*(.+?)\*\*/);
+---
+<section class="bld bld--segs" id="soluzioni" aria-labelledby="segments-title">
+  <div class="bld__multi" id="edifici" data-multi>
+    <div class="bld__head" data-reveal>
+      <p class="w-label eyebrow">{segments.eyebrow}</p>
+      <Headline id="segments-title" size="l" text={segments.title} />
+      <p class="w-lead bld__lead">{lineParts.map((part, i) => (i % 2 ? <span class="w-accent">{part}</span> : part))}</p>
+    </div>
+
+    <div class="bld__row">
+      <figure class="bld__stage" data-reveal="panel" data-reveal-step="1">
+        <div class="bld__glow" aria-hidden="true"></div>
+        <div class="bld__props" aria-hidden="true">
+          {segs.map((b, i) => (
+            <div class:list={['bld__prop', { 'is-active': i === 0 }]} data-multi-item={b.id}>
+              <Sprite name={b.sprite} variant="light" alt="" class="bld__sprite"
+                layers={i === 0 ? b.lights : ''} preload={b.lights} />
+              <span class="w-label bld__name">{b.tag}</span>
+            </div>
+          ))}
+        </div>
+        <div class="bld__phone" aria-hidden="true">
+          <div class="bld__screen">
+            <div class="pk">
+              <div class="pk__brand">
+                <img class="pk__mark" src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" loading="lazy" />
+                <img class="pk__word" src="/assets/images/logo-word-white.svg" alt="" width="1159" height="118" loading="lazy" />
+                <span class="pk__dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              </div>
+              <div class="pk__body">
+                <p class="pk__title">Seleziona la tua <span>installazione</span>.</p>
+                <p class="pk__sub">Passa ad un’altra installazione.</p>
+                <ul class="pk__list">
+                  {segs.map((b, i) => (
+                    <li class:list={['pk__row', { 'is-active': i === 0 }]} data-multi-row={b.id}>
+                      <span class="pk__ico"></span>
+                      <span class="pk__name">{b.app}<small>Collegata</small></span>
+                      <span class="pk__more"></span>
+                      <span class="pk__end"></span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="visually-hidden">Una casa in montagna, un palazzo di appartamenti e un edificio per uffici nella stessa app Dymora.</figcaption>
+      </figure>
+
+      <div class="bld__copy-segs" data-reveal data-reveal-step="2">
+        <div class="bld__bar">
+          <div class="bld__tabs" data-multi-tabs aria-label={segments.eyebrow} hidden>
+            {segs.map((b, i) => (
+              <button class:list={['bld__tab', { 'is-active': i === 0 }]} type="button" id={`tab-${b.id}`} data-multi-tab={b.id}>
+                <span class="w-label">{b.tag}</span>
+                <span class:list={['bld__tab-fill', { 'is-on': i === 0 }]} data-multi-seg={b.id} aria-hidden="true"></span>
+              </button>
+            ))}
+          </div>
+          <button class="bld__pause" type="button" data-multi-pause aria-pressed="false" aria-label="Metti in pausa il cambio automatico dei clienti" hidden>
+            <span class="bld__pause-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="bld__segs">
+          {segs.map((b, i) => (
+            <article class:list={['bld__seg', { 'is-active': i === 0 }]} id={b.id} data-multi-text={b.id}>
+              <p class="w-label bld__seg-tag">{b.tag}</p>
+              <Headline as="h3" size="s" text={b.title} />
+              <p class="w-body w-muted">{b.line}</p>
+              <ul class="points">
+                {b.points.map((p) => {
+                  // A benefit: its label (before the colon) stands out, then the sentence.
+                  const [label, ...rest] = p.split(': ');
+                  return rest.length
+                    ? <li class="w-body"><strong class="bld__benefit">{label}:</strong> {rest.join(': ')}</li>
+                    : <li class="w-body">{p}</li>;
+                })}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

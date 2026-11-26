@@ -1,14 +1,32 @@
 ---
-// Brochure masthead: carbon, logo on the left, the cover eyebrow and the links on the right.
+// Site header, on every page. Carbon glass bar, sticky; on the home (`overlay`) it floats over the
+// opening, transparent until the page scrolls (header.js sets .is-scrolled).
+// On narrow screens the links open in a burger panel; without JavaScript the bar shows the CTA only (nojs.css).
+import '../styles/header.css';
+
+interface Props {
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
 ---
-<header class="masthead">
-  <div class="masthead__inner">
-    <a class="masthead__logo" href="/" aria-label="Dymora, pagina iniziale"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
-    <nav aria-label="Navigazione principale">
-      <span class="w-label masthead__kicker">Casa e piccole attività</span>
-      <a class="w-body-strong" href="/#funzioni">Funzioni</a>
-      <a class="w-body-strong" href="/#edifici">Più edifici</a>
-      <a class="w-cta w-button" href="/#contatti">Contattaci</a>
+<header class:list={['sh', { 'sh--overlay': overlay }]} data-sh>
+  <div class="sh__bar">
+    <a class="sh__logo" href="/" aria-label="Dymora, pagina iniziale"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
+    <nav class="sh__nav" id="sh-panel" aria-label="Navigazione principale">
+      <ul class="sh__menu">
+        <li class="sh__item"><a class="sh__link" href="/#soluzioni">Per chi</a></li>
+        <li class="sh__item"><a class="sh__link" href="/#funzioni">Funzioni</a></li>
+        <li class="sh__item"><a class="sh__link" href="/#ristrutturazioni">Edifici</a></li>
+        <li class="sh__item"><a class="sh__link" href="/#servizio">Servizio</a></li>
+        <li class="sh__item"><a class="sh__link" href="/#dispositivi">Dispositivi</a></li>
+        <li class="sh__item"><a class="sh__link" href="/#domande">Domande</a></li>
+        <li class="sh__item sh__item--panel-cta"><a class="w-cta w-button" href="/#contatti">Richiedi una consulenza</a></li>
+      </ul>
     </nav>
+    <div class="sh__end">
+      <a class="w-cta w-button sh__cta" href="/#contatti">Richiedi una consulenza</a>
+      <button class="sh__burger" type="button" aria-expanded="false" aria-controls="sh-panel" aria-label="Apri il menu"><span></span></button>
+    </div>
   </div>
 </header>
+<script is:inline src="/assets/js/header.js" defer></script>

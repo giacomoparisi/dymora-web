@@ -1,0 +1,25 @@
+/* Request form (ContactForm.astro). `cf--ink` on carbon, `cf--paper` on light surfaces;
+   small orange text on light uses the dark orange (--c-secondary-text). */
+.cf{--cf-line:#0000002e;--cf-field:#fff;--cf-muted:var(--c-on-background-variant);--cf-err:var(--c-error);--cf-link:var(--c-secondary-text);display:grid;gap:clamp(16px,1.8vw,22px);min-width:0}
+.cf--ink{--cf-line:#ffffff33;--cf-field:#ffffff0d;--cf-muted:var(--c-on-primary-muted);--cf-err:#FF9C8F;--cf-link:var(--c-secondary-on-ink)}
+.cf__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,20px)}
+.cf__field{display:grid;gap:6px;min-width:0}
+.cf__field label{font:600 .95rem/1.3 var(--font-text)}
+.cf__opt{font-weight:400;color:var(--cf-muted)}
+.cf__field input,.cf__field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--cf-line);border-radius:var(--r-medium);background:var(--cf-field);font:400 1rem/1.4 var(--font-text)}
+.cf__field textarea{resize:vertical;min-height:110px}
+.cf__field input:focus-visible,.cf__field textarea:focus-visible{outline:3px solid var(--c-secondary);outline-offset:1px;border-color:transparent}
+.cf__field [aria-invalid="true"]{border-color:var(--cf-err)}
+.cf__error{font:600 .85rem/1.3 var(--font-text);color:var(--cf-err)}
+.cf__error:empty{display:none}
+.cf__summary{padding:14px 16px;border:1px solid var(--cf-err);border-radius:var(--r-medium);color:var(--cf-err)}
+.cf__summary ul{margin-top:6px;padding-left:1.2em}
+.cf__summary a{text-decoration:underline;text-underline-offset:3px}
+.cf__send{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.cf__note{flex:1 1 220px;color:var(--cf-muted)}
+.cf__note a,.cf__status a{color:var(--cf-link);text-decoration:underline;text-underline-offset:3px}
+.cf__status{display:grid;gap:4px;padding:14px 16px;border-radius:var(--r-medium);border:1px solid var(--cf-line)}
+.cf__status small{font-size:.9rem;color:var(--cf-muted)}
+.cf [hidden]{display:none}
+.cf-nojs{display:none}
+@media(max-width:560px){.cf__row{grid-template-columns:1fr}}

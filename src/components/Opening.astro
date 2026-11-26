@@ -1,22 +1,36 @@
 ---
-// Home hero from Federico's opening (commit 5401a7d), restored 2026-11-23 in place of the
-// brochure cover. The scroll scene that followed it (house, devices, phrases) is removed.
+// Home hero: Federico's opening (commit 5401a7d), the hook over the "Rientro" film, with the site
+// header floating over it (SiteHeader `overlay`). The app follows in the next section (HouseStory).
+// Texts: `cover.map.payoff` (the line under the hook). No chips or buttons in the hook (owner
+// decision 2026-11-26).
+// The film (public/assets/video/, AI-generated scenes, so labelled "Scene dimostrative") shows a
+// return home in seven scenes: dark house, path lights following him, the door camera recognising
+// him, fingerprint keypad and the door opening, living room lights / wall panel / curtains, the
+// armchair and whiskey with the lights dimmed from the app's slider, the lit house from outside.
+// ~32 s loop with slow crossfades, action kept centre-right because the scrim darkens the left
+// half. opening-video.js loads it after the page, keeps only the poster with
+// prefers-reduced-motion or Save-Data and drives the pause button.
+// Sources and cut: ~/Desktop/reference_video/v2/ (STORYBOARD.md, build.sh) on the owner's machine.
 import '../styles/opening.css';
 ---
 <div class="frame">
   <div class="site">
-    <div class="open" id="top">
-      <header class="nav">
-        <a class="brand" href="#top"><img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" /></a>
-        <div class="nav-end">
-          <a class="nav-link w-body-strong" href="mailto:info@dymora.eu">info@dymora.eu</a>
-          <a class="w-cta w-button nav-cta" href="#contatti">Richiedi una consulenza</a>
-        </div>
-      </header>
-      <img class="dots" src="/assets/images/cascata.svg" alt="" width="864" height="704" />
+    <div class="open" id="top" data-hv-root>
+      <div class="open__media" aria-hidden="true">
+        <video class="open__video" data-hv-video muted loop playsinline preload="none"
+          poster="/assets/video/rientro-poster.jpg" width="1920" height="1080"
+          data-src-large="/assets/video/rientro-1080.mp4" data-src-small="/assets/video/rientro-720.mp4"></video>
+      </div>
       <div class="hook">
         <h1 class="w-display-xxl"><span class="ln"><span>The Art</span></span><span class="ln"><span>of Living</span></span><span class="ln"><span class="w-accent">Smart.</span></span></h1>
-        <p class="sub w-subtitle">Goditi l'esperienza, al resto pensiamo noi.</p>
+        <p class="sub w-subtitle">Per la tua casa, i tuoi affitti, la tua azienda. Al resto pensiamo noi.</p>
+      </div>
+      <a class="open__cue" href="#app" aria-label="Scorri per scoprire Dymora"><span></span></a>
+      <div class="open__foot">
+        <p class="open__note">Scene dimostrative</p>
+        <button class="open__pause" type="button" data-hv-pause aria-pressed="false" aria-label="Metti in pausa il video" hidden>
+          <span class="open__pause-icon" aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </div>

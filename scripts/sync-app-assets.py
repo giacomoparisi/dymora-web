@@ -8,6 +8,8 @@ What it reads (dymora-app is the source of truth, nothing here is edited by hand
   - art/<dir>/sprites.json         sheet geometry: frames, columns, frame size, offset in the scene
   - art/<dir>/bake.py              the sprite name (`name="..."`) used by the drawables
   - core/src/commonMain/composeResources/drawable/device_<name>_<sheet>_<variant>.webp
+  - for a web-only scene (`"baked": "<dir>"` in the entry): art/<dir>/<baked>/sprites.json and
+    art/<dir>/<baked>/drawable/, what its bake.py writes with --out instead of the app's core
 
 What it writes (configured in scripts/app-assets.json):
   - public/assets/sprites/<name>/<sheet>_<variant>.webp
@@ -46,9 +48,9 @@ def sprite_name(app, art):
     return m.group(1)
 
 
-def find_drawable(app, name, sheet, variant):
+def find_drawable(drawables, name, sheet, variant):
     """The app ships most sheets in both variants; a few only in one. Returns (path, variant)."""
-    base = os.path.join(app, DRAWABLES, f"device_{name}_{sheet}")
+    base = os.path.join(drawables, f"device_{name}_{sheet}")
     for v in (variant, "light", "dark"):
         p = f"{base}_{v}.webp"
         if os.path.exists(p):
@@ -62,7 +64,9 @@ def sync_sprites(app, entries, check, problems):
     for entry in entries:
         art = entry["art"]
         name = sprite_name(app, art)
-        with open(os.path.join(app, "art", art, "sprites.json"), encoding="utf-8") as f:
+        baked = os.path.join(app, "art", art, entry["baked"]) if "baked" in entry else None
+        drawables = os.path.join(baked, "drawable") if baked else os.path.join(app, DRAWABLES)
+        with open(os.path.join(baked or os.path.join(app, "art", art), "sprites.json"), encoding="utf-8") as f:
             spec = json.load(f)
         dest = os.path.join(OUT, "sprites", name)
         manifest = {
@@ -78,7 +82,7 @@ def sync_sprites(app, entries, check, problems):
         for variant in entry["variants"]:
             files = {}
             for sheet in spec["sheets"]:
-                src, got = find_drawable(app, name, sheet, variant)
+                src, got = find_drawable(drawables, name, sheet, variant)
                 if not src:
                     problems.append(f"{name}: sheet '{sheet}' has no drawable")
                     continue

@@ -1,0 +1,87 @@
+/* ─── Dispositivi on carbon (Brands.astro, brands.js) ───
+   Same language as #edifici: no panels, the names float on the carbon with the glow.
+   The rows glide on their own in an endless loop, in opposite directions (each track holds its set
+   four times and moves by one set, 25%, so the loop is seamless); the hub sits over the middle.
+   .is-on: the stage is on screen, the names light up from the middle out and the loop runs.
+   .is-paused: the visitor paused the loop with the button.
+   Each part carries its delay (--d) only on the way in, so the stage resets when it leaves.
+   Without JavaScript or with reduced motion: the rows rest centred, every name lit. */
+.brd__inner{display:grid;gap:clamp(40px,5vw,72px);padding-bottom:calc(var(--w-air) * .45)}
+/* The title stays pinned under the site header while the lead and the stage scroll (as .story__head) */
+.brd__inner{row-gap:clamp(20px,2.4vw,32px)}
+.brd__head{position:sticky;top:var(--sh-h);z-index:3;display:grid;gap:clamp(8px,1vw,14px);padding-block:clamp(14px,2svh,24px);background:var(--c-primary)}
+.brd__head::before{content:"";position:absolute;inset:0 calc(-1 * var(--w-gutter));z-index:-1;background:var(--c-primary)}
+.brd__head::after{content:"";position:absolute;left:calc(-1 * var(--w-gutter));right:calc(-1 * var(--w-gutter));top:100%;height:32px;background:linear-gradient(var(--c-primary),#1c1c1a00);pointer-events:none}
+.brd__head .h-l{font-size:clamp(1.7rem,3.6vw,3.4rem)}
+.brd__lead{max-width:60ch;margin-bottom:clamp(20px,3vw,40px)}
+
+.brd__stage{position:relative;min-width:0;isolation:isolate;display:grid;gap:clamp(28px,3.4vw,48px);margin:0 calc(-1 * var(--w-gutter))}
+.brd__field{position:relative;min-width:0}
+.brd__stage>*,.brd__row{min-width:0}
+.brd__glow{position:absolute;left:50%;top:50%;z-index:-1;width:min(1200px,120%);aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511852,#f4511812 55%,transparent);pointer-events:none}
+
+/* The rows: wider than the window, centred, faded out at both edges */
+.brd__rows{display:grid;gap:clamp(10px,1.2vw,16px);overflow:clip;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.brd__row{display:flex;justify-content:center}
+/* The trailing padding equals the gap, so one set (25% of the track) is exactly one loop */
+.brd__track{--gap:clamp(8px,.9vw,14px);list-style:none;display:flex;flex:none;gap:var(--gap);padding-right:var(--gap)}
+.brd.is-live .brd__row{justify-content:flex-start}
+.brd.is-live .brd__track{animation:brd-loop var(--dur,80s) linear var(--off,0s) infinite;animation-play-state:paused;will-change:translate}
+.brd.is-live .brd__row--rev .brd__track{animation-direction:reverse}
+.brd__row:nth-child(2) .brd__track{--dur:96s;--off:-30s}
+.brd__row:nth-child(3) .brd__track{--dur:72s;--off:-14s}
+.brd__row:nth-child(4) .brd__track{--dur:88s;--off:-52s}
+.brd__stage.is-on:not(.is-paused) .brd__track{animation-play-state:running}
+@keyframes brd-loop{from{translate:0}to{translate:-25%}}
+
+.brd__chip,.brd__cat{--d:0s;flex:none;display:flex;align-items:center;white-space:nowrap;border-radius:999px;transition:color .45s,border-color .45s,background .45s,opacity .45s}
+.brd__chip{gap:.6em;padding:.62em 1.05em;border:1px solid #ffffff1f;font:700 clamp(.88rem,1.15vw,1.18rem)/1 var(--font-text);color:#ffffff3d}
+.brd__chip::before{content:"";flex:none;width:.42em;height:.42em;border-radius:50%;background:#ffffff2e;transition:background .45s,box-shadow .45s;transition-delay:inherit}
+.brd__cat{padding:.7em 1.05em;border:1px solid #f4511833;font-size:max(11px,.8vw);color:#f4511866}
+.brd__stage.is-on .brd__chip,.brd__stage.is-on .brd__cat{transition-delay:var(--d)}
+.brd__stage.is-on .brd__chip{color:var(--c-on-primary);border-color:#ffffff38;background:#ffffff08}
+.brd__stage.is-on .brd__chip::before{background:var(--c-secondary);box-shadow:0 0 .7em #f45118aa}
+.brd__stage.is-on .brd__cat{color:var(--c-secondary-on-ink);border-color:var(--c-secondary)}
+[data-d="1"]{--d:.08s}[data-d="2"]{--d:.16s}[data-d="3"]{--d:.24s}[data-d="4"]{--d:.32s}
+[data-d="5"]{--d:.4s}[data-d="6"]{--d:.48s}[data-d="7"]{--d:.56s}[data-d="8"]{--d:.64s}
+
+/* The hub: the Dymora hub itself over the middle of the rows, the device every name connects to */
+.brd__hub{position:absolute;left:50%;top:50%;z-index:1;display:grid;place-items:center;align-content:center;gap:clamp(4px,.5vw,8px);width:clamp(160px,18vw,260px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:var(--c-primary);box-shadow:0 0 0 1px #f4511866,0 0 0 clamp(8px,1vw,14px) #1c1c1ad9,0 0 80px #f4511866;transform:scale(.9);transition:transform .8s var(--ease-out)}
+.brd__hub img{width:72%;height:auto;margin-top:-4%;filter:drop-shadow(0 .6em 1.2em #0009)}
+.brd__hub .w-label{font-size:max(10px,.72vw);color:var(--c-secondary-on-ink)}
+.brd__ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--c-secondary);opacity:0}
+.brd__stage.is-on .brd__hub{transform:none}
+.brd__stage.is-on .brd__ring{animation:brd-ping 2.4s .3s ease-out infinite}
+@keyframes brd-ping{from{transform:scale(.95);opacity:.8}to{transform:scale(1.45);opacity:0}}
+
+/* Pause button for the loop (WCAG 2.2.2), as the opening's: bottom right of the rows */
+.brd__pause{position:absolute;right:var(--w-gutter);bottom:calc(-1 * clamp(20px,2.4vw,34px) - 40px);z-index:2;display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid #ffffff59;background:#1c1c1a66;color:#fff;cursor:pointer;transition:background .2s,border-color .2s}
+.brd__pause[hidden]{display:none}
+.brd__pause:hover{background:var(--c-secondary);border-color:var(--c-secondary)}
+.brd__pause:focus-visible{outline:2px solid var(--c-secondary);outline-offset:3px}
+.brd__pause-icon{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
+.brd__pause[aria-pressed="true"] .brd__pause-icon{width:0;height:0;border:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;translate:2px 0}
+
+.brd__foot{display:grid;justify-items:center;gap:14px;padding-inline:var(--w-gutter);text-align:center}
+.brd__reuse{max-width:60ch;font:600 clamp(1rem,1.3vw,1.2rem)/1.4 var(--font-text);color:var(--c-on-primary)}
+
+/* Before brands.js runs (no JavaScript, or reduced motion): rows centred, names lit */
+.brd:not(.is-live) .brd__chip{color:var(--c-on-primary);border-color:#ffffff38}
+.brd:not(.is-live) .brd__chip::before{background:var(--c-secondary)}
+.brd:not(.is-live) .brd__cat{color:var(--c-secondary-on-ink);border-color:var(--c-secondary)}
+.brd:not(.is-live) .brd__hub{transform:none}
+
+@media(max-width:999px){
+  .brd__head{margin-inline:calc(-1 * var(--w-gutter));padding-inline:var(--w-gutter)}
+  .brd__head::before,.brd__head::after{display:none}
+  .brd__head .eyebrow{display:none}
+}
+@media(max-width:560px){
+  .brd__rows{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .brd__hub{width:136px}
+  .brd__hub .w-label{font-size:9px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .brd__track{animation:none!important}
+}

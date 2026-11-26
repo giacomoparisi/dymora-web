@@ -1,0 +1,152 @@
+/* ─── Per chi è Dymora and retrofit on carbon (Buildings.astro, buildings.js) ───
+   Same language as #app and #funzioni: no panels, the product floats on the carbon with the glow.
+   Without JavaScript (or with reduced motion): Proprietari selected, the retrofit split half and half.
+   .is-live: buildings.js runs. Multi .is-tap: a tap is landing on the next row; .bld__seg.is-active
+   and .bld__tab.is-active: the segment whose property shows (live, only its text shows).
+   Retro .is-after: the modern house shows; .is-moving: the line is sweeping. Both loop while on screen. */
+.bld__inner{display:grid;gap:clamp(64px,7vw,112px)}
+.bld .h-l{font-size:clamp(2rem,4.2vw,3.8rem)}
+.bld__stage{position:relative;isolation:isolate;margin:0}
+.bld__glow{position:absolute;left:50%;top:50%;z-index:-1;width:130%;aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511852,#f4511812 55%,transparent);pointer-events:none}
+
+/* ── Multi: the title pinned under the site header (as .story__head), then the line, then one row:
+   the render beside the phone on the left, the tabs and the selected segment's text on the right ── */
+.bld__multi{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(20px,2.4vw,32px)}
+.bld__row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;gap:clamp(32px,4.5vw,80px);margin-top:clamp(8px,2vw,32px)}
+.bld__copy-segs{display:grid;gap:clamp(18px,2vw,28px);align-content:start;min-width:0}
+.bld__segs{display:grid;gap:clamp(32px,3vw,48px)}
+.bld__seg{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(14px,1.4vw,20px);border-top:2px solid #ffffff1f;scroll-margin-top:calc(var(--sh-h,72px) + var(--bld-head,120px) + 24px);transition:border-color .4s}
+.bld__seg-tag{color:#ffffff8c;transition:color .4s}
+.bld__seg.is-active{border-color:var(--c-secondary)}
+.bld__seg.is-active .bld__seg-tag{color:var(--c-secondary-on-ink)}
+.bld__seg .w-body{font-size:clamp(.95rem,1.05vw,1.08rem)}
+.bld__seg .points{margin-top:4px}
+.bld__seg .points li{padding-block:10px}
+.bld__benefit{font-weight:700}
+/* Live: the texts share one place (as tall as the longest), only the selected one shows; the tabs
+   name them, so neither the tag nor the rule repeats it */
+.is-live .bld__segs{gap:0}
+.is-live .bld__seg{grid-area:1/1;padding-top:0;border-top:0;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .35s,transform .5s cubic-bezier(.16,1,.3,1),visibility 0s .35s}
+.is-live .bld__seg.is-active{opacity:1;visibility:visible;transform:none;transition:opacity .45s .1s,transform .6s cubic-bezier(.16,1,.3,1) .1s,visibility 0s}
+.is-live .bld__seg-tag{display:none}
+
+/* The tabs: one per segment, the bar under each fills while it shows (--bld-dwell), and the pause */
+.bld__bar{display:flex;align-items:center;gap:clamp(10px,1.2vw,16px)}
+.bld__tabs{flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(6px,.8vw,10px)}
+.bld__tabs[hidden],.bld__pause[hidden]{display:none}
+.bld__tab{position:relative;display:grid;gap:10px;justify-items:start;min-width:0;padding:8px 0 0;border:0;background:none;color:#ffffff8c;text-align:left;cursor:pointer;transition:color .3s}
+.bld__tab .w-label{overflow-wrap:anywhere}
+.bld__tab:hover{color:#fffc}
+.bld__tab.is-active{color:var(--c-secondary-on-ink);cursor:default}
+.bld__tab:focus-visible{outline:2px solid var(--c-secondary);outline-offset:4px;border-radius:2px}
+.bld__tab-fill{position:relative;width:100%;height:2px;border-radius:2px;background:#ffffff1f;overflow:hidden}
+.bld__tab-fill::after{content:"";position:absolute;inset:0;background:var(--c-secondary);transform:scaleX(0);transform-origin:left}
+.bld__tab-fill.is-on::after{transform:none}
+.bld__tab-fill.is-run::after{animation:bld-fill var(--bld-dwell,9s) linear forwards}
+@keyframes bld-fill{from{transform:scaleX(0)}to{transform:none}}
+.bld__pause{flex:none;display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid #ffffff59;background:#1c1c1a66;color:#fff;cursor:pointer;transition:background .2s,border-color .2s}
+.bld__pause:hover{background:var(--c-secondary);border-color:var(--c-secondary)}
+.bld__pause:focus-visible{outline:2px solid var(--c-secondary);outline-offset:3px}
+.bld__pause-icon{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
+.bld__pause[aria-pressed="true"] .bld__pause-icon{width:0;height:0;border:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent;translate:2px 0}
+.bld__head{position:sticky;top:var(--sh-h);z-index:3;display:grid;gap:clamp(8px,1vw,14px);padding-block:clamp(14px,2svh,24px);background:var(--c-primary)}
+.bld__head::before{content:"";position:absolute;inset:0 calc(-1 * var(--w-gutter));z-index:-1;background:var(--c-primary)}
+.bld__head::after{content:"";position:absolute;left:calc(-1 * var(--w-gutter));right:calc(-1 * var(--w-gutter));top:100%;height:32px;background:linear-gradient(var(--c-primary),#1c1c1a00);pointer-events:none}
+.bld__head .h-l{font-size:clamp(1.7rem,3.6vw,3.4rem)}
+.bld__lead{max-width:60ch;color:var(--c-on-primary);font-weight:600}
+.bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(130px,12vw,190px);grid-template-areas:"props phone";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
+.bld__multi .bld__glow{left:38%}
+.bld__props{grid-area:props;display:grid}
+.bld__prop{grid-area:1/1;display:grid;justify-items:center;gap:clamp(8px,1vw,14px);opacity:0;transform:translateY(18px) scale(.95);filter:blur(8px);transition:opacity .45s,transform .7s cubic-bezier(.16,1,.3,1),filter .45s;pointer-events:none}
+.bld__prop.is-active{opacity:1;transform:none;filter:none;transition-delay:.08s}
+.bld__prop>img,.bld__prop>.bld__sprite{width:min(100%,600px);filter:drop-shadow(0 30px 40px #0007)}
+.bld__name{color:var(--c-secondary-on-ink)}
+@media(prefers-reduced-motion:no-preference){.bld__props{animation:bld-float 7s ease-in-out infinite}}
+@keyframes bld-float{50%{transform:translateY(-8px)}}
+
+/* The phone: same frame as the one in #app */
+.bld__phone{grid-area:phone}
+.bld__screen{display:grid;container-type:inline-size;aspect-ratio:9/19.5;overflow:hidden;padding:clamp(3px,.45vw,6px);border-radius:clamp(16px,2.2vw,32px);background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 0 0 clamp(3px,.4vw,6px) var(--c-primary),0 40px 90px #000b}
+.bld__screen>.pk{border-radius:clamp(13px,1.8vw,26px)}
+
+/* The app's installation picker, drawn in HTML so its selection can move (sizes in --u, ≈1/34 of the screen) */
+.pk{--u:2.9cqw;display:grid;align-content:center;gap:calc(var(--u) * 4);padding:0 6cqw;background:#1c1c1a;color:#ece9e2;font-family:var(--font-text);line-height:1.2;text-align:center}
+.pk__brand{display:grid;justify-items:center;gap:calc(var(--u) * 2)}
+.pk__mark{width:calc(var(--u) * 13);opacity:.92}
+.pk__word{width:calc(var(--u) * 11);opacity:.92}
+.pk__dots{display:flex;gap:calc(var(--u) * .9)}
+.pk__dots i{width:calc(var(--u) * .7);aspect-ratio:1;border-radius:50%;background:#ffffff59}
+.pk__dots i:nth-child(n+4):nth-child(-n+6){background:var(--c-secondary)}
+.pk__dots i:nth-child(5){transform:scale(1.35)}
+.pk__title{font:800 calc(var(--u) * 2.7)/1.1 var(--font-text);letter-spacing:-.01em}
+.pk__title span{color:var(--c-secondary)}
+.pk__sub{margin:calc(var(--u) * 1) 0 calc(var(--u) * 3.4);font-size:calc(var(--u) * 1.2);opacity:.72}
+.pk__list{list-style:none;display:grid;gap:calc(var(--u) * 1.1);text-align:left}
+.pk__row{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:calc(var(--u) * 1.4);height:calc(var(--u) * 6);padding:0 calc(var(--u) * 1.6) 0 calc(var(--u) * 1.1);border:max(1px,calc(var(--u) * .12)) solid #ffffff2e;border-radius:calc(var(--u) * 1.2);background:#262624;transition:border-color .4s,background .4s,box-shadow .4s}
+.pk__row.is-active{border-color:var(--c-secondary);background:#2b221e;box-shadow:0 0 calc(var(--u) * 2) #f4511833}
+.pk__ico{display:grid;place-items:center;width:calc(var(--u) * 3.6);aspect-ratio:1;border-radius:calc(var(--u) * .9);background:#ffffff0f;transition:background .4s}
+.pk__ico::before{content:"";width:calc(var(--u) * 1.7);height:calc(var(--u) * .9);border:max(1px,calc(var(--u) * .16)) solid #ffffffb3;border-radius:calc(var(--u) * .3);transition:border-color .4s}
+.pk__row.is-active .pk__ico{background:#f451182e}
+.pk__row.is-active .pk__ico::before{border-color:var(--c-secondary)}
+.pk__name{display:grid;font:700 calc(var(--u) * 1.3)/1.2 var(--font-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pk__name small{max-height:0;opacity:0;font:400 calc(var(--u) * 1.02)/1.3 var(--font-text);transition:max-height .4s,opacity .4s}
+.pk__row.is-active .pk__name small{max-height:2em;opacity:.72}
+.pk__more{width:calc(var(--u) * .32);height:calc(var(--u) * .32);border-radius:50%;background:#ffffffb3;box-shadow:0 calc(var(--u) * -.55) #ffffffb3,0 calc(var(--u) * .55) #ffffffb3}
+.pk__end{position:relative;width:calc(var(--u) * 1.4);height:calc(var(--u) * 1.4)}
+.pk__end::before{content:"";position:absolute;inset:25% 35% 25% 15%;border-top:max(1px,calc(var(--u) * .16)) solid #ffffff99;border-right:max(1px,calc(var(--u) * .16)) solid #ffffff99;transform:rotate(45deg);transition:all .4s}
+.pk__row.is-active .pk__end::before{inset:10% 30% 35% 30%;border-color:var(--c-secondary);border-top:0;transform:rotate(45deg) scale(1.05);border-bottom:max(1px,calc(var(--u) * .16)) solid var(--c-secondary)}
+/* Live: the rows pick their segment (buildings.js); the phone's screen is aria-hidden, the tabs are
+   the accessible control */
+.is-live .pk__row{cursor:pointer}
+.is-live .pk__row:not(.is-active):hover{border-color:#ffffff66;background:#2e2e2b}
+/* The tap: a finger-sized dot lands on the row and ripples out */
+.pk__row::after{content:"";position:absolute;left:50%;top:50%;width:calc(var(--u) * 5);aspect-ratio:1;margin:calc(var(--u) * -2.5);border-radius:50%;background:#ffffff40;box-shadow:0 0 0 calc(var(--u) * .2) #ffffff80;opacity:0;pointer-events:none}
+.pk__row.is-tap::after{animation:bld-tap .6s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes bld-tap{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(2.2)}}
+
+/* ── Retrofit: the title pinned under the site header (the shared .bld__head), then the render on
+   the left and both options on the right ── */
+/* It follows the carbon HouseStory band, whose bottom air already separates them: no air of its own on top */
+.bld__chapter{gap:clamp(20px,2.4vw,32px);padding-top:0}
+.bld__chapter .bld__retro{margin-top:clamp(8px,2vw,32px)}
+.bld__retro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:clamp(32px,5vw,88px)}
+.bld__stage--retro{display:grid;gap:clamp(12px,1.4vw,20px);justify-items:center}
+.bld__swap{position:relative;display:grid;width:min(100%,680px)}
+.bld__swap>img,.bld__before{grid-area:1/1;width:100%;filter:drop-shadow(0 30px 40px #0007)}
+/* The period building (sprite period_house) on the modern render's 1600x1080 canvas, its plot laid
+   on the modern plot: scale 1.1548 and offset (14.8, 46.0) px, measured on the two plots' corners */
+.bld__before{position:relative;aspect-ratio:1600/1080}
+.bld__sprite-before{position:absolute;left:.926%;top:4.259%;width:98.16%}
+/* The modern house shows from the line to the right edge; the line sits at --split (animatable) */
+@property --split{syntax:"<percentage>";inherits:true;initial-value:50%}
+.bld__swap{--split:50%}
+.bld__after{clip-path:inset(0 0 0 var(--split))}
+/* and the period building up to it, or its trees would show where the modern render is clear */
+.bld__before{clip-path:inset(-10% calc(100% - var(--split)) -10% -10%)}
+.bld__wipe{position:absolute;top:4%;bottom:4%;left:var(--split);width:2px;margin-left:-1px;background:linear-gradient(#f4511800,#f45118 20%,#f45118 80%,#f4511800);box-shadow:0 0 18px #f45118;transition:opacity .25s}
+.bld__retro.is-live .bld__swap{--split:100%;transition:--split var(--bld-sweep,1s) cubic-bezier(.65,0,.35,1)}
+.bld__retro.is-live.is-after .bld__swap{--split:0%}
+.bld__retro.is-live .bld__wipe{opacity:0}
+.bld__retro.is-live.is-moving .bld__wipe{opacity:1}
+
+.bld__copy{display:grid;gap:clamp(20px,2.4vw,32px);align-content:start}
+.bld__opts{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,36px)}
+.bld__opt{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(12px,1.2vw,16px);border-top:2px solid #ffffff1f;transition:opacity .4s,border-color .4s}
+.bld__opt-tag{color:var(--c-secondary-on-ink)}
+.bld__opt .w-body{font-size:clamp(.95rem,1.05vw,1.08rem)}
+.bld__retro.is-live .bld__opt{opacity:.32}
+.bld__retro.is-live .bld__opt.is-active{opacity:1;border-color:var(--c-secondary)}
+.bld__close{color:var(--c-on-primary)}
+
+/* Narrow: the render and the phone above, the tabs and the text below; the retrofit's render sits
+   under its pinned title, so the sweep plays where the eye is, then the options */
+@media(max-width:900px){
+  .bld__multi,.bld__row,.bld__retro{grid-template-columns:minmax(0,1fr)}
+  .bld__multi .bld__stage{width:min(100%,640px);justify-self:center}
+  .bld__copy-segs{width:min(100%,640px);justify-self:center}
+}
+@media(max-width:560px){
+  .bld__multi .bld__stage{grid-template-columns:minmax(0,1fr) 34%;column-gap:14px}
+  .bld__name{font-size:11px}
+  .bld__opts{grid-template-columns:minmax(0,1fr)}
+}

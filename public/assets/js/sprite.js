@@ -21,10 +21,14 @@
  *                Removed, it runs on to its next pass through N, then a reversed.
  * Removing a `sheet!` or `a>b` token plays its first clip backwards before it goes:
  * the part switches off the way it switched on. A loop just stops.
+ *   token.       any of the above with a trailing dot leaves at once when removed,
+ *                without playing back (`stop!.` : a closing clip that is not undone).
  *
  * data-order (optional) lists sheets in paint order, bottom to top.
  * data-play (optional): the starting layers play in once the scene is on screen,
  * instead of starting at rest.
+ * data-preload (optional): more tokens whose sheets load with the scene, for layers
+ * that something else adds later (feature-fx.js on hover), so they start at once.
  *
  * Buttons with data-sprite-target="<id>" and data-sprite-layer="<token> [token…]"
  * toggle those tokens on the target and keep aria-pressed in step.
@@ -85,7 +89,7 @@
       var files = spec.variants[self.variant] || spec.variants[Object.keys(spec.variants)[0]];
       self.files = files;
       var wanted = { still: true };
-      parse(self.el.getAttribute("data-layers")).forEach(function (t) {
+      parse(self.el.getAttribute("data-layers")).concat(parse(self.el.getAttribute("data-preload"))).forEach(function (t) {
         self.sheetsOf(t).forEach(function (s) { wanted[s] = true; });
       });
       return Promise.all(Object.keys(wanted).map(function (s) { return self.image(s); }));
@@ -112,13 +116,18 @@
     return entry.ready;
   };
 
+  /* The token without its trailing `.` (leave without playing back). */
+  function bare(token) {
+    return token.replace(/\.$/, "");
+  }
+
   Scene.prototype.sheetsOf = function (token) {
-    return token.replace(/!$/, "").replace(/~-?\d*$/, "").split(">");
+    return bare(token).replace(/!$/, "").replace(/~-?\d*$/, "").split(">");
   };
 
   /* `~N` / `~-N` at the end of a token: the last sheet loops ping-pong. */
   function bounceOf(token) {
-    var m = /~(-?)(\d*)$/.exec(token);
+    var m = /~(-?)(\d*)$/.exec(bare(token));
     return m ? { at: parseInt(m[2] || "0", 10), back: m[1] === "-" } : null;
   }
 
@@ -142,6 +151,7 @@
 
     this.layers.forEach(function (l) {
       if (l.gone || tokens.indexOf(l.token) !== -1) return;
+      if (l.silent) { l.drop = true; return; }
       var held = l.once || l.seq.length > 1;
       if (l.bounce && l.seq.length > 1 && l.step === l.seq.length - 1 && !reduced.matches && !l.pending) {
         // Ping-pong loop: run on to the next pass through the entry frame, where the first clip ends.
@@ -172,7 +182,7 @@
       if (existing && !existing.gone) return;
       if (existing) self.layers.splice(self.layers.indexOf(existing), 1);
       var seq = self.sheetsOf(t);
-      var layer = { token: t, seq: seq, once: /!$/.test(t), bounce: bounceOf(t), step: 0, t0: now, reverse: false, gone: false, pending: true };
+      var layer = { token: t, seq: seq, once: /!$/.test(bare(t)), silent: /\.$/.test(t), bounce: bounceOf(t), step: 0, t0: now, reverse: false, gone: false, pending: true };
       // A layer whose sheets are in flight joins when they arrive.
       Promise.all(seq.map(function (s) { return self.image(s); })).then(function () {
         layer.pending = false;

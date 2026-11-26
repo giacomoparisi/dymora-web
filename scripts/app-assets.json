@@ -2,6 +2,34 @@
   "_comment": "Assets imported from dymora-app by scripts/sync-app-assets.py. Sprites: art/<dir>/sprites.json + core composeResources drawables. Variant 'light' for panna sections, 'dark' for carbon sections. Files: static images, converted to WebP when 'width' is set.",
   "sprites": [
     {
+      "art": "office-building",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "mountain-chalet",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "apartment-building",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "period-house",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
       "art": "house",
       "variants": [
         "light",
@@ -29,7 +57,8 @@
     {
       "art": "motion-sensor",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -47,7 +76,8 @@
     {
       "art": "lock-door",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -59,7 +89,8 @@
     {
       "art": "pendant-cone",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -83,12 +114,14 @@
     {
       "art": "awning",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
       "art": "thermostat",
       "variants": [
+        "light",
         "dark"
       ]
     },
@@ -113,7 +146,8 @@
     {
       "art": "water-tap",
       "variants": [
-        "light"
+        "light",
+        "dark"
       ]
     },
     {
@@ -133,6 +167,20 @@
       "variants": [
         "light"
       ]
+    },
+    {
+      "art": "ptz-camera",
+      "variants": [
+        "light",
+        "dark"
+      ]
+    },
+    {
+      "art": "circuit-breaker",
+      "variants": [
+        "light",
+        "dark"
+      ]
     }
   ],
   "files": [
@@ -142,19 +190,10 @@
       "width": 1200
     },
     {
-      "from": "design/marketing/brochure/assets/edificio-epoca.png",
-      "to": "images/edificio-epoca.webp",
-      "width": 1600
-    },
-    {
       "from": "design/marketing/brochure/assets/edificio-moderna.png",
       "to": "images/edificio-moderna.webp",
-      "width": 1600
-    },
-    {
-      "from": "design/marketing/brochure/assets/house-2-light.png",
-      "to": "images/edificio-casa.webp",
-      "width": 1200
+      "width": 1600,
+      "_note": "the site's copy has the irrigation off (owner request 2026-11-26): rendered with the brochure's tools/render_house.py and irrigation 0, not from this file, which has it on. A sync brings the irrigation back"
     },
     {
       "from": "design/marketing/brochure/assets/edificio-montagna.svg",
@@ -259,6 +298,17 @@
         1840
       ],
       "width": 800
+    },
+    {
+      "from": "design/store-screenshots/renders/it/energy-current-page-android-tablet-light-it.png",
+      "to": "images/app/energy-current-page-wide-light.webp",
+      "width": 1600,
+      "_note": "App screen for the home (HouseStory, 'La tua casa in una sola app'): store render, the app's own capture (renders/it/manifest.json appCommit). Computer = android-tablet, phone = iphone."
+    },
+    {
+      "from": "design/store-screenshots/renders/it/energy-current-page-iphone-light-it.png",
+      "to": "images/app/energy-current-page-phone-light.webp",
+      "width": 660
     }
   ]
 }
