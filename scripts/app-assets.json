@@ -192,7 +192,8 @@
     {
       "from": "design/marketing/brochure/assets/edificio-moderna.png",
       "to": "images/edificio-moderna.webp",
-      "width": 1600
+      "width": 1600,
+      "_note": "the site's copy has the irrigation off (owner request 2026-11-26): rendered with the brochure's tools/render_house.py and irrigation 0, not from this file, which has it on. A sync brings the irrigation back"
     },
     {
       "from": "design/marketing/brochure/assets/edificio-montagna.svg",

@@ -98,7 +98,7 @@ export const retrofit = {
     {
       tag: 'Con ristrutturazione',
       src: '/assets/images/edificio-moderna.webp',
-      alt: 'Una casa moderna con luci, tenda e irrigazione accese',
+      alt: 'Una casa moderna con luci e tenda accese',
       title: '**Pianificata con te**, in ogni dettaglio.',
       body: 'Impianto progettato su misura durante la fase di ristrutturazione sulle tue esigenze.',
     },
