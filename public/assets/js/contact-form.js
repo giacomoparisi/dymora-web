@@ -64,17 +64,14 @@
 
       const data = new FormData(form);
       const get = (k) => String(data.get(k) ?? '').trim();
-      const kind = get('kind') || 'Informazioni';
       const lines = [
-        `Richiesta: ${kind}`,
         `Nome: ${get('name')}`,
         get('company') && `Azienda: ${get('company')}`,
         `Email: ${get('email')}`,
         get('phone') && `Telefono: ${get('phone')}`,
-        `Quando ricontattarmi: ${get('slot') || 'Indifferente'}`,
-        get('message') && `\nMessaggio:\n${get('message')}`,
+        get('message') && `\nLe mie esigenze:\n${get('message')}`,
       ].filter(Boolean);
-      const subject = `Richiesta di ${kind.toLowerCase()} — ${get('name')}`;
+      const subject = `Richiesta di sopralluogo o demo — ${get('name')}`;
       const to = form.dataset.to;
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
 

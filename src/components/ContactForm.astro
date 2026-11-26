@@ -1,5 +1,5 @@
 ---
-// Request form (sopralluogo, demo, informazioni). For now it sends nothing itself: on submit
+// Request form for a sopralluogo or a demo. For now it sends nothing itself: on submit
 // `contact-form.js` checks the fields and opens the visitor's mail app with a ready message
 // to info@dymora.eu, so no data reaches a third party and /privacy/ and the CSP stay as they are.
 // Without JavaScript the form is hidden (nojs.css) and the plain mail link shows instead.
@@ -14,21 +14,10 @@ interface Props {
 }
 const { id = 'cf', tone = 'ink', class: className } = Astro.props;
 const f = (name: string) => `${id}-${name}`;
-const kinds = ['Sopralluogo', 'Demo', 'Informazioni'];
-const slots = ['Mattina', 'Pomeriggio', 'Indifferente'];
 ---
 <form class:list={['cf', `cf--${tone}`, className]} action="#" method="post" novalidate data-contact-form data-to="info@dymora.eu" aria-labelledby={f('title')}>
   <p class="h-s cf__title" id={f('title')}>Richiedi un sopralluogo o una demo</p>
   <div class="cf__summary" role="alert" tabindex="-1" hidden data-cf-summary></div>
-
-  <fieldset class="cf__group">
-    <legend class="w-label cf__legend">Cosa ti serve</legend>
-    <div class="cf__chips">
-      {kinds.map((k, i) => (
-        <label class="cf__chip"><input type="radio" name="kind" value={k} checked={i === 0} /><span>{k}</span></label>
-      ))}
-    </div>
-  </fieldset>
 
   <div class="cf__row">
     <div class="cf__field">
@@ -54,17 +43,8 @@ const slots = ['Mattina', 'Pomeriggio', 'Indifferente'];
     </div>
   </div>
 
-  <fieldset class="cf__group">
-    <legend class="w-label cf__legend">Quando preferisci essere ricontattato</legend>
-    <div class="cf__chips">
-      {slots.map((s, i) => (
-        <label class="cf__chip"><input type="radio" name="slot" value={s} checked={i === slots.length - 1} /><span>{s}</span></label>
-      ))}
-    </div>
-  </fieldset>
-
   <div class="cf__field">
-    <label for={f('message')}>Cosa vuoi tenere sotto controllo? <span class="cf__opt">(facoltativo)</span></label>
+    <label for={f('message')}>Quali sono le tue esigenze? <span class="cf__opt">(facoltativo)</span></label>
     <textarea id={f('message')} name="message" rows="4"></textarea>
   </div>
 

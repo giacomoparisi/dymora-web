@@ -114,13 +114,6 @@
 }
 @media(max-width:900px){.faq__intro{position:static}}
 
-/* ─── Closing on orange (Closing.astro) ─── */
-.closing.band--accent{background:var(--c-secondary-button);color:var(--c-on-secondary)}
-.band--accent .w-muted{color:#ffffffd9}
-.band--accent .closing__cascade{filter:brightness(0) invert(1);opacity:.22}
-.band--accent .w-cta{background:var(--c-primary);color:var(--c-on-primary)}
-.band--accent .w-cta:hover{background:#000}
-.band--accent :focus-visible{outline-color:var(--c-primary)}
 
 /* Story house: smaller tags, and the two crowded middle ones step towards the house */
 .story .ov-tag{font-size:clamp(9px,1.35cqw,13px);padding:.4em .6em}

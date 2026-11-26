@@ -1,12 +1,12 @@
 ---
 // Home, restructured on 2026-11-24 after the premium smart-home sites (one idea per section,
 // product first, scroll storytelling) in the Dymora design: carbon and panna bands alternate,
-// the closing banner is orange. Texts from dymora-app design/marketing/copy/it.md, never
+// the footer opens with the contact block (#contatti). Texts from dymora-app design/marketing/copy/it.md, never
 // rewritten here: sections only select and order them.
 //   opening (ink) → I tuoi spazi in una sola app + Per chi è Dymora + Funzioni, the house story (ink)
 //   → Dymora si adatta al tuo edificio (ink) → Il servizio, with Come si parte (paper)
 //   → Dispositivi (ink)
-//   → Domande (paper) → Chiusura (orange) → footer
+//   → Domande (paper) → footer, opening with the contact block
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/features.css';
 import '../styles/home.css';
@@ -23,7 +23,6 @@ import Brands from '../components/home/Brands.astro';
 import Segments from '../components/home/Segments.astro';
 import Retrofit from '../components/home/Retrofit.astro';
 import Faq from '../components/home/Faq.astro';
-import Closing from '../components/home/Closing.astro';
 ---
 <BaseLayout title="Dymora — I tuoi spazi. In una sola app." description="Domotica su misura per la casa, gli affitti brevi e le sedi aziendali: luci, clima, accessi, allarme, telecamere e consumi in una sola app, con progettazione, installazione, configurazione e assistenza di Dymora." pageClass="home-page">
   <Fragment slot="head"><script is:inline src="/assets/js/reveal.js"></script><script src="/assets/js/opening-video.js" defer></script><script is:inline src="/assets/js/buildings.js" defer></script></Fragment>
@@ -35,7 +34,6 @@ import Closing from '../components/home/Closing.astro';
     <Service />
     <Brands />
     <Faq />
-    <Closing />
   </main>
   <SiteFooter />
 </BaseLayout>
