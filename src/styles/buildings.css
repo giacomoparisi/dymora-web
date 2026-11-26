@@ -9,11 +9,11 @@
 .bld__stage{position:relative;isolation:isolate;margin:0}
 .bld__glow{position:absolute;left:50%;top:50%;z-index:-1;width:130%;aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511852,#f4511812 55%,transparent);pointer-events:none}
 
-/* ── Multi: the title on the left, the render beside the phone on the right (the retrofit mirrors it),
-   the three segments in a row below ── */
-.bld__multi{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;gap:clamp(32px,5vw,88px)}
-.bld__segs{grid-column:1/-1;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);margin-top:clamp(-40px,-2vw,-8px)}
-.bld__seg{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(14px,1.4vw,20px);border-top:2px solid #ffffff1f;scroll-margin-top:calc(var(--sh-h,72px) + 24px);transition:border-color .4s}
+/* ── Multi: the title pinned under the site header (as .story__head), then the line, the render beside
+   the phone, the three segments in a row below ── */
+.bld__multi{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(20px,2.4vw,32px)}
+.bld__segs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,3vw,48px);margin-top:clamp(-40px,-2vw,-8px)}
+.bld__seg{display:grid;gap:clamp(8px,.9vw,12px);align-content:start;padding-top:clamp(14px,1.4vw,20px);border-top:2px solid #ffffff1f;scroll-margin-top:calc(var(--sh-h,72px) + var(--bld-head,120px) + 24px);transition:border-color .4s}
 .bld__seg-tag{color:#ffffff8c;transition:color .4s}
 .bld__seg.is-active{border-color:var(--c-secondary)}
 .bld__seg.is-active .bld__seg-tag{color:var(--c-secondary-on-ink)}
@@ -21,8 +21,12 @@
 .bld__seg .points{margin-top:4px}
 .bld__seg .points li{padding-block:10px}
 .bld__benefit{font-weight:700}
-.bld__head{display:grid;gap:clamp(12px,1.4vw,18px);justify-items:start;align-content:center}
-.bld__multi .bld__stage{display:grid;grid-template-columns:minmax(0,1fr) clamp(140px,13vw,190px);grid-template-areas:"props phone" "rail rail";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
+.bld__head{position:sticky;top:var(--sh-h);z-index:3;display:grid;gap:clamp(8px,1vw,14px);padding-block:clamp(14px,2svh,24px);background:var(--c-primary)}
+.bld__head::before{content:"";position:absolute;inset:0 calc(-1 * var(--w-gutter));z-index:-1;background:var(--c-primary)}
+.bld__head::after{content:"";position:absolute;left:calc(-1 * var(--w-gutter));right:calc(-1 * var(--w-gutter));top:100%;height:32px;background:linear-gradient(var(--c-primary),#1c1c1a00);pointer-events:none}
+.bld__head .h-l{font-size:clamp(1.7rem,3.6vw,3.4rem)}
+.bld__lead{max-width:60ch}
+.bld__multi .bld__stage{width:min(100%,980px);justify-self:center;margin-block:clamp(16px,3vw,48px);display:grid;grid-template-columns:minmax(0,1fr) clamp(140px,13vw,190px);grid-template-areas:"props phone" "rail rail";align-items:center;column-gap:clamp(16px,3vw,48px);row-gap:clamp(14px,1.6vw,22px)}
 .bld__multi .bld__glow{left:38%}
 .bld__props{grid-area:props;display:grid}
 .bld__prop{grid-area:1/1;display:grid;justify-items:center;gap:clamp(8px,1vw,14px);opacity:0;transform:translateY(18px) scale(.95);filter:blur(8px);transition:opacity .45s,transform .7s cubic-bezier(.16,1,.3,1),filter .45s;pointer-events:none}
@@ -109,7 +113,7 @@
 /* Narrow: the phone stays beside the render, smaller; the retrofit stacks with its text first */
 @media(max-width:900px){
   .bld__multi,.bld__retro{grid-template-columns:minmax(0,1fr)}
-  .bld__multi .bld__stage{width:min(100%,640px);justify-self:center}
+  .bld__multi .bld__stage{width:min(100%,640px)}
   .bld__segs{grid-template-columns:minmax(0,1fr);margin-top:0}
   /* The render between the title and the options, so the sweep plays where the eye is */
   .bld__retro .bld__copy{display:contents}

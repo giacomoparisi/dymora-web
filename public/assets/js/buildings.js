@@ -79,6 +79,13 @@
     var held = false, running = false;
     var sprites = items.map(function (el) { return el.querySelector(".sprite[data-preload]"); });
     root.style.setProperty("--bld-dwell", STEP + "ms");
+    // The pinned title's height, so the segments' anchors land below it.
+    var head = root.querySelector(".bld__head");
+    if (head && window.ResizeObserver) {
+      new ResizeObserver(function () {
+        root.style.setProperty("--bld-head", head.offsetHeight + "px");
+      }).observe(head);
+    }
 
     // The selected property's lights on, the others off; -1 turns them all off.
     function light(i) {

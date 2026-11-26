@@ -2,7 +2,8 @@
 // "Per chi è Dymora" (copy `segments`): the three kinds of client Dymora designs for (owners of
 // several properties, short-term rentals, companies with their premises), right under "I tuoi
 // spazi. In una sola app." inside the HouseStory band (its slot), before the functions.
-// Above, the title beside the app's installation picker (drawn in HTML, a demonstrative copy of the
+// The title stays pinned under the site header while the section scrolls (as #funzioni and
+// #dispositivi; its height → --bld-head, buildings.js). Below, the line, then the app's installation picker (drawn in HTML, a demonstrative copy of the
 // installation-selection screen), where each property stands for one kind of client; below, the
 // three segments' texts, all readable at once. While it shows a tap lands on the next row, the row
 // lights up, the render changes and the matching text gets the orange rule: Proprietari → Affitti
@@ -22,8 +23,8 @@ const segs = segments.items;
     <div class="bld__head" data-reveal>
       <p class="w-label eyebrow">{segments.eyebrow}</p>
       <Headline id="segments-title" size="l" text={segments.title} />
-      <p class="w-lead w-muted">{segments.line}</p>
     </div>
+    <p class="w-lead w-muted bld__lead" data-reveal>{segments.line}</p>
 
     <figure class="bld__stage" data-reveal="panel" data-reveal-step="1">
       <div class="bld__glow" aria-hidden="true"></div>
