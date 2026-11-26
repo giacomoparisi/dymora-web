@@ -4,3 +4,5 @@
   .sh__burger,.sh__nav{display:none}
   .sh__cta{display:inline-flex}
 }
+.cf{display:none}
+.cf-nojs{display:block}
