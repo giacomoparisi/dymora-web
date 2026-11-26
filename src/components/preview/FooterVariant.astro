@@ -1,0 +1,106 @@
+---
+// PREVIEW ONLY (anteprima-footer): the three candidate closings without the orange band,
+// each with the request form. Delete with the preview page once the owner has chosen.
+//   a: the closing moves into the footer, one carbon block on every page
+//   b: a carbon card on panna above a slim footer
+//   c: a light closing in two columns above a slim footer
+import Headline from '../Headline.astro';
+import ContactForm from '../ContactForm.astro';
+import { features } from '../../data/features';
+
+interface Props {
+  v: 'a' | 'b' | 'c';
+}
+const { v } = Astro.props;
+const year = new Date().getFullYear();
+const title = 'Raccontaci di cosa hai **bisogno**.';
+const lead = 'Ci dici cosa vuoi tenere sotto controllo e noi ti diciamo come si può fare.';
+const dymora = [
+  ['/#servizio', 'Il servizio'],
+  ['/#come-si-parte', 'Come si parte'],
+  ['/#edifici', 'Più edifici'],
+  ['/#domande', 'Domande'],
+  ['/#contatti', 'Contatti'],
+];
+const help = [
+  ['/support/', 'Supporto'],
+  ['mailto:support@dymora.eu', 'support@dymora.eu'],
+  ['mailto:info@dymora.eu', 'info@dymora.eu'],
+  ['mailto:privacy@dymora.eu', 'privacy@dymora.eu'],
+];
+---
+{v === 'a' && (
+  <footer class="sf pf-a">
+    <div class="pf-a__contact" id="a-contatti">
+      <div class="pf-a__copy">
+        <Headline id="pfa-title" size="l" text={title} />
+        <p class="w-lead w-muted">{lead}</p>
+        <a class="h-s pf-mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
+        <img class="pf-a__hub" src="/assets/images/hub.webp" alt="L'hub Dymora" width="1200" height="987" loading="lazy" />
+      </div>
+      <ContactForm id="cfa" tone="ink" class="pf-a__form" />
+    </div>
+    <div class="sf__inner pf-a__inner">
+      <div class="sf__brand">
+        <img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" loading="lazy" />
+        <p class="sf__payoff">The Art of Living <span class="w-accent">Smart.</span></p>
+        <p class="w-body sf__muted">Goditi l'esperienza, al resto pensiamo noi.</p>
+      </div>
+      <nav class="sf__cols" aria-label="Collegamenti del sito (variante A)">
+        <div><p class="w-label sf__title">Funzioni</p><ul>{features.map((f) => <li><a href={f.href}>{f.label}</a></li>)}</ul></div>
+        <div><p class="w-label sf__title">Dymora</p><ul>{dymora.map(([h, l]) => <li><a href={h}>{l}</a></li>)}</ul></div>
+        <div><p class="w-label sf__title">Assistenza</p><ul>{help.map(([h, l]) => <li><a href={h}>{l}</a></li>)}</ul></div>
+      </nav>
+    </div>
+    <div class="sf__legal w-note">
+      <p>© {year} Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
+      <nav aria-label="Informazioni legali (variante A)"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a></nav>
+    </div>
+  </footer>
+)}
+
+{v === 'b' && (
+  <section class="band band--paper pf-b" id="b-contatti" aria-labelledby="pfb-title">
+    <div class="band__inner pf-b__card">
+      <div class="pf-b__copy">
+        <img src="/assets/images/logo-word-white.svg" alt="" width="144" height="30" class="pf-b__word" />
+        <Headline id="pfb-title" size="l" text={title} />
+        <p class="w-lead pf-b__lead">{lead}</p>
+        <a class="h-s pf-mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
+      </div>
+      <ContactForm id="cfb" tone="ink" />
+    </div>
+  </section>
+)}
+
+{v === 'c' && (
+  <section class="pf-c" id="c-contatti" aria-labelledby="pfc-title">
+    <div class="pf-c__inner">
+      <div class="pf-c__copy">
+        <Headline id="pfc-title" size="l" text={title} />
+        <p class="w-lead pf-c__lead">{lead}</p>
+        <a class="h-s pf-mail pf-c__mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
+        <img class="pf-c__hub" src="/assets/images/hub.webp" alt="L'hub Dymora" width="1200" height="987" loading="lazy" />
+      </div>
+      <ContactForm id="cfc" tone="paper" class="pf-c__form" />
+    </div>
+  </section>
+)}
+
+{v !== 'a' && (
+  <footer class="pf-slim">
+    <div class="pf-slim__grid">
+      <div class="pf-slim__brand">
+        <img src="/assets/images/logo-word-white.svg" alt="Dymora" width="144" height="30" loading="lazy" />
+        <p>The Art of Living <span class="w-accent">Smart.</span></p>
+      </div>
+      <nav aria-label={`Funzioni (variante ${v.toUpperCase()})`}><p class="w-label">Funzioni</p>{features.map((f) => <a href={f.href}>{f.label}</a>)}</nav>
+      <nav aria-label={`Dymora (variante ${v.toUpperCase()})`}><p class="w-label">Dymora</p>{dymora.map(([h, l]) => <a href={h}>{l}</a>)}</nav>
+      <nav aria-label={`Assistenza (variante ${v.toUpperCase()})`}><p class="w-label">Assistenza</p>{help.map(([h, l]) => <a href={h}>{l}</a>)}</nav>
+    </div>
+    <div class="pf-slim__legal w-note">
+      <p>© {year} Alberto Citi · P.IVA 02100310495 · Via Giovanni Paolo II 21b, 57023 Cecina (LI)</p>
+      <nav aria-label={`Informazioni legali (variante ${v.toUpperCase()})`}><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a></nav>
+    </div>
+  </footer>
+)}

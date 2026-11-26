@@ -1,0 +1,41 @@
+---
+// PREVIEW ONLY (branch speedrun/footer-funzioni): three candidate closings without the
+// orange band, each with the request form, stacked so the owner can pick one. Not in the
+// sitemap, noindex. Delete this page, preview-footer.css and preview/FooterVariant.astro once chosen.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import FooterVariant from '../../components/preview/FooterVariant.astro';
+import '../../styles/footer.css';
+import '../../styles/preview-footer.css';
+
+const options = [
+  { v: 'a', name: 'Chiusura nel footer' },
+  { v: 'b', name: 'Card carbone su panna' },
+  { v: 'c', name: 'Chiusura chiara' },
+] as const;
+---
+<BaseLayout title="Anteprima — chiusura e footer" description="Anteprima interna delle varianti di chiusura e footer.">
+  <Fragment slot="head"><meta name="robots" content="noindex" /><script src="/assets/js/contact-form.js" defer></script></Fragment>
+  <main>
+    <header class="band band--paper pf-top">
+      <div class="band__inner pf-top__inner">
+        <Eyebrow text="Anteprima interna" />
+        <h1 class="h-m">Chiusura e <span class="w-accent">footer</span>: tre varianti</h1>
+        <p class="w-body w-muted">Ogni variante parte da dove finisce la sezione Domande (panna). Il form apre l'app di posta con il messaggio pronto per info@dymora.eu.</p>
+        <nav aria-label="Varianti">
+          <ul class="pf-nav">
+            {options.map((o) => <li><a class="tag" href={`#opzione-${o.v}`}>{o.v.toUpperCase()} · {o.name}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    {options.map((o) => (
+      <div class="pf-variant">
+        <p class="pf-label" id={`opzione-${o.v}`}><span>Opzione {o.v.toUpperCase()}</span> {o.name}</p>
+        <div class="pf-faq-end" aria-hidden="true"><div class="band__inner">… fine della sezione Domande</div></div>
+        <FooterVariant v={o.v} />
+      </div>
+    ))}
+  </main>
+</BaseLayout>
