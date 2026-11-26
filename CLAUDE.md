@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `dymora-web` is the public static website for **dymora.eu**. It is an Astro site built to static files in `dist/`; styles and scripts are external and all production assets are self-hosted. `public/CNAME` maps the custom domain and must not be deleted.
 
-The GitHub Pages Actions workflow is prepared in `.github/workflows/deploy-pages.yml`. Do not switch the repository's Pages source to Actions without the project owner's explicit approval: that activation is scheduled separately. Never push directly to `main`.
+GitHub Pages deploys with GitHub Actions (`.github/workflows/deploy-pages.yml`, source switched from the legacy root build on 2026-11-26 with the owner's approval): every push to `main` builds `dist/` and publishes it on dymora.eu. The pre-Astro files at the repo root (`index.html`, `images/`, `assets/`, ...) are no longer served. Never push directly to `main`.
 
 Current pages:
 
