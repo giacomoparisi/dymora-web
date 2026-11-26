@@ -19,7 +19,7 @@
  *                             on (sprite.js plays it backwards)
  *
  * Both loop while on screen and pause when they leave it or the tab is hidden.
- * Multi: Proprietari → Affitti brevi → Aziende → …, long enough on each to read its text; before
+ * Multi: Proprietari → Affitti → Aziende → …, long enough on each to read its text; before
  * each change a tap lands on the next row. A tab, or a row of the picker, picks its segment and the
  * turns go on from there; pointing at the text or the picker's list holds it until the mouse leaves; the pause button stops the turns, and so
  * does arriving on a segment's anchor. Off screen, unless paused, it starts again from the first.

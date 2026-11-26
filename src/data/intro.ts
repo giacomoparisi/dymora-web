@@ -56,7 +56,7 @@ export const segments = {
       sprite: 'mountain_chalet', lights: 'lights_on_idle!',
     },
     {
-      id: 'affitti-brevi', tag: 'Affitti brevi', app: 'Appartamento',
+      id: 'affitti-brevi', tag: 'Affitti', app: 'Appartamento',
       title: 'I tuoi alloggi, **gestiti a distanza**.',
       line: 'Ogni arrivo da preparare, ogni partenza da controllare, i costi da tenere a bada: Dymora ti fa gestire gli alloggi da remoto, con meno spostamenti e più controllo.',
       points: [
