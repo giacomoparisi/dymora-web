@@ -1,0 +1,18 @@
+/* BrandLockup.astro: the splash's opening. `is-armed` (lockup.js) sets the first frame, the mark
+   alone at the centre; `is-in` plays it: 160 ms hold, the row opens in 560 ms (FastOutSlowIn), each
+   letter comes in over 120 ms, α 0 → 1 and x −4 → 0 dp, as the opening front reaches it. */
+.lk{display:block;width:min(100%,320px);height:auto;overflow:visible;fill:currentColor}
+.lk.is-armed .lk__row{transform:translateX(86.365px)}
+.lk.is-armed .lk__l{opacity:0}
+.lk.is-in .lk__row{animation:lk-open .56s .16s cubic-bezier(.4,0,.2,1) both}
+.lk.is-in .lk__l{animation:lk-type .12s cubic-bezier(0,0,.58,1) both}
+.lk.is-in .lk__l:nth-child(1){animation-delay:0.257s}
+.lk.is-in .lk__l:nth-child(2){animation-delay:0.303s}
+.lk.is-in .lk__l:nth-child(3){animation-delay:0.335s}
+.lk.is-in .lk__l:nth-child(4){animation-delay:0.377s}
+.lk.is-in .lk__l:nth-child(5){animation-delay:0.424s}
+.lk.is-in .lk__l:nth-child(6){animation-delay:0.494s}
+/* −4 dp in the wordmark's own units (scale 0.135252). */
+@keyframes lk-open{from{transform:translateX(86.365px)}to{transform:none}}
+@keyframes lk-type{from{opacity:0;transform:translateX(-29.57px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.lk .lk__row,.lk .lk__l{animation:none;transform:none;opacity:1}}

@@ -5,6 +5,7 @@
 // link columns mirroring the header, then the verified legal data.
 import Headline from './Headline.astro';
 import ContactForm from './ContactForm.astro';
+import BrandLockup from './BrandLockup.astro';
 import { features } from '../data/features';
 import '../styles/footer.css';
 
@@ -16,7 +17,7 @@ const year = new Date().getFullYear();
       <Headline id="contatti-title" size="l" text="Raccontaci di cosa hai **bisogno**." />
       <p class="w-lead sf__muted">Dicci quali sono le tue esigenze in modo da trovare la soluzione che fa per te.</p>
       <a class="h-s sf__mail" href="mailto:info@dymora.eu">info@dymora.eu</a>
-      <img class="sf__hub" src="/assets/images/hub.webp" alt="L'hub Dymora" width="1200" height="987" loading="lazy" />
+      <BrandLockup class="sf__lockup" />
     </div>
     <ContactForm id="richiesta" tone="ink" />
   </div>
@@ -57,4 +58,5 @@ const year = new Date().getFullYear();
     <nav aria-label="Informazioni legali"><a href="/privacy/">Privacy</a><a href="/cookie/">Cookie</a></nav>
   </div>
   <script src="/assets/js/contact-form.js" defer></script>
+  <script src="/assets/js/lockup.js" defer></script>
 </footer>
