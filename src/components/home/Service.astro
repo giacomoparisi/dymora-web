@@ -8,8 +8,8 @@
 // service.css). The visitor can pick a step (click on it, or the buttons of the rail) and pause
 // the loop with the button on the stage (WCAG 2.2.2). Scenes are drawn in HTML on the site's
 // assets: the consultation form with the functions chosen in it, the flat marked on its building
-// and then its plan with the same functions beside it, the devices joining the hub, the same devices sliding into the app, a light that
-// stops answering and comes back after a mail to support. Every scene is decorative (aria-hidden): the steps say the
+// and then its plan with the same functions beside it, the devices joining the hub, the same devices sliding into the app, a short exchange
+// with the support about a light that stops answering, the light back. Every scene is decorative (aria-hidden): the steps say the
 // same in text.
 // Without JavaScript the first scene rests and the steps read as plain text; with reduced motion
 // nothing plays on its own: the rail and the steps still change the scene, without movement.
@@ -220,17 +220,23 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
               <p class="sc-stamp w-label"><span>Nell'app</span> 5 dispositivi</p>
             </div>
 
-            <!-- 5 · Assistenza: a light stops answering, a mail to support, the light answers again -->
+            <!-- 5 · Assistenza: the customer writes to the support that a light stops answering,
+                 the reply comes after a moment of typing, then the light is back (owner choice,
+                 2026-11-26, among five proposals) -->
             <div class="svc-scene svc-scene--care" data-svc-scene="4">
-              <div class="sc-care">
-                <div class="sc-card sc-card--dev">
-                  <img src="/assets/images/devices/luci.webp" alt="" width="428" height="360" loading="lazy" decoding="async" />
-                  <span class="sc-card__name">Luce soggiorno<small class="sc-st sc-st--ko">Non risponde</small><small class="sc-st sc-st--ok">Collegata</small></span>
+              <div class="sc-chat">
+                <div class="sc-chat__head">
+                  <img src="/assets/images/logo-mark-white.svg" alt="" width="517" height="376" loading="lazy" />
+                  <b>Assistenza Dymora</b>
+                  <span class="w-label">support@dymora.eu</span>
                 </div>
-                <div class="sc-card sc-card--mail">
-                  <span class="w-label sc-card__to">A</span>
-                  <span class="sc-card__addr">support@dymora.eu</span>
-                  <span class="sc-card__sent w-label">Inviata</span>
+                <p class="sc-chat__msg sc-chat__msg--me">La luce del soggiorno non risponde.</p>
+                <p class="sc-chat__typing"><i></i><i></i><i></i></p>
+                <p class="sc-chat__msg sc-chat__msg--us">Ricevuto. Ce ne occupiamo noi.</p>
+                <div class="sc-chat__msg sc-chat__msg--us sc-chat__dev">
+                  <img src="/assets/images/devices/luci.webp" alt="" width="428" height="360" loading="lazy" decoding="async" />
+                  <b>Luce soggiorno</b>
+                  <small>Collegata</small>
                 </div>
               </div>
             </div>

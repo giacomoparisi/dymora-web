@@ -238,24 +238,39 @@
   .sc-move b{display:none}
 }
 
-/* 5 · Assistenza — a light stops answering, a mail to support, the light answers again */
-.sc-care{display:grid;gap:3cqw;width:66cqw}
-.sc-card{display:flex;align-items:center;gap:3cqw;padding:3cqw 3.6cqw;border:1px solid #ffffff1f;border-radius:3cqw;background:var(--c-primary-container);box-shadow:0 3cqw 6cqw #0006}
-.sc-card--dev img{width:13cqw;height:auto;filter:grayscale(1) brightness(.55);transition:filter .6s;--d:1.32s}
-.svc-scene--care.is-active .sc-card--dev img{filter:drop-shadow(0 2cqw 3cqw #f7c14a55)}
-.sc-card__name{display:grid;gap:1cqw;font:700 3.6cqw/1.1 var(--font-text)}
-.sc-st{display:flex;align-items:center;gap:1.4cqw;grid-area:2/1;font:900 max(9px,2cqw)/1 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;transition:opacity .35s;--d:1.32s}
-.sc-st::before{content:"";width:1.5cqw;height:1.5cqw;border-radius:50%;background:currentColor}
-.sc-st--ko{color:var(--c-warning)}
-.sc-st--ok{color:#3fbf78;opacity:0}
-.svc-scene--care.is-active .sc-st--ko{opacity:0}
-.svc-scene--care.is-active .sc-st--ok{opacity:1}
-.sc-card--mail{margin-left:9cqw;opacity:0;transform:translateY(4cqw);transition:opacity .5s,transform .6s var(--ease-out);--d:.36s}
-.svc-scene--care.is-active .sc-card--mail{opacity:1;transform:none}
-.sc-card__to{font-size:max(9px,1.9cqw);color:var(--c-on-primary-muted)}
-.sc-card__addr{flex:1;font:700 3.2cqw/1.2 var(--font-text)}
-.sc-card__sent{padding:1cqw 1.6cqw;border-radius:.8cqw;background:var(--c-secondary);color:var(--c-on-secondary);font-size:max(9px,1.7cqw);opacity:0;transform:scale(.8);transition:opacity .3s,transform .4s var(--ease-out);--d:.84s}
-.svc-scene--care.is-active .sc-card__sent{opacity:1;transform:none}
+/* 5 · Assistenza — a short exchange with the support: the customer writes that a light stops
+   answering, the reply comes after a moment of typing, then the light is back. Like scene 1, its
+   parts rest in their final state and play in through animations that fill backwards, so the
+   scene without JavaScript or with reduced motion is the whole exchange (the typing dots only
+   show while it plays). */
+.sc-chat{display:grid;gap:2.4cqw;width:74cqw;padding:3.6cqw;border-radius:3cqw;border:1px solid #ffffff1f;background:var(--c-primary-container);box-shadow:0 3cqw 6cqw #0006}
+.sc-chat__head{display:flex;align-items:center;gap:2cqw;padding-bottom:2.4cqw;border-bottom:1px solid #ffffff1a}
+.sc-chat__head img{width:6cqw;height:auto}
+.sc-chat__head b{flex:1;font:700 max(11px,3cqw)/1 var(--font-text)}
+.sc-chat__head .w-label{font-size:max(8px,1.6cqw);color:var(--c-on-primary-muted)}
+.sc-chat__msg{max-width:80%;padding:2.2cqw 3cqw;border-radius:2.6cqw;font:500 max(10px,2.8cqw)/1.3 var(--font-text)}
+.sc-chat__msg--me{justify-self:end;background:var(--c-secondary);color:var(--c-on-secondary);border-bottom-right-radius:.6cqw}
+.sc-chat__msg--us{justify-self:start;background:#ffffff14;border-bottom-left-radius:.6cqw}
+.sc-chat__dev{display:flex;align-items:center;gap:2cqw}
+.sc-chat__dev img{width:7cqw;height:auto;filter:drop-shadow(0 1cqw 2cqw #f7c14a66)}
+.sc-chat__dev b{font:700 max(10px,2.8cqw)/1 var(--font-text)}
+.sc-chat__dev small{display:flex;align-items:center;gap:1cqw;margin-left:1cqw;font:900 max(8px,1.7cqw)/1 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:#3fbf78}
+.sc-chat__dev small::before{content:"";width:1.4cqw;height:1.4cqw;border-radius:50%;background:currentColor}
+.sc-chat__typing{display:none}
+.svc-scene--care.is-active .sc-chat__msg--me{animation:sc-in .45s var(--ease-out) .3s both}
+.svc-scene--care.is-active .sc-chat__typing{display:flex;gap:1cqw;justify-self:start;padding:2.4cqw 3cqw;border-radius:2.6cqw;background:#ffffff14;animation:sc-show .2s 1s both,sc-typed 0s 1.75s forwards}
+.sc-chat__typing i{width:1.3cqw;height:1.3cqw;border-radius:50%;background:var(--c-on-primary-muted);animation:sc-dot .6s ease-in-out infinite alternate}
+.sc-chat__typing i:nth-child(2){animation-delay:.2s}.sc-chat__typing i:nth-child(3){animation-delay:.4s}
+@keyframes sc-show{from{opacity:0}}
+@keyframes sc-dot{to{transform:translateY(-.8cqw);background:#fff}}
+@keyframes sc-typed{to{display:none;opacity:0;height:0;padding:0;margin:-2.4cqw 0 0}}
+.svc-scene--care.is-active .sc-chat__msg--us{animation:sc-in .45s var(--ease-out) 1.8s both}
+.svc-scene--care.is-active .sc-chat__dev{animation:sc-in .45s var(--ease-out) 2.5s both}
+/* Small stages: the card moves left, clear of the pause button, and the head keeps only its name */
+@container (max-width:440px){
+  .sc-chat{width:76cqw;margin-right:16cqw}
+  .sc-chat__head .w-label{display:none}
+}
 
 /* Narrow: the stage above, the rail keeps only its nodes, and the steps share one place under
    it, showing the active one (all of them stay in the text for screen readers) */
@@ -277,4 +292,5 @@
 @media(prefers-reduced-motion:reduce){
   .svc__step,.svc__step::after,.svc__fill,.svc-scene,.svc-scene *,.svc-scene *::before,.svc-scene *::after{transition:none!important;animation:none!important}
   .svc-scene--config.is-active .sc-move{opacity:0}
+  .sc-chat__typing{display:none!important}
 }
