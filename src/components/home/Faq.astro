@@ -1,27 +1,25 @@
 ---
-// Site FAQ, every entry of copy/it.md "FAQ del sito" in its order; `faq.cost` leads.
+// Site FAQ: the central questions about the service (owner review, 2026-11-26).
 import Band from '../Band.astro';
 import Eyebrow from '../Eyebrow.astro';
 import Headline from '../Headline.astro';
 
 const faq: [string, string][] = [
+  ['Cos\'è Dymora, in pratica?', "Progettiamo, installiamo e configuriamo la domotica della tua casa o del tuo locale: luci, clima, allarme, telecamere, tapparelle e consumi. Poi la gestisci da un'unica app, e noi restiamo al tuo fianco con l'assistenza."],
   ['Devo saperne di tecnologia?', "No. Progettazione, installazione e configurazione le facciamo noi: tu usi l'app. Se hai un problema, c'è l'assistenza."],
-  ['Posso partire da una sola funzione?', 'Sì. Puoi partire da una sola funzione, per esempio i consumi.'],
-  ['Vedo i consumi di tutta la casa?', 'Con le prese intelligenti vedi i consumi delle prese monitorate, non il totale della casa. Cosa misurare lo decidiamo insieme nella consulenza.'],
-  ['Quanto risparmio?', 'Dipende da come usi la casa. Dymora ti mostra quanto consumano gli apparecchi monitorati; cosa farne lo decidi tu.'],
-  ['Vedo se le tapparelle sono aperte o chiuse?', 'Dipende dal motore. Se comunica la posizione la vedi; se non la comunica hai i comandi, ma non lo stato.'],
-  ['Posso tenere le telecamere che ho già?', 'Valutiamo le telecamere che hai e la loro compatibilità. Da lì progettiamo la soluzione, riutilizzando quelle compatibili.'],
-  ['Una persona rilevata è sempre un intruso?', 'No. Il sistema riconosce una persona, non le sue intenzioni.'],
-  ['Funziona anche da fuori casa?', "Sì. Quando sei sulla rete di casa l'app prova il collegamento locale; se non risponde usa quello remoto, che è anche quello che usi da fuori. Accesso e funzioni passano comunque dal server Dymora."],
-  ['Su quali dispositivi funziona?', "L'app è sviluppata per Android, iOS e computer. Sul computer funzionano anche diretta e registrazioni. Le notifiche arrivano sul telefono, non sul computer."],
-  ['Va bene anche per una piccola attività?', 'Sì, con le stesse funzioni della casa, configurate per il tuo locale. Non è un prodotto specifico per uffici o negozi.'],
+  ['Devo rifare l\'impianto o fare lavori in casa?', "No. Senza ristrutturazione usiamo soluzioni poco invasive: niente opere murarie e nessun impianto elettrico da rifare. Se stai ristrutturando, progettiamo l'impianto su misura insieme ai lavori."],
+  ['Posso tenere i dispositivi che ho già?', 'Valutiamo quelli che hai e riutilizziamo quelli compatibili. Per il resto ti consigliamo il prodotto più adatto, di qualunque marca: lo integriamo nella stessa app.'],
+  ['Posso partire da una sola funzione e aggiungere le altre dopo?', 'Sì. Puoi partire, per esempio, dai consumi o dalle telecamere e aggiungere altre funzioni quando vuoi.'],
+  ['Perché c\'è un abbonamento?', "Perché Dymora non finisce con l'installazione. L'abbonamento copre la piattaforma, gli aggiornamenti e l'assistenza, così il sistema resta stabile e sicuro nel tempo."],
+  ['Posso collegare più immobili?', "Sì. Casa, casa in montagna, ufficio: ogni immobile ha il suo impianto e li gestisci tutti dalla stessa app, passando dall'uno all'altro quando vuoi."],
+  ['Va bene anche per un negozio o un ufficio?', 'Sì. Le funzioni sono le stesse della casa, configurate per il tuo locale.'],
 ];
 ---
 <Band tone="paper" id="domande" class="faq" labelledby="faq-title" innerClass="faq__inner">
   <div class="faq__intro">
     <Eyebrow text="Domande" rule />
-    <Headline id="faq-title" size="m" text="Quanto **costa**?" />
-    <p class="w-lead w-muted">Dipende da cosa vuoi controllare e da cosa c'è già in casa. Oltre all'installazione c'è un abbonamento: ti diciamo tutto nella consulenza.</p>
+    <Headline id="faq-title" size="m" text="Le domande che ci fanno **più spesso**." />
+    <p class="w-lead w-muted">Le risposte alle domande più comuni su installazione, app e dispositivi.</p>
   </div>
   <div class="faq__list">
     {faq.map(([q, a]) => (
