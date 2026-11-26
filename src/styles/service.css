@@ -91,25 +91,71 @@
 .sc-ask:nth-child(3) li:nth-child(1){--p:1.35s}.sc-ask:nth-child(3) li:nth-child(2){--p:1.5s}.sc-ask:nth-child(3) li:nth-child(3){--p:1.65s}.sc-ask:nth-child(3) li:nth-child(4){--p:1.8s}
 .sc-ask:nth-child(4) li.sc-opt--on{--p:2.6s}
 
-/* 2 · Progetto — the house on graph paper, drawn in, then the chosen functions pinned on it */
-.svc-scene--plan{background:linear-gradient(#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw,linear-gradient(90deg,#ffffff0a 1px,transparent 1px) 0 0/4cqw 4cqw}
-.sc-plan{position:relative;width:84cqw}
-.sc-plan__house{display:block;width:100%;height:auto;filter:grayscale(1) brightness(1.25) contrast(.85);opacity:.55;clip-path:inset(0 100% 0 0);transition:clip-path 1.1s var(--ease-out),filter .8s,opacity .8s}
-.svc-scene--plan.is-active .sc-plan__house{clip-path:inset(0);filter:grayscale(.65) brightness(1.05);opacity:.9}
-.sc-pin{position:absolute;display:grid;justify-items:center;gap:.8cqw;translate:-50% calc(-100% + .9cqw);opacity:0;transform:translateY(2cqw);transition:opacity .4s,transform .5s var(--ease-out)}
-.sc-pin b{padding:.9cqw 1.4cqw;border:1px solid var(--c-secondary);border-radius:.8cqw;background:var(--c-primary);color:var(--c-on-primary);font-size:max(9px,1.8cqw)}
-.sc-pin i{position:relative;width:1.8cqw;height:1.8cqw;border-radius:50%;background:var(--c-secondary);box-shadow:0 0 0 .5cqw #1c1c1a}
-.sc-pin i::after{content:"";position:absolute;inset:-1.2cqw;border-radius:50%;border:1px solid var(--c-secondary);opacity:0}
-.svc-scene--plan.is-active .sc-pin{opacity:1;transform:none}
-.svc-scene--plan.is-active .sc-pin i::after{animation:sc-ping 2s var(--d) ease-out infinite}
-@keyframes sc-ping{from{transform:scale(.4);opacity:.9}to{transform:scale(1.6);opacity:0}}
-.sc-pin--1{left:39%;top:47%;--d:.54s}
-.sc-pin--2{left:55%;top:52%;--d:.69s}
-.sc-pin--3{left:59%;top:31%;--d:.84s}
-.sc-pin--4{left:77.5%;top:57%;--d:.99s}
-.sc-stamp{position:absolute;left:5cqw;bottom:4.5cqw;display:flex;gap:1.4cqw;font-size:max(9px,1.8cqw);color:var(--c-on-primary-muted);opacity:0;transition:opacity .5s;--d:1.14s}
+/* 2 · Progetto — the apartment building lights up (its sprite's lights clip, played by
+   service.js) and the flat is marked; the view zooms into it while the plan comes in: walls drawn,
+   then windows, doors and the furniture, the rooms named, and the functions beside the plan, each
+   with a line to its place. No orange glow on this scene. The plan's delays count from --o. */
+.svc__glow{transition:opacity .6s}
+.svc__stage:has(.svc-scene--plan.is-active) .svc__glow{opacity:0}
+.sc-icons{position:absolute;width:0;height:0}
+.svc-scene--plan{display:block;--o:1.45s}
+.sc-grid{position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px) 0 0/4cqw 4cqw,linear-gradient(90deg,#ffffff08 1px,transparent 1px) 0 0/4cqw 4cqw;opacity:0;transition:opacity .6s;--d:1.4s}
+.svc-scene--plan.is-active .sc-grid{opacity:1}
+.sc-bld{position:absolute;left:22cqw;top:15cqw;width:56cqw;transform-origin:43% 42.6%;transition:transform 1s cubic-bezier(.7,0,.84,0),opacity .45s}
+.svc-scene--plan.is-active .sc-bld{transform:scale(3.6);opacity:0;transition-delay:1s,1.45s}
+.sc-bld .sc-bld__sprite{filter:drop-shadow(0 3cqw 4cqw #0008)}
+/* A pill with an icon: the flat's mark and the functions */
+.sc-tag{position:absolute;display:flex;align-items:center;gap:1.1cqw;height:max(22px,4.6cqw);padding:0 1.8cqw 0 .7cqw;border:1px solid #ffffff2e;border-radius:3cqw;background:#2a2a28eb;box-shadow:0 1.2cqw 2.6cqw #0008;white-space:nowrap;opacity:0;transition:opacity .35s,transform .55s var(--ease-out)}
+.sc-tag i{flex:none;display:grid;place-items:center;width:max(16px,3.3cqw);aspect-ratio:1;border-radius:50%;background:var(--c-secondary);box-shadow:0 0 1.6cqw #f4511866}
+.sc-tag svg{width:62%;height:62%;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sc-tag b{font:700 max(10px,2.1cqw)/1 var(--font-text);color:#fff}
+.svc-scene--plan.is-active .sc-tag{opacity:1;transform:none}
+.sc-bld__mark{left:43%;top:42.6%;translate:calc(-.7cqw - max(8px,1.65cqw)) -50%;transform:translateY(1.2cqw) scale(.9);--d:.5s}
+.sc-bld__mark b{font-size:max(9px,1.7cqw)}
+.sc-flat{position:absolute;left:20cqw;top:18cqw;width:60cqw;aspect-ratio:100/70;opacity:0;transform:scale(.88);transition:opacity .5s,transform .9s var(--ease-out);--d:var(--o)}
+.svc-scene--plan.is-active .sc-flat{opacity:1;transform:none}
+.sc-flat__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sc-flat__wall{fill:none;stroke:#f3efe7;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s ease-in-out}
+.sc-flat__wall--out{stroke-width:1.3;stroke-linejoin:miter;stroke-linecap:square;--d:var(--o)}
+.sc-flat__wall--in{stroke-width:.6;stroke-linecap:square;transition-duration:.6s;--d:calc(var(--o) + .5s)}
+.svc-scene--plan.is-active .sc-flat__wall{stroke-dashoffset:0}
+.sc-flat__open rect{fill:var(--c-primary)}
+.sc-flat__glass{fill:none;stroke:#f3efe7b3;stroke-width:.16}
+.sc-flat__door{fill:none;stroke:#f3efe78c;stroke-width:.16}
+.sc-flat__rail{fill:none;stroke:#f3efe766;stroke-width:.22;stroke-dasharray:.8 .6}
+.sc-flat__furn{fill:none;stroke:#f3efe740;stroke-width:.16}
+.sc-flat__open,.sc-flat__glass,.sc-flat__door,.sc-flat__rail{opacity:0;transition:opacity .5s;--d:calc(var(--o) + .95s)}
+.sc-flat__furn{opacity:0;transition:opacity .7s;--d:calc(var(--o) + 1.1s)}
+.svc-scene--plan.is-active :is(.sc-flat__open,.sc-flat__glass,.sc-flat__door,.sc-flat__rail,.sc-flat__furn){opacity:1}
+.sc-room{position:absolute;translate:-50% -50%;font:600 max(8px,1.45cqw)/1 var(--font-text);letter-spacing:.01em;color:#f3efe78c;opacity:0;transition:opacity .5s;--d:calc(var(--o) + 1.2s)}
+.svc-scene--plan.is-active .sc-room{opacity:1}
+.sc-room--1{left:24%;top:24.3%}.sc-room--2{left:39.5%;top:37.1%}.sc-room--3{left:18%;top:60%}.sc-room--4{left:62%;top:45.7%}.sc-room--5{left:85.5%;top:62%}
+/* The functions beside the plan, in the order they come: Luci, Clima, Consumi, Serratura, Telecamera */
+.sc-links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sc-links path{fill:none;stroke:var(--c-secondary);stroke-width:.22;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .45s ease-out}
+.sc-links circle{fill:var(--c-primary);stroke:var(--c-secondary);stroke-width:.3;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3);transition:opacity .2s,transform .4s var(--ease-out)}
+.svc-scene--plan.is-active .sc-links path{stroke-dashoffset:0}
+.svc-scene--plan.is-active .sc-links circle{opacity:1;transform:none}
+.sc-fn{min-width:17cqw}
+.sc-fn--l{left:2cqw;transform:translateX(-2cqw)}
+.sc-fn--r{right:2cqw;transform:translateX(2cqw)}
+.sc-fn--1{top:26cqw}.sc-fn--2{top:44cqw}.sc-fn--3{top:62cqw}.sc-fn--4{top:24cqw}.sc-fn--5{top:44cqw}
+.sc-fn--5,.sc-links :nth-of-type(5){--d:calc(var(--o) + 1.45s)}
+.sc-fn--4,.sc-links :nth-of-type(4){--d:calc(var(--o) + 1.6s)}
+.sc-fn--1,.sc-links :nth-of-type(1){--d:calc(var(--o) + 1.75s)}
+.sc-fn--2,.sc-links :nth-of-type(2){--d:calc(var(--o) + 1.9s)}
+.sc-fn--3,.sc-links :nth-of-type(3){--d:calc(var(--o) + 2.05s)}
+.sc-stamp{position:absolute;left:5cqw;bottom:4.5cqw;display:flex;gap:1.4cqw;font-size:max(9px,1.8cqw);color:var(--c-on-primary-muted);opacity:0;transition:opacity .5s;--d:calc(var(--o) + 2.25s)}
 .sc-stamp span{color:var(--c-secondary)}
 .svc-scene--plan.is-active .sc-stamp{opacity:1}
+/* Small stages (phones): tighter pills, and the rooms' names give way to the functions */
+@container (max-width:440px){
+  .sc-tag{height:max(18px,4.6cqw);gap:4px;padding:0 7px 0 3px}
+  .sc-tag i{width:max(13px,3.3cqw)}
+  .sc-tag b{font-size:max(8.5px,2.1cqw)}
+  .sc-fn{min-width:0}
+  .sc-room{display:none}
+}
 
 /* 3 · Installazione — the devices come to the hub, the links draw in */
 .sc-net{position:relative;width:88cqw;aspect-ratio:100/80}

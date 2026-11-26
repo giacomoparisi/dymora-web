@@ -13,6 +13,9 @@
  *   .is-paused                        on the section once the visitor pauses the loop
  *   --svc-t                           on the active step: how far its turn has gone (0–1)
  *   --svc-p                           on the section: how far the loop has gone (0–1), fills the rail
+ *   .sprite[data-preload] in a scene  a render (sprite.js): its data-preload token (the lights clip)
+ *                                     joins data-layers shortly after its scene plays in, and leaves
+ *                                     when the scene does
  *
  * The loop runs only while the section shows and the tab is visible. When the stage leaves the
  * window its scene is cleared, so it plays again on the way back.
@@ -23,6 +26,7 @@
   "use strict";
 
   var TURN = 4000; // ms each step stays before the next one
+  var LIGHTS = 350; // ms into a scene before its render's lights come on
 
   function init() {
     var section = document.querySelector(".svc");
@@ -39,11 +43,28 @@
     section.classList.add("is-live");
     if (nav) nav.hidden = false;
 
-    var current = 0, seen = false, paused = still, elapsed = 0, before = 0, frame = 0;
+    var current = 0, seen = false, paused = still, elapsed = 0, before = 0, frame = 0, lit = -1, lightsTimer = 0;
+
+    // The active scene's render turns its lights on a moment after the scene starts.
+    function lights(scene) {
+      if (scene === lit) return;
+      clearTimeout(lightsTimer);
+      if (lit >= 0) setLights(scenes[lit], false);
+      lit = scene;
+      if (scene < 0 || !scenes[scene]) return;
+      lightsTimer = setTimeout(function () { setLights(scenes[scene], true); }, still ? 0 : LIGHTS);
+    }
+
+    function setLights(el, on) {
+      Array.prototype.forEach.call(el.querySelectorAll(".sprite[data-preload]"), function (sp) {
+        sp.setAttribute("data-layers", on ? sp.getAttribute("data-preload") : "");
+      });
+    }
 
     function paint() {
       var scene = seen ? current : -1;
       scenes.forEach(function (el, i) { el.classList.toggle("is-active", i === scene); });
+      lights(scene);
       steps.forEach(function (el, i) { el.classList.toggle("is-active", i === current); });
       nodes.forEach(function (el, i) {
         el.classList.toggle("is-active", i === current);
