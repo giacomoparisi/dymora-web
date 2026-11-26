@@ -15,11 +15,12 @@ export interface Segment {
 export const segments = {
   eyebrow: 'Per chi è Dymora',
   title: 'Una soluzione su misura per **ogni edificio**.',
-  line: 'Per chi vive, affitta o lavora in più edifici: li gestisci tutti dalla stessa app, sul device che preferisci.',
+  // Valid for all three segments, so it stays pinned with the title (owner wording, 2026-11-26).
+  line: 'Gestisci uno o più edifici, **tutti nella stessa app**.',
   items: [
     {
       id: 'proprietari', tag: 'Proprietari', app: 'Montagna',
-      title: 'La tua casa, **più serena**, anche quando non ci sei.',
+      title: 'La tua casa, **sotto controllo**, ovunque tu sia.',
       line: 'Che sia la casa dove vivi o una seconda casa che resta vuota per mesi, Dymora la rende più sicura, più comoda e più efficiente, e te la fa seguire da dove sei.',
       points: [
         'Più tranquillità: sai cosa succede nei tuoi immobili, anche da lontano.',
