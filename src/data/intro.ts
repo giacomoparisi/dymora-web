@@ -60,7 +60,7 @@ export const segments = {
       title: 'I tuoi alloggi, **gestiti a distanza**.',
       line: 'Ogni arrivo da preparare, ogni partenza da controllare, i costi da tenere a bada: Dymora ti fa gestire gli alloggi da remoto, con meno spostamenti e più controllo.',
       points: [
-        "Meno sopralluoghi: segui i tuoi alloggi dall'app, da dove sei.",
+        "Meno sorprese: se un alloggio resta senza corrente o un dispositivo si blocca, lo sai prima dell'ospite.",
         "Costi sotto controllo: niente impianti accesi a vuoto tra un ospite e l'altro.",
         'Ospiti più soddisfatti: un soggiorno più comodo, che distingue i tuoi alloggi.',
       ],
@@ -73,7 +73,7 @@ export const segments = {
       points: [
         'Più efficienza: Dymora analizza i consumi di ogni sede e trova gli sprechi.',
         'Più controllo: ogni collaboratore accede solo a ciò che gli serve.',
-        'Meno pensieri: la sede segue i tuoi orari, con le automazioni che configuriamo con te.',
+        'Meno fermi: se una sede resta senza corrente o un dispositivo si blocca, lo sai subito.',
       ],
       sprite: 'office_building', lights: 'lights_on_idle!',
     },
