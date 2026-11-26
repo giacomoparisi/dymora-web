@@ -94,9 +94,10 @@
 /* 2 · Progetto — the apartment building lights up (its sprite's lights clip, played by
    service.js) and the flat is marked; the view zooms into it while the plan comes in: walls drawn,
    then windows, doors and the furniture, the rooms named, and the functions beside the plan, each
-   with a line to its place. No orange glow on this scene. The plan's delays count from --o. */
+   with a line to its place. No orange glow on this scene, nor on scenes 1 and 3. The plan's delays
+   count from --o. */
 .svc__glow{transition:opacity .6s}
-.svc__stage:has(.svc-scene--plan.is-active) .svc__glow{opacity:0}
+.svc__stage:has(:is(.svc-scene--listen,.svc-scene--plan,.svc-scene--install).is-active) .svc__glow{opacity:0}
 .sc-icons{position:absolute;width:0;height:0}
 .svc-scene--plan{display:block;--o:1.45s}
 .sc-grid{position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px) 0 0/4cqw 4cqw,linear-gradient(90deg,#ffffff08 1px,transparent 1px) 0 0/4cqw 4cqw;opacity:0;transition:opacity .6s;--d:1.4s}
@@ -157,22 +158,40 @@
   .sc-room{display:none}
 }
 
-/* 3 · Installazione — the devices come to the hub, the links draw in */
-.sc-net{position:relative;width:88cqw;aspect-ratio:100/80}
-.sc-net__links{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.sc-net__links path{fill:none;stroke:var(--c-secondary);stroke-width:1.5px;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;opacity:.85;transition:stroke-dashoffset .7s ease-out}
-.sc-net__links path:nth-child(1){--d:.57s}.sc-net__links path:nth-child(2){--d:.66s}.sc-net__links path:nth-child(3){--d:.75s}.sc-net__links path:nth-child(4){--d:.84s}
-.svc-scene--install.is-active .sc-net__links path{stroke-dashoffset:0}
-.sc-hub{position:absolute;left:50%;top:52.5%;width:27cqw;translate:-50% -50%;transform:scale(.88);transition:transform .8s var(--ease-out),filter .8s;--d:.06s}
+/* 3 · Installazione — the five devices wait dimmed around the hub; a signal runs from the hub to
+   each in turn, its wire turns orange and the device lights up with "Collegato". The counter's
+   digits are stacked: each comes in on top of the one before (opaque background). */
+.svc-scene--install{display:block}
+.sc-wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sc-wire{fill:none;stroke:#ffffff2e;stroke-width:.3;stroke-dasharray:.8 .9}
+.sc-wire__on{fill:none;stroke:var(--c-secondary);stroke-width:.4;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .3s ease-out}
+.svc-scene--install.is-active .sc-wire__on{stroke-dashoffset:0;transition-delay:calc(var(--d) + .4s)}
+.sc-wire__pulse{fill:none;stroke:#ffd2bf;stroke-width:1.1;stroke-linecap:round;stroke-dasharray:.1 2;stroke-dashoffset:.1;filter:drop-shadow(0 0 .8px #f45118)}
+.svc-scene--install.is-active .sc-wire__pulse{animation:sc-run .45s ease-in var(--d) both}
+@keyframes sc-run{from{stroke-dashoffset:.1}to{stroke-dashoffset:-1}}
+.sc-wires :nth-child(5n+1){--d:.3s}.sc-wires :nth-child(5n+2){--d:.8s}.sc-wires :nth-child(5n+3){--d:1.3s}.sc-wires :nth-child(5n+4){--d:1.8s}.sc-wires :nth-child(5n){--d:2.3s}
+.sc-hub{position:absolute;left:50cqw;top:45cqw;width:21cqw;translate:-50% -50%;transition:filter .6s;--d:.05s}
 .sc-hub img{display:block;width:100%;height:auto}
-.svc-scene--install.is-active .sc-hub{transform:none;filter:drop-shadow(0 0 3cqw #f4511866);--d:.9s}
-.sc-dev{position:absolute;height:17cqw;translate:-50% -50%;opacity:0;transition:opacity .5s,transform .8s var(--ease-out)}
-.sc-dev img{display:block;height:100%;width:auto;filter:drop-shadow(0 2cqw 3cqw #0008)}
-.sc-dev--tl{left:20%;top:22.5%;transform:translate(-8cqw,-6cqw);--d:.12s}
-.sc-dev--tr{left:80%;top:22.5%;transform:translate(8cqw,-6cqw);--d:.21s}
-.sc-dev--bl{left:20%;top:82.5%;transform:translate(-8cqw,6cqw);--d:.3s}
-.sc-dev--br{left:80%;top:82.5%;transform:translate(8cqw,6cqw);--d:.39s}
-.svc-scene--install.is-active .sc-dev{opacity:1;transform:none}
+.svc-scene--install.is-active .sc-hub{filter:drop-shadow(0 0 3cqw #f4511866)}
+.sc-dev{position:absolute;display:grid;justify-items:center;gap:1cqw;translate:-50% -50%}
+.sc-dev img{height:12cqw;width:auto;filter:grayscale(1) brightness(.45);opacity:.6;transition:filter .45s,opacity .45s}
+.svc-scene--install.is-active .sc-dev img{filter:grayscale(0) brightness(1) drop-shadow(0 0 2.4cqw #f4511877);opacity:1;transition-delay:calc(var(--d) + .4s)}
+.sc-dev__name{display:grid;justify-items:center;gap:.5cqw;font:700 max(10px,2cqw)/1 var(--font-text);color:var(--c-on-primary-muted);transition:color .3s}
+.sc-dev__name small{font:900 max(7.5px,1.35cqw)/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-secondary);opacity:0;transition:opacity .3s}
+.svc-scene--install.is-active .sc-dev__name{color:#fff;transition-delay:calc(var(--d) + .4s)}
+.svc-scene--install.is-active .sc-dev__name small{opacity:1;transition-delay:calc(var(--d) + .45s)}
+.sc-dev--1{left:50cqw;top:15cqw;--d:.3s}
+.sc-dev--2{left:84cqw;top:36cqw;--d:.8s}
+.sc-dev--3{left:72cqw;top:71cqw;--d:1.3s}
+.sc-dev--4{left:28cqw;top:71cqw;--d:1.8s}
+.sc-dev--5{left:16cqw;top:36cqw;--d:2.3s}
+.sc-count{position:absolute;left:5cqw;top:4.5cqw;display:flex;align-items:baseline;gap:.2em;font-size:max(9px,1.8cqw);color:var(--c-on-primary-muted)}
+.sc-count span{color:var(--c-secondary);margin-right:1em}
+.sc-count b{display:inline-grid;font:inherit;color:#fff}
+.sc-count i{grid-area:1/1;font-style:normal;background:var(--c-primary);opacity:0;transition:opacity .15s}
+.sc-count i:first-child{opacity:1}
+.svc-scene--install.is-active .sc-count i{opacity:1}
+.sc-count i:nth-child(2){--d:.75s}.sc-count i:nth-child(3){--d:1.25s}.sc-count i:nth-child(4){--d:1.75s}.sc-count i:nth-child(5){--d:2.25s}.sc-count i:nth-child(6){--d:2.75s}
 
 /* 4 · Configurazione — the app on a phone, its switches turning on */
 .sc-phone{width:33cqw;aspect-ratio:660/1290;padding:1cqw;border-radius:5cqw;background:#2e2e2b;box-shadow:inset 0 0 0 1px #ffffff2e,0 4cqw 8cqw #000a;container-type:inline-size;transform:translateY(5cqw) rotate(-3deg);transition:transform .9s var(--ease-out)}

@@ -77,13 +77,22 @@ const fns = [
 ];
 const fnLine = (f: (typeof fns)[number]) => `M${f.side === 'l' ? 19 : 81} ${f.y + 2.5} L${f.to[0]} ${f.to[1]}`;
 const rooms = ['Cucina', 'Bagno', 'Soggiorno', 'Camera', 'Terrazzo'];
-// Scene 3: the devices around the hub.
+// Scene 3: the five devices chosen in scenes 1 and 2 around the hub, linked in this order. `at` is
+// the device's centre in stage units (100 × 84.75); `gap` keeps its wire clear of its name.
+const hubAt = [50, 45];
 const devices = [
-  { src: '/assets/images/devices/luci.webp', w: 428, h: 360, pos: 'tl' },
-  { src: '/assets/images/devices/clima.webp', w: 285, h: 360, pos: 'tr' },
-  { src: '/assets/images/devices/consumi.webp', w: 183, h: 256, pos: 'bl' },
-  { src: '/assets/images/devices/serrature.webp', w: 186, h: 360, pos: 'br' },
+  { t: 'Luci', src: '/assets/images/devices/luci.webp', w: 428, h: 360, at: [50, 12.5], gap: 13 },
+  { t: 'Clima', src: '/assets/images/devices/clima.webp', w: 285, h: 360, at: [84, 34], gap: 8 },
+  { t: 'Consumi', src: '/assets/images/devices/consumi.webp', w: 183, h: 256, at: [72, 71], gap: 8 },
+  { t: 'Serratura', src: '/assets/images/devices/serrature.webp', w: 186, h: 360, at: [28, 71], gap: 8 },
+  { t: 'Telecamera', src: '/assets/images/devices/telecamere.webp', w: 292, h: 402, at: [16, 34], gap: 8 },
 ];
+// The wire from the hub to a device, stopped short of the hub and of the device.
+const wire = (d: (typeof devices)[number]) => {
+  const dx = d.at[0] - hubAt[0], dy = d.at[1] - hubAt[1], l = Math.hypot(dx, dy);
+  const f = (n: number) => n.toFixed(2);
+  return `M${f(hubAt[0] + (dx * 12) / l)} ${f(hubAt[1] + (dy * 12) / l)} L${f(d.at[0] - (dx * d.gap) / l)} ${f(d.at[1] - (dy * d.gap) / l)}`;
+};
 // Scene 4: the app's switches.
 const toggles = ['Luci', 'Clima', 'Consumi', 'Serrature'];
 const pad = (i: number) => String(i + 1).padStart(2, '0');
@@ -171,18 +180,22 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
               <p class="sc-stamp w-label"><span>Progetto</span> 5 funzioni</p>
             </div>
 
-            <!-- 3 · Installazione: the devices come to the hub, the links draw in -->
+            <!-- 3 · Installazione: the devices wait dimmed around the hub; a signal runs to each in
+                 turn, its wire turns orange and the device lights up, "Collegato" -->
             <div class="svc-scene svc-scene--install" data-svc-scene="2">
-              <div class="sc-net">
-                <svg class="sc-net__links" viewBox="0 0 100 80" preserveAspectRatio="none">
-                  <path pathLength="1" d="M50 42 L20 18" /><path pathLength="1" d="M50 42 L80 18" />
-                  <path pathLength="1" d="M50 42 L20 66" /><path pathLength="1" d="M50 42 L80 66" />
-                </svg>
-                {devices.map((d) => (
-                  <span class:list={['sc-dev', `sc-dev--${d.pos}`]}><img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" /></span>
-                ))}
-                <span class="sc-hub"><img src="/assets/images/hub.webp" alt="" width="1200" height="987" loading="lazy" decoding="async" /></span>
-              </div>
+              <svg class="sc-wires" viewBox="0 0 100 84.75">
+                {devices.map((d) => <path class="sc-wire" d={wire(d)} />)}
+                {devices.map((d) => <path class="sc-wire__on" pathLength="1" d={wire(d)} />)}
+                {devices.map((d) => <path class="sc-wire__pulse" pathLength="1" d={wire(d)} />)}
+              </svg>
+              <span class="sc-hub"><img src="/assets/images/hub.webp" alt="" width="1200" height="987" loading="lazy" decoding="async" /></span>
+              {devices.map((d, i) => (
+                <span class:list={['sc-dev', `sc-dev--${i + 1}`]}>
+                  <img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" />
+                  <span class="sc-dev__name">{d.t}<small>Collegato</small></span>
+                </span>
+              ))}
+              <p class="sc-count w-label"><span>Collegati</span> <b>{[0, 1, 2, 3, 4, 5].map((n) => <i>{n}</i>)}</b>/5</p>
             </div>
 
             <!-- 4 · Configurazione: the app, its switches turning on one by one -->
