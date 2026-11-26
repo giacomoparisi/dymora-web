@@ -7,13 +7,19 @@
 // out when the line sweeps on. buildings.js (loaded by the page) plays it every time it comes
 // back on screen. Without JavaScript or with reduced motion: split half and half with both texts
 // lit (the period building lit with reduced motion, its dark still without JS).
+// The eyebrow and the title stay pinned under the site header while the section scrolls (as
+// #soluzioni and #dispositivi, the shared .bld__head).
 // Anchor: #ristrutturazioni.
 import Headline from '../Headline.astro';
 import Sprite from '../Sprite.astro';
 import { retrofit } from '../../data/intro';
 ---
 <section class="band band--ink bld" id="ristrutturazioni" aria-labelledby="retrofit-title">
-  <div class="band__inner bld__inner">
+  <div class="band__inner bld__inner bld__chapter">
+    <div class="bld__head" data-reveal>
+      <p class="w-label eyebrow">{retrofit.eyebrow}</p>
+      <Headline id="retrofit-title" size="l" text={retrofit.title} />
+    </div>
     <div class="bld__retro" data-retro>
       <figure class="bld__stage bld__stage--retro" data-reveal="panel">
         <div class="bld__glow" aria-hidden="true"></div>
@@ -27,8 +33,6 @@ import { retrofit } from '../../data/intro';
         </div>
       </figure>
       <div class="bld__copy" data-reveal data-reveal-step="1">
-        <p class="w-label eyebrow">{retrofit.eyebrow}</p>
-        <Headline id="retrofit-title" size="l" text={retrofit.title} />
         <ul class="bld__opts">
           {retrofit.options.map((o, i) => (
             <li class="bld__opt" data-retro-opt={i}>
