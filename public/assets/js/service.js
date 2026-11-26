@@ -1,109 +1,130 @@
 /*
- * Home "Il servizio" (src/components/home/Service.astro, src/styles/service.css): the pinned
- * stage plays the scene of the step that has reached the reading line.
+ * Home "Il servizio" (src/components/home/Service.astro, src/styles/service.css): the five steps
+ * take turns on their own while the section shows; each one plays its scene on the stage.
  *
  * Markup:
  *   .svc                              the section; .is-live once this script runs
- *   [data-svc-stage]                  the pinned stage
+ *   [data-svc-stage]                  the stage
  *     [data-svc-scene=i]              one scene per step, .is-active plays it in
- *   [data-svc-node=i]                 the nodes of the rail (.is-active, .is-done before it)
- *   [data-svc-step=i]                 the steps, in order
- *   --svc-p                           how far the steps have scrolled (0–1), fills the rail
- *   .svc__head                        pinned title: its height → --svc-head
+ *   [data-svc-step=i]                 the steps, in order (.is-active); a click picks one
+ *   [data-svc-node=i]                 the rail's nodes (.is-active, .is-done before it), with a button
+ *   [data-svc-nav]                    the rail, shown by this script
+ *   [data-svc-pause]                  pause button (WCAG 2.2.2), shown by this script
+ *   .is-paused                        on the section once the visitor pauses the loop
+ *   --svc-t                           on the active step: how far its turn has gone (0–1)
+ *   --svc-p                           on the section: how far the loop has gone (0–1), fills the rail
  *
- * The first step counts as reached until another one is. When the stage leaves the window its
- * scene is cleared, so it plays again on the way back.
- * On narrow screens the stage sits above the steps: a step counts once it shows under it.
- * Without JavaScript the first scene rests on the stage and every step reads as plain text.
- * Reduced motion is handled in the CSS: the scenes change without moving.
+ * The loop runs only while the section shows and the tab is visible. When the stage leaves the
+ * window its scene is cleared, so it plays again on the way back.
+ * Without JavaScript the first scene rests and every step reads as plain text. With reduced
+ * motion nothing plays on its own; the steps and the rail still change the scene.
  */
 (function () {
   "use strict";
 
-  var LINE = 0.55; // share of the window height where a step counts as reached
+  var TURN = 4000; // ms each step stays before the next one
 
   function init() {
     var section = document.querySelector(".svc");
     if (!section || !("IntersectionObserver" in window)) return;
     var stage = section.querySelector("[data-svc-stage]");
-    var pin = section.querySelector(".svc__pin");
-    var list = section.querySelector(".svc__steps");
     var scenes = Array.prototype.slice.call(section.querySelectorAll("[data-svc-scene]"));
     var nodes = Array.prototype.slice.call(section.querySelectorAll("[data-svc-node]"));
     var steps = Array.prototype.slice.call(section.querySelectorAll("[data-svc-step]"));
+    var nav = section.querySelector("[data-svc-nav]");
+    var pause = section.querySelector("[data-svc-pause]");
     if (!stage || !steps.length) return;
+    var last = steps.length - 1;
+    var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     section.classList.add("is-live");
+    if (nav) nav.hidden = false;
 
-    // The stage pins under the title, whatever its height.
-    var head = section.querySelector(".svc__head");
-    if (head && window.ResizeObserver) {
-      new ResizeObserver(function () {
-        section.style.setProperty("--svc-head", head.offsetHeight + "px");
-      }).observe(head);
-    }
+    var current = 0, seen = false, paused = still, elapsed = 0, before = 0, frame = 0;
 
-    var shown = null, seen = false, ticking = false;
-
-    function show(n) {
-      var scene = seen ? n : -1;
-      var key = n + ":" + scene;
-      if (key === shown) return;
-      shown = key;
+    function paint() {
+      var scene = seen ? current : -1;
       scenes.forEach(function (el, i) { el.classList.toggle("is-active", i === scene); });
-      steps.forEach(function (el, i) { el.classList.toggle("is-active", i === n); });
+      steps.forEach(function (el, i) { el.classList.toggle("is-active", i === current); });
       nodes.forEach(function (el, i) {
-        el.classList.toggle("is-active", i === n);
-        el.classList.toggle("is-done", i < n);
+        el.classList.toggle("is-active", i === current);
+        el.classList.toggle("is-done", i < current);
+        var button = el.querySelector("button");
+        if (button) {
+          if (i === current) button.setAttribute("aria-current", "step");
+          else button.removeAttribute("aria-current");
+        }
+      });
+      progress();
+    }
+
+    function progress() {
+      var t = still ? 1 : Math.min(1, elapsed / TURN);
+      steps[current].style.setProperty("--svc-t", t.toFixed(4));
+      section.style.setProperty("--svc-p", Math.min(1, (current + t) / last).toFixed(4));
+    }
+
+    function go(n) {
+      steps[current].style.removeProperty("--svc-t");
+      current = (n + steps.length) % steps.length;
+      elapsed = 0;
+      paint();
+    }
+
+    function tick(now) {
+      frame = 0;
+      var dt = Math.min(100, now - before);
+      before = now;
+      elapsed += dt;
+      if (elapsed >= TURN) go(current + 1);
+      else progress();
+      run();
+    }
+
+    function run() {
+      var on = seen && !paused && !document.hidden;
+      if (on && !frame) {
+        if (!before) before = performance.now();
+        frame = requestAnimationFrame(tick);
+      } else if (!on && frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+      if (!on) before = 0;
+    }
+
+    // Picking a step, on the step itself or on the rail
+    steps.forEach(function (el, i) {
+      el.addEventListener("click", function () { if (i !== current) go(i); });
+    });
+    nodes.forEach(function (el, i) {
+      var button = el.querySelector("button");
+      if (button) button.addEventListener("click", function () { go(i); });
+    });
+
+    if (pause && !still) {
+      pause.hidden = false;
+      pause.addEventListener("click", function () {
+        paused = !paused;
+        section.classList.toggle("is-paused", paused);
+        pause.setAttribute("aria-pressed", String(paused));
+        pause.setAttribute("aria-label", paused ? "Riprendi l'animazione del servizio" : "Metti in pausa l'animazione del servizio");
+        run();
       });
     }
 
-    function update() {
-      ticking = false;
-      var line = window.innerHeight * LINE;
-      var box = list.getBoundingClientRect();
-      var pb = pin.getBoundingClientRect();
-      if (pb.left < box.right && pb.right > box.left) {
-        // Stacked: measure in the window left under the pinned stage.
-        line = pb.bottom + (window.innerHeight - pb.bottom) * 0.5;
-      }
-      var n = 0;
-      steps.forEach(function (step, i) {
-        var r = step.getBoundingClientRect();
-        if (r.top + r.height * 0.35 < line) n = i;
-      });
-      var first = steps[0].getBoundingClientRect();
-      var last = steps[steps.length - 1].getBoundingClientRect();
-      var span = (last.top + last.height * 0.35) - (first.top + first.height * 0.35);
-      var p = span > 0 ? (line - (first.top + first.height * 0.35)) / span : 0;
-      section.style.setProperty("--svc-p", Math.min(1, Math.max(0, p)).toFixed(4));
-      show(n);
-    }
+    document.addEventListener("visibilitychange", run);
 
-    function request() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    }
-
-    // The stage plays only while it shows.
-    new IntersectionObserver(function (entries) {
-      seen = entries[entries.length - 1].isIntersecting;
-      shown = null;
-      request();
-    }, { threshold: 0.25 }).observe(stage);
-
-    // Listen to the scroll only while the section is near the window.
-    var near = false;
+    // The loop runs, and the stage plays, only while it shows.
     new IntersectionObserver(function (entries) {
       var now = entries[entries.length - 1].isIntersecting;
-      if (now === near) return;
-      near = now;
-      var method = near ? "addEventListener" : "removeEventListener";
-      window[method]("scroll", request, { passive: true });
-      window[method]("resize", request);
-      request();
-    }, { rootMargin: "50% 0px" }).observe(section);
+      if (now === seen) return;
+      seen = now;
+      if (seen) elapsed = 0;
+      paint();
+      run();
+    }, { threshold: 0.4 }).observe(stage);
+
+    paint();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);

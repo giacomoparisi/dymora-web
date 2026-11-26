@@ -1,23 +1,22 @@
 ---
 // "Il servizio" and "Come si parte" in one panna chapter (2026-11-25): the five moments of the
-// service, Ti ascoltiamo → Progettiamo → Installiamo → Configuriamo → Ti assistiamo, as a scroll
-// story in the language of the house story above it, mirrored (stage on the left).
+// service, Ti ascoltiamo → Progettiamo → Installiamo → Configuriamo → Ti assistiamo.
 //
-// The stage, a carbon panel, stays pinned while the steps scroll past; the step that reaches the
-// reading line lights up and its scene plays on the stage (service.js, service.css). Scenes are
-// drawn in HTML on the site's assets: the functions chosen in the call, the same functions pinned
-// on the drawn house, the devices joining the hub, the switches turning on in the app, a light
-// that stops answering and comes back after a mail to support. Every scene is decorative
-// (aria-hidden): the steps say the same in text.
+// The steps are short, so the chapter plays on its own instead of asking for a scroll (owner
+// decision, 2026-11-26): a carbon stage on the left, the five steps on the right; while the
+// section shows, the steps take turns and each one plays its scene on the stage (service.js,
+// service.css). The visitor can pick a step (click on it, or the buttons of the rail) and pause
+// the loop with the button on the stage (WCAG 2.2.2). Scenes are drawn in HTML on the site's
+// assets: the functions chosen in the call, the same functions pinned on the drawn house, the
+// devices joining the hub, the switches turning on in the app, a light that stops answering and
+// comes back after a mail to support. Every scene is decorative (aria-hidden): the steps say the
+// same in text.
 // Without JavaScript the first scene rests and the steps read as plain text; with reduced motion
-// the scenes still change with the steps, without movement.
+// nothing plays on its own: the rail and the steps still change the scene, without movement.
 //
 // Copy: `service` (title from the brochure draft "Pensiamo a tutto noi.", line as approved) and
 // the steps built from `start.step1–4`, `service.principles` and the claims Servizio-4, -5, -10.
-// Anchors kept for the header and
-// the footer: #servizio, #come-si-parte.
-// The eyebrow and the title stay pinned under the site header while the steps scroll, as the
-// Funzioni title does in the house story; they let go with the steps.
+// Anchors kept for the header and the footer: #servizio, #come-si-parte.
 import Headline from '../Headline.astro';
 
 const steps = [
@@ -87,85 +86,95 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
     <p class="w-lead w-muted svc__lead" data-reveal>Dymora non è un'app da scaricare e arrangiarsi: ci occupiamo di progettazione, installazione, configurazione e assistenza.</p>
 
     <div class="svc__body" id="come-si-parte">
-      <div class="svc__pin" aria-hidden="true">
-        <div class="svc__stage" data-svc-stage>
-          <div class="svc__glow"></div>
+      <div class="svc__show">
+        <div class="svc__frame">
+          <div class="svc__stage" data-svc-stage aria-hidden="true">
+            <div class="svc__glow"></div>
 
-          <!-- 1 · Ascolto: the call, the functions picked one after another -->
-          <div class="svc-scene svc-scene--listen is-active" data-svc-scene="0">
-            <div class="sc-call">
-              <span class="sc-call__dot"></span>
-              <span class="w-label">Consulenza</span>
-              <span class="sc-wave">{Array.from({ length: 14 }, () => <i></i>)}</span>
+            <!-- 1 · Ascolto: the call, the functions picked one after another -->
+            <div class="svc-scene svc-scene--listen is-active" data-svc-scene="0">
+              <div class="sc-call">
+                <span class="sc-call__dot"></span>
+                <span class="w-label">Consulenza</span>
+                <span class="sc-wave">{Array.from({ length: 14 }, () => <i></i>)}</span>
+              </div>
+              <p class="sc-q">Cosa vuoi tenere <span>sotto controllo</span>?</p>
+              <ul class="sc-chips">
+                {chips.map((c) => (
+                  <li class:list={['sc-chip', { 'sc-chip--on': c.on }]} data-n={c.on}>{c.label}</li>
+                ))}
+              </ul>
             </div>
-            <p class="sc-q">Cosa vuoi tenere <span>sotto controllo</span>?</p>
-            <ul class="sc-chips">
-              {chips.map((c) => (
-                <li class:list={['sc-chip', { 'sc-chip--on': c.on }]} data-n={c.on}>{c.label}</li>
-              ))}
-            </ul>
-          </div>
 
-          <!-- 2 · Progetto: the house as a drawing, the chosen functions pinned on it -->
-          <div class="svc-scene svc-scene--plan" data-svc-scene="1">
-            <div class="sc-plan">
-              <img class="sc-plan__house" src="/assets/images/edificio-casa.svg" alt="" width="1024" height="691" loading="lazy" decoding="async" />
-              {pins.map((p, i) => (
-                <span class:list={['sc-pin', `sc-pin--${i + 1}`]}><b class="w-label">{p}</b><i></i></span>
-              ))}
+            <!-- 2 · Progetto: the house as a drawing, the chosen functions pinned on it -->
+            <div class="svc-scene svc-scene--plan" data-svc-scene="1">
+              <div class="sc-plan">
+                <img class="sc-plan__house" src="/assets/images/edificio-casa.svg" alt="" width="1024" height="691" loading="lazy" decoding="async" />
+                {pins.map((p, i) => (
+                  <span class:list={['sc-pin', `sc-pin--${i + 1}`]}><b class="w-label">{p}</b><i></i></span>
+                ))}
+              </div>
+              <p class="sc-stamp w-label"><span>Progetto</span> 4 funzioni</p>
             </div>
-            <p class="sc-stamp w-label"><span>Progetto</span> 4 funzioni</p>
-          </div>
 
-          <!-- 3 · Installazione: the devices come to the hub, the links draw in -->
-          <div class="svc-scene svc-scene--install" data-svc-scene="2">
-            <div class="sc-net">
-              <svg class="sc-net__links" viewBox="0 0 100 80" preserveAspectRatio="none">
-                <path pathLength="1" d="M50 42 L20 18" /><path pathLength="1" d="M50 42 L80 18" />
-                <path pathLength="1" d="M50 42 L20 66" /><path pathLength="1" d="M50 42 L80 66" />
-              </svg>
-              {devices.map((d) => (
-                <span class:list={['sc-dev', `sc-dev--${d.pos}`]}><img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" /></span>
-              ))}
-              <span class="sc-hub"><img src="/assets/images/hub.webp" alt="" width="1200" height="987" loading="lazy" decoding="async" /></span>
+            <!-- 3 · Installazione: the devices come to the hub, the links draw in -->
+            <div class="svc-scene svc-scene--install" data-svc-scene="2">
+              <div class="sc-net">
+                <svg class="sc-net__links" viewBox="0 0 100 80" preserveAspectRatio="none">
+                  <path pathLength="1" d="M50 42 L20 18" /><path pathLength="1" d="M50 42 L80 18" />
+                  <path pathLength="1" d="M50 42 L20 66" /><path pathLength="1" d="M50 42 L80 66" />
+                </svg>
+                {devices.map((d) => (
+                  <span class:list={['sc-dev', `sc-dev--${d.pos}`]}><img src={d.src} alt="" width={d.w} height={d.h} loading="lazy" decoding="async" /></span>
+                ))}
+                <span class="sc-hub"><img src="/assets/images/hub.webp" alt="" width="1200" height="987" loading="lazy" decoding="async" /></span>
+              </div>
             </div>
-          </div>
 
-          <!-- 4 · Configurazione: the app, its switches turning on one by one -->
-          <div class="svc-scene svc-scene--config" data-svc-scene="3">
-            <div class="sc-phone">
-              <div class="sc-app">
-                <img class="sc-app__mark" src="/assets/images/logo-mark-ink.svg" alt="" width="517" height="376" loading="lazy" />
-                <p class="sc-app__title">Le tue <span>funzioni</span>.</p>
-                <ul class="sc-app__list">
-                  {toggles.map((t) => <li><span class="sc-app__name">{t}</span><span class="sc-switch"></span></li>)}
-                </ul>
-                <span class="sc-app__bar"><i></i></span>
-                <p class="sc-app__done">Pronta</p>
+            <!-- 4 · Configurazione: the app, its switches turning on one by one -->
+            <div class="svc-scene svc-scene--config" data-svc-scene="3">
+              <div class="sc-phone">
+                <div class="sc-app">
+                  <img class="sc-app__mark" src="/assets/images/logo-mark-ink.svg" alt="" width="517" height="376" loading="lazy" />
+                  <p class="sc-app__title">Le tue <span>funzioni</span>.</p>
+                  <ul class="sc-app__list">
+                    {toggles.map((t) => <li><span class="sc-app__name">{t}</span><span class="sc-switch"></span></li>)}
+                  </ul>
+                  <span class="sc-app__bar"><i></i></span>
+                  <p class="sc-app__done">Pronta</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5 · Assistenza: a light stops answering, a mail to support, the light answers again -->
+            <div class="svc-scene svc-scene--care" data-svc-scene="4">
+              <div class="sc-care">
+                <div class="sc-card sc-card--dev">
+                  <img src="/assets/images/devices/luci.webp" alt="" width="428" height="360" loading="lazy" decoding="async" />
+                  <span class="sc-card__name">Luce soggiorno<small class="sc-st sc-st--ko">Non risponde</small><small class="sc-st sc-st--ok">Collegata</small></span>
+                </div>
+                <div class="sc-card sc-card--mail">
+                  <span class="w-label sc-card__to">A</span>
+                  <span class="sc-card__addr">support@dymora.eu</span>
+                  <span class="sc-card__sent w-label">Inviata</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 5 · Assistenza: a light stops answering, a mail to support, the light answers again -->
-          <div class="svc-scene svc-scene--care" data-svc-scene="4">
-            <div class="sc-care">
-              <div class="sc-card sc-card--dev">
-                <img src="/assets/images/devices/luci.webp" alt="" width="428" height="360" loading="lazy" decoding="async" />
-                <span class="sc-card__name">Luce soggiorno<small class="sc-st sc-st--ko">Non risponde</small><small class="sc-st sc-st--ok">Collegata</small></span>
-              </div>
-              <div class="sc-card sc-card--mail">
-                <span class="w-label sc-card__to">A</span>
-                <span class="sc-card__addr">support@dymora.eu</span>
-                <span class="sc-card__sent w-label">Inviata</span>
-              </div>
-            </div>
-          </div>
+          <button class="svc__pause" type="button" data-svc-pause aria-pressed="false" aria-label="Metti in pausa l'animazione del servizio" hidden>
+            <span class="svc__pause-icon" aria-hidden="true"></span>
+          </button>
         </div>
 
-        <div class="svc__nav">
-          <span class="svc__rail"><span class="svc__fill"></span></span>
+        <div class="svc__nav" data-svc-nav hidden>
+          <span class="svc__rail" aria-hidden="true"><span class="svc__fill"></span></span>
           <ol>
-            {steps.map((s, i) => <li class:list={{ 'is-active': i === 0 }} data-svc-node={i}><span class="svc__node"></span><span class="w-label">{s.nav}</span></li>)}
+            {steps.map((s, i) => (
+              <li class:list={{ 'is-active': i === 0 }} data-svc-node={i}>
+                <button type="button" aria-label={`Passo ${i + 1} di 5: ${s.nav}`}><span class="svc__node" aria-hidden="true"></span><span class="w-label" aria-hidden="true">{s.nav}</span></button>
+              </li>
+            ))}
           </ol>
         </div>
       </div>
