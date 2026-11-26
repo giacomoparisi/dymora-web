@@ -1,20 +1,21 @@
 ---
-// Former page of the function, kept as a redirect to its chapter on /funzioni/ so old links work.
+// Former page of a function, kept as a redirect so old links work. The functions were removed from
+// the site on 2026-11-26 (owner decision; their pages are on the branch archivio/funzioni).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import PageHead from '../../components/PageHead.astro';
 import '../../styles/legal.css';
 ---
-<BaseLayout title="Funzioni Dymora" description="Questa pagina si è spostata nella pagina Funzioni." canonical="/funzioni/" pageClass="page-moved">
+<BaseLayout title="Dymora" description="Questa pagina non è più disponibile." canonical="/" pageClass="page-moved">
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
-    <meta http-equiv="refresh" content="0; url=/funzioni/#consumi" />
+    <meta http-equiv="refresh" content="0; url=/#app" />
   </Fragment>
   <SiteHeader />
   <main>
-    <PageHead eyebrow="Funzioni" title="Questa pagina si è **spostata**.">
-      <p class="w-lead w-muted page-head__links">La trovi nella <a href="/funzioni/#consumi">pagina Funzioni</a>.</p>
+    <PageHead eyebrow="Dymora" title="Questa pagina si è **spostata**.">
+      <p class="w-lead w-muted page-head__links">Torna alla <a href="/#app">pagina iniziale</a>.</p>
     </PageHead>
   </main>
   <SiteFooter />

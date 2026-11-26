@@ -1,24 +1,13 @@
 ---
 // First section after the opening, on carbon: the cover's promise ("I tuoi spazi. In una sola
 // app.", `cover.eyebrow.web`, `cover.title.web`, `cover.line`) shown on the app (the energy screen on a computer and a
-// phone, rising into place while the page scrolls), then "Controlla il tuo edificio sotto ogni
-// aspetto" (`overview.title.web`) as a scroll story: the house
-// stays pinned while the eight functions scroll past (`feature.*` eyebrow, title, line). Each
-// function that reaches the middle of the window plays in on the house and joins the ones before
-// it; scrolling back plays them out (story.js, sprite.js). Each step leads to the function's
-// chapter on /funzioni/. `#funzioni` is the anchor of the opening.
-// The slot, between the app and the functions, takes "Per chi è Dymora" (Segments.astro).
+// phone, rising into place while the page scrolls). `#app` is the anchor of the opening's cue.
+// The slot, after the app, takes "Per chi è Dymora" (Segments.astro).
+// The functions' scroll story that followed was removed on 2026-11-26 (owner decision; it is on
+// the branch archivio/funzioni).
 import Headline from '../Headline.astro';
-import Sprite from '../Sprite.astro';
-import { overview } from '../../data/intro';
-import { features } from '../../data/features';
-
-const items = Object.fromEntries(overview.items.map((it) => [it.id, it]));
-// The functions play in two at a time (luci + clima, tapparelle + serrature, …): half the scroll.
-const fns = features.filter((f) => items[f.slug]);
-const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.slice(i * 2, i * 2 + 2));
 ---
-<section class="band band--ink story" aria-labelledby="app-title">
+<section class="band band--ink" aria-labelledby="app-title">
   <div class="band__inner story__inner">
     <div class="app" id="app">
       <div class="app__glow" aria-hidden="true"></div>
@@ -37,42 +26,5 @@ const pairs = Array.from({ length: Math.ceil(fns.length / 2) }, (_, i) => fns.sl
       </figure>
     </div>
     <slot />
-    <div class="story__head" id="funzioni" data-reveal>
-      <p class="w-label eyebrow">Funzioni</p>
-      <Headline id="overview-title" as="h3" size="l" text={overview.title} />
-    </div>
-    <div class="story__body">
-      <div class="story__pin">
-        <div class="ov-stage story__stage" data-story-house data-ov-rest={overview.rest}>
-          <div class="ov-house">
-            <Sprite id="story-house" name="house" variant="dark" layers={overview.rest} order={overview.order} alt={overview.alt} />
-            <div class="ov-items" aria-hidden="true">
-              {overview.items.map((item) => (
-                <div class:list={['ov-item', `ov-item--${item.row}`, `ov-i--${item.id}`]} data-ov-item={item.id} data-ov-on={item.on} data-ov-off={item.off}>
-                  <span class="ov-lead"></span>
-                  <span class="tag ov-tag">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div class="story__rail" aria-hidden="true"><span class="story__fill"></span></div>
-      </div>
-      <ol class="story__steps">
-        {pairs.map((pair) => (
-          <li class="story__step" data-story-step={pair.map((f) => f.slug).join(' ')}>
-            {pair.map((f) => (
-              <div class="story__fn">
-                <p class="w-label story__num"><span>{String(fns.indexOf(f) + 1).padStart(2, '0')}</span> {f.eyebrow}</p>
-                <Headline as="h4" size="m" text={f.title} />
-                <p class="w-body w-muted">{f.line}</p>
-                <a class="story__link" href={f.href}>Scopri di più<span class="visually-hidden"> su {f.label}</span><span class="story__arrow" aria-hidden="true"></span></a>
-              </div>
-            ))}
-          </li>
-        ))}
-      </ol>
-    </div>
   </div>
 </section>
-<script is:inline src="/assets/js/story.js" defer></script>

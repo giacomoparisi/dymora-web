@@ -1,5 +1,5 @@
-/* Site header (SiteHeader.astro, header.js): carbon glass bar with the "Funzioni" mega menu.
-   Without JavaScript, public/assets/css/nojs.css (in <noscript>) opens the menu on hover and focus. */
+/* Site header (SiteHeader.astro, header.js): carbon glass bar, burger panel on narrow screens.
+   Without JavaScript, public/assets/css/nojs.css (in <noscript>) hides the burger and shows the CTA. */
 :root{--sh-h:72px;--ease-out:cubic-bezier(.16,1,.3,1)}
 @media(max-width:560px){:root{--sh-h:62px}}
 
@@ -14,32 +14,11 @@
 .sh__nav{flex:1;min-width:0}
 .sh__menu{list-style:none;display:flex;align-items:center;gap:clamp(4px,1vw,14px)}
 .sh__link{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:0;border-radius:999px;background:none;font:700 15px/1 var(--font-text);color:var(--c-on-primary-muted);transition:color .2s,background .2s}
-.sh__link:hover,.sh__trigger[aria-expanded="true"]{color:var(--c-on-primary);background:#ffffff12}
-.sh__chev{width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;rotate:45deg;translate:0 -2px;transition:rotate .3s var(--ease-out),translate .3s var(--ease-out)}
-.sh__trigger[aria-expanded="true"] .sh__chev{rotate:225deg;translate:0 2px}
+.sh__link:hover{color:var(--c-on-primary);background:#ffffff12}
 .sh__end{margin-left:auto;display:flex;align-items:center;gap:10px}
 .sh__cta{min-height:44px;padding:0 20px}
 .sh__item--panel-cta{display:none}
 
-/* Mega menu: full width under the bar */
-.sh__mega{position:absolute;left:0;right:0;top:100%;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .35s var(--ease-out),visibility 0s .35s}
-.sh__mega::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--c-primary);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-bottom:1px solid #ffffff14;box-shadow:0 40px 80px #0006}
-.sh__item--mega.is-open .sh__mega{visibility:visible;opacity:1;transform:none;transition:opacity .25s,transform .35s var(--ease-out)}
-.sh__mega-inner{width:var(--content);margin:auto;padding:clamp(22px,2.6vw,36px) 0 clamp(26px,3vw,44px);display:grid;gap:18px}
-.sh__mega-label{color:var(--c-on-primary-muted)}
-.sh__mega-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px}
-.sh__mega-all{color:var(--c-on-primary);font-weight:700;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
-.sh__mega-all:hover{color:var(--c-secondary)}
-.sh__grid{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.sh__fn{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:center;height:100%;padding:12px;border-radius:var(--r-large);border:1px solid #ffffff12;background:#ffffff08;transition:background .2s,border-color .2s,transform .3s var(--ease-out)}
-.sh__fn:hover,.sh__fn:focus-visible{background:#ffffff12;border-color:#ffffff2e;transform:translateY(-2px)}
-.sh__fn-media{display:grid;place-items:center;height:72px;border-radius:var(--r-medium);background:radial-gradient(ellipse 60% 55% at 50% 60%,#ffffff1c,transparent 72%)}
-.sh__fn-media img{max-width:80%;max-height:80%;width:auto;height:auto;transition:transform .4s var(--ease-out)}
-.sh__fn:hover .sh__fn-media img{transform:scale(1.08)}
-.sh__fn-text{display:grid;gap:3px;min-width:0}
-.sh__fn-num{font-size:11px;color:var(--c-secondary)}
-.sh__fn-name{font:800 1.02rem/1.15 var(--font-text);letter-spacing:-.01em}
-.sh__fn-line{font:400 .82rem/1.35 var(--font-text);color:var(--c-on-primary-muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
 /* Burger: phones and narrow tablets */
 .sh__burger{display:none;position:relative;width:44px;height:44px;border:1px solid #ffffff3d;border-radius:50%;background:none}
@@ -49,7 +28,6 @@
 .sh__burger[aria-expanded="true"] span{top:21px;transform:rotate(45deg)}
 .sh__burger[aria-expanded="true"] span::before{top:0;transform:rotate(-90deg)}
 
-@media(max-width:1180px){.sh__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:980px){
   .sh__burger{display:inline-block}
   .sh__cta{display:none}
@@ -58,19 +36,9 @@
   .sh__menu{flex-direction:column;align-items:stretch;gap:0;width:var(--content);margin:auto;padding:12px 0 40px}
   .sh__item{border-bottom:1px solid #ffffff14}
   .sh__link{width:100%;justify-content:space-between;min-height:60px;padding:0;border-radius:0;font-size:1.25rem;color:var(--c-on-primary)}
-  .sh__link:hover,.sh__trigger[aria-expanded="true"]{background:none}
-  .sh__mega{position:static;visibility:visible;opacity:1;transform:none;display:none}
-  .sh__mega::before{display:none}
-  .sh__item--mega.is-open .sh__mega{display:block}
-  .sh__mega-inner{width:auto;padding:0 0 18px}
-  .sh__mega-label{display:none}
-  .sh__mega-head{order:2;padding:8px 12px 0}
-  .sh__grid{grid-template-columns:1fr;gap:6px}
-  .sh__fn{grid-template-columns:52px minmax(0,1fr);padding:8px}
-  .sh__fn-media{height:52px}
-  .sh__fn-line{display:none}
+  .sh__link:hover{background:none}
   .sh__item--panel-cta{display:block;border:0;padding-top:24px}
   .sh__item--panel-cta .w-cta{width:100%}
 }
-@media(prefers-reduced-motion:reduce){.sh__mega,.sh__nav,.sh__fn,.sh__chev{transition:none}}
+@media(prefers-reduced-motion:reduce){.sh__nav{transition:none}}
 html.sh-locked{overflow:hidden}

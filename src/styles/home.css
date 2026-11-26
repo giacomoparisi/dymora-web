@@ -1,42 +1,6 @@
 /* Home: bands alternate carbon and panna, in the order of src/pages/index.astro.
    Components and bands in bands.css; header and footer in header.css and footer.css. */
 
-/* House with its tags (HouseStory.astro, story.js): .is-active is the current function, .is-lit the ones before */
-.ov-stage{container-type:inline-size;width:100%;margin:auto}
-.ov-house{--row:8.5cqw;position:relative;margin-block:var(--row)}
-.ov-items{position:absolute;inset:0}
-.ov-item{display:contents}
-.ov-lead{position:absolute;left:var(--x);width:0;border-left:1.5px solid #ffffff59;pointer-events:none}
-.ov-lead::after{content:"";position:absolute;left:-4.5px;width:8px;height:8px;border-radius:50%;background:#ffffffb3;box-shadow:0 0 0 2px var(--c-primary)}
-.ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em);height:calc(var(--y) + var(--row) - 1em)}
-.ov-item--top .ov-lead::after{bottom:-4px}
-.ov-item--bot .ov-lead{top:var(--y);height:calc(100% - var(--y) + var(--row) - 1em)}
-.ov-item--bot .ov-lead::after{top:-4px}
-.ov-tag{position:absolute;left:var(--x);transform:translateX(-50%);font-size:clamp(10px,1.75cqw,15px)}
-.ov-item--top .ov-tag{top:calc(-1 * var(--row))}
-.ov-item--bot .ov-tag{bottom:calc(-1 * var(--row))}
-.ov-tag{background:var(--c-primary)}
-.ov-tag,.ov-lead,.ov-lead::after{transition:background-color .35s,border-color .35s,color .35s}
-.ov-item.is-active .ov-tag{background:var(--c-secondary);border-color:var(--c-secondary);color:var(--c-on-secondary)}
-.ov-item.is-active .ov-lead{border-color:var(--c-secondary)}
-.ov-item.is-active .ov-lead::after{background:var(--c-secondary)}
-.ov-item.is-lit .ov-tag{border-color:var(--c-secondary);color:var(--c-secondary-on-ink)}
-.ov-item.is-lit .ov-lead{border-color:#f4511880}
-.ov-i--clima{--x:38.54%;--y:32.01%}
-.ov-i--allarme{--x:47.57%;--y:31.22%}
-.ov-i--consumi{--x:63.50%;--y:25.83%}
-.ov-i--luci{--x:73.16%;--y:40.94%}
-.ov-i--irrigazione{--x:25.34%;--y:59.71%}
-.ov-i--tapparelle{--x:53.06%;--y:51.44%}
-.ov-i--telecamere{--x:63.74%;--y:58.85%}
-.ov-i--serrature{--x:75.15%;--y:55.32%}
-@container (max-width:640px){
-  .ov-house{margin-block:0}
-  .ov-items{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}
-  .ov-lead{display:none}
-  .ov-tag{position:static;transform:none;font-size:12px}
-}
-
 /* ─── La tua casa in una sola app (HouseStory.astro): the energy screen on a computer and a phone ─── */
 .app{position:relative;display:grid;gap:clamp(32px,4vw,56px);justify-items:center;perspective:1600px}
 .app__glow{position:absolute;left:50%;top:62%;width:min(1400px,130vw);aspect-ratio:2/1;translate:-50% -50%;background:radial-gradient(closest-side,#f4511859,#f4511814 55%,transparent);pointer-events:none}
@@ -59,44 +23,8 @@
 @keyframes app-rise{from{transform:translateY(90px) scale(.86) rotateX(16deg);opacity:.35}to{transform:none;opacity:1}}
 @keyframes app-phone{from{transform:translateY(160px)}to{transform:none}}
 
-/* ─── Funzioni: the scroll story (HouseStory.astro, story.js) ─── */
+/* ─── HouseStory.astro: the app, then Per chi è Dymora in its slot ─── */
 .story__inner{display:grid;gap:clamp(36px,5vw,72px)}
-/* The title stays pinned under the site header while the functions scroll (its height → --story-head, story.js) */
-.story__head{position:sticky;top:var(--sh-h);z-index:3;display:grid;gap:clamp(8px,1vw,14px);margin-top:clamp(24px,4vw,72px);padding-block:clamp(14px,2svh,24px);background:var(--c-primary)}
-.story__head::before{content:"";position:absolute;inset:0 calc(-1 * var(--w-gutter));z-index:-1;background:var(--c-primary)}
-.story__head::after{content:"";position:absolute;left:calc(-1 * var(--w-gutter));right:calc(-1 * var(--w-gutter));top:100%;height:32px;background:linear-gradient(var(--c-primary),#1c1c1a00);pointer-events:none}
-.story__head .h-l{font-size:clamp(1.7rem,3.6vw,3.4rem)}
-.story__body{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,96px)}
-.story__pin{grid-column:2;grid-row:1;position:sticky;top:calc(var(--sh-h) + var(--story-head,150px) + 2svh);height:calc(100svh - var(--sh-h) - var(--story-head,150px) - 4svh);display:grid;grid-template-rows:minmax(0,1fr) auto;gap:18px;align-self:start;container-type:size}
-.story__stage{align-self:center;width:min(100cqw,calc((100cqh - 30px) * 1.05))}
-.story__rail{height:2px;background:#ffffff1f;border-radius:2px;overflow:hidden}
-.story__fill{display:block;height:100%;background:var(--c-secondary);transform:scaleX(var(--story-p,0));transform-origin:left}
-.story__steps{grid-column:1;grid-row:1;list-style:none;display:grid;padding-block:8svh 22svh}
-.story__step{min-height:78svh;display:grid;gap:clamp(36px,6svh,64px);align-content:center}
-.story__fn{display:grid;gap:clamp(10px,1.2vw,16px);justify-items:start}
-.story__step .h-m{font-size:clamp(1.7rem,3vw,2.7rem)}
-.story__fn>p.w-body{max-width:46ch}
-.story.is-live .story__step{opacity:.28;transition:opacity .5s}
-.story.is-live .story__step.is-active{opacity:1}
-.story__num{display:flex;align-items:center;gap:12px;color:var(--c-on-primary-muted)}
-.story__num span{color:var(--c-secondary)}
-.story__link{display:inline-flex;align-items:center;gap:12px;min-height:44px;font:700 1rem/1 var(--font-text);color:var(--c-on-primary)}
-.story__arrow{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1px solid #ffffff59;transition:background .2s,border-color .2s,transform .3s var(--ease-out)}
-.story__arrow::before{content:"";width:8px;height:8px;border-top:1.8px solid currentColor;border-right:1.8px solid currentColor;rotate:45deg;translate:-2px 0}
-.story__link:hover .story__arrow,.story__link:focus-visible .story__arrow{background:var(--c-secondary);border-color:var(--c-secondary);transform:translateX(4px)}
-@media(max-width:999px){
-  .story__body{grid-template-columns:1fr;gap:0}
-  .story__head{margin-inline:calc(-1 * var(--w-gutter));padding-inline:var(--w-gutter)}
-  .story__head::before,.story__head::after{display:none}
-  .story__head .eyebrow{display:none}
-  .story__pin{grid-column:1;z-index:2;top:calc(var(--sh-h) + var(--story-head,96px) - 1px);height:auto;margin-inline:calc(-1 * var(--w-gutter));padding:10px var(--w-gutter) 12px;background:var(--c-primary);container-type:normal}
-  .story__pin::after{content:"";position:absolute;left:0;right:0;top:100%;height:28px;background:linear-gradient(var(--c-primary),#1c1c1a00);pointer-events:none}
-  .story__stage{width:min(100%,calc(30svh * 1.3));margin-inline:auto}
-  .story .ov-items{display:none}
-  .story .ov-house{margin-block:0}
-  .story__steps{grid-row:auto;padding-block:4svh 20svh}
-  .story__step{min-height:0;padding-block:6svh;gap:40px}
-}
 
 /* ─── FAQ (Faq.astro): smoother accordion where supported ─── */
 .faq__inner{padding-top:var(--w-air)}
@@ -113,12 +41,3 @@
   .faq__list details[open]::details-content{block-size:auto}
 }
 @media(max-width:900px){.faq__intro{position:static}}
-
-
-/* Story house: smaller tags, and the two crowded middle ones step towards the house */
-.story .ov-tag{font-size:clamp(9px,1.35cqw,13px);padding:.4em .6em}
-.story .ov-i--allarme,.story .ov-i--telecamere{--lift:4.4cqw}
-.story .ov-item--top .ov-tag{top:calc(-1 * var(--row) + var(--lift,0px))}
-.story .ov-item--top .ov-lead{top:calc(-1 * var(--row) + 1em + var(--lift,0px));height:calc(var(--y) + var(--row) - 1em - var(--lift,0px))}
-.story .ov-item--bot .ov-tag{bottom:calc(-1 * var(--row) + var(--lift,0px))}
-.story .ov-item--bot .ov-lead{height:calc(100% - var(--y) + var(--row) - 1em - var(--lift,0px))}

@@ -6,7 +6,6 @@
 import Headline from './Headline.astro';
 import ContactForm from './ContactForm.astro';
 import BrandLockup from './BrandLockup.astro';
-import { features } from '../data/features';
 import '../styles/footer.css';
 
 const year = new Date().getFullYear();
@@ -28,10 +27,6 @@ const year = new Date().getFullYear();
       <p class="w-body sf__muted">Goditi l'esperienza, al resto pensiamo noi.</p>
     </div>
     <nav class="sf__cols" aria-label="Collegamenti del sito">
-      <div>
-        <p class="w-label sf__title">Funzioni</p>
-        <ul>{features.map((f) => <li><a href={f.href}>{f.label}</a></li>)}</ul>
-      </div>
       <div>
         <p class="w-label sf__title">Dymora</p>
         <ul>
