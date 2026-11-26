@@ -1,5 +1,5 @@
 /* Loaded only without JavaScript (<noscript> in BaseLayout.astro). */
-@media(max-width:980px){
+@media(max-width:1080px){
   .sh__burger,.sh__nav{display:none}
   .sh__cta{display:inline-flex}
 }

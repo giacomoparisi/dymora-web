@@ -12,7 +12,7 @@
   if (!header) return;
 
   var burger = header.querySelector(".sh__burger");
-  var narrow = window.matchMedia("(max-width: 980px)");
+  var narrow = window.matchMedia("(max-width: 1080px)");
 
   function onScroll() {
     header.classList.toggle("is-scrolled", window.scrollY > 8);
