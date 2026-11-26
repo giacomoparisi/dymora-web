@@ -1,0 +1,126 @@
+/* PREVIEW ONLY (anteprima-chiusura): candidate visuals for the footer's contact block.
+   Each plays once on `.is-in` (preview-visual.js); reduced motion shows the final state. */
+.pv-top__inner{display:grid;gap:18px;padding-block:clamp(40px,5vw,72px)}
+.pv-nav{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.pv-label{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:10px var(--w-gutter);background:var(--c-secondary);color:var(--c-on-secondary);font:800 1rem/1.2 var(--font-text)}
+.pv-label>span{font:900 13px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:5px;background:var(--c-primary)}
+.pv-replay{margin-left:auto;padding:6px 12px;border:1px solid #fff;border-radius:999px;background:transparent;color:#fff;font:700 .85rem/1 var(--font-text)}
+.pv-variant+.pv-variant{margin-top:48px}
+.pv-variant .sf__contact{border-bottom:0}
+.vz{width:min(100%,340px);margin-top:clamp(8px,2vw,30px)}
+
+/* d3: extruded "D", one turn, then it settles at a slight angle */
+.vz-d3{perspective:900px;padding:12px 0}
+.vz-d3__obj{position:relative;aspect-ratio:517/376;transform-style:preserve-3d;transform:rotateX(10deg) rotateY(-22deg)}
+.vz-d3__layer{position:absolute;inset:0;width:100%;height:100%;fill:#5d5c58;backface-visibility:visible}
+.vz-d3__layer:first-child{fill:#e9e7e2}
+.vz-d3__layer:last-child{fill:#fff}
+.vz-d3.is-in .vz-d3__obj{animation:vz-d3 2.6s cubic-bezier(.25,.8,.25,1) both}
+@keyframes vz-d3{0%{transform:rotateX(10deg) rotateY(-382deg)}78%{transform:rotateX(10deg) rotateY(-8deg)}90%{transform:rotateX(10deg) rotateY(-27deg)}100%{transform:rotateX(10deg) rotateY(-22deg)}}
+.vz-d3__layer:nth-child(1){transform:translateZ(-13.6px)}
+.vz-d3__layer:nth-child(2){transform:translateZ(-12.0px)}
+.vz-d3__layer:nth-child(3){transform:translateZ(-10.4px)}
+.vz-d3__layer:nth-child(4){transform:translateZ(-8.8px)}
+.vz-d3__layer:nth-child(5){transform:translateZ(-7.2px)}
+.vz-d3__layer:nth-child(6){transform:translateZ(-5.6px)}
+.vz-d3__layer:nth-child(7){transform:translateZ(-4.0px)}
+.vz-d3__layer:nth-child(8){transform:translateZ(-2.4px)}
+.vz-d3__layer:nth-child(9){transform:translateZ(-0.8px)}
+.vz-d3__layer:nth-child(10){transform:translateZ(0.8px)}
+.vz-d3__layer:nth-child(11){transform:translateZ(2.4px)}
+.vz-d3__layer:nth-child(12){transform:translateZ(4.0px)}
+.vz-d3__layer:nth-child(13){transform:translateZ(5.6px)}
+.vz-d3__layer:nth-child(14){transform:translateZ(7.2px)}
+.vz-d3__layer:nth-child(15){transform:translateZ(8.8px)}
+.vz-d3__layer:nth-child(16){transform:translateZ(10.4px)}
+.vz-d3__layer:nth-child(17){transform:translateZ(12.0px)}
+.vz-d3__layer:nth-child(18){transform:translateZ(13.6px)}
+.vz-d3__layer:not(:first-child):not(:last-child){fill:#4a4946}
+.vz-d3__layer:nth-last-child(2){fill:var(--c-secondary)}
+
+/* draw: orange line, then the white fill */
+.vz-draw svg{width:100%;overflow:visible}
+.vz-draw path{fill:transparent;stroke:var(--c-secondary);stroke-width:9;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.vz-draw.is-in path{animation:vz-draw-line 1.8s cubic-bezier(.6,0,.3,1) both,vz-draw-fill .7s 1.7s ease-out both}
+@keyframes vz-draw-line{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes vz-draw-fill{from{fill:transparent}to{fill:#fff}}
+.vz-draw:not(.is-in) path{fill:#fff}
+
+/* hub: the functions connect to the "D" one after another */
+.vz-hub{position:relative;aspect-ratio:1;width:min(100%,380px)}
+.vz-hub__lines{position:absolute;inset:0;width:100%;height:100%}
+.vz-hub__lines line{stroke:#ffffff40;stroke-width:.35;stroke-dasharray:1;stroke-dashoffset:0}
+.vz-hub__mark{position:absolute;left:50%;top:50%;width:24%;transform:translate(-50%,-50%);fill:#fff}
+.vz-hub__pulse{position:absolute;left:50%;top:50%;width:34%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:var(--c-primary);box-shadow:0 0 0 1px #ffffff26}
+.vz-hub__fns{list-style:none;position:absolute;inset:0}
+.vz-hub__fns li{position:absolute;transform:translate(-50%,-50%);padding:6px 10px;border-radius:999px;background:var(--c-primary-container);border:1px solid #ffffff26;font:600 clamp(.7rem,.85vw,.82rem)/1 var(--font-text);white-space:nowrap}
+.vz-hub__fns li:nth-child(1){left:50.00%;top:14.00%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(1),.vz-hub.is-in .vz-hub__lines line:nth-child(1){animation-delay:0.25s}
+.vz-hub__fns li:nth-child(2){left:75.46%;top:24.54%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(2),.vz-hub.is-in .vz-hub__lines line:nth-child(2){animation-delay:0.47s}
+.vz-hub__fns li:nth-child(3){left:86.00%;top:50.00%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(3),.vz-hub.is-in .vz-hub__lines line:nth-child(3){animation-delay:0.69s}
+.vz-hub__fns li:nth-child(4){left:75.46%;top:75.46%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(4),.vz-hub.is-in .vz-hub__lines line:nth-child(4){animation-delay:0.91s}
+.vz-hub__fns li:nth-child(5){left:50.00%;top:86.00%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(5),.vz-hub.is-in .vz-hub__lines line:nth-child(5){animation-delay:1.13s}
+.vz-hub__fns li:nth-child(6){left:24.54%;top:75.46%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(6),.vz-hub.is-in .vz-hub__lines line:nth-child(6){animation-delay:1.35s}
+.vz-hub__fns li:nth-child(7){left:14.00%;top:50.00%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(7),.vz-hub.is-in .vz-hub__lines line:nth-child(7){animation-delay:1.57s}
+.vz-hub__fns li:nth-child(8){left:24.54%;top:24.54%}
+.vz-hub.is-in .vz-hub__fns li:nth-child(8),.vz-hub.is-in .vz-hub__lines line:nth-child(8){animation-delay:1.79s}
+.vz-hub.is-in .vz-hub__fns li{animation:vz-hub-pill .5s cubic-bezier(.3,1.4,.5,1) both}
+.vz-hub.is-in .vz-hub__lines line{animation:vz-hub-line .5s ease-out both}
+.vz-hub.is-in .vz-hub__pulse{animation:vz-hub-pulse 1.4s 2.2s ease-out both}
+@keyframes vz-hub-pill{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes vz-hub-line{from{stroke-dashoffset:1;stroke:var(--c-secondary)}60%{stroke:var(--c-secondary)}to{stroke-dashoffset:0;stroke:#ffffff40}}
+@keyframes vz-hub-pulse{0%{box-shadow:0 0 0 1px #ffffff26,0 0 0 0 #f4511899}60%{box-shadow:0 0 0 1px var(--c-secondary),0 0 0 26px #f4511800}100%{box-shadow:0 0 0 1px #ffffff26,0 0 0 26px #f4511800}}
+
+/* meter: a small consumption panel fills in */
+.vz-meter{display:grid;gap:18px;padding:22px;border-radius:var(--r-extra-large);background:var(--c-primary-container);border:1px solid #ffffff14}
+.vz-meter .w-label{color:var(--c-on-primary-muted)}
+.vz-meter__num{font:900 clamp(2.4rem,4vw,3.4rem)/1 var(--font-mono);letter-spacing:-.04em;margin-top:8px}
+.vz-meter__num small{font:700 1rem/1 var(--font-text);letter-spacing:0;color:var(--c-on-primary-muted)}
+.vz-meter__bars{display:flex;align-items:flex-end;gap:5px;height:70px}
+.vz-meter__bars span{flex:1;border-radius:3px 3px 0 0;background:#ffffff33;transform-origin:bottom}
+.vz-meter__bars span:nth-child(1){height:18%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(1){animation-delay:0.00s}
+.vz-meter__bars span:nth-child(2){height:14%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(2){animation-delay:0.07s}
+.vz-meter__bars span:nth-child(3){height:12%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(3){animation-delay:0.14s}
+.vz-meter__bars span:nth-child(4){height:16%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(4){animation-delay:0.21s}
+.vz-meter__bars span:nth-child(5){height:34%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(5){animation-delay:0.28s}
+.vz-meter__bars span:nth-child(6){height:58%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(6){animation-delay:0.35s}
+.vz-meter__bars span:nth-child(7){height:76%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(7){animation-delay:0.42s}
+.vz-meter__bars span:nth-child(8){height:82%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(8){animation-delay:0.49s}
+.vz-meter__bars span:nth-child(9){height:70%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(9){animation-delay:0.56s}
+.vz-meter__bars span:nth-child(10){height:88%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(10){animation-delay:0.63s}
+.vz-meter__bars span:nth-child(11){height:64%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(11){animation-delay:0.70s}
+.vz-meter__bars span:nth-child(12){height:40%}
+.vz-meter.is-in .vz-meter__bars span:nth-child(12){animation-delay:0.77s}
+.vz-meter__bars span:nth-child(10){background:var(--c-secondary)}
+.vz-meter.is-in .vz-meter__bars span{animation:vz-bar .6s cubic-bezier(.3,1.2,.5,1) both}
+@keyframes vz-bar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.vz-meter__zones{list-style:none;display:grid;gap:10px;font:600 .85rem/1.2 var(--font-text)}
+.vz-meter__zones li{display:grid;grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto;align-items:center;gap:10px}
+.vz-meter__track{height:6px;border-radius:3px;background:#ffffff1a;overflow:hidden}
+.vz-meter__track span{display:block;height:100%;border-radius:3px;background:var(--c-secondary);transform-origin:left}
+.vz-meter__zones li:nth-child(1) .vz-meter__track span{width:100%}
+.vz-meter__zones li:nth-child(2) .vz-meter__track span{width:61%}
+.vz-meter__zones li:nth-child(3) .vz-meter__track span{width:45%}
+.vz-meter__val{font:900 .8rem/1 var(--font-mono);color:var(--c-on-primary-muted)}
+.vz-meter.is-in .vz-meter__track span{animation:vz-track .9s .9s cubic-bezier(.3,.9,.4,1) both}
+@keyframes vz-track{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+@media(max-width:900px){.pv-variant .vz{margin-inline:auto}}
+@media(prefers-reduced-motion:reduce){.vz *,.vz{animation:none!important}}
