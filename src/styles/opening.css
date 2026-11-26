@@ -31,9 +31,9 @@
 .open__video { display: block; width: 100%; height: 100%; object-fit: cover; animation: fade 1.6s linear both; }
 .open__media::after { content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, #1c1c1ad9 0%, #1c1c1a99 38%, #1c1c1a1a 70%),
-    linear-gradient(180deg, #1c1c1a99 0%, #1c1c1a00 30%, #1c1c1a00 70%, #1c1c1acc 100%); }
-.hook { position: absolute; z-index: 1; left: var(--w-gutter); right: var(--w-gutter); top: calc(var(--nav) + 28px); display: grid; gap: 20px; }
+    linear-gradient(90deg, #1c1c1aa6 0%, #1c1c1a4d 32%, #1c1c1a00 52%),
+    linear-gradient(180deg, #1c1c1a00 78%, #1c1c1a66 100%); }
+.hook { position: absolute; z-index: 1; left: var(--w-gutter); right: var(--w-gutter); top: calc(var(--nav) + 28px); display: grid; gap: 20px; text-shadow: 0 2px 28px #1c1c1a59; }
 .hook h1 .ln, .hook h1 .ln > span { display: block; white-space: nowrap; }
 .hook h1 .ln { overflow: clip; overflow-clip-margin: .16em; }
 .hook h1 .ln > span { animation: rise .68s var(--ease-arrive) both; }
@@ -73,5 +73,5 @@
   border-top: 7px solid transparent; border-bottom: 7px solid transparent; translate: 2px 0; }
 
 @container frame (max-width: 899px) {
-  .open__media::after { background: linear-gradient(180deg, #1c1c1ae6 0%, #1c1c1ab3 45%, #1c1c1a59 75%, #1c1c1acc 100%); }
+  .open__media::after { background: linear-gradient(180deg, #1c1c1abf 0%, #1c1c1a73 42%, #1c1c1a00 68%, #1c1c1a59 100%); }
 }
