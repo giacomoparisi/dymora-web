@@ -105,6 +105,8 @@
 .faq__list summary:hover{color:var(--c-secondary-text)}
 .faq__list summary::after{content:"+";transition:rotate .3s var(--ease-out)}
 .faq__list details[open] summary::after{content:"+";rotate:45deg}
+.faq__group+.faq__group{margin-top:clamp(36px,4vw,56px)}
+.faq__group-title{color:var(--c-secondary-text);margin-bottom:14px}
 @supports (interpolate-size:allow-keywords){
   .faq{interpolate-size:allow-keywords}
   .faq__list details::details-content{block-size:0;overflow:clip;transition:block-size .4s var(--ease-out),content-visibility .4s allow-discrete}

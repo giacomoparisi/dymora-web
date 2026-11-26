@@ -1,34 +1,62 @@
 ---
-// Site FAQ: the central questions about the service (owner review, 2026-11-26); the two on
-// short-term rentals and companies are `faq.rentals` and `faq.business`.
+// Site FAQ, grouped by who is asking: everyone, people who rent out property, businesses
+// (owner review, 2026-11-26). Answers only state what the site, the privacy policy or the app
+// already support: no prices, no service area, no offline behaviour until the owner confirms them.
 import Band from '../Band.astro';
 import Eyebrow from '../Eyebrow.astro';
 import Headline from '../Headline.astro';
 
-const faq: [string, string][] = [
-  ['Cos\'è Dymora, in pratica?', "Progettiamo, installiamo e configuriamo la domotica della tua casa o del tuo locale: luci, clima, allarme, telecamere, tapparelle e consumi. Poi la gestisci da un'unica app, e noi restiamo al tuo fianco con l'assistenza."],
-  ['Devo saperne di tecnologia?', "No. Progettazione, installazione e configurazione le facciamo noi: tu usi l'app. Se hai un problema, c'è l'assistenza."],
-  ['Devo rifare l\'impianto o fare lavori in casa?', "No. Senza ristrutturazione usiamo soluzioni poco invasive: niente opere murarie e nessun impianto elettrico da rifare. Se stai ristrutturando, progettiamo l'impianto su misura insieme ai lavori."],
-  ['Posso tenere i dispositivi che ho già?', 'Valutiamo quelli che hai e riutilizziamo quelli compatibili. Per il resto ti consigliamo il prodotto più adatto, di qualunque marca: lo integriamo nella stessa app.'],
-  ['Posso partire da una sola funzione e aggiungere le altre dopo?', 'Sì. Puoi partire, per esempio, dai consumi o dalle telecamere e aggiungere altre funzioni quando vuoi.'],
-  ['Perché c\'è un abbonamento?', "Perché Dymora non finisce con l'installazione. L'abbonamento copre la piattaforma, gli aggiornamenti e l'assistenza, così il sistema resta stabile e sicuro nel tempo."],
-  ['Posso collegare più immobili?', "Sì. Casa, casa in montagna, ufficio: ogni immobile ha il suo impianto e li gestisci tutti dalla stessa app, passando dall'uno all'altro quando vuoi."],
-  ['Gestite appartamenti in affitto breve?', "Sì. Crei un codice di accesso per ogni ospite e lo cancelli alla partenza, vedi lo storico degli accessi, e clima e luci seguono le automazioni che configuriamo con te. Tutti gli appartamenti stanno nella stessa app."],
-  ["Va bene per un'azienda con più sedi?", "Sì. Ogni sede ha il suo impianto e le gestisci tutte dalla stessa app: accessi, luci, clima e consumi. Ogni collaboratore ha il suo utente, con le sole funzioni che gli servono."],
+const groups: { title: string; items: [string, string][] }[] = [
+  {
+    title: 'In generale',
+    items: [
+      ['Cos\'è Dymora, in pratica?', "Progettiamo, installiamo e configuriamo la domotica della tua abitazione, dei tuoi immobili in affitto o della tua azienda: luci, clima, allarme, telecamere, tapparelle e consumi. Poi gestisci tutto da un'unica app, e noi restiamo al tuo fianco con l'assistenza."],
+      ['Devo saperne di tecnologia?', "No. Progettazione, installazione e configurazione le facciamo noi: tu usi l'app. Se hai un problema, c'è l'assistenza."],
+      ['Devo rifare l\'impianto o fare lavori nell\'immobile?', "No. Senza ristrutturazione usiamo soluzioni poco invasive: niente opere murarie e nessun impianto elettrico da rifare. Se stai ristrutturando, progettiamo l'impianto su misura insieme ai lavori."],
+      ['Posso tenere i dispositivi che ho già?', 'Valutiamo quelli che hai e riutilizziamo quelli compatibili. Per il resto ti consigliamo il prodotto più adatto, di qualunque marca: lo integriamo nella stessa app.'],
+      ['Posso partire da una sola funzione e aggiungere le altre dopo?', 'Sì. Puoi partire, per esempio, dai consumi o dalle telecamere e aggiungere altre funzioni quando vuoi.'],
+      ['Più persone possono usare l\'app?', "Sì. Dall'app aggiungi altri utenti e scegli per ciascuno il ruolo e le funzioni a cui può accedere, immobile per immobile. Un amministratore può gestire altri utenti, ma solo entro i permessi che ha."],
+      ['Dove finiscono i dati e le riprese delle telecamere?', "I dati dell'impianto e le riprese restano sul mini-PC installato nell'immobile, e ne sei titolare tu. Noi vi accediamo solo per assistenza e aggiornamenti, tramite una connessione VPN cifrata. I dettagli sono nell'informativa privacy."],
+      ['Perché c\'è un abbonamento?', "Perché Dymora non finisce con l'installazione. L'abbonamento copre la piattaforma, gli aggiornamenti e l'assistenza, così il sistema resta stabile e sicuro nel tempo."],
+      ['Come funziona l\'assistenza?', "Se hai un problema scrivi a support@dymora.eu: l'assistenza resta attiva anche dopo l'installazione."],
+    ],
+  },
+  {
+    title: 'Per chi affitta',
+    items: [
+      ['Gestite appartamenti in affitto breve?', "Sì. Crei un codice di accesso per ogni ospite e lo cancelli alla partenza, vedi lo storico degli accessi, e clima e luci seguono le automazioni che configuriamo con te. Tutti gli appartamenti stanno nella stessa app."],
+      ['Posso gestire più immobili?', "Sì. Ogni immobile ha il suo impianto e li gestisci tutti dalla stessa app, passando dall'uno all'altro quando vuoi: per esempio la tua abitazione e gli appartamenti che affitti."],
+      ['Posso dare l\'accesso a ospiti o inquilini?', "Sulle serrature con tastierino crei e cancelli i codici di accesso dall'app: ne dai uno all'arrivo e lo cancelli alla partenza. Se serve, l'inquilino può avere un suo utente nell'app, con le sole funzioni che decidi tu."],
+    ],
+  },
+  {
+    title: 'Per la tua azienda',
+    items: [
+      ["Va bene per un'azienda con più sedi?", "Sì. Ogni sede ha il suo impianto e le gestisci tutte dalla stessa app: accessi, luci, clima e consumi. Ogni collaboratore ha il suo utente, con le sole funzioni che gli servono."],
+      ['Va bene per un ufficio, un negozio o un coworking?', "Sì. Le funzioni sono le stesse, configurate sui tuoi spazi, e chi lavora con te usa l'app con i permessi che gli assegni."],
+      ['Posso vedere quanto consuma ogni apparecchio?', "Sì. Vedi quanta potenza sta usando adesso ogni apparecchio monitorato e ne rivedi lo storico. I dati sono misurati se c'è un contatore, stimati dalla potenza se non c'è."],
+      ['Dymora mi aiuta a ridurre la bolletta?', "Dymora analizza lo storico dei consumi e ti segnala sprechi e inefficienze, così sai dove intervenire. Dalle prese intelligenti configurate spegni anche gli apparecchi dall'app."],
+    ],
+  },
 ];
 ---
 <Band tone="paper" id="domande" class="faq" labelledby="faq-title" innerClass="faq__inner">
   <div class="faq__intro">
     <Eyebrow text="Domande" rule />
     <Headline id="faq-title" size="m" text="Le domande che ci fanno **più spesso**." />
-    <p class="w-lead w-muted">Le risposte alle domande più comuni su installazione, app e dispositivi.</p>
+    <p class="w-lead w-muted">Installazione, app e dispositivi: per la tua abitazione, per chi affitta e per le aziende.</p>
   </div>
   <div class="faq__list">
-    {faq.map(([q, a]) => (
-      <details>
-        <summary class="w-body-strong">{q}</summary>
-        <p class="w-body w-muted">{a}</p>
-      </details>
+    {groups.map((g) => (
+      <div class="faq__group">
+        <h3 class="faq__group-title w-label">{g.title}</h3>
+        {g.items.map(([q, a]) => (
+          <details>
+            <summary class="w-body-strong">{q}</summary>
+            <p class="w-body w-muted">{a}</p>
+          </details>
+        ))}
+      </div>
     ))}
   </div>
 </Band>
