@@ -25,8 +25,8 @@ export const features: Feature[] = [
     label: 'Clima',
     eyebrow: 'Clima',
     // Brochure page `climate`; `feature.climate` keeps the points and the web text.
-    title: 'Il **clima** di casa, da dove vuoi.',
-    line: 'Gestisci il riscaldamento anche quando non sei in casa.',
+    title: 'Il **clima** dei tuoi spazi, da dove vuoi.',
+    line: 'Gestisci il riscaldamento anche a distanza.',
   },
   {
     slug: 'tapparelle',
@@ -40,7 +40,7 @@ export const features: Feature[] = [
     label: 'Serrature',
     eyebrow: 'Serrature',
     title: 'Gestisci e controlla lo stato delle tue **serrature**.',
-    line: "Dall'app gestisci serrature, cancelli e citofoni anche quando non sei in casa, mantenendo tutto sotto controllo.",
+    line: "Dall'app gestisci serrature, cancelli e citofoni anche a distanza, mantenendo tutto sotto controllo.",
   },
   {
     slug: 'allarme',

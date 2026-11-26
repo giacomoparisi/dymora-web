@@ -43,7 +43,7 @@ const steps = [
     id: 'app',
     nav: 'Configurazione',
     title: "**Configuriamo** l'app.",
-    line: "Prepariamo l'app con le funzioni che hai scelto: una sola app per la tua casa, invece di una per ogni marca.",
+    line: "Prepariamo l'app con le funzioni che hai scelto: una sola app per i tuoi spazi, invece di una per ogni marca.",
   },
   {
     id: 'assistenza',
@@ -56,7 +56,7 @@ const steps = [
 // Scene 1: the consultation as a short form, three questions answered one after another (`on`
 // marks the answers picked). The functions chosen here are the ones scene 2 pins on the house.
 const form = [
-  { q: 'Che casa hai?', opts: [{ t: 'Appartamento', on: true }, { t: 'Villa' }, { t: 'Ufficio' }] },
+  { q: 'Che edificio hai?', opts: [{ t: 'Appartamento', on: true }, { t: 'Villa' }, { t: 'Ufficio' }] },
   {
     q: 'Cosa vuoi tenere **sotto controllo**?',
     opts: [{ t: 'Luci', on: true }, { t: 'Clima', on: true }, { t: 'Consumi', on: true }, { t: 'Serrature', on: true }, { t: 'Allarme' }],
