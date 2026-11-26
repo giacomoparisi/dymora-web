@@ -72,7 +72,8 @@
 .story__rail{height:2px;background:#ffffff1f;border-radius:2px;overflow:hidden}
 .story__fill{display:block;height:100%;background:var(--c-secondary);transform:scaleX(var(--story-p,0));transform-origin:left}
 .story__steps{grid-column:1;grid-row:1;list-style:none;display:grid;padding-block:8svh 22svh}
-.story__step{min-height:78svh;display:grid;gap:clamp(36px,6svh,64px);align-content:center}
+/* Steps follow each other at the same distance as the two functions inside a step. */
+.story__step{--story-gap:clamp(36px,6svh,64px);display:grid;gap:var(--story-gap);padding-block:calc(var(--story-gap) / 2)}
 .story__fn{display:grid;gap:clamp(10px,1.2vw,16px);justify-items:start}
 .story__step .h-m{font-size:clamp(1.7rem,3vw,2.7rem)}
 .story__fn>p.w-body{max-width:46ch}
@@ -91,7 +92,7 @@
   .story .ov-items{display:none}
   .story .ov-house{margin-block:0}
   .story__steps{grid-row:auto;padding-block:4svh 20svh}
-  .story__step{min-height:0;padding-block:6svh;gap:40px}
+  .story__step{--story-gap:40px}
 }
 
 /* ─── FAQ (Faq.astro): smoother accordion where supported ─── */
