@@ -10,8 +10,9 @@
 // client; on the right one tab per segment and the selected segment's text, one at a time.
 // The segments take turns on their own while the section shows (Proprietari → Affitti brevi →
 // Aziende → …): before each change a tap lands on the next row of the picker, the row lights up, the
-// render changes, the tab fills and the text changes. A click on a tab (or the arrow keys) picks a
-// segment and the turns go on from there; pointing at the text holds it; the pause button
+// render changes, the tab fills and the text changes. A click on a tab (or the arrow keys), or on a
+// row of the picker on the phone, picks a segment and the turns go on from there; pointing at the
+// text or at the picker holds it; the pause button
 // (WCAG 2.2.2) stops the turns. Arriving on a segment's anchor (#proprietari, #affitti-brevi,
 // #aziende) selects it and pauses. A property is a sprite (data `sprite`) that lights up when it is
 // selected and goes dark when the picker moves on (its `lights` layer, sprite.js). buildings.js

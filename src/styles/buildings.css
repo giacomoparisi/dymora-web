@@ -95,12 +95,20 @@
 .pk__end{position:relative;width:calc(var(--u) * 1.4);height:calc(var(--u) * 1.4)}
 .pk__end::before{content:"";position:absolute;inset:25% 35% 25% 15%;border-top:max(1px,calc(var(--u) * .16)) solid #ffffff99;border-right:max(1px,calc(var(--u) * .16)) solid #ffffff99;transform:rotate(45deg);transition:all .4s}
 .pk__row.is-active .pk__end::before{inset:10% 30% 35% 30%;border-color:var(--c-secondary);border-top:0;transform:rotate(45deg) scale(1.05);border-bottom:max(1px,calc(var(--u) * .16)) solid var(--c-secondary)}
+/* Live: the rows pick their segment (buildings.js); the phone's screen is aria-hidden, the tabs are
+   the accessible control */
+.is-live .pk__row{cursor:pointer}
+.is-live .pk__row:not(.is-active):hover{border-color:#ffffff66;background:#2e2e2b}
 /* The tap: a finger-sized dot lands on the row and ripples out */
 .pk__row::after{content:"";position:absolute;left:50%;top:50%;width:calc(var(--u) * 5);aspect-ratio:1;margin:calc(var(--u) * -2.5);border-radius:50%;background:#ffffff40;box-shadow:0 0 0 calc(var(--u) * .2) #ffffff80;opacity:0;pointer-events:none}
 .pk__row.is-tap::after{animation:bld-tap .6s cubic-bezier(.2,.8,.3,1) forwards}
 @keyframes bld-tap{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(.8)}100%{opacity:0;transform:scale(2.2)}}
 
-/* ── Retrofit: the render on the left, the title and both options on the right ── */
+/* ── Retrofit: the title pinned under the site header (the shared .bld__head), then the render on
+   the left and both options on the right ── */
+/* It follows the carbon HouseStory band, whose bottom air already separates them: no air of its own on top */
+.bld__chapter{gap:clamp(20px,2.4vw,32px);padding-top:0}
+.bld__chapter .bld__retro{margin-top:clamp(8px,2vw,32px)}
 .bld__retro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:clamp(32px,5vw,88px)}
 .bld__stage--retro{display:grid;gap:clamp(12px,1.4vw,20px);justify-items:center}
 .bld__swap{position:relative;display:grid;width:min(100%,680px)}
@@ -130,15 +138,12 @@
 .bld__retro.is-live .bld__opt.is-active{opacity:1;border-color:var(--c-secondary)}
 .bld__close{color:var(--c-on-primary)}
 
-/* Narrow: the render and the phone above, the tabs and the text below; the retrofit stacks with its
-   text first */
+/* Narrow: the render and the phone above, the tabs and the text below; the retrofit's render sits
+   under its pinned title, so the sweep plays where the eye is, then the options */
 @media(max-width:900px){
   .bld__multi,.bld__row,.bld__retro{grid-template-columns:minmax(0,1fr)}
   .bld__multi .bld__stage{width:min(100%,640px);justify-self:center}
   .bld__copy-segs{width:min(100%,640px);justify-self:center}
-  /* The render between the title and the options, so the sweep plays where the eye is */
-  .bld__retro .bld__copy{display:contents}
-  .bld__retro .h-l{order:1}.bld__stage--retro{order:2}.bld__opts{order:3}.bld__close{order:4}
 }
 @media(max-width:560px){
   .bld__multi .bld__stage{grid-template-columns:minmax(0,1fr) 34%;column-gap:14px}

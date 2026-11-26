@@ -3,7 +3,7 @@
  *
  * Multi  [data-multi]
  *   [data-multi-item=id]   the renders, one active at a time
- *   [data-multi-row=id]    the rows of the app's picker on the phone
+ *   [data-multi-row=id]    the rows of the app's picker on the phone: a click picks the segment
  *   [data-multi-tabs]      the tablist, shown by this script (role tablist)
  *   [data-multi-tab=id]    one tab per segment (role tab, roving tabindex, arrow keys)
  *   [data-multi-seg=id]    the bar under each tab: fills while its segment shows
@@ -20,8 +20,8 @@
  *
  * Both loop while on screen and pause when they leave it or the tab is hidden.
  * Multi: Proprietari → Affitti brevi → Aziende → …, long enough on each to read its text; before
- * each change a tap lands on the next row. A tab picks its segment and the turns go on from there;
- * pointing at the text holds it until the mouse leaves; the pause button stops the turns, and so
+ * each change a tap lands on the next row. A tab, or a row of the picker, picks its segment and the
+ * turns go on from there; pointing at the text or the picker's list holds it until the mouse leaves; the pause button stops the turns, and so
  * does arriving on a segment's anchor. Off screen, unless paused, it starts again from the first.
  * With prefers-reduced-motion the tabs work but nothing turns on its own (no pause button).
  * Retro: the period building, its windows light up, the line sweeps to the modern house, then
@@ -183,15 +183,29 @@
         tabs[n].focus();
       });
     });
+    // The picker's rows on the phone pick their segment too (a pointer shortcut: the tabs are the
+    // control for the keyboard and screen readers, the phone stays aria-hidden).
+    rows.forEach(function (r) {
+      var i = ids.indexOf(r.getAttribute("data-multi-row"));
+      if (i < 0) return;
+      r.addEventListener("click", function () { tap(i); pick(i); });
+    });
+    // The mouse on the text, or on the picker's list, holds the segment until it leaves.
     var list = texts.length && texts[0].parentNode;
-    if (list) {
-      list.addEventListener("pointerenter", function (e) {
-        if (e.pointerType === "mouse") { hovered = true; step(); }
+    var pickerList = rows[0].parentNode;
+    var over = 0;
+    [list, pickerList].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener("pointerenter", function (e) {
+        if (e.pointerType !== "mouse") return;
+        over++; hovered = true; step();
       });
-      list.addEventListener("pointerleave", function (e) {
-        if (e.pointerType === "mouse" && hovered) { hovered = false; step(); }
+      el.addEventListener("pointerleave", function (e) {
+        if (e.pointerType !== "mouse" || !over) return;
+        over--; hovered = over > 0;
+        if (!hovered) step();
       });
-    }
+    });
 
     function setPaused(value) {
       paused = value;
