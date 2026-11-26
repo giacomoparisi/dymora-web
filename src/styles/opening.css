@@ -31,8 +31,8 @@
 .open__video { display: block; width: 100%; height: 100%; object-fit: cover; animation: fade 1.6s linear both; }
 .open__media::after { content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, #1c1c1ad9 0%, #1c1c1a99 38%, #1c1c1a1a 70%),
-    linear-gradient(180deg, #1c1c1a99 0%, #1c1c1a00 30%, #1c1c1a00 70%, #1c1c1acc 100%); }
+    linear-gradient(90deg, #1c1c1acc 0%, #1c1c1a80 38%, #1c1c1a00 70%),
+    linear-gradient(180deg, #1c1c1a80 0%, #1c1c1a00 30%, #1c1c1a00 72%, #1c1c1ab3 100%); }
 .hook { position: absolute; z-index: 1; left: var(--w-gutter); right: var(--w-gutter); top: calc(var(--nav) + 28px); display: grid; gap: 20px; }
 .hook h1 .ln, .hook h1 .ln > span { display: block; white-space: nowrap; }
 .hook h1 .ln { overflow: clip; overflow-clip-margin: .16em; }
