@@ -5,6 +5,8 @@
  *   [data-multi-item=id]   the renders, one active at a time
  *   [data-multi-row=id]    the rows of the app's picker on the phone
  *   [data-multi-seg=id]    the segments of the progress rail
+ *   .sprite in an item     a property drawn as a sprite: its data-preload token (the lights
+ *                          clip) joins data-layers while the property is selected (sprite.js)
  * Retro  [data-retro]
  *   .bld__swap / .bld__wipe   the render and its sweep (buildings.css, --split)
  *   [data-retro-opt=0|1]      the texts of the two options
@@ -65,7 +67,15 @@
     var ids = rows.map(function (r) { return r.getAttribute("data-multi-row"); });
     var t = timers();
     var index = 0;
+    var sprites = items.map(function (el) { return el.querySelector(".sprite[data-preload]"); });
     root.style.setProperty("--bld-dwell", STEP + "ms");
+
+    // The selected property's lights on, the others off; -1 turns them all off.
+    function light(i) {
+      sprites.forEach(function (sp, j) {
+        if (sp) sp.setAttribute("data-layers", j === i ? sp.getAttribute("data-preload") : "");
+      });
+    }
 
     function mark(list, attr, id, cls) {
       list.forEach(function (el) { el.classList.toggle(cls, el.getAttribute(attr) === id); });
@@ -74,6 +84,7 @@
       index = i;
       mark(items, "data-multi-item", ids[i], "is-active");
       mark(rows, "data-multi-row", ids[i], "is-active");
+      light(items.map(function (el) { return el.getAttribute("data-multi-item"); }).indexOf(ids[i]));
       segs.forEach(function (s, j) {
         s.classList.remove("is-run");
         s.classList.toggle("is-on", j < i);
@@ -91,11 +102,15 @@
       t.at(STEP, function () { show(next); step(); });
     }
 
+    // Lit in the markup (no JavaScript, reduced motion); dark until the chapter shows, so the
+    // first property lights up in front of the reader, and again every time it comes back.
     root.classList.add("is-live");
+    light(-1);
     whileOnScreen(root, function () { show(0); step(); }, function () {
       t.clear();
       rows.forEach(function (r) { r.classList.remove("is-tap"); });
       show(0);
+      light(-1);
       segs.forEach(function (s, j) { s.classList.remove("is-run"); s.classList.toggle("is-on", j === 0); });
     });
   }

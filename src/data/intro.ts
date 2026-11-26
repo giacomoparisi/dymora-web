@@ -27,19 +27,20 @@ export const overview = {
   functions: ['Luci', 'Allarme', 'Clima', 'Telecamere', 'Tapparelle', 'Consumi', 'Serrature', 'Irrigazione'],
 };
 
-// Multi — Montagna and Ufficio are the brochure placeholders until the real renders
-// arrive (scripts/app-assets.json, docs/PLAN-brochure.md decision 5). Casa is drawn here in the
-// same style (scripts/draw-edifici.py), different from the Funzioni house on purpose.
+// Multi — each property is a Blender scene from dymora-app (model-animator, art/<scene>/,
+// web-only, scripts/app-assets.json): its `lights` clip plays when the property is selected and
+// back when the picker moves on. `src`/`w`/`h` draw a plain image instead, for a property
+// without a scene.
 // The title has no full stop: the sentence goes on in `line`.
 // `app` is the installation's name in the app's picker (installation-selection screen).
 export const multi = {
   title: 'Gestisci tutte le tue proprietà nella **stessa applicazione**',
   line: 'sul device che preferisci.',
   buildings: [
-    { id: 'casa', label: 'Casa', app: 'Casa', src: '/assets/images/edificio-casa.svg', w: 1024, h: 691 },
-    { id: 'montagna', label: 'Montagna', app: 'Montagna', src: '/assets/images/edificio-montagna.svg', w: 1024, h: 691 },
-    { id: 'ufficio', label: 'Ufficio', app: 'Ufficio', src: '/assets/images/edificio-ufficio.svg', w: 1024, h: 691 },
-  ],
+    { id: 'casa', label: 'Casa', app: 'Casa', sprite: 'apartment_building', lights: 'lights_on_idle!' },
+    { id: 'montagna', label: 'Montagna', app: 'Montagna', sprite: 'mountain_chalet', lights: 'lights_on_idle!' },
+    { id: 'ufficio', label: 'Ufficio', app: 'Ufficio', sprite: 'office_building', lights: 'lights_on_idle!' },
+  ] as { id: string; label: string; app: string; sprite?: string; lights?: string; src?: string; w?: number; h?: number }[],
   devices: ['laptop', 'tablet', 'phone'],
 };
 

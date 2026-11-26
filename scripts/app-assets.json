@@ -2,6 +2,27 @@
   "_comment": "Assets imported from dymora-app by scripts/sync-app-assets.py. Sprites: art/<dir>/sprites.json + core composeResources drawables. Variant 'light' for panna sections, 'dark' for carbon sections. Files: static images, converted to WebP when 'width' is set.",
   "sprites": [
     {
+      "art": "office-building",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "mountain-chalet",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
+      "art": "apartment-building",
+      "baked": "web",
+      "variants": [
+        "light"
+      ]
+    },
+    {
       "art": "house",
       "variants": [
         "light",

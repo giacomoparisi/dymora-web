@@ -6,14 +6,17 @@
 // Multi: the property's render beside a phone with the app's installation picker (drawn in HTML,
 // a demonstrative copy of the installation-selection screen). When the chapter comes on screen a
 // tap lands on the next row, the row lights up and the render changes: Casa → Montagna → Ufficio
-// → Casa, once, then it rests. A thin rail (not a control) shows the progress.
+// → Casa, once, then it rests. A property drawn as a sprite (data `sprite`) lights up when it is
+// selected and goes dark when the picker moves on (its `lights` layer, sprite.js). A thin rail
+// (not a control) shows the progress.
 // Retrofit: one render where a line sweeps from the period building ("Senza ristrutturazione")
 // to the modern house ("Con ristrutturazione"), once; the matching option's text lights up.
 // buildings.js plays each one once every time it comes back on screen.
-// Without JavaScript or with reduced motion: Casa selected, the retrofit split half and half
+// Without JavaScript or with reduced motion: Casa selected and lit, the retrofit split half and half
 // with both texts lit.
 // Anchors kept for the header and the footer: #edifici, #ristrutturazioni.
 import Headline from '../Headline.astro';
+import Sprite from '../Sprite.astro';
 import { multi, retrofit } from '../../data/intro';
 ---
 <section class="band band--ink bld" id="edifici" aria-labelledby="multi-title">
@@ -30,7 +33,12 @@ import { multi, retrofit } from '../../data/intro';
         <div class="bld__props" aria-hidden="true">
           {multi.buildings.map((b, i) => (
             <div class:list={['bld__prop', { 'is-active': i === 0 }]} data-multi-item={b.id}>
-              <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" decoding="async" />
+              {b.sprite ? (
+                <Sprite name={b.sprite} variant="light" alt="" class="bld__sprite"
+                  layers={i === 0 ? b.lights : ''} preload={b.lights} />
+              ) : (
+                <img src={b.src} alt="" width={b.w} height={b.h} loading="lazy" decoding="async" />
+              )}
               <span class="w-label bld__name">{b.app}</span>
             </div>
           ))}
