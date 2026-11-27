@@ -1,7 +1,8 @@
-/* Loaded only without JavaScript (<noscript> in BaseLayout.astro). */
+/* Loaded only without JavaScript (<noscript> in BaseLayout.astro). It comes before the
+   Astro bundles, so every rule starts with `html` to outrank their single-class rules. */
 @media(max-width:1080px){
-  .sh__burger,.sh__nav{display:none}
-  .sh__cta{display:inline-flex}
+  html .sh__burger,html .sh__nav{display:none}
+  html .sh__cta{display:inline-flex}
 }
-.cf{display:none}
-.cf-nojs{display:block}
+html .cf{display:none}
+html .cf-nojs{display:block}
