@@ -6,6 +6,6 @@
 // Before filling it in: /privacy/, /cookie/ and the CSP connect-src in
 // BaseLayout.astro must already cover Google Apps Script.
 export const contact = {
-  endpoint: '',
+  endpoint: 'https://script.google.com/macros/s/AKfycbwtXjggsOCP18H7kaH0nk3YE3AtqMBQISYFeejXbtk8LndR6_KEKTqyH-5kS4yKvKw/exec',
   email: 'info@dymora.eu',
 };
