@@ -21,13 +21,16 @@ const canonicalUrl = new URL(canonical, Astro.site);
 // WebSocket. The production build ships external CSS only, so the relaxed
 // directives exist in dev and never reach the published pages.
 const dev = import.meta.env.DEV;
+// The contact form POSTs to the Google Apps Script web app (src/data/contact.ts), which
+// answers through a redirect to script.googleusercontent.com.
+const formHosts = 'https://script.google.com https://script.googleusercontent.com';
 const csp = [
   "default-src 'self'",
   "script-src 'self'",
   dev ? "style-src 'self' 'unsafe-inline'" : "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
-  dev ? "connect-src 'self' ws: wss:" : "connect-src 'self'",
+  dev ? `connect-src 'self' ws: wss: ${formHosts}` : `connect-src 'self' ${formHosts}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
